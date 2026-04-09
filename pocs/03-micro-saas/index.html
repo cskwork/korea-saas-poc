@@ -4,12 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>예약잇다 - 소상공인 예약 관리 시스템</title>
+
+  <!-- Fonts: Archivo (display) + Rethink Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Rethink+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Rethink Sans', 'Archivo', 'system-ui', 'sans-serif'],
+            display: ['Archivo', 'system-ui', 'sans-serif'],
+          },
           colors: {
             kakao: '#FEE500',
             kakaoBrown: '#3C1E1E',
@@ -29,7 +39,7 @@
   <!-- Sidebar -->
   <aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white shadow-lg z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
     <div class="p-5 border-b">
-      <h1 class="text-xl font-bold text-primary">📅 예약잇다</h1>
+      <h1 class="text-xl font-bold text-primary font-display" style="letter-spacing: -0.03em;">📅 예약잇다</h1>
       <p class="text-xs text-gray-500 mt-1">소상공인 예약 관리</p>
     </div>
     <nav class="p-4 space-y-1">
@@ -225,7 +235,7 @@
         <!-- Shop Header -->
         <div class="bg-gradient-to-br from-primary to-purple-600 text-white p-6 text-center">
           <div class="w-16 h-16 bg-white/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl">✂️</div>
-          <h2 class="text-xl font-bold">뷰티헤어살롱</h2>
+          <h2 class="text-xl font-bold font-display">뷰티헤어살롱</h2>
           <p class="text-sm text-white/80 mt-1">서울시 강남구 역삼동 123-45</p>
           <p class="text-sm text-white/80">📞 02-1234-5678</p>
         </div>
@@ -295,7 +305,7 @@
     <!-- Page: Pricing -->
     <div id="page-pricing" class="page-content p-4 md:p-6 hidden">
       <div class="text-center mb-8">
-        <h2 class="text-2xl font-bold">합리적인 요금제</h2>
+        <h2 class="text-2xl font-bold font-display" style="letter-spacing: -0.02em;">합리적인 요금제</h2>
         <p class="text-sm text-gray-500 mt-2">매장 규모에 맞게 선택하세요. 언제든 변경 가능!</p>
       </div>
 
@@ -303,11 +313,11 @@
         <!-- Free -->
         <div class="bg-white rounded-2xl shadow-sm border p-6 space-y-4">
           <div>
-            <h3 class="text-lg font-bold">Free</h3>
+            <h3 class="text-lg font-bold font-display">Free</h3>
             <p class="text-xs text-gray-500">시작하기 좋은 무료 플랜</p>
           </div>
           <div>
-            <span class="text-3xl font-bold">₩0</span>
+            <span class="text-3xl font-bold font-display">₩0</span>
             <span class="text-sm text-gray-500">/월</span>
           </div>
           <ul class="space-y-2 text-sm">
@@ -325,11 +335,11 @@
         <div class="bg-white rounded-2xl shadow-lg border-2 border-primary p-6 space-y-4 relative">
           <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs px-3 py-1 rounded-full font-bold">인기</div>
           <div>
-            <h3 class="text-lg font-bold">Pro</h3>
+            <h3 class="text-lg font-bold font-display">Pro</h3>
             <p class="text-xs text-gray-500">성장하는 매장에 딱!</p>
           </div>
           <div>
-            <span class="text-3xl font-bold">₩30,000</span>
+            <span class="text-3xl font-bold font-display">₩30,000</span>
             <span class="text-sm text-gray-500">/월</span>
           </div>
           <ul class="space-y-2 text-sm">
@@ -346,11 +356,11 @@
         <!-- Business -->
         <div class="bg-white rounded-2xl shadow-sm border p-6 space-y-4">
           <div>
-            <h3 class="text-lg font-bold">Business</h3>
+            <h3 class="text-lg font-bold font-display">Business</h3>
             <p class="text-xs text-gray-500">다지점/대형 매장용</p>
           </div>
           <div>
-            <span class="text-3xl font-bold">₩80,000</span>
+            <span class="text-3xl font-bold font-display">₩80,000</span>
             <span class="text-sm text-gray-500">/월</span>
           </div>
           <ul class="space-y-2 text-sm">

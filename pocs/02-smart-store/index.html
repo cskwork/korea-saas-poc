@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>스마트셀러 - 네이버 스마트스토어 위탁판매 관리 도구</title>
+
+    <!-- Fonts: General Sans + Satoshi from CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Noto Sans KR', 'sans-serif'] },
+                    fontFamily: { sans: ['General Sans', 'Satoshi', 'Noto Sans KR', 'sans-serif'] },
                     colors: {
                         naver: { DEFAULT: '#03C75A', dark: '#02a34a', light: '#e6f9ee' },
                         smart: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' }
@@ -27,11 +32,11 @@
     <!-- Header -->
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2.5">
                 <div class="w-8 h-8 bg-naver rounded-lg flex items-center justify-center">
                     <span class="text-white font-bold text-sm">SS</span>
                 </div>
-                <h1 class="text-lg font-bold text-gray-900">스마트셀러</h1>
+                <h1 class="text-lg font-bold text-gray-900" style="letter-spacing: -0.02em;">스마트셀러</h1>
             </div>
             <div class="flex items-center gap-3">
                 <span class="hidden sm:inline text-sm text-gray-500">위탁판매 관리 도구</span>
@@ -79,8 +84,8 @@
         <section id="tab-sourcing" class="tab-content active">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
-                    <h2 class="text-xl font-bold">상품 소싱</h2>
-                    <p class="text-sm text-gray-500">도매매/도매꾹에서 수익성 높은 상품을 찾아보세요</p>
+                    <h2 class="text-xl font-bold" style="letter-spacing: -0.01em;">상품 소싱</h2>
+                    <p class="text-sm text-gray-500 mt-0.5">도매매/도매꾹에서 수익성 높은 상품을 찾아보세요</p>
                 </div>
                 <div class="flex gap-2">
                     <select id="sourcingSupplier" class="input-field text-sm py-2">
@@ -116,8 +121,8 @@
         <!-- ========== 2. AI 상품 등록 ========== -->
         <section id="tab-listing" class="tab-content hidden">
             <div class="mb-6">
-                <h2 class="text-xl font-bold">AI 원클릭 상품 등록</h2>
-                <p class="text-sm text-gray-500">AI가 네이버 SEO 최적화된 상품 정보를 자동 생성합니다</p>
+                <h2 class="text-xl font-bold" style="letter-spacing: -0.01em;">AI 원클릭 상품 등록</h2>
+                <p class="text-sm text-gray-500 mt-0.5">AI가 네이버 SEO 최적화된 상품 정보를 자동 생성합니다</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -219,8 +224,8 @@
         <section id="tab-orders" class="tab-content hidden">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
-                    <h2 class="text-xl font-bold">주문 관리</h2>
-                    <p class="text-sm text-gray-500">들어온 주문을 확인하고 처리하세요</p>
+                    <h2 class="text-xl font-bold" style="letter-spacing: -0.01em;">주문 관리</h2>
+                    <p class="text-sm text-gray-500 mt-0.5">들어온 주문을 확인하고 처리하세요</p>
                 </div>
                 <button id="addMockOrderBtn" class="bg-naver hover:bg-naver-dark text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
                     + 테스트 주문 추가
@@ -265,8 +270,8 @@
         <!-- ========== 4. 수익 계산기 ========== -->
         <section id="tab-calculator" class="tab-content hidden">
             <div class="mb-6">
-                <h2 class="text-xl font-bold">수익 계산기</h2>
-                <p class="text-sm text-gray-500">매입가, 판매가, 수수료를 입력하면 순수익을 자동 계산합니다</p>
+                <h2 class="text-xl font-bold" style="letter-spacing: -0.01em;">수익 계산기</h2>
+                <p class="text-sm text-gray-500 mt-0.5">매입가, 판매가, 수수료를 입력하면 순수익을 자동 계산합니다</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -345,8 +350,8 @@
         <!-- ========== 5. 키워드 리서치 ========== -->
         <section id="tab-keywords" class="tab-content hidden">
             <div class="mb-6">
-                <h2 class="text-xl font-bold">네이버 SEO 키워드 리서치</h2>
-                <p class="text-sm text-gray-500">네이버 검색 키워드의 검색량과 경쟁도를 분석합니다</p>
+                <h2 class="text-xl font-bold" style="letter-spacing: -0.01em;">네이버 SEO 키워드 리서치</h2>
+                <p class="text-sm text-gray-500 mt-0.5">네이버 검색 키워드의 검색량과 경쟁도를 분석합니다</p>
             </div>
 
             <!-- Search Box -->
@@ -402,8 +407,8 @@
         <section id="tab-analytics" class="tab-content hidden">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
-                    <h2 class="text-xl font-bold">매출 분석 대시보드</h2>
-                    <p class="text-sm text-gray-500">매출, 주문, 수익 추이를 한눈에 확인하세요</p>
+                    <h2 class="text-xl font-bold" style="letter-spacing: -0.01em;">매출 분석 대시보드</h2>
+                    <p class="text-sm text-gray-500 mt-0.5">매출, 주문, 수익 추이를 한눈에 확인하세요</p>
                 </div>
                 <select id="analyticsPeriod" class="input-field text-sm py-2 w-auto">
                     <option value="7">최근 7일</option>
