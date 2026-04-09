@@ -163,6 +163,9 @@ function navigate(page) {
     (renderers[page] || renderDashboard)();
 }
 
+// --- Landing Page (delegates to dashboard) ---
+function renderLanding() { renderDashboard(); }
+
 // --- Dashboard Page ---
 function renderDashboard() {
     const courses = loadData('courses', []);
