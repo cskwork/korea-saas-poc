@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>커뮤니티허브 - 니치 커뮤니티 플랫폼</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Noto Sans KR', sans-serif; }
+  </style>
+</head>
+<body>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- ===== PAGE: 피드 ===== -->
+  <div id="page-feed" class="page active">
+    <div class="app-header">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-lg font-bold">🏠 스타트업 빌더스</h1>
+          <p class="text-xs text-slate-400">창업가를 위한 프리미엄 커뮤니티</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="openWriteModal()" class="btn btn-primary btn-sm">✏️ 글쓰기</button>
+          <div id="currentUserAvatar" onclick="navigateTo('profile')" class="avatar cursor-pointer" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Channel Filter -->
+    <div id="channelFilter" class="channel-list"></div>
+
+    <!-- Sort Tabs -->
+    <div class="px-4">
+      <div class="tab-group">
+        <button class="tab-btn active" onclick="setSortMode('latest', this)">🕐 최신순</button>
+        <button class="tab-btn" onclick="setSortMode('popular', this)">🔥 인기순</button>
+      </div>
+    </div>
+
+    <!-- Feed Posts -->
+    <div id="feedPosts" class="px-4"></div>
+  </div>
+
+  <!-- ===== PAGE: 채널 관리 ===== -->
+  <div id="page-channels" class="page">
+    <div class="app-header">
+      <h1 class="text-lg font-bold">📂 채널 관리</h1>
+      <p class="text-xs text-slate-400 mt-1">커뮤니티 채널을 관리합니다</p>
+    </div>
+    <div class="p-4">
+      <button onclick="openChannelModal()" class="btn btn-primary btn-full mb-4">➕ 새 채널 만들기</button>
+      <div id="channelList"></div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE: 프로필 ===== -->
+  <div id="page-profile" class="page">
+    <div class="app-header">
+      <h1 class="text-lg font-bold">👤 내 프로필</h1>
+    </div>
+    <div class="p-4">
+      <div id="profileHeader" class="profile-header"></div>
+      <div id="profileBadges" class="card">
+        <h3 class="font-bold mb-3">🏅 획득한 뱃지</h3>
+        <div id="badgeList" class="flex flex-wrap gap-2"></div>
+      </div>
+      <div class="card mt-3">
+        <h3 class="font-bold mb-3">⚙️ 설정</h3>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between py-2">
+            <span class="text-sm">닉네임 변경</span>
+            <button onclick="openNicknameModal()" class="btn btn-secondary btn-sm">변경</button>
+          </div>
+          <div class="flex items-center justify-between py-2">
+            <span class="text-sm">멤버십 상태</span>
+            <span id="membershipStatus" class="badge"></span>
+          </div>
+          <div class="flex items-center justify-between py-2">
+            <span class="text-sm">데이터 초기화</span>
+            <button onclick="resetAllData()" class="btn btn-sm" style="background: var(--danger); color: white;">초기화</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE: 멤버십 ===== -->
+  <div id="page-pricing" class="page">
+    <div class="app-header">
+      <h1 class="text-lg font-bold">💎 멤버십</h1>
+      <p class="text-xs text-slate-400 mt-1">나에게 맞는 플랜을 선택하세요</p>
+    </div>
+    <div class="p-4">
+      <div class="text-center mb-6 fade-in">
+        <h2 class="text-xl font-bold mb-2">성장하는 창업가를 위한<br>프리미엄 커뮤니티</h2>
+        <p class="text-sm text-slate-400">실전 경험을 공유하고, 함께 성장하세요</p>
+      </div>
+
+      <!-- Free Plan -->
+      <div class="pricing-card mb-4">
+        <div class="text-2xl mb-2">🆓</div>
+        <h3 class="text-lg font-bold">무료 플랜</h3>
+        <div class="pricing-price">₩0<span>/월</span></div>
+        <ul class="pricing-features">
+          <li>일반 채널 접근</li>
+          <li>게시글 작성 (일 3회)</li>
+          <li>댓글 및 좋아요</li>
+          <li>기본 프로필</li>
+          <li class="disabled">프리미엄 채널 접근</li>
+          <li class="disabled">멘토링 매칭</li>
+          <li class="disabled">투자자 네트워크</li>
+          <li class="disabled">전용 뱃지</li>
+        </ul>
+        <button id="btnFreePlan" class="btn btn-secondary btn-full" onclick="selectPlan('free')">현재 플랜</button>
+      </div>
+
+      <!-- Premium Plan -->
+      <div class="pricing-card featured premium-glow mb-4">
+        <div class="text-2xl mb-2">👑</div>
+        <h3 class="text-lg font-bold">프리미엄 플랜</h3>
+        <div class="pricing-price">₩9,900<span>/월</span></div>
+        <ul class="pricing-features">
+          <li>모든 채널 무제한 접근</li>
+          <li>게시글 무제한 작성</li>
+          <li>댓글 및 좋아요</li>
+          <li>프리미엄 프로필 뱃지</li>
+          <li>프리미엄 전용 채널</li>
+          <li>1:1 멘토링 매칭</li>
+          <li>투자자 네트워크 접근</li>
+          <li>전용 뱃지 & 이모지</li>
+        </ul>
+        <button id="btnPremiumPlan" class="btn btn-accent btn-full" onclick="selectPlan('premium')">프리미엄 시작하기</button>
+      </div>
+
+      <!-- Comparison -->
+      <div class="card">
+        <h3 class="font-bold mb-3 text-center">📊 플랜 비교</h3>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-slate-400">
+              <th class="text-left py-2">기능</th>
+              <th class="text-center py-2">무료</th>
+              <th class="text-center py-2">프리미엄</th>
+            </tr>
+          </thead>
+          <tbody id="comparisonTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE: 대시보드 ===== -->
+  <div id="page-dashboard" class="page">
+    <div class="app-header">
+      <h1 class="text-lg font-bold">📊 관리자 대시보드</h1>
+      <p class="text-xs text-slate-400 mt-1">커뮤니티 현황을 한눈에 확인하세요</p>
+    </div>
+    <div class="p-4">
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-2 gap-3 mb-4" id="dashboardStats"></div>
+
+      <!-- Revenue Chart -->
+      <div class="card mb-4">
+        <h3 class="font-bold mb-2">💰 월별 수익 추이</h3>
+        <div id="revenueChart" class="chart-bar-container"></div>
+        <div id="revenueLabels" class="flex justify-between"></div>
+      </div>
+
+      <!-- Activity Chart -->
+      <div class="card mb-4">
+        <h3 class="font-bold mb-2">📈 일별 활동량</h3>
+        <div id="activityChart" class="chart-bar-container"></div>
+        <div id="activityLabels" class="flex justify-between"></div>
+      </div>
+
+      <!-- Membership Donut -->
+      <div class="card mb-4">
+        <h3 class="font-bold mb-3">👥 멤버십 비율</h3>
+        <div class="flex items-center justify-center gap-6">
+          <div id="membershipDonut" class="donut-chart"></div>
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-3 h-3 rounded-full" style="background: var(--primary)"></div>
+              <span class="text-sm" id="freeCount">무료: 0명</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full" style="background: var(--accent)"></div>
+              <span class="text-sm" id="premiumCount">프리미엄: 0명</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card">
+        <h3 class="font-bold mb-3">🕐 최근 활동</h3>
+        <div id="recentActivity" class="space-y-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Bottom Navigation ===== -->
+  <nav class="nav-bottom">
+    <div class="flex">
+      <button class="nav-item active" onclick="navigateTo('feed')" data-page="feed">
+        <span class="nav-icon">🏠</span>
+        <span>피드</span>
+      </button>
+      <button class="nav-item" onclick="navigateTo('channels')" data-page="channels">
+        <span class="nav-icon">📂</span>
+        <span>채널</span>
+      </button>
+      <button class="nav-item" onclick="navigateTo('pricing')" data-page="pricing">
+        <span class="nav-icon">💎</span>
+        <span>멤버십</span>
+      </button>
+      <button class="nav-item" onclick="navigateTo('profile')" data-page="profile">
+        <span class="nav-icon">👤</span>
+        <span>프로필</span>
+      </button>
+      <button class="nav-item" onclick="navigateTo('dashboard')" data-page="dashboard">
+        <span class="nav-icon">📊</span>
+        <span>대시보드</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MODAL: 글쓰기 ===== -->
+  <div id="writeModal" class="modal-overlay" onclick="closeModalOutside(event, 'writeModal')">
+    <div class="modal-content">
+      <div class="modal-handle"></div>
+      <h2 class="text-lg font-bold mb-4">✏️ 새 게시글 작성</h2>
+      <div class="space-y-3">
+        <select id="writeChannel" class="form-input">
+          <option value="">채널 선택</option>
+        </select>
+        <input type="text" id="writeTitle" class="form-input" placeholder="제목을 입력하세요">
+        <textarea id="writeContent" class="form-input form-textarea" placeholder="내용을 입력하세요..." rows="5"></textarea>
+        <div class="flex gap-2">
+          <button onclick="submitPost()" class="btn btn-primary btn-full">등록하기</button>
+          <button onclick="closeModal('writeModal')" class="btn btn-secondary">취소</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: 게시글 상세 ===== -->
+  <div id="postDetailModal" class="modal-overlay" onclick="closeModalOutside(event, 'postDetailModal')">
+    <div class="modal-content">
+      <div class="modal-handle"></div>
+      <div id="postDetailContent"></div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: 채널 생성 ===== -->
+  <div id="channelModal" class="modal-overlay" onclick="closeModalOutside(event, 'channelModal')">
+    <div class="modal-content">
+      <div class="modal-handle"></div>
+      <h2 class="text-lg font-bold mb-4">📂 새 채널 만들기</h2>
+      <div class="space-y-3">
+        <input type="text" id="channelIcon" class="form-input" placeholder="아이콘 (이모지)" maxlength="2" value="💬">
+        <input type="text" id="channelName" class="form-input" placeholder="채널 이름">
+        <textarea id="channelDesc" class="form-input form-textarea" placeholder="채널 설명" rows="2"></textarea>
+        <select id="channelAccess" class="form-input">
+          <option value="all">전체 공개</option>
+          <option value="premium">프리미엄 전용 👑</option>
+        </select>
+        <button onclick="createChannel()" class="btn btn-primary btn-full">채널 생성</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: 닉네임 변경 ===== -->
+  <div id="nicknameModal" class="modal-overlay" onclick="closeModalOutside(event, 'nicknameModal')">
+    <div class="modal-content">
+      <div class="modal-handle"></div>
+      <h2 class="text-lg font-bold mb-4">✏️ 닉네임 변경</h2>
+      <div class="space-y-3">
+        <input type="text" id="newNickname" class="form-input" placeholder="새 닉네임">
+        <button onclick="changeNickname()" class="btn btn-primary btn-full">변경하기</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

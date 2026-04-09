@@ -1,0 +1,162 @@
+/* ============================================
+   크리에이트잇 - AI 디자인 & 영상 제작 대행
+   ============================================ */
+
+/* 공통 */
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif; }
+
+/* 네비게이션 버튼 */
+.nav-btn {
+    @apply px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors;
+}
+.nav-btn.active {
+    @apply bg-brand-50 text-brand-700;
+}
+
+.mobile-nav-btn {
+    @apply w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors;
+}
+.mobile-nav-btn.active {
+    @apply bg-brand-50 text-brand-700;
+}
+
+/* 통계 카드 */
+.stat-card {
+    @apply rounded-xl p-4 border;
+}
+
+/* 필터 버튼 */
+.filter-btn {
+    @apply px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors;
+}
+.filter-btn.active {
+    @apply bg-brand-600 text-white hover:bg-brand-700;
+}
+
+/* 빠른 작업 버튼 */
+.quick-action-btn {
+    @apply flex flex-col items-center gap-2 bg-white rounded-xl p-4 border border-gray-200 hover:border-brand-300 hover:shadow-md transition-all cursor-pointer;
+}
+
+/* 폼 입력 */
+.form-input {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all text-sm;
+}
+
+/* 모달 */
+.modal-overlay {
+    @apply fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4;
+    backdrop-filter: blur(4px);
+}
+.modal-content {
+    @apply bg-white rounded-2xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto;
+    animation: modalIn 0.2s ease-out;
+}
+
+@keyframes modalIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* 주문 카드 */
+.order-card {
+    @apply bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow cursor-pointer;
+}
+
+/* 상태 뱃지 */
+.status-badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-bold;
+}
+.status-received { @apply bg-blue-100 text-blue-700; }
+.status-in-progress { @apply bg-amber-100 text-amber-700; }
+.status-draft-done { @apply bg-purple-100 text-purple-700; }
+.status-revising { @apply bg-orange-100 text-orange-700; }
+.status-final-review { @apply bg-cyan-100 text-cyan-700; }
+.status-delivered { @apply bg-green-100 text-green-700; }
+
+/* 포트폴리오 카드 */
+.portfolio-card {
+    @apply bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer;
+}
+.portfolio-thumb {
+    @apply w-full h-48 flex items-center justify-center text-4xl;
+}
+
+/* AI 도구 카드 */
+.tool-card {
+    @apply bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow;
+}
+
+/* 가격 카드 */
+.pricing-card {
+    @apply bg-white rounded-2xl border-2 border-gray-200 p-6 hover:border-brand-400 transition-all relative;
+}
+.pricing-card.featured {
+    @apply border-brand-500 shadow-lg;
+}
+.pricing-card.featured::before {
+    content: '인기';
+    @apply absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-600 text-white text-xs font-bold px-4 py-1 rounded-full;
+}
+
+/* 가격 토글 */
+.pricing-toggle {
+    @apply px-6 py-2 rounded-lg text-sm font-medium text-gray-600 transition-colors;
+}
+.pricing-toggle.active {
+    @apply bg-white text-brand-700 shadow-sm;
+}
+
+/* 프로그레스 바 */
+.progress-bar {
+    @apply h-2 rounded-full bg-gray-200 overflow-hidden;
+}
+.progress-fill {
+    @apply h-full rounded-full transition-all duration-500;
+}
+
+/* 워크플로우 스텝 */
+.workflow-step {
+    @apply flex items-center gap-2 text-sm py-2 border-l-2 pl-4;
+}
+.workflow-step.completed {
+    @apply border-green-500 text-green-700;
+}
+.workflow-step.current {
+    @apply border-brand-500 text-brand-700 font-bold;
+}
+.workflow-step.pending {
+    @apply border-gray-300 text-gray-400;
+}
+
+/* 난이도 표시 */
+.difficulty-dots {
+    @apply flex gap-1;
+}
+.difficulty-dot {
+    @apply w-2 h-2 rounded-full;
+}
+
+/* 반응형 */
+@media (max-width: 640px) {
+    .stat-card { @apply p-3; }
+    .stat-card .text-3xl { @apply text-2xl; }
+    .stat-card .text-2xl { @apply text-xl; }
+}
+
+/* 스크롤바 */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+/* 카드 그라디언트 배경 (포트폴리오 플레이스홀더) */
+.gradient-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.gradient-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+.gradient-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+.gradient-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+.gradient-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+.gradient-6 { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+.gradient-7 { background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%); }
+.gradient-8 { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }

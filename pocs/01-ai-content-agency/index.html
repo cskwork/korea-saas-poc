@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 콘텐츠 대행 서비스 | 중소기업 맞춤 콘텐츠 자동 생성</title>
+  <meta name="description" content="AI 기반 콘텐츠 대행 서비스. 블로그, 상품 설명, 광고 카피를 자동으로 생성하여 중소기업의 마케팅을 지원합니다.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✍️</text></svg>">
+</head>
+<body class="bg-white text-gray-900 font-sans antialiased">
+
+  <!-- ============================================================ -->
+  <!-- NAVBAR -->
+  <!-- ============================================================ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-40 bg-transparent transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-2 text-lg font-bold text-indigo-600">
+          <span class="text-2xl">✍️</span>
+          <span>AI 콘텐츠</span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#hero" class="nav-link text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">홈</a>
+          <a href="#generator" class="nav-link text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">콘텐츠 생성</a>
+          <a href="#portfolio" class="nav-link text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">포트폴리오</a>
+          <a href="#pricing" class="nav-link text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">요금제</a>
+          <a href="#dashboard" class="nav-link text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">대시보드</a>
+        </div>
+
+        <!-- CTA + Mobile Menu Button -->
+        <div class="flex items-center gap-3">
+          <a href="#generator" class="hidden sm:inline-block text-sm bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">무료 체험</a>
+          <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600 hover:text-indigo-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="mobile-menu md:hidden">
+        <div class="py-3 space-y-1 border-t border-gray-100">
+          <a href="#hero" class="nav-link block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg">홈</a>
+          <a href="#generator" class="nav-link block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg">콘텐츠 생성</a>
+          <a href="#portfolio" class="nav-link block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg">포트폴리오</a>
+          <a href="#pricing" class="nav-link block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg">요금제</a>
+          <a href="#dashboard" class="nav-link block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg">대시보드</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================ -->
+  <!-- HERO SECTION -->
+  <!-- ============================================================ -->
+  <section id="hero" class="gradient-hero min-h-screen flex items-center text-white relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-20 text-center">
+      <div class="fade-in-up">
+        <p class="text-indigo-200 text-sm font-semibold tracking-wider mb-4">AI 기반 콘텐츠 대행 서비스</p>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+          콘텐츠 제작,<br>
+          <span class="text-yellow-300">AI가 대신합니다</span>
+        </h1>
+        <p class="text-base sm:text-lg text-indigo-100 max-w-2xl mx-auto mb-8 leading-relaxed">
+          블로그, 상품 설명, 광고 카피까지. 중소기업에 최적화된 AI 콘텐츠를
+          빠르고 합리적인 가격으로 제공합니다.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#generator" class="inline-block bg-white text-indigo-700 font-bold px-8 py-3 rounded-lg hover:bg-indigo-50 transition-colors shadow-lg">
+            ✨ 무료로 체험하기
+          </a>
+          <a href="#portfolio" class="inline-block border-2 border-white/50 text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">
+            포트폴리오 보기
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- STATS SECTION -->
+  <!-- ============================================================ -->
+  <section id="stats-section" class="bg-white py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="text-3xl md:text-4xl font-extrabold text-indigo-600">
+            <span class="counter" data-target="1200" data-suffix="+">0</span>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">누적 고객사</p>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-extrabold text-indigo-600">
+            <span class="counter" data-target="35000" data-suffix="+">0</span>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">생성된 콘텐츠</p>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-extrabold text-indigo-600">
+            <span class="counter" data-target="98" data-suffix="%">0</span>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">고객 만족도</p>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-extrabold text-indigo-600">
+            <span class="counter" data-target="24" data-suffix="시간">0</span>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">평균 납품 시간</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- CONTENT GENERATOR -->
+  <!-- ============================================================ -->
+  <section id="generator" class="bg-gray-50 py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">AI 콘텐츠 생성 체험</h2>
+        <div class="section-divider mx-auto mb-4"></div>
+        <p class="text-gray-500 text-sm sm:text-base">주제만 입력하면 AI가 맞춤 콘텐츠를 즉시 생성합니다</p>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
+        <!-- Content Type Selector -->
+        <div class="mb-6">
+          <label class="block text-sm font-semibold text-gray-700 mb-3">콘텐츠 유형</label>
+          <div class="flex flex-wrap gap-3">
+            <button class="content-type-btn bg-indigo-600 text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors" data-type="blog">
+              📝 블로그 포스트
+            </button>
+            <button class="content-type-btn bg-gray-100 text-gray-700 px-5 py-2 rounded-lg text-sm font-medium transition-colors" data-type="product">
+              🛒 상품 설명
+            </button>
+            <button class="content-type-btn bg-gray-100 text-gray-700 px-5 py-2 rounded-lg text-sm font-medium transition-colors" data-type="ad">
+              📢 광고 카피
+            </button>
+          </div>
+        </div>
+
+        <!-- Topic Input -->
+        <div class="mb-6">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">주제 입력</label>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input
+              id="topic-input"
+              type="text"
+              placeholder="블로그 주제를 입력하세요 (예: 디지털 마케팅)"
+              class="flex-1 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            >
+            <button
+              id="generate-btn"
+              class="bg-indigo-600 text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-indigo-700 transition-colors whitespace-nowrap"
+            >
+              ✨ 콘텐츠 생성하기
+            </button>
+          </div>
+        </div>
+
+        <!-- Result Area -->
+        <div id="generation-result" class="border-t border-gray-100 pt-6">
+          <div class="flex flex-col items-center justify-center py-12 text-gray-400">
+            <svg class="w-16 h-16 mb-4 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+            </svg>
+            <p class="text-sm">위에서 주제를 입력하고 콘텐츠를 생성해보세요</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- PORTFOLIO -->
+  <!-- ============================================================ -->
+  <section id="portfolio" class="bg-white py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">포트폴리오</h2>
+        <div class="section-divider mx-auto mb-4"></div>
+        <p class="text-gray-500 text-sm sm:text-base">다양한 업종의 콘텐츠 제작 사례를 확인하세요</p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex justify-center gap-4 mb-8 border-b border-gray-200 pb-2">
+        <button class="portfolio-filter-btn tab-active text-indigo-600 pb-2 text-sm font-medium transition-colors" data-filter="all">전체</button>
+        <button class="portfolio-filter-btn text-gray-500 pb-2 text-sm font-medium transition-colors" data-filter="blog">블로그</button>
+        <button class="portfolio-filter-btn text-gray-500 pb-2 text-sm font-medium transition-colors" data-filter="product">상품 설명</button>
+        <button class="portfolio-filter-btn text-gray-500 pb-2 text-sm font-medium transition-colors" data-filter="ad">광고 카피</button>
+      </div>
+
+      <!-- Portfolio Grid -->
+      <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Dynamically populated by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- PRICING -->
+  <!-- ============================================================ -->
+  <section id="pricing" class="bg-gray-50 py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">합리적인 요금제</h2>
+        <div class="section-divider mx-auto mb-4"></div>
+        <p class="text-gray-500 text-sm sm:text-base">기업 규모에 맞는 플랜을 선택하세요</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <!-- Starter -->
+        <div class="card-hover bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 text-center">
+          <div class="text-3xl mb-3">🌱</div>
+          <h3 class="text-lg font-bold text-gray-900 mb-1">스타터</h3>
+          <p class="text-xs text-gray-400 mb-4">소규모 사업자 추천</p>
+          <div class="mb-6">
+            <span class="text-4xl font-extrabold price-highlight">29</span>
+            <span class="text-gray-500 text-sm">만원/월</span>
+          </div>
+          <ul class="text-sm text-gray-600 space-y-3 mb-8 text-left">
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 월 10건 콘텐츠</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 블로그 포스트</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 기본 SEO 최적화</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 이메일 지원</li>
+            <li class="flex items-center gap-2 text-gray-300"><span>✕</span> 광고 카피</li>
+            <li class="flex items-center gap-2 text-gray-300"><span>✕</span> 전담 매니저</li>
+          </ul>
+          <button class="w-full border-2 border-indigo-600 text-indigo-600 font-semibold py-3 rounded-lg hover:bg-indigo-50 transition-colors text-sm">시작하기</button>
+        </div>
+
+        <!-- Pro (Recommended) -->
+        <div class="card-hover bg-indigo-600 rounded-2xl shadow-xl p-6 sm:p-8 text-center text-white relative transform md:scale-105">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-400 text-yellow-900 text-xs font-bold px-4 py-1 rounded-full">추천</div>
+          <div class="text-3xl mb-3">🚀</div>
+          <h3 class="text-lg font-bold mb-1">프로</h3>
+          <p class="text-xs text-indigo-200 mb-4">성장하는 기업 추천</p>
+          <div class="mb-6">
+            <span class="text-4xl font-extrabold text-white">79</span>
+            <span class="text-indigo-200 text-sm">만원/월</span>
+          </div>
+          <ul class="text-sm text-indigo-100 space-y-3 mb-8 text-left">
+            <li class="flex items-center gap-2"><span class="text-yellow-300">✓</span> 월 30건 콘텐츠</li>
+            <li class="flex items-center gap-2"><span class="text-yellow-300">✓</span> 전체 콘텐츠 유형</li>
+            <li class="flex items-center gap-2"><span class="text-yellow-300">✓</span> 고급 SEO 최적화</li>
+            <li class="flex items-center gap-2"><span class="text-yellow-300">✓</span> 전담 매니저 배정</li>
+            <li class="flex items-center gap-2"><span class="text-yellow-300">✓</span> 성과 리포트</li>
+            <li class="flex items-center gap-2"><span class="text-yellow-300">✓</span> 우선 지원</li>
+          </ul>
+          <button class="w-full bg-white text-indigo-700 font-bold py-3 rounded-lg hover:bg-indigo-50 transition-colors text-sm">시작하기</button>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="card-hover bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 text-center">
+          <div class="text-3xl mb-3">🏢</div>
+          <h3 class="text-lg font-bold text-gray-900 mb-1">엔터프라이즈</h3>
+          <p class="text-xs text-gray-400 mb-4">대규모 운영 추천</p>
+          <div class="mb-6">
+            <span class="text-4xl font-extrabold price-highlight">맞춤</span>
+            <span class="text-gray-500 text-sm"> 견적</span>
+          </div>
+          <ul class="text-sm text-gray-600 space-y-3 mb-8 text-left">
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 무제한 콘텐츠</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 전체 콘텐츠 유형</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 맞춤 AI 모델 튜닝</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> API 연동 지원</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 전담 팀 배정</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> SLA 보장</li>
+          </ul>
+          <button class="w-full border-2 border-indigo-600 text-indigo-600 font-semibold py-3 rounded-lg hover:bg-indigo-50 transition-colors text-sm">문의하기</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- DASHBOARD (Demo) -->
+  <!-- ============================================================ -->
+  <section id="dashboard" class="bg-white py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">내 대시보드</h2>
+        <div class="section-divider mx-auto mb-4"></div>
+        <p class="text-gray-500 text-sm sm:text-base">주문 현황을 한눈에 확인하세요 (데모)</p>
+      </div>
+
+      <!-- Stats Grid -->
+      <div id="dashboard-stats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <!-- Dynamically populated by app.js -->
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap gap-2 mb-6">
+        <button class="dashboard-filter-btn bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors" data-filter="all">전체</button>
+        <button class="dashboard-filter-btn bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors" data-filter="완료">완료</button>
+        <button class="dashboard-filter-btn bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors" data-filter="진행중">진행중</button>
+        <button class="dashboard-filter-btn bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors" data-filter="대기중">대기중</button>
+      </div>
+
+      <!-- Orders Table -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
+        <table class="w-full min-w-[600px]">
+          <thead>
+            <tr class="bg-gray-50 text-left">
+              <th class="py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">주문번호</th>
+              <th class="py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">내용</th>
+              <th class="py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">상태</th>
+              <th class="py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">주문일</th>
+              <th class="py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">완료일</th>
+            </tr>
+          </thead>
+          <tbody id="orders-tbody">
+            <!-- Dynamically populated by app.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FOOTER -->
+  <!-- ============================================================ -->
+  <footer class="bg-gray-900 text-gray-400 py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <div class="flex items-center gap-2 text-white font-bold text-lg mb-3">
+            <span class="text-2xl">✍️</span>
+            <span>AI 콘텐츠</span>
+          </div>
+          <p class="text-sm leading-relaxed">AI 기반 콘텐츠 대행 서비스로 중소기업의 마케팅을 혁신합니다.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-3">서비스</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#generator" class="hover:text-white transition-colors">블로그 포스트</a></li>
+            <li><a href="#generator" class="hover:text-white transition-colors">상품 설명</a></li>
+            <li><a href="#generator" class="hover:text-white transition-colors">광고 카피</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-3">회사</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">회사 소개</a></li>
+            <li><a href="#portfolio" class="hover:text-white transition-colors">포트폴리오</a></li>
+            <li><a href="#pricing" class="hover:text-white transition-colors">요금제</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-3">고객 지원</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">자주 묻는 질문</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">이용약관</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">개인정보처리방침</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-6 text-center text-xs">
+        <p>&copy; 2026 AI 콘텐츠 대행 서비스. All rights reserved. (POC Demo)</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

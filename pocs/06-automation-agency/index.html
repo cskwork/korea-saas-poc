@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoMate Pro | 업무 자동화 대행 서비스</title>
+  <meta name="description" content="중소기업 맞춤 업무 자동화 대행 서비스. 반복 업무를 자동화하여 시간과 비용을 절감하세요.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    /* Inline critical font */
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <div class="nav-inner">
+      <div class="nav-logo" id="navLogo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="6" fill="url(#grad)"/>
+          <defs><linearGradient id="grad" x1="0" y1="0" x2="28" y2="28"><stop stop-color="#2563eb"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
+          <path d="M8 14L12 18L20 10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>AutoMate Pro</span>
+      </div>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+
+      <div class="nav-tabs" id="navTabs">
+        <button class="nav-tab active" data-page="dashboard">📊 대시보드</button>
+        <button class="nav-tab" data-page="catalog">📦 카탈로그</button>
+        <button class="nav-tab" data-page="roi">💰 ROI 계산기</button>
+        <button class="nav-tab" data-page="workflow">⚙️ 워크플로우</button>
+        <button class="nav-tab" data-page="projects">📋 프로젝트</button>
+        <button class="nav-tab" data-page="quote">📝 견적</button>
+        <button class="nav-tab" data-page="pricing">💎 가격</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Dashboard -->
+    <section id="page-dashboard" class="page-section active">
+      <div class="section-header">
+        <h1 class="section-title">대시보드</h1>
+        <p class="section-subtitle">AutoMate Pro 운영 현황을 한눈에 확인하세요</p>
+      </div>
+      <div id="dashboard-content"></div>
+    </section>
+
+    <!-- Catalog -->
+    <section id="page-catalog" class="page-section">
+      <div class="section-header">
+        <h1 class="section-title">자동화 솔루션 카탈로그</h1>
+        <p class="section-subtitle">업종별 · 유형별 맞춤 자동화 패키지를 확인하세요</p>
+      </div>
+      <div id="catalog-content"></div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section id="page-roi" class="page-section">
+      <div class="section-header">
+        <h1 class="section-title">자동화 ROI 계산기</h1>
+        <p class="section-subtitle">자동화 도입 시 절감되는 시간과 비용을 미리 계산해보세요</p>
+      </div>
+      <div id="roi-content"></div>
+    </section>
+
+    <!-- Workflow Builder -->
+    <section id="page-workflow" class="page-section">
+      <div class="section-header">
+        <h1 class="section-title">워크플로우 시각화 빌더</h1>
+        <p class="section-subtitle">자동화 워크플로우를 시각적으로 설계해보세요. 노드를 추가하고 드래그하여 배치할 수 있습니다.</p>
+      </div>
+      <div id="workflow-content"></div>
+    </section>
+
+    <!-- Projects -->
+    <section id="page-projects" class="page-section">
+      <div class="section-header">
+        <h1 class="section-title">프로젝트 관리</h1>
+        <p class="section-subtitle">고객 자동화 프로젝트 현황을 관리하세요</p>
+      </div>
+      <div id="projects-content"></div>
+    </section>
+
+    <!-- Quote -->
+    <section id="page-quote" class="page-section">
+      <div class="section-header">
+        <h1 class="section-title">견적 생성기</h1>
+        <p class="section-subtitle">자동화 항목을 선택하고 맞춤 견적서를 생성하세요</p>
+      </div>
+      <div id="quote-content"></div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="page-pricing" class="page-section">
+      <div class="section-header">
+        <h1 class="section-title">가격 정책</h1>
+        <p class="section-subtitle">비즈니스 규모에 맞는 최적의 플랜을 선택하세요</p>
+      </div>
+      <div id="pricing-content"></div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
