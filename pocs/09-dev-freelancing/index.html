@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevFlow — 프리랜서 개발 비즈니스 플랫폼</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Header -->
+  <div class="mobile-header">
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    <span style="font-weight:700;">DevFlow</span>
+  </div>
+
+  <!-- Mobile Overlay -->
+  <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+
+  <!-- Sidebar Navigation -->
+  <nav class="nav-sidebar" id="navSidebar">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">⚡</div>
+      <div>
+        <div class="nav-logo-text">DevFlow</div>
+        <div class="nav-logo-sub">프리랜서 비즈니스 관리</div>
+      </div>
+    </div>
+    <div class="nav-menu">
+      <div class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
+        <span class="nav-item-icon">📊</span>
+        <span>대시보드</span>
+      </div>
+      <div class="nav-item" data-page="portfolio" onclick="showPage('portfolio')">
+        <span class="nav-item-icon">🎨</span>
+        <span>포트폴리오</span>
+      </div>
+      <div class="nav-item" data-page="projects" onclick="showPage('projects')">
+        <span class="nav-item-icon">📋</span>
+        <span>프로젝트 관리</span>
+      </div>
+      <div class="nav-item" data-page="estimates" onclick="showPage('estimates')">
+        <span class="nav-item-icon">📄</span>
+        <span>견적/인보이스</span>
+      </div>
+      <div class="nav-item" data-page="clients" onclick="showPage('clients')">
+        <span class="nav-item-icon">👥</span>
+        <span>고객 관리</span>
+      </div>
+      <div class="nav-item" data-page="tracking" onclick="showPage('tracking')">
+        <span class="nav-item-icon">⏱️</span>
+        <span>수익/시간 추적</span>
+      </div>
+      <div class="nav-item" data-page="pricing" onclick="showPage('pricing')">
+        <span class="nav-item-icon">💰</span>
+        <span>서비스 요금표</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- ========== 대시보드 ========== -->
+    <section id="page-dashboard" class="page-section active">
+      <div class="page-header">
+        <h1 class="page-title">대시보드</h1>
+        <p class="page-subtitle">프리랜서 비즈니스 현황을 한눈에 확인하세요</p>
+      </div>
+
+      <div class="stats-grid" id="dashboardStats"></div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📈 월별 수익 추이</span>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="revenueChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🎯 이번 달 목표</span>
+          </div>
+          <div class="card-body" id="monthlyGoals"></div>
+        </div>
+      </div>
+
+      <div class="card mt-2">
+        <div class="card-header">
+          <span class="card-title">📌 최근 프로젝트</span>
+        </div>
+        <div class="card-body" id="recentProjects"></div>
+      </div>
+    </section>
+
+    <!-- ========== 포트폴리오 ========== -->
+    <section id="page-portfolio" class="page-section">
+      <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <h1 class="page-title">포트폴리오</h1>
+          <p class="page-subtitle">프로젝트 포트폴리오를 관리하세요</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('portfolioModal')">+ 프로젝트 추가</button>
+      </div>
+
+      <div class="portfolio-grid" id="portfolioGrid"></div>
+    </section>
+
+    <!-- ========== 프로젝트 관리 ========== -->
+    <section id="page-projects" class="page-section">
+      <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <h1 class="page-title">프로젝트 관리</h1>
+          <p class="page-subtitle">칸반 보드로 프로젝트를 관리하세요</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('projectModal')">+ 새 프로젝트</button>
+      </div>
+
+      <div class="kanban-board" id="kanbanBoard"></div>
+    </section>
+
+    <!-- ========== 견적/인보이스 ========== -->
+    <section id="page-estimates" class="page-section">
+      <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <h1 class="page-title">견적서 / 인보이스</h1>
+          <p class="page-subtitle">견적서를 생성하고 관리하세요</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('estimateModal')">+ 새 견적서</button>
+      </div>
+
+      <div class="section-tabs" id="estimateTabs">
+        <button class="section-tab active" onclick="filterEstimates('all', this)">전체</button>
+        <button class="section-tab" onclick="filterEstimates('draft', this)">작성 중</button>
+        <button class="section-tab" onclick="filterEstimates('sent', this)">발송됨</button>
+        <button class="section-tab" onclick="filterEstimates('accepted', this)">수락됨</button>
+        <button class="section-tab" onclick="filterEstimates('invoiced', this)">인보이스</button>
+      </div>
+
+      <div id="estimatesList"></div>
+
+      <div id="estimatePreviewSection" class="hidden mt-2"></div>
+    </section>
+
+    <!-- ========== 고객 관리 ========== -->
+    <section id="page-clients" class="page-section">
+      <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <h1 class="page-title">고객 관리 (CRM)</h1>
+          <p class="page-subtitle">고객 정보를 체계적으로 관리하세요</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('clientModal')">+ 새 고객</button>
+      </div>
+
+      <div class="stats-grid" id="clientStats"></div>
+      <div class="client-list" id="clientList"></div>
+    </section>
+
+    <!-- ========== 수익/시간 추적 ========== -->
+    <section id="page-tracking" class="page-section">
+      <div class="page-header">
+        <h1 class="page-title">수익 / 시간 추적</h1>
+        <p class="page-subtitle">수익과 작업 시간을 추적하고 분석하세요</p>
+      </div>
+
+      <div class="stats-grid" id="trackingStats"></div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">💰 프로젝트별 수익</span>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="projectRevenueChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">⏱️ 시간 기록</span>
+            <button class="btn btn-sm btn-primary" onclick="openModal('timeEntryModal')">+ 기록</button>
+          </div>
+          <div class="card-body" id="timeEntryList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 서비스 요금표 ========== -->
+    <section id="page-pricing" class="page-section">
+      <div class="page-header">
+        <h1 class="page-title">서비스 요금표</h1>
+        <p class="page-subtitle">제공하는 개발 서비스와 요금 안내</p>
+      </div>
+
+      <div class="pricing-grid" id="pricingGrid"></div>
+
+      <div class="card mt-2">
+        <div class="card-body text-center" style="padding:2rem;">
+          <h3 style="margin-bottom:0.5rem;">💬 맞춤 견적이 필요하신가요?</h3>
+          <p style="color:var(--gray-500);font-size:0.9rem;margin-bottom:1rem;">
+            프로젝트 규모와 요구사항에 맞는 정확한 견적을 제공해 드립니다.
+          </p>
+          <button class="btn btn-primary btn-lg" onclick="openModal('estimateModal')">맞춤 견적 요청하기</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== MODALS ========== -->
+
+  <!-- 포트폴리오 추가 모달 -->
+  <div class="modal-overlay" id="portfolioModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">포트폴리오 프로젝트 추가</span>
+        <button class="modal-close" onclick="closeModal('portfolioModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">프로젝트명 *</label>
+          <input type="text" class="form-input" id="pf-title" placeholder="예: 쇼핑몰 리뉴얼">
+        </div>
+        <div class="form-group">
+          <label class="form-label">설명</label>
+          <textarea class="form-input form-textarea" id="pf-desc" placeholder="프로젝트 설명을 입력하세요"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">기술 스택 (쉼표로 구분)</label>
+          <input type="text" class="form-input" id="pf-tech" placeholder="예: React, Node.js, MySQL">
+        </div>
+        <div class="form-group">
+          <label class="form-label">스크린샷 URL</label>
+          <input type="text" class="form-input" id="pf-image" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">프로젝트 URL</label>
+          <input type="text" class="form-input" id="pf-url" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">개발 기간</label>
+          <input type="text" class="form-input" id="pf-duration" placeholder="예: 2개월">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('portfolioModal')">취소</button>
+        <button class="btn btn-primary" onclick="savePortfolio()">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 프로젝트 추가 모달 -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">새 프로젝트</span>
+        <button class="modal-close" onclick="closeModal('projectModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">프로젝트명 *</label>
+          <input type="text" class="form-input" id="proj-title" placeholder="프로젝트 이름">
+        </div>
+        <div class="form-group">
+          <label class="form-label">고객</label>
+          <select class="form-input form-select" id="proj-client"></select>
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">예산 (원)</label>
+            <input type="number" class="form-input" id="proj-budget" placeholder="3000000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">마감일</label>
+            <input type="date" class="form-input" id="proj-deadline">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">우선순위</label>
+          <select class="form-input form-select" id="proj-priority">
+            <option value="low">낮음</option>
+            <option value="medium" selected>보통</option>
+            <option value="high">높음</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">상태</label>
+          <select class="form-input form-select" id="proj-status">
+            <option value="inquiry">문의</option>
+            <option value="progress">진행 중</option>
+            <option value="review">검수 중</option>
+            <option value="done">완료</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('projectModal')">취소</button>
+        <button class="btn btn-primary" onclick="saveProject()">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 견적서 생성 모달 -->
+  <div class="modal-overlay" id="estimateModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">새 견적서</span>
+        <button class="modal-close" onclick="closeModal('estimateModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">고객</label>
+          <select class="form-input form-select" id="est-client"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">프로젝트명</label>
+          <input type="text" class="form-input" id="est-project" placeholder="프로젝트 이름">
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label class="form-label">항목</label>
+          <div id="estimateItems">
+            <div class="estimate-item-row" style="display:flex;gap:0.5rem;margin-bottom:0.5rem;align-items:end;">
+              <div style="flex:2"><input type="text" class="form-input" placeholder="항목명" data-field="name"></div>
+              <div style="flex:0.5"><input type="number" class="form-input" placeholder="수량" data-field="qty" value="1"></div>
+              <div style="flex:1"><input type="number" class="form-input" placeholder="금액" data-field="price"></div>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-secondary" onclick="addEstimateItemRow()">+ 항목 추가</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('estimateModal')">취소</button>
+        <button class="btn btn-primary" onclick="saveEstimate()">견적서 생성</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 고객 추가 모달 -->
+  <div class="modal-overlay" id="clientModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">새 고객 등록</span>
+        <button class="modal-close" onclick="closeModal('clientModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">이름 / 담당자명 *</label>
+          <input type="text" class="form-input" id="cl-name" placeholder="홍길동">
+        </div>
+        <div class="form-group">
+          <label class="form-label">회사명</label>
+          <input type="text" class="form-input" id="cl-company" placeholder="(주)테크스타트">
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">이메일</label>
+            <input type="email" class="form-input" id="cl-email" placeholder="hong@company.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">연락처</label>
+            <input type="tel" class="form-input" id="cl-phone" placeholder="010-1234-5678">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">고객 등급</label>
+          <select class="form-input form-select" id="cl-grade">
+            <option value="new">신규</option>
+            <option value="regular">일반</option>
+            <option value="vip">VIP</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">메모</label>
+          <textarea class="form-input form-textarea" id="cl-notes" placeholder="고객 관련 메모"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('clientModal')">취소</button>
+        <button class="btn btn-primary" onclick="saveClient()">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 시간 기록 모달 -->
+  <div class="modal-overlay" id="timeEntryModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">시간 기록</span>
+        <button class="modal-close" onclick="closeModal('timeEntryModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">프로젝트</label>
+          <select class="form-input form-select" id="te-project"></select>
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">작업 날짜</label>
+            <input type="date" class="form-input" id="te-date">
+          </div>
+          <div class="form-group">
+            <label class="form-label">작업 시간</label>
+            <input type="number" class="form-input" id="te-hours" placeholder="시간" step="0.5" min="0.5">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">작업 내용</label>
+          <input type="text" class="form-input" id="te-desc" placeholder="무엇을 했나요?">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('timeEntryModal')">취소</button>
+        <button class="btn btn-primary" onclick="saveTimeEntry()">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

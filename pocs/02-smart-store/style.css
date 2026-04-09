@@ -1,0 +1,257 @@
+/* Smart Seller Custom Styles */
+
+/* Navigation Tabs */
+.nav-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #6b7280;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    cursor: pointer;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.nav-tab:hover {
+    color: #03C75A;
+}
+
+.nav-tab.active {
+    color: #03C75A;
+    border-bottom-color: #03C75A;
+    font-weight: 600;
+}
+
+/* Input Fields */
+.input-field {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: white;
+}
+
+.input-field:focus {
+    border-color: #03C75A;
+    box-shadow: 0 0 0 3px rgba(3, 199, 90, 0.1);
+}
+
+/* Tab Content */
+.tab-content {
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Product Cards */
+.product-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.product-card .product-img {
+    height: 160px;
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+/* Order Filter Tabs */
+.order-filter-tab {
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    border-radius: 9999px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    color: #6b7280;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.order-filter-tab:hover {
+    border-color: #03C75A;
+    color: #03C75A;
+}
+
+.order-filter-tab.active {
+    background: #03C75A;
+    border-color: #03C75A;
+    color: white;
+}
+
+/* Order Cards */
+.order-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    transition: box-shadow 0.2s;
+}
+
+.order-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Status Badges */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-new {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+.badge-processing {
+    background: #fefce8;
+    color: #eab308;
+}
+
+.badge-shipping {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+
+.badge-complete {
+    background: #f0fdf4;
+    color: #22c55e;
+}
+
+.badge-cancel {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+/* Margin indicator */
+.margin-bar {
+    height: 6px;
+    border-radius: 3px;
+    background: #e5e7eb;
+    overflow: hidden;
+}
+
+.margin-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+/* Keyword competition badges */
+.comp-low {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.comp-medium {
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.comp-high {
+    background: #fecaca;
+    color: #991b1b;
+}
+
+/* Toast animation */
+#toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Modal */
+#productModal.show {
+    display: flex;
+}
+
+/* Chart container */
+canvas {
+    max-height: 220px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* Loading animation */
+.loading-dots::after {
+    content: '';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+}
+
+/* Profit result bars */
+.result-bar {
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    transition: width 0.5s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .nav-tab span:first-child {
+        font-size: 1.25rem;
+    }
+    .nav-tab span:last-child {
+        font-size: 0.75rem;
+    }
+}

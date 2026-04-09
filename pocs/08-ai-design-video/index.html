@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 디자인 & 영상 제작 - 크리에이트잇</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50:'#f0f4ff', 100:'#dbe4ff', 200:'#bac8ff', 300:'#91a7ff', 400:'#748ffc', 500:'#5c7cfa', 600:'#4c6ef5', 700:'#4263eb', 800:'#3b5bdb', 900:'#364fc7' },
+                        accent: { 50:'#fff0f6', 100:'#ffdeeb', 200:'#fcc2d7', 300:'#faa2c1', 400:'#f783ac', 500:'#f06595', 600:'#e64980', 700:'#d6336c', 800:'#c2255c', 900:'#a61e4d' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen">
+
+    <!-- 네비게이션 -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">🎨</span>
+                    <span class="font-bold text-lg text-brand-700">크리에이트잇</span>
+                </div>
+                <!-- 모바일 메뉴 버튼 -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+                <!-- 데스크톱 네비게이션 -->
+                <div class="hidden md:flex items-center gap-1">
+                    <button class="nav-btn active" data-page="dashboard">📊 대시보드</button>
+                    <button class="nav-btn" data-page="orders">📋 주문관리</button>
+                    <button class="nav-btn" data-page="portfolio">🖼️ 포트폴리오</button>
+                    <button class="nav-btn" data-page="tools">🤖 AI 도구</button>
+                    <button class="nav-btn" data-page="revenue">💰 수익분석</button>
+                    <button class="nav-btn" data-page="pricing">💎 가격표</button>
+                </div>
+            </div>
+        </div>
+        <!-- 모바일 메뉴 -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-gray-200 bg-white">
+            <div class="px-4 py-2 space-y-1">
+                <button class="mobile-nav-btn active" data-page="dashboard">📊 대시보드</button>
+                <button class="mobile-nav-btn" data-page="orders">📋 주문관리</button>
+                <button class="mobile-nav-btn" data-page="portfolio">🖼️ 포트폴리오</button>
+                <button class="mobile-nav-btn" data-page="tools">🤖 AI 도구</button>
+                <button class="mobile-nav-btn" data-page="revenue">💰 수익분석</button>
+                <button class="mobile-nav-btn" data-page="pricing">💎 가격표</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="max-w-7xl mx-auto px-4 py-6">
+
+        <!-- ====== 대시보드 페이지 ====== -->
+        <section id="page-dashboard" class="page-content">
+            <h1 class="text-2xl font-bold mb-6">📊 주문 대시보드</h1>
+            
+            <!-- 통계 카드 -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <div class="stat-card bg-blue-50 border-blue-200">
+                    <div class="text-sm text-blue-600 font-medium">전체 주문</div>
+                    <div id="stat-total" class="text-3xl font-bold text-blue-800 mt-1">0</div>
+                    <div class="text-xs text-blue-500 mt-1">누적 건수</div>
+                </div>
+                <div class="stat-card bg-amber-50 border-amber-200">
+                    <div class="text-sm text-amber-600 font-medium">진행중</div>
+                    <div id="stat-progress" class="text-3xl font-bold text-amber-800 mt-1">0</div>
+                    <div class="text-xs text-amber-500 mt-1">현재 작업중</div>
+                </div>
+                <div class="stat-card bg-green-50 border-green-200">
+                    <div class="text-sm text-green-600 font-medium">납품완료</div>
+                    <div id="stat-delivered" class="text-3xl font-bold text-green-800 mt-1">0</div>
+                    <div class="text-xs text-green-500 mt-1">이번 달</div>
+                </div>
+                <div class="stat-card bg-purple-50 border-purple-200">
+                    <div class="text-sm text-purple-600 font-medium">이번 달 매출</div>
+                    <div id="stat-revenue" class="text-3xl font-bold text-purple-800 mt-1">₩0</div>
+                    <div class="text-xs text-purple-500 mt-1">목표: ₩15,000,000</div>
+                </div>
+            </div>
+
+            <!-- 최근 주문 -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-bold">최근 주문</h2>
+                    <button onclick="navigateTo('orders')" class="text-sm text-brand-600 hover:text-brand-800 font-medium">전체 보기 →</button>
+                </div>
+                <div id="recent-orders" class="space-y-3">
+                    <p class="text-gray-400 text-center py-8">주문이 없습니다. 새 주문을 추가해보세요!</p>
+                </div>
+            </div>
+
+            <!-- 빠른 작업 -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                <button onclick="navigateTo('orders'); setTimeout(()=>document.getElementById('newOrderBtn')?.click(), 100)" class="quick-action-btn">
+                    <span class="text-2xl">➕</span>
+                    <span class="text-sm font-medium">새 주문</span>
+                </button>
+                <button onclick="navigateTo('portfolio')" class="quick-action-btn">
+                    <span class="text-2xl">🖼️</span>
+                    <span class="text-sm font-medium">포트폴리오</span>
+                </button>
+                <button onclick="navigateTo('tools')" class="quick-action-btn">
+                    <span class="text-2xl">🤖</span>
+                    <span class="text-sm font-medium">AI 도구</span>
+                </button>
+                <button onclick="navigateTo('revenue')" class="quick-action-btn">
+                    <span class="text-2xl">📈</span>
+                    <span class="text-sm font-medium">수익분석</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ====== 주문관리 페이지 ====== -->
+        <section id="page-orders" class="page-content hidden">
+            <div class="flex items-center justify-between mb-6">
+                <h1 class="text-2xl font-bold">📋 주문 관리</h1>
+                <button id="newOrderBtn" onclick="openOrderModal()" class="bg-brand-600 text-white px-4 py-2 rounded-lg hover:bg-brand-700 font-medium text-sm">+ 새 주문</button>
+            </div>
+
+            <!-- 상태 필터 -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button class="filter-btn active" data-filter="all">전체</button>
+                <button class="filter-btn" data-filter="received">의뢰접수</button>
+                <button class="filter-btn" data-filter="in-progress">시안작업중</button>
+                <button class="filter-btn" data-filter="draft-done">시안완료</button>
+                <button class="filter-btn" data-filter="revising">수정중</button>
+                <button class="filter-btn" data-filter="final-review">최종확인</button>
+                <button class="filter-btn" data-filter="delivered">납품완료</button>
+            </div>
+
+            <!-- 주문 목록 -->
+            <div id="orders-list" class="space-y-4">
+                <p class="text-gray-400 text-center py-12">주문이 없습니다.</p>
+            </div>
+        </section>
+
+        <!-- ====== 포트폴리오 페이지 ====== -->
+        <section id="page-portfolio" class="page-content hidden">
+            <h1 class="text-2xl font-bold mb-6">🖼️ 포트폴리오 갤러리</h1>
+            
+            <!-- 카테고리 필터 -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button class="filter-btn active" data-portfolio="all">전체</button>
+                <button class="filter-btn" data-portfolio="thumbnail">SNS 썸네일</button>
+                <button class="filter-btn" data-portfolio="video">유튜브 영상</button>
+                <button class="filter-btn" data-portfolio="detail-page">상세페이지</button>
+                <button class="filter-btn" data-portfolio="logo">로고/브랜딩</button>
+            </div>
+
+            <!-- 갤러리 그리드 -->
+            <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+        </section>
+
+        <!-- ====== AI 도구 페이지 ====== -->
+        <section id="page-tools" class="page-content hidden">
+            <h1 class="text-2xl font-bold mb-2">🤖 AI 도구 추천 & 비교</h1>
+            <p class="text-gray-500 mb-6">제로캐피탈로 시작할 수 있는 무료/프리미엄 AI 도구를 비교해보세요.</p>
+
+            <!-- 용도별 필터 -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button class="filter-btn active" data-tool="all">전체</button>
+                <button class="filter-btn" data-tool="design">디자인</button>
+                <button class="filter-btn" data-tool="image">이미지 생성</button>
+                <button class="filter-btn" data-tool="video">영상 편집</button>
+                <button class="filter-btn" data-tool="text">텍스트/카피</button>
+            </div>
+
+            <!-- 도구 목록 -->
+            <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+        </section>
+
+        <!-- ====== 수익분석 페이지 ====== -->
+        <section id="page-revenue" class="page-content hidden">
+            <h1 class="text-2xl font-bold mb-6">💰 수익 분석</h1>
+
+            <!-- 수익 요약 카드 -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <div class="stat-card bg-green-50 border-green-200">
+                    <div class="text-sm text-green-600 font-medium">총 매출</div>
+                    <div id="rev-total" class="text-2xl font-bold text-green-800 mt-1">₩0</div>
+                </div>
+                <div class="stat-card bg-blue-50 border-blue-200">
+                    <div class="text-sm text-blue-600 font-medium">이번 달</div>
+                    <div id="rev-month" class="text-2xl font-bold text-blue-800 mt-1">₩0</div>
+                </div>
+                <div class="stat-card bg-purple-50 border-purple-200">
+                    <div class="text-sm text-purple-600 font-medium">평균 단가</div>
+                    <div id="rev-avg" class="text-2xl font-bold text-purple-800 mt-1">₩0</div>
+                </div>
+                <div class="stat-card bg-amber-50 border-amber-200">
+                    <div class="text-sm text-amber-600 font-medium">목표 달성률</div>
+                    <div id="rev-goal" class="text-2xl font-bold text-amber-800 mt-1">0%</div>
+                </div>
+            </div>
+
+            <!-- 월별 매출 차트 -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+                <h2 class="text-lg font-bold mb-4">월별 매출 추이</h2>
+                <canvas id="revenueChart" class="w-full" height="250"></canvas>
+            </div>
+
+            <!-- 카테고리별 매출 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-lg font-bold mb-4">카테고리별 매출 비중</h2>
+                    <canvas id="categoryChart" class="w-full" height="250"></canvas>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-lg font-bold mb-4">최근 거래 내역</h2>
+                    <div id="transaction-list" class="space-y-3 max-h-64 overflow-y-auto">
+                        <p class="text-gray-400 text-center py-4">거래 내역이 없습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== 가격표 페이지 ====== -->
+        <section id="page-pricing" class="page-content hidden">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold mb-2">💎 서비스 가격표</h1>
+                <p class="text-gray-500">프로젝트에 맞는 패키지를 선택하세요</p>
+            </div>
+
+            <!-- 모델 토글 -->
+            <div class="flex justify-center mb-8">
+                <div class="bg-gray-100 rounded-lg p-1 inline-flex">
+                    <button id="toggleOnetime" class="pricing-toggle active" onclick="togglePricingModel('onetime')">단건 주문</button>
+                    <button id="toggleSubscription" class="pricing-toggle" onclick="togglePricingModel('subscription')">월 구독</button>
+                </div>
+            </div>
+
+            <!-- 가격 카드 -->
+            <div id="pricing-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            </div>
+
+            <!-- 추가 안내 -->
+            <div class="mt-12 bg-brand-50 rounded-xl p-6 max-w-3xl mx-auto">
+                <h3 class="font-bold text-brand-800 mb-3">📌 주문 안내사항</h3>
+                <ul class="space-y-2 text-sm text-brand-700">
+                    <li>• 모든 작업물은 상업적 사용이 가능합니다</li>
+                    <li>• 수정 횟수 초과 시 건당 추가 비용이 발생합니다</li>
+                    <li>• 긴급 작업(24시간 내) 시 50% 추가 비용이 적용됩니다</li>
+                    <li>• 구독 모델은 매월 자동 갱신되며, 미사용분은 이월되지 않습니다</li>
+                    <li>• 원본 파일(PSD, AI 등)은 별도 요청 시 제공됩니다</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 주문 생성/수정 모달 -->
+    <div id="orderModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h2 id="orderModalTitle" class="text-xl font-bold">새 주문 생성</h2>
+                <button onclick="closeOrderModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <form id="orderForm" class="space-y-4">
+                <input type="hidden" id="orderId">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">고객명 *</label>
+                    <input type="text" id="customerName" required class="form-input" placeholder="고객 이름 입력">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">연락처 (이메일/전화)</label>
+                    <input type="text" id="customerContact" class="form-input" placeholder="연락처 입력">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">패키지 유형 *</label>
+                    <select id="packageType" required class="form-input">
+                        <option value="">선택하세요</option>
+                        <option value="thumbnail">SNS 썸네일</option>
+                        <option value="video">유튜브 영상</option>
+                        <option value="detail-page">쇼핑몰 상세페이지</option>
+                        <option value="logo">로고/브랜딩</option>
+                        <option value="bundle">종합 패키지</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">금액 (원) *</label>
+                    <input type="number" id="orderPrice" required class="form-input" placeholder="금액 입력" min="0" step="10000">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">작업 설명</label>
+                    <textarea id="orderDesc" class="form-input" rows="3" placeholder="작업 요구사항을 상세히 입력하세요"></textarea>
+                </div>
+                <div class="flex gap-3 pt-2">
+                    <button type="submit" class="flex-1 bg-brand-600 text-white py-3 rounded-lg hover:bg-brand-700 font-medium">저장하기</button>
+                    <button type="button" onclick="closeOrderModal()" class="flex-1 bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 font-medium">취소</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 주문 상세 모달 -->
+    <div id="orderDetailModal" class="modal-overlay hidden">
+        <div class="modal-content max-w-lg">
+            <div class="flex items-center justify-between mb-6">
+                <h2 id="detailTitle" class="text-xl font-bold">주문 상세</h2>
+                <button onclick="closeDetailModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <div id="orderDetailContent"></div>
+        </div>
+    </div>
+
+    <!-- 포트폴리오 모달 -->
+    <div id="portfolioModal" class="modal-overlay hidden">
+        <div class="modal-content max-w-2xl">
+            <div class="flex items-center justify-between mb-4">
+                <h2 id="portfolioModalTitle" class="text-xl font-bold"></h2>
+                <button onclick="closePortfolioModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <div id="portfolioModalContent"></div>
+        </div>
+    </div>
+
+    <!-- 토스트 알림 -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-gray-800 text-white px-6 py-3 rounded-xl shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50 text-sm">
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

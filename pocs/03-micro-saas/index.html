@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>예약잇다 - 소상공인 예약 관리 시스템</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            kakao: '#FEE500',
+            kakaoBrown: '#3C1E1E',
+            primary: '#4F46E5',
+            primaryDark: '#4338CA',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- Mobile Nav Overlay -->
+  <div id="mobileNavOverlay" class="fixed inset-0 bg-black/50 z-40 hidden" onclick="toggleMobileNav()"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white shadow-lg z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+    <div class="p-5 border-b">
+      <h1 class="text-xl font-bold text-primary">📅 예약잇다</h1>
+      <p class="text-xs text-gray-500 mt-1">소상공인 예약 관리</p>
+    </div>
+    <nav class="p-4 space-y-1">
+      <a href="#" onclick="showPage('dashboard')" class="nav-item active flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium" data-page="dashboard">
+        <span>📊</span> 대시보드
+      </a>
+      <a href="#" onclick="showPage('calendar')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium" data-page="calendar">
+        <span>📆</span> 예약 관리
+      </a>
+      <a href="#" onclick="showPage('customers')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium" data-page="customers">
+        <span>👥</span> 고객 관리
+      </a>
+      <a href="#" onclick="showPage('notifications')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium" data-page="notifications">
+        <span>💬</span> 알림톡 미리보기
+      </a>
+      <a href="#" onclick="showPage('booking')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium" data-page="booking">
+        <span>🌐</span> 고객 예약 페이지
+      </a>
+      <a href="#" onclick="showPage('pricing')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium" data-page="pricing">
+        <span>💳</span> 요금제
+      </a>
+    </nav>
+    <div class="absolute bottom-0 left-0 right-0 p-4 border-t bg-gray-50">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold">김</div>
+        <div>
+          <p class="text-sm font-medium">김사장님</p>
+          <p class="text-xs text-gray-500">뷰티헤어살롱</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="lg:ml-64 min-h-screen">
+    <!-- Top Bar -->
+    <header class="bg-white shadow-sm sticky top-0 z-30 px-4 py-3 flex items-center justify-between">
+      <button onclick="toggleMobileNav()" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <h2 id="pageTitle" class="text-lg font-bold">대시보드</h2>
+      <button onclick="showNewReservationModal()" class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primaryDark transition">
+        + 새 예약
+      </button>
+    </header>
+
+    <!-- Page: Dashboard -->
+    <div id="page-dashboard" class="page-content p-4 md:p-6 space-y-6">
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl p-4 shadow-sm border">
+          <p class="text-xs text-gray-500 mb-1">오늘 전체 예약</p>
+          <p id="statTotal" class="text-2xl font-bold text-gray-800">0</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-l-4 border-l-green-500">
+          <p class="text-xs text-gray-500 mb-1">확정</p>
+          <p id="statConfirmed" class="text-2xl font-bold text-green-600">0</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-l-4 border-l-yellow-500">
+          <p class="text-xs text-gray-500 mb-1">대기</p>
+          <p id="statPending" class="text-2xl font-bold text-yellow-600">0</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-l-4 border-l-red-500">
+          <p class="text-xs text-gray-500 mb-1">취소</p>
+          <p id="statCancelled" class="text-2xl font-bold text-red-600">0</p>
+        </div>
+      </div>
+
+      <!-- Weekly Stats -->
+      <div class="bg-white rounded-xl p-5 shadow-sm border">
+        <h3 class="text-sm font-bold mb-4">📈 주간 예약 통계</h3>
+        <div id="weeklyChart" class="flex items-end gap-2 h-40"></div>
+        <div id="weeklyLabels" class="flex gap-2 mt-2"></div>
+      </div>
+
+      <!-- Today's Reservations -->
+      <div class="bg-white rounded-xl shadow-sm border">
+        <div class="p-4 border-b flex justify-between items-center">
+          <h3 class="text-sm font-bold">🕐 오늘의 예약</h3>
+          <span id="todayDate" class="text-xs text-gray-500"></span>
+        </div>
+        <div id="todayReservations" class="divide-y">
+          <!-- Dynamic content -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Page: Calendar -->
+    <div id="page-calendar" class="page-content p-4 md:p-6 space-y-6 hidden">
+      <div class="bg-white rounded-xl shadow-sm border">
+        <div class="p-4 border-b flex justify-between items-center">
+          <button onclick="changeMonth(-1)" class="p-2 hover:bg-gray-100 rounded-lg">◀</button>
+          <h3 id="calendarTitle" class="text-base font-bold"></h3>
+          <button onclick="changeMonth(1)" class="p-2 hover:bg-gray-100 rounded-lg">▶</button>
+        </div>
+        <!-- Day headers -->
+        <div class="grid grid-cols-7 text-center text-xs font-medium text-gray-500 border-b py-2">
+          <div class="text-red-500">일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div class="text-blue-500">토</div>
+        </div>
+        <div id="calendarGrid" class="grid grid-cols-7"></div>
+      </div>
+
+      <!-- Selected Date Reservations -->
+      <div class="bg-white rounded-xl shadow-sm border">
+        <div class="p-4 border-b">
+          <h3 id="selectedDateTitle" class="text-sm font-bold">날짜를 선택하세요</h3>
+        </div>
+        <div id="selectedDateReservations" class="divide-y">
+          <p class="p-4 text-sm text-gray-400 text-center">캘린더에서 날짜를 선택해주세요</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page: Customers -->
+    <div id="page-customers" class="page-content p-4 md:p-6 space-y-6 hidden">
+      <div class="bg-white rounded-xl shadow-sm border">
+        <div class="p-4 border-b">
+          <input id="customerSearch" type="text" placeholder="🔍 고객 이름 또는 연락처 검색..." 
+                 class="w-full px-4 py-2.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                 oninput="filterCustomers()">
+        </div>
+        <div id="customerList" class="divide-y">
+          <!-- Dynamic content -->
+        </div>
+      </div>
+
+      <!-- Customer Detail Modal -->
+      <div id="customerDetailPanel" class="bg-white rounded-xl shadow-sm border hidden">
+        <div class="p-4 border-b flex justify-between items-center">
+          <h3 id="customerDetailName" class="text-sm font-bold">고객 상세</h3>
+          <button onclick="document.getElementById('customerDetailPanel').classList.add('hidden')" class="text-gray-400 hover:text-gray-600">✕</button>
+        </div>
+        <div class="p-4 space-y-3">
+          <div class="flex gap-4 text-sm">
+            <span class="text-gray-500 w-20">연락처</span>
+            <span id="customerDetailPhone" class="font-medium"></span>
+          </div>
+          <div class="flex gap-4 text-sm">
+            <span class="text-gray-500 w-20">총 방문</span>
+            <span id="customerDetailVisits" class="font-medium"></span>
+          </div>
+          <div class="flex gap-4 text-sm">
+            <span class="text-gray-500 w-20">마지막 방문</span>
+            <span id="customerDetailLastVisit" class="font-medium"></span>
+          </div>
+        </div>
+        <div class="border-t">
+          <h4 class="px-4 pt-3 text-xs font-bold text-gray-500">방문 이력</h4>
+          <div id="customerVisitHistory" class="p-4 space-y-2">
+            <!-- Dynamic content -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page: Notifications -->
+    <div id="page-notifications" class="page-content p-4 md:p-6 space-y-6 hidden">
+      <div class="flex gap-2 overflow-x-auto pb-2">
+        <button onclick="showNotificationType('confirm')" class="notif-tab active whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-kakao text-kakaoBrown">예약 확인</button>
+        <button onclick="showNotificationType('reminder')" class="notif-tab whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600">리마인더</button>
+        <button onclick="showNotificationType('cancel')" class="notif-tab whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600">예약 취소</button>
+      </div>
+
+      <!-- Kakao-style Preview -->
+      <div class="flex justify-center">
+        <div class="w-full max-w-sm">
+          <!-- Phone frame -->
+          <div class="bg-[#B2C7D9] rounded-2xl p-4 min-h-[500px]">
+            <!-- Chat header -->
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-10 h-10 rounded-full bg-kakao flex items-center justify-center text-lg">📅</div>
+              <div>
+                <p class="text-sm font-bold">예약잇다 알림</p>
+                <p class="text-xs text-gray-600">뷰티헤어살롱</p>
+              </div>
+            </div>
+            <!-- Message bubble -->
+            <div class="flex gap-2">
+              <div class="w-8 h-8 rounded-full bg-kakao flex items-center justify-center text-sm flex-shrink-0">📅</div>
+              <div id="kakaoMessage" class="bg-white rounded-xl rounded-tl-none p-4 shadow-sm max-w-[260px]">
+                <!-- Dynamic content -->
+              </div>
+            </div>
+            <p class="text-xs text-gray-600 mt-2 ml-10" id="kakaoTime"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page: Public Booking -->
+    <div id="page-booking" class="page-content hidden">
+      <div class="max-w-lg mx-auto">
+        <!-- Shop Header -->
+        <div class="bg-gradient-to-br from-primary to-purple-600 text-white p-6 text-center">
+          <div class="w-16 h-16 bg-white/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl">✂️</div>
+          <h2 class="text-xl font-bold">뷰티헤어살롱</h2>
+          <p class="text-sm text-white/80 mt-1">서울시 강남구 역삼동 123-45</p>
+          <p class="text-sm text-white/80">📞 02-1234-5678</p>
+        </div>
+
+        <!-- Booking Steps -->
+        <div class="p-4 space-y-4">
+          <!-- Step indicator -->
+          <div class="flex items-center justify-center gap-2 py-3">
+            <span id="step1dot" class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">1</span>
+            <div class="w-8 h-0.5 bg-gray-200"></div>
+            <span id="step2dot" class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-xs font-bold">2</span>
+            <div class="w-8 h-0.5 bg-gray-200"></div>
+            <span id="step3dot" class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-xs font-bold">3</span>
+          </div>
+
+          <!-- Step 1: Service Selection -->
+          <div id="bookingStep1" class="space-y-3">
+            <h3 class="font-bold text-base">서비스 선택</h3>
+            <div class="space-y-2" id="serviceList">
+              <!-- Dynamic -->
+            </div>
+          </div>
+
+          <!-- Step 2: Date & Time -->
+          <div id="bookingStep2" class="space-y-3 hidden">
+            <h3 class="font-bold text-base">날짜 및 시간 선택</h3>
+            <input type="date" id="bookingDate" class="w-full px-4 py-3 border rounded-lg text-sm" onchange="loadAvailableTimes()">
+            <div id="timeSlots" class="grid grid-cols-3 gap-2">
+              <!-- Dynamic -->
+            </div>
+            <button onclick="goBookingStep(1)" class="w-full py-2 text-sm text-gray-500 border rounded-lg">← 이전</button>
+          </div>
+
+          <!-- Step 3: Customer Info -->
+          <div id="bookingStep3" class="space-y-3 hidden">
+            <h3 class="font-bold text-base">예약자 정보</h3>
+            <input type="text" id="bookingName" placeholder="이름" class="w-full px-4 py-3 border rounded-lg text-sm">
+            <input type="tel" id="bookingPhone" placeholder="연락처 (010-0000-0000)" class="w-full px-4 py-3 border rounded-lg text-sm">
+            <textarea id="bookingMemo" placeholder="요청사항 (선택)" class="w-full px-4 py-3 border rounded-lg text-sm" rows="3"></textarea>
+
+            <div class="bg-gray-50 rounded-lg p-4 text-sm space-y-1">
+              <p class="font-bold">예약 요약</p>
+              <p id="bookingSummaryService" class="text-gray-600"></p>
+              <p id="bookingSummaryDateTime" class="text-gray-600"></p>
+            </div>
+
+            <button onclick="submitBooking()" class="w-full py-3 bg-primary text-white rounded-lg font-bold text-sm hover:bg-primaryDark transition">예약하기</button>
+            <button onclick="goBookingStep(2)" class="w-full py-2 text-sm text-gray-500 border rounded-lg">← 이전</button>
+          </div>
+
+          <!-- Booking Complete -->
+          <div id="bookingComplete" class="hidden text-center py-10 space-y-4">
+            <div class="text-5xl">✅</div>
+            <h3 class="text-lg font-bold">예약이 완료되었습니다!</h3>
+            <p class="text-sm text-gray-500">확인 알림톡이 발송됩니다.</p>
+            <div class="bg-gray-50 rounded-lg p-4 text-sm text-left space-y-1">
+              <p id="completeService" class="text-gray-600"></p>
+              <p id="completeDateTime" class="text-gray-600"></p>
+              <p id="completeName" class="text-gray-600"></p>
+            </div>
+            <button onclick="resetBooking()" class="px-6 py-2 bg-primary text-white rounded-lg text-sm font-medium">새 예약하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page: Pricing -->
+    <div id="page-pricing" class="page-content p-4 md:p-6 hidden">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-bold">합리적인 요금제</h2>
+        <p class="text-sm text-gray-500 mt-2">매장 규모에 맞게 선택하세요. 언제든 변경 가능!</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <!-- Free -->
+        <div class="bg-white rounded-2xl shadow-sm border p-6 space-y-4">
+          <div>
+            <h3 class="text-lg font-bold">Free</h3>
+            <p class="text-xs text-gray-500">시작하기 좋은 무료 플랜</p>
+          </div>
+          <div>
+            <span class="text-3xl font-bold">₩0</span>
+            <span class="text-sm text-gray-500">/월</span>
+          </div>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 월 30건 예약</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 기본 캘린더</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 고객 50명 관리</li>
+            <li class="flex items-center gap-2 text-gray-400"><span>✗</span> 알림톡 발송</li>
+            <li class="flex items-center gap-2 text-gray-400"><span>✗</span> 통계 분석</li>
+            <li class="flex items-center gap-2 text-gray-400"><span>✗</span> 커스텀 예약 페이지</li>
+          </ul>
+          <button class="w-full py-3 border-2 border-primary text-primary rounded-xl font-bold text-sm hover:bg-primary/5 transition">무료로 시작</button>
+        </div>
+
+        <!-- Pro -->
+        <div class="bg-white rounded-2xl shadow-lg border-2 border-primary p-6 space-y-4 relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs px-3 py-1 rounded-full font-bold">인기</div>
+          <div>
+            <h3 class="text-lg font-bold">Pro</h3>
+            <p class="text-xs text-gray-500">성장하는 매장에 딱!</p>
+          </div>
+          <div>
+            <span class="text-3xl font-bold">₩30,000</span>
+            <span class="text-sm text-gray-500">/월</span>
+          </div>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 무제한 예약</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 고급 캘린더</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 고객 500명 관리</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 알림톡 월 200건</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 기본 통계</li>
+            <li class="flex items-center gap-2 text-gray-400"><span>✗</span> 직원 관리</li>
+          </ul>
+          <button class="w-full py-3 bg-primary text-white rounded-xl font-bold text-sm hover:bg-primaryDark transition">Pro 시작하기</button>
+        </div>
+
+        <!-- Business -->
+        <div class="bg-white rounded-2xl shadow-sm border p-6 space-y-4">
+          <div>
+            <h3 class="text-lg font-bold">Business</h3>
+            <p class="text-xs text-gray-500">다지점/대형 매장용</p>
+          </div>
+          <div>
+            <span class="text-3xl font-bold">₩80,000</span>
+            <span class="text-sm text-gray-500">/월</span>
+          </div>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 무제한 예약</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 고급 캘린더</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 무제한 고객 관리</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 알림톡 무제한</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 고급 통계/분석</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 직원 5명 관리</li>
+          </ul>
+          <button class="w-full py-3 border-2 border-gray-800 text-gray-800 rounded-xl font-bold text-sm hover:bg-gray-50 transition">Business 시작하기</button>
+        </div>
+      </div>
+
+      <!-- Feature Comparison -->
+      <div class="mt-10 max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border overflow-hidden">
+        <h3 class="p-4 font-bold text-sm border-b bg-gray-50">기능 비교표</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b bg-gray-50">
+                <th class="text-left px-4 py-3 font-medium">기능</th>
+                <th class="text-center px-4 py-3 font-medium">Free</th>
+                <th class="text-center px-4 py-3 font-medium text-primary">Pro</th>
+                <th class="text-center px-4 py-3 font-medium">Business</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y">
+              <tr><td class="px-4 py-3">예약 건수</td><td class="text-center px-4 py-3">30건/월</td><td class="text-center px-4 py-3">무제한</td><td class="text-center px-4 py-3">무제한</td></tr>
+              <tr><td class="px-4 py-3">고객 관리</td><td class="text-center px-4 py-3">50명</td><td class="text-center px-4 py-3">500명</td><td class="text-center px-4 py-3">무제한</td></tr>
+              <tr><td class="px-4 py-3">알림톡</td><td class="text-center px-4 py-3">✗</td><td class="text-center px-4 py-3">200건/월</td><td class="text-center px-4 py-3">무제한</td></tr>
+              <tr><td class="px-4 py-3">통계/분석</td><td class="text-center px-4 py-3">✗</td><td class="text-center px-4 py-3">기본</td><td class="text-center px-4 py-3">고급</td></tr>
+              <tr><td class="px-4 py-3">직원 관리</td><td class="text-center px-4 py-3">✗</td><td class="text-center px-4 py-3">✗</td><td class="text-center px-4 py-3">5명</td></tr>
+              <tr><td class="px-4 py-3">커스텀 예약 페이지</td><td class="text-center px-4 py-3">✗</td><td class="text-center px-4 py-3">✓</td><td class="text-center px-4 py-3">✓</td></tr>
+              <tr><td class="px-4 py-3">API 연동</td><td class="text-center px-4 py-3">✗</td><td class="text-center px-4 py-3">✗</td><td class="text-center px-4 py-3">✓</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- New Reservation Modal -->
+  <div id="reservationModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-end sm:items-center justify-center">
+    <div class="bg-white w-full sm:max-w-md sm:rounded-2xl rounded-t-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-base">새 예약 추가</h3>
+        <button onclick="closeReservationModal()" class="text-gray-400 hover:text-gray-600 text-xl">✕</button>
+      </div>
+      <div class="space-y-3">
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">고객명 *</label>
+          <input type="text" id="resCustomerName" class="w-full px-4 py-2.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="홍길동">
+        </div>
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">연락처 *</label>
+          <input type="tel" id="resCustomerPhone" class="w-full px-4 py-2.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="010-1234-5678">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-gray-500 mb-1 block">날짜 *</label>
+            <input type="date" id="resDate" class="w-full px-4 py-2.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
+          </div>
+          <div>
+            <label class="text-xs text-gray-500 mb-1 block">시간 *</label>
+            <input type="time" id="resTime" class="w-full px-4 py-2.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
+          </div>
+        </div>
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">서비스 *</label>
+          <select id="resService" class="w-full px-4 py-2.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
+            <option value="">선택하세요</option>
+            <option value="커트">커트 (₩15,000)</option>
+            <option value="펌">펌 (₩50,000)</option>
+            <option value="염색">염색 (₩40,000)</option>
+            <option value="클리닉">클리닉 (₩30,000)</option>
+            <option value="드라이">드라이 (₩10,000)</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">상태</label>
+          <select id="resStatus" class="w-full px-4 py-2.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
+            <option value="confirmed">확정</option>
+            <option value="pending">대기</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">메모</label>
+          <textarea id="resMemo" class="w-full px-4 py-2.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" rows="2" placeholder="특이사항 입력"></textarea>
+        </div>
+      </div>
+      <button onclick="saveReservation()" class="w-full py-3 bg-primary text-white rounded-xl font-bold text-sm hover:bg-primaryDark transition">예약 저장</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

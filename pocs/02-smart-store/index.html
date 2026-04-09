@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트셀러 - 네이버 스마트스토어 위탁판매 관리 도구</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Noto Sans KR', 'sans-serif'] },
+                    colors: {
+                        naver: { DEFAULT: '#03C75A', dark: '#02a34a', light: '#e6f9ee' },
+                        smart: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-naver rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-sm">SS</span>
+                </div>
+                <h1 class="text-lg font-bold text-gray-900">스마트셀러</h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:inline text-sm text-gray-500">위탁판매 관리 도구</span>
+                <div class="w-8 h-8 bg-naver-light rounded-full flex items-center justify-center">
+                    <span class="text-naver font-semibold text-xs">셀러</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-white border-b border-gray-200 overflow-x-auto" id="mainNav">
+        <div class="max-w-7xl mx-auto px-4 flex gap-1 min-w-max">
+            <button class="nav-tab active" data-tab="sourcing">
+                <span class="text-lg">📦</span>
+                <span>상품 소싱</span>
+            </button>
+            <button class="nav-tab" data-tab="listing">
+                <span class="text-lg">✨</span>
+                <span>AI 등록</span>
+            </button>
+            <button class="nav-tab" data-tab="orders">
+                <span class="text-lg">🛒</span>
+                <span>주문 관리</span>
+            </button>
+            <button class="nav-tab" data-tab="calculator">
+                <span class="text-lg">🧮</span>
+                <span>수익 계산</span>
+            </button>
+            <button class="nav-tab" data-tab="keywords">
+                <span class="text-lg">🔍</span>
+                <span>키워드</span>
+            </button>
+            <button class="nav-tab" data-tab="analytics">
+                <span class="text-lg">📊</span>
+                <span>매출 분석</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6">
+
+        <!-- ========== 1. 상품 소싱 대시보드 ========== -->
+        <section id="tab-sourcing" class="tab-content active">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-xl font-bold">상품 소싱</h2>
+                    <p class="text-sm text-gray-500">도매매/도매꾹에서 수익성 높은 상품을 찾아보세요</p>
+                </div>
+                <div class="flex gap-2">
+                    <select id="sourcingSupplier" class="input-field text-sm py-2">
+                        <option value="all">전체 도매처</option>
+                        <option value="도매매">도매매</option>
+                        <option value="도매꾹">도매꾹</option>
+                    </select>
+                    <select id="sourcingCategory" class="input-field text-sm py-2">
+                        <option value="all">전체 카테고리</option>
+                        <option value="패션">패션</option>
+                        <option value="뷰티">뷰티</option>
+                        <option value="생활">생활/주방</option>
+                        <option value="전자기기">전자기기</option>
+                        <option value="식품">식품</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Margin filter -->
+            <div class="bg-white rounded-xl p-4 mb-4 border border-gray-200 flex flex-wrap gap-4 items-center">
+                <span class="text-sm font-medium text-gray-700">최소 마진율:</span>
+                <input type="range" id="marginFilter" min="0" max="50" value="10" class="w-32 accent-naver">
+                <span id="marginFilterValue" class="text-sm font-bold text-naver">10%</span>
+                <span class="text-sm text-gray-400 ml-auto" id="productCount">0개 상품</span>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="sourcingGrid">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- ========== 2. AI 상품 등록 ========== -->
+        <section id="tab-listing" class="tab-content hidden">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold">AI 원클릭 상품 등록</h2>
+                <p class="text-sm text-gray-500">AI가 네이버 SEO 최적화된 상품 정보를 자동 생성합니다</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Source Product Info -->
+                <div class="bg-white rounded-xl p-6 border border-gray-200">
+                    <h3 class="font-semibold text-gray-900 mb-4">📦 원본 상품 정보</h3>
+                    <div id="listingSourceProduct" class="text-center text-gray-400 py-10">
+                        <p class="text-4xl mb-2">👆</p>
+                        <p>상품 소싱 탭에서 상품을 선택해주세요</p>
+                        <p class="text-sm mt-1">또는 아래에서 직접 입력하세요</p>
+                    </div>
+                    <div class="space-y-3 mt-4">
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">상품명</label>
+                            <input type="text" id="listingOriginalName" class="input-field" placeholder="원본 상품명 입력">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">카테고리</label>
+                            <select id="listingCategory" class="input-field">
+                                <option value="패션">패션</option>
+                                <option value="뷰티">뷰티</option>
+                                <option value="생활">생활/주방</option>
+                                <option value="전자기기">전자기기</option>
+                                <option value="식품">식품</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-sm font-medium text-gray-700">매입가</label>
+                                <input type="number" id="listingCost" class="input-field" placeholder="0">
+                            </div>
+                            <div>
+                                <label class="text-sm font-medium text-gray-700">판매가</label>
+                                <input type="number" id="listingPrice" class="input-field" placeholder="0">
+                            </div>
+                        </div>
+                        <button id="generateListingBtn" class="w-full bg-naver hover:bg-naver-dark text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <span>✨</span> AI 상품 설명 생성
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI Generated Content -->
+                <div class="bg-white rounded-xl p-6 border border-gray-200">
+                    <h3 class="font-semibold text-gray-900 mb-4">🤖 AI 생성 결과</h3>
+                    <div id="aiResultPlaceholder" class="text-center text-gray-400 py-10">
+                        <p class="text-4xl mb-2">🤖</p>
+                        <p>AI 생성 버튼을 눌러주세요</p>
+                    </div>
+                    <div id="aiResult" class="space-y-4 hidden">
+                        <div>
+                            <label class="text-sm font-medium text-naver">최적화된 상품명</label>
+                            <div id="aiTitle" class="p-3 bg-naver-light rounded-lg text-sm font-medium"></div>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-naver">상세 설명</label>
+                            <div id="aiDescription" class="p-3 bg-gray-50 rounded-lg text-sm whitespace-pre-line max-h-48 overflow-y-auto"></div>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-naver">SEO 키워드</label>
+                            <div id="aiKeywords" class="flex flex-wrap gap-2 mt-1"></div>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-naver">해시태그</label>
+                            <div id="aiHashtags" class="p-3 bg-gray-50 rounded-lg text-sm text-blue-600"></div>
+                        </div>
+                        <button id="saveListingBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors">
+                            💾 상품 등록 저장
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saved Listings -->
+            <div class="mt-8">
+                <h3 class="font-semibold text-gray-900 mb-4">📋 등록된 상품 목록</h3>
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-50 border-b border-gray-200">
+                                <tr>
+                                    <th class="px-4 py-3 text-left font-semibold">상품명</th>
+                                    <th class="px-4 py-3 text-left font-semibold hidden sm:table-cell">카테고리</th>
+                                    <th class="px-4 py-3 text-right font-semibold">매입가</th>
+                                    <th class="px-4 py-3 text-right font-semibold">판매가</th>
+                                    <th class="px-4 py-3 text-center font-semibold">상태</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listingsTable">
+                                <tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">등록된 상품이 없습니다</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 3. 주문 관리 ========== -->
+        <section id="tab-orders" class="tab-content hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-xl font-bold">주문 관리</h2>
+                    <p class="text-sm text-gray-500">들어온 주문을 확인하고 처리하세요</p>
+                </div>
+                <button id="addMockOrderBtn" class="bg-naver hover:bg-naver-dark text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+                    + 테스트 주문 추가
+                </button>
+            </div>
+
+            <!-- Order Stats -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                <div class="bg-white rounded-xl p-4 border border-gray-200 text-center">
+                    <div class="text-2xl font-bold text-red-500" id="orderNewCount">0</div>
+                    <div class="text-xs text-gray-500 mt-1">신규주문</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-200 text-center">
+                    <div class="text-2xl font-bold text-yellow-500" id="orderProcessingCount">0</div>
+                    <div class="text-xs text-gray-500 mt-1">처리중</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-200 text-center">
+                    <div class="text-2xl font-bold text-blue-500" id="orderShippingCount">0</div>
+                    <div class="text-xs text-gray-500 mt-1">배송중</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-200 text-center">
+                    <div class="text-2xl font-bold text-green-500" id="orderCompleteCount">0</div>
+                    <div class="text-xs text-gray-500 mt-1">배송완료</div>
+                </div>
+            </div>
+
+            <!-- Order Filter Tabs -->
+            <div class="flex gap-2 mb-4 overflow-x-auto">
+                <button class="order-filter-tab active" data-filter="all">전체</button>
+                <button class="order-filter-tab" data-filter="신규주문">신규주문</button>
+                <button class="order-filter-tab" data-filter="처리중">처리중</button>
+                <button class="order-filter-tab" data-filter="배송중">배송중</button>
+                <button class="order-filter-tab" data-filter="배송완료">배송완료</button>
+            </div>
+
+            <!-- Order List -->
+            <div class="space-y-3" id="orderList">
+                <div class="text-center text-gray-400 py-10">주문이 없습니다</div>
+            </div>
+        </section>
+
+        <!-- ========== 4. 수익 계산기 ========== -->
+        <section id="tab-calculator" class="tab-content hidden">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold">수익 계산기</h2>
+                <p class="text-sm text-gray-500">매입가, 판매가, 수수료를 입력하면 순수익을 자동 계산합니다</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Calculator Input -->
+                <div class="bg-white rounded-xl p-6 border border-gray-200">
+                    <h3 class="font-semibold text-gray-900 mb-4">💰 비용 입력</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">카테고리</label>
+                            <select id="calcCategory" class="input-field">
+                                <option value="5.5">패션의류/잡화 (5.5%)</option>
+                                <option value="4.0">뷰티 (4.0%)</option>
+                                <option value="6.0">생활/주방 (6.0%)</option>
+                                <option value="3.5">전자기기 (3.5%)</option>
+                                <option value="7.0">식품 (7.0%)</option>
+                                <option value="5.0">기타 (5.0%)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">매입가 (원)</label>
+                            <input type="number" id="calcCost" class="input-field text-lg" placeholder="10000" value="10000">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">판매가 (원)</label>
+                            <input type="number" id="calcPrice" class="input-field text-lg" placeholder="25000" value="25000">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">배송비 (원)</label>
+                            <input type="number" id="calcShipping" class="input-field" placeholder="3000" value="3000">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">예상 월 판매수량</label>
+                            <input type="number" id="calcQuantity" class="input-field" placeholder="100" value="100">
+                        </div>
+                        <button id="calculateBtn" class="w-full bg-naver hover:bg-naver-dark text-white font-semibold py-3 rounded-lg transition-colors">
+                            🧮 계산하기
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Calculator Result -->
+                <div class="bg-white rounded-xl p-6 border border-gray-200">
+                    <h3 class="font-semibold text-gray-900 mb-4">📊 수익 분석 결과</h3>
+                    <div id="calcResult" class="space-y-4">
+                        <div class="text-center text-gray-400 py-10">
+                            <p class="text-4xl mb-2">🧮</p>
+                            <p>비용을 입력하고 계산 버튼을 눌러주세요</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bulk Calculator -->
+            <div class="mt-8 bg-white rounded-xl p-6 border border-gray-200">
+                <h3 class="font-semibold text-gray-900 mb-4">📋 일괄 수익 계산 내역</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-50 border-b border-gray-200">
+                            <tr>
+                                <th class="px-3 py-2 text-left">상품명</th>
+                                <th class="px-3 py-2 text-right">매입가</th>
+                                <th class="px-3 py-2 text-right">판매가</th>
+                                <th class="px-3 py-2 text-right">수수료</th>
+                                <th class="px-3 py-2 text-right">순수익</th>
+                                <th class="px-3 py-2 text-right">마진율</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calcHistoryTable">
+                            <tr><td colspan="6" class="px-3 py-6 text-center text-gray-400">계산 내역이 없습니다</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 5. 키워드 리서치 ========== -->
+        <section id="tab-keywords" class="tab-content hidden">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold">네이버 SEO 키워드 리서치</h2>
+                <p class="text-sm text-gray-500">네이버 검색 키워드의 검색량과 경쟁도를 분석합니다</p>
+            </div>
+
+            <!-- Search Box -->
+            <div class="bg-white rounded-xl p-4 border border-gray-200 mb-6">
+                <div class="flex gap-2">
+                    <input type="text" id="keywordInput" class="input-field flex-1" placeholder="키워드를 입력하세요 (예: 여성 원피스, 무선 이어폰)">
+                    <button id="keywordSearchBtn" class="bg-naver hover:bg-naver-dark text-white font-medium px-6 py-2 rounded-lg transition-colors whitespace-nowrap">
+                        🔍 분석
+                    </button>
+                </div>
+            </div>
+
+            <!-- Keyword Results -->
+            <div id="keywordResults" class="hidden">
+                <!-- Main Keyword -->
+                <div class="bg-white rounded-xl p-6 border border-gray-200 mb-4">
+                    <h3 class="font-semibold text-gray-900 mb-4">📈 키워드 분석 결과</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="keywordStats">
+                    </div>
+                </div>
+
+                <!-- Related Keywords -->
+                <div class="bg-white rounded-xl p-6 border border-gray-200 mb-4">
+                    <h3 class="font-semibold text-gray-900 mb-4">🔗 연관 키워드</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-50 border-b border-gray-200">
+                                <tr>
+                                    <th class="px-4 py-2 text-left">키워드</th>
+                                    <th class="px-4 py-2 text-right">월간 검색량</th>
+                                    <th class="px-4 py-2 text-center">경쟁도</th>
+                                    <th class="px-4 py-2 text-center">추천도</th>
+                                    <th class="px-4 py-2 text-center">저장</th>
+                                </tr>
+                            </thead>
+                            <tbody id="relatedKeywordsTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saved Keywords -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200">
+                <h3 class="font-semibold text-gray-900 mb-4">⭐ 저장된 키워드</h3>
+                <div id="savedKeywordsList" class="flex flex-wrap gap-2">
+                    <span class="text-gray-400 text-sm">저장된 키워드가 없습니다</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 6. 매출 분석 ========== -->
+        <section id="tab-analytics" class="tab-content hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-xl font-bold">매출 분석 대시보드</h2>
+                    <p class="text-sm text-gray-500">매출, 주문, 수익 추이를 한눈에 확인하세요</p>
+                </div>
+                <select id="analyticsPeriod" class="input-field text-sm py-2 w-auto">
+                    <option value="7">최근 7일</option>
+                    <option value="14">최근 14일</option>
+                    <option value="30" selected>최근 30일</option>
+                </select>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+                <div class="bg-white rounded-xl p-4 border border-gray-200">
+                    <div class="text-xs text-gray-500 mb-1">총 매출</div>
+                    <div class="text-xl font-bold text-gray-900" id="kpiRevenue">₩0</div>
+                    <div class="text-xs text-green-500 mt-1" id="kpiRevenueChange">+0%</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-200">
+                    <div class="text-xs text-gray-500 mb-1">총 주문수</div>
+                    <div class="text-xl font-bold text-gray-900" id="kpiOrders">0건</div>
+                    <div class="text-xs text-green-500 mt-1" id="kpiOrdersChange">+0%</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-200">
+                    <div class="text-xs text-gray-500 mb-1">순수익</div>
+                    <div class="text-xl font-bold text-naver" id="kpiProfit">₩0</div>
+                    <div class="text-xs text-green-500 mt-1" id="kpiProfitChange">+0%</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-200">
+                    <div class="text-xs text-gray-500 mb-1">평균 마진율</div>
+                    <div class="text-xl font-bold text-gray-900" id="kpiMargin">0%</div>
+                    <div class="text-xs text-green-500 mt-1" id="kpiMarginChange">+0%p</div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white rounded-xl p-4 border border-gray-200">
+                    <h3 class="font-semibold text-gray-900 mb-3">📈 매출 추이</h3>
+                    <canvas id="revenueChart" height="200"></canvas>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-200">
+                    <h3 class="font-semibold text-gray-900 mb-3">📦 주문 수 추이</h3>
+                    <canvas id="ordersChart" height="200"></canvas>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl p-4 border border-gray-200">
+                    <h3 class="font-semibold text-gray-900 mb-3">🥧 카테고리별 매출 비중</h3>
+                    <canvas id="categoryChart" height="200"></canvas>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-200">
+                    <h3 class="font-semibold text-gray-900 mb-3">🏆 베스트셀러 TOP 5</h3>
+                    <div id="bestsellerList" class="space-y-3">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-gray-900 text-white px-4 py-3 rounded-lg shadow-lg text-sm transform translate-y-20 opacity-0 transition-all duration-300 z-50"></div>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-lg" id="modalTitle"></h3>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
