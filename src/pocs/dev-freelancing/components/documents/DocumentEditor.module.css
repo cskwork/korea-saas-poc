@@ -1,0 +1,306 @@
+.editor {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+  gap: var(--s8);
+  align-items: start;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.form {
+  display: grid;
+  gap: var(--s6);
+  min-width: 0;
+}
+
+.group {
+  display: grid;
+  gap: var(--s3);
+  min-width: 0;
+  margin: 0;
+  padding: 0 0 var(--s6);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.legend {
+  margin-bottom: var(--s3);
+  padding: 0;
+  font-size: var(--text-lg);
+  font-weight: 650;
+}
+
+/* Line items */
+.lines {
+  display: grid;
+  gap: var(--s2);
+}
+
+.line {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 0.8fr) minmax(0, 0.9fr) minmax(0, 1.2fr) minmax(96px, auto);
+  grid-template-areas:
+    "no title title title tools"
+    ". unit qty price amount";
+  align-items: center;
+  gap: var(--s2);
+  padding-bottom: var(--s3);
+  border-bottom: 1px solid var(--line);
+}
+
+.lineNo {
+  grid-area: no;
+  color: var(--ink-3);
+  font-size: 11px;
+}
+
+.lineTitle {
+  grid-area: title;
+}
+
+.lineTools {
+  grid-area: tools;
+  justify-self: end;
+}
+
+.lineUnit {
+  grid-area: unit;
+}
+
+.lineQty {
+  grid-area: qty;
+}
+
+.linePrice {
+  grid-area: price;
+}
+
+.lineAmount {
+  grid-area: amount;
+}
+
+.lineTitle,
+.lineUnit,
+.lineQty,
+.linePrice {
+  position: relative;
+  min-width: 0;
+}
+
+.lineQty input {
+  padding-right: 24px;
+}
+
+.unitSuffix {
+  position: absolute;
+  top: 50%;
+  right: 9px;
+  color: var(--ink-3);
+  font-family: var(--font-measure);
+  font-size: 11px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.lineAmount {
+  font-size: var(--text-sm);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.lineTools {
+  display: flex;
+  gap: 0;
+}
+
+.addLines {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2) var(--s3);
+}
+
+/* AI / template draft */
+.draft {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.draftSummary {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s3) var(--s4);
+  color: var(--ink-2);
+  font-weight: 650;
+  cursor: pointer;
+  list-style: none;
+}
+
+.draftSummary::-webkit-details-marker {
+  display: none;
+}
+
+.draftSummary svg {
+  color: var(--c3);
+}
+
+.draftSummary:hover {
+  color: var(--ink);
+}
+
+.draftBody {
+  display: grid;
+  gap: var(--s3);
+  padding: 0 var(--s4) var(--s4);
+}
+
+.draftResult {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2);
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
+
+/* Tax choice */
+.taxModes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s2);
+}
+
+.taxMode {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding: var(--s3) var(--s3) var(--s3) 36px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color var(--fast) var(--ease);
+}
+
+.taxMode:hover {
+  border-color: var(--line-strong);
+}
+
+.taxMode[data-checked] {
+  border-color: var(--c3);
+  background: color-mix(in oklch, var(--c3) 7%, transparent);
+}
+
+.taxMode input {
+  position: absolute;
+  top: 14px;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.taxTitle {
+  font-weight: 650;
+}
+
+.taxHint {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+.submitBar {
+  position: sticky;
+  bottom: calc(var(--dock) + var(--s2));
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s3) var(--s5);
+  padding: var(--s3) var(--s4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--raise);
+}
+
+.submitTotals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s5);
+  margin-right: auto;
+}
+
+.submitTotals > div {
+  display: grid;
+}
+
+.submitTotals dt {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+.submitTotals dd {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.preview {
+  position: sticky;
+  top: var(--s6);
+  display: grid;
+  gap: var(--s2);
+  min-width: 0;
+}
+
+.previewLabel {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+@media (max-width: 1280px) {
+  .editor {
+    grid-template-columns: 1fr;
+  }
+
+  .preview {
+    position: static;
+  }
+}
+
+@media (max-width: 520px) {
+  .line {
+    grid-template-columns: 22px minmax(0, 0.8fr) minmax(0, 0.9fr) minmax(0, 1.3fr);
+    grid-template-areas:
+      "no title title title"
+      ". unit qty price"
+      ". tools tools amount";
+  }
+
+  .lineTools {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 720px) {
+  .taxModes {
+    grid-template-columns: 1fr;
+  }
+
+  .submitBar {
+    bottom: calc(var(--dock) + var(--tabbar) + var(--s2));
+  }
+}

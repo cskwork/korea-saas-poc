@@ -1,0 +1,81 @@
+.page {
+  display: grid;
+  gap: var(--s8);
+  min-width: 0;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(300px, 1fr);
+  gap: var(--s8);
+  align-items: start;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+.projectFilter {
+  display: flex;
+  gap: var(--s2);
+  min-width: 0;
+}
+
+.projectFilter select {
+  min-height: 32px;
+  max-width: 240px;
+}
+
+.aside {
+  display: grid;
+  gap: var(--s8);
+  min-width: 0;
+}
+
+.panel {
+  display: grid;
+  gap: var(--s4);
+  padding: var(--s5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.totals {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.totals li {
+  display: grid;
+  gap: var(--s2);
+  padding: var(--s3) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.totalHead {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s3);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 1080px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}

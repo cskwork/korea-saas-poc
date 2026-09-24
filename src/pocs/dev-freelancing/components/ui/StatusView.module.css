@@ -1,0 +1,42 @@
+.view {
+  display: grid;
+  justify-items: start;
+  gap: var(--s3);
+  max-width: 560px;
+  padding: var(--s10) 0;
+}
+
+.cells {
+  display: flex;
+  gap: 4px;
+  margin-bottom: var(--s2);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.text {
+  color: var(--ink-2);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-top: var(--s2);
+}
+
+.digest {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+.standalone {
+  display: grid;
+  min-height: 100dvh;
+  padding: var(--s8) var(--s5);
+  place-items: center;
+}

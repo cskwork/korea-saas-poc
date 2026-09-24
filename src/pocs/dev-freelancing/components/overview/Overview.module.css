@@ -1,0 +1,210 @@
+.page {
+  display: grid;
+  gap: var(--s10);
+}
+
+/* Calendar band: the half-year of squares, with plain facts beside it. */
+.band {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: var(--s4) var(--s8);
+  align-items: start;
+}
+
+.bandHead {
+  grid-column: 1 / -1;
+}
+
+.facts {
+  display: grid;
+  gap: 0;
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.facts > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.facts dt {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+.facts dd {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(280px, 1fr);
+  gap: var(--s8);
+  align-items: start;
+}
+
+.owed {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.late {
+  color: var(--rose);
+  font-weight: 600;
+  font-size: var(--text-xs);
+}
+
+/* Ledger rows (money owed, estimates waiting). */
+.ledger {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.ledgerRow {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--s2) var(--s4);
+  padding: var(--s3) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.ledgerWhat {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ledgerWhat a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ledgerSub {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+.ledgerAmount {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  font-weight: 650;
+}
+
+.ledgerAction {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 88px;
+}
+
+/* This month */
+.month {
+  display: grid;
+  gap: var(--s4);
+  padding: var(--s5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.goalLine {
+  font-size: var(--text-lg);
+}
+
+.goalLine strong {
+  font-weight: 700;
+}
+
+.monthFacts {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.monthFacts > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-sm);
+}
+
+.monthFacts dt {
+  color: var(--ink-3);
+}
+
+.monthFacts dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Active projects */
+.projects {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.projectRow {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.1fr) minmax(0, 1.4fr) minmax(160px, 0.8fr);
+  align-items: center;
+  gap: var(--s3) var(--s6);
+  padding: var(--s4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.projectWhat {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.projectNext {
+  display: grid;
+  gap: 2px;
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 1180px) {
+  .band {
+    grid-template-columns: 1fr;
+  }
+
+  .facts {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    column-gap: var(--s6);
+  }
+}
+
+@media (max-width: 960px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .projectRow {
+    grid-template-columns: 1fr;
+    gap: var(--s2);
+  }
+}
+
+@media (max-width: 560px) {
+  .ledgerRow {
+    grid-template-columns: 12px minmax(0, 1fr) auto;
+  }
+
+  .ledgerAction {
+    grid-column: 2 / -1;
+    justify-content: flex-start;
+    min-width: 0;
+  }
+}
