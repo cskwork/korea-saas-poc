@@ -1,0 +1,159 @@
+/*
+ * 에듀마켓 — the semester timetable.
+ * Cool near-white timetable paper, hairline rules that measure time and rows,
+ * and one block colour per course. Filled block = course, outlined block = product.
+ */
+.root {
+  /* Paper and rules */
+  --paper: oklch(0.993 0.002 255);
+  --paper-sunk: oklch(0.974 0.005 255);
+  --paper-deep: oklch(0.952 0.008 255);
+  --rule: oklch(0.912 0.007 255);
+  --rule-strong: oklch(0.845 0.011 255);
+
+  /* Ink */
+  --ink: oklch(0.235 0.03 262);
+  --ink-soft: oklch(0.43 0.024 262);
+  --ink-mute: oklch(0.53 0.018 262);
+  --on-ink: oklch(0.985 0.004 255);
+
+  /* Today / now, focus and states */
+  --lemon: oklch(0.925 0.14 102);
+  --lemon-wash: oklch(0.978 0.04 102);
+  --lemon-ink: oklch(0.44 0.095 95);
+  --focus: oklch(0.56 0.19 258);
+  --danger: oklch(0.53 0.19 27);
+  --danger-wash: oklch(0.965 0.022 27);
+  --ok: oklch(0.5 0.12 158);
+  --ok-wash: oklch(0.962 0.03 158);
+  --warn: oklch(0.5 0.12 62);
+  --warn-wash: oklch(0.965 0.04 75);
+
+  /* Course block palette: fill, ink (text on fill) and edge */
+  --sky: oklch(0.865 0.068 236);
+  --sky-ink: oklch(0.37 0.1 250);
+  --sky-edge: oklch(0.7 0.11 242);
+  --pink: oklch(0.865 0.07 352);
+  --pink-ink: oklch(0.41 0.13 356);
+  --pink-edge: oklch(0.72 0.12 355);
+  --mint: oklch(0.88 0.075 170);
+  --mint-ink: oklch(0.38 0.075 176);
+  --mint-edge: oklch(0.7 0.1 172);
+  --tangerine: oklch(0.875 0.09 62);
+  --tangerine-ink: oklch(0.43 0.11 52);
+  --tangerine-edge: oklch(0.74 0.13 58);
+  --lavender: oklch(0.855 0.07 296);
+  --lavender-ink: oklch(0.4 0.13 296);
+  --lavender-edge: oklch(0.7 0.12 296);
+  --tomato: oklch(0.845 0.085 30);
+  --tomato-ink: oklch(0.43 0.14 30);
+  --tomato-edge: oklch(0.7 0.14 30);
+  --lime: oklch(0.89 0.11 128);
+  --lime-ink: oklch(0.4 0.1 134);
+  --lime-edge: oklch(0.72 0.14 130);
+  --lemon-block: oklch(0.93 0.11 100);
+  --lemon-block-ink: oklch(0.43 0.09 94);
+  --lemon-block-edge: oklch(0.78 0.13 98);
+
+  /* Shape, depth, motion */
+  --radius-block: 6px;
+  --radius-control: 8px;
+  --radius-panel: 12px;
+  --lift: 0 1px 2px oklch(0.235 0.03 262 / 0.06), 0 10px 24px -14px oklch(0.235 0.03 262 / 0.28);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Type */
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-md: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.3125rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2rem;
+
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--text-md);
+  line-height: 1.55;
+  caret-color: var(--focus);
+}
+
+/* Every course colour key resolves to three role tokens. */
+.root [data-color="sky"] {
+  --block: var(--sky);
+  --block-ink: var(--sky-ink);
+  --block-edge: var(--sky-edge);
+}
+.root [data-color="pink"] {
+  --block: var(--pink);
+  --block-ink: var(--pink-ink);
+  --block-edge: var(--pink-edge);
+}
+.root [data-color="mint"] {
+  --block: var(--mint);
+  --block-ink: var(--mint-ink);
+  --block-edge: var(--mint-edge);
+}
+.root [data-color="tangerine"] {
+  --block: var(--tangerine);
+  --block-ink: var(--tangerine-ink);
+  --block-edge: var(--tangerine-edge);
+}
+.root [data-color="lavender"] {
+  --block: var(--lavender);
+  --block-ink: var(--lavender-ink);
+  --block-edge: var(--lavender-edge);
+}
+.root [data-color="tomato"] {
+  --block: var(--tomato);
+  --block-ink: var(--tomato-ink);
+  --block-edge: var(--tomato-edge);
+}
+.root [data-color="lime"] {
+  --block: var(--lime);
+  --block-ink: var(--lime-ink);
+  --block-edge: var(--lime-edge);
+}
+.root [data-color="lemon"] {
+  --block: var(--lemon-block);
+  --block-ink: var(--lemon-block-ink);
+  --block-edge: var(--lemon-block-edge);
+}
+
+/* Browser surfaces */
+:global(html):has(.root) {
+  background: oklch(0.993 0.002 255);
+  color-scheme: light;
+  scrollbar-color: oklch(0.8 0.012 255) transparent;
+  scrollbar-width: thin;
+  accent-color: oklch(0.235 0.03 262);
+}
+
+.root ::selection {
+  background: var(--lemon);
+  color: var(--ink);
+}
+
+.root :focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.root a {
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+}
+
+.root :where(table, time, output) {
+  font-variant-numeric: tabular-nums;
+}
+
+.root :where(h1, h2, h3) {
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+}
+
+.root :where(p) {
+  text-wrap: pretty;
+}
