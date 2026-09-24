@@ -1,0 +1,132 @@
+.wrap {
+  display: grid;
+}
+
+.bar {
+  display: block;
+  max-width: 100%;
+  border-radius: 4px;
+  background: var(--nc-canvas-deep);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.dark {
+  background: var(--nc-stage-2);
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.stage {
+  display: flex;
+  align-items: center;
+  gap: var(--nc-s6);
+  padding: var(--nc-s5) var(--nc-gutter);
+  background: var(--nc-stage);
+  min-height: 104px;
+}
+
+.stageText {
+  flex: 1;
+  display: grid;
+  gap: 8px;
+}
+
+.feed {
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--nc-s6) var(--nc-gutter);
+  display: grid;
+  grid-template-columns: 216px minmax(0, 720px);
+  gap: var(--nc-s6);
+}
+
+.agenda {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  padding-top: 28px;
+}
+
+.column {
+  display: grid;
+  gap: var(--nc-s4);
+  align-content: start;
+}
+
+.slide {
+  display: grid;
+  gap: 10px;
+  padding: var(--nc-s5);
+}
+
+.tall {
+  min-height: 420px;
+  align-content: start;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--nc-s3);
+  padding: 6px 0;
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--nc-canvas-deep);
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: var(--nc-s3);
+}
+
+.deck {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--nc-s4);
+}
+
+.chart {
+  min-height: 280px;
+  align-content: start;
+}
+
+.columns {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  height: 180px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--nc-rule-strong);
+}
+
+.columns span {
+  width: 22px;
+  border-radius: 4px 4px 0 0;
+  background: var(--nc-canvas-deep);
+}
+
+@media (max-width: 860px) {
+  .feed {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .agenda {
+    display: none;
+  }
+
+  .stage {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
