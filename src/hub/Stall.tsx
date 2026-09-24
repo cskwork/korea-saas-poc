@@ -6,31 +6,31 @@ import styles from "./hub.module.css";
 
 type PaintedStyle = CSSProperties & { "--paint": string; "--paint-ink": string; "--i": number };
 
+export type Side = "upper" | "lower";
+
 /**
- * One shop front: painted sign, number plate, and the shop window. `index` staggers
- * the shutter as the arcade opens on load.
+ * One shop: a painted sign (name, trade, unit plate) against the aisle, and the
+ * shop window behind it. `index` staggers the shutter as the arcade opens.
  */
-export function Stall({ meta, plate, index }: { meta: ModuleMeta; plate: string; index: number }) {
+export function Stall({ meta, plate, side, index }: { meta: ModuleMeta; plate: string; side: Side; index: number }) {
   const paint: PaintedStyle = { "--paint": meta.accent, "--paint-ink": signLettering(meta.accent), "--i": index };
 
   return (
-    <li className={styles.stall} style={paint}>
+    <li className={`${styles.stall} ${styles[side]}`} style={paint}>
       {/* A full page load keeps each product's styles isolated from the hub. */}
       <a href={`/${meta.slug}`} className={styles.stallLink}>
-        <span className={styles.sign}>{meta.name}</span>
-        <span className={styles.front}>
-          <span className={styles.stallMeta}>
-            <span className={styles.plate}>{plate}</span>
-            <span className={styles.category}>{meta.category}</span>
+        <span className={styles.sign}>
+          <span className={styles.signName}>{meta.name}</span>
+          <span className={styles.signTrade}>
+            {meta.category}
+            <ArrowRight className={styles.signArrow} aria-hidden size={16} strokeWidth={2.5} />
           </span>
+          <span className={styles.plate}>{plate}</span>
+        </span>
+        <span className={styles.front}>
           <span className={styles.tagline}>{meta.tagline}</span>
-          <span className={styles.interior}>
+          <span className={styles.window}>
             <span className={styles.description}>{meta.description}</span>
-            <span className={styles.audience}>{meta.audience}</span>
-            <span className={styles.enter}>
-              들어가기
-              <ArrowRight aria-hidden size={16} strokeWidth={2.25} />
-            </span>
             <span className={styles.shutter} aria-hidden />
           </span>
         </span>
@@ -39,21 +39,30 @@ export function Stall({ meta, plate, index }: { meta: ModuleMeta; plate: string;
   );
 }
 
-/** The empty unit at the end of the arcade: room for the next module. */
-export function VacantStall({ plate, href }: { plate: string; href: string }) {
+/** An empty unit: room for the next shop. */
+export function VacantStall({
+  plate,
+  href,
+  side,
+  endCap = false,
+}: {
+  plate: string;
+  href: string;
+  side: Side;
+  endCap?: boolean;
+}) {
   return (
-    <li className={`${styles.stall} ${styles.vacant}`}>
+    <li className={`${styles.stall} ${styles[side]} ${styles.vacant} ${endCap ? styles.endCap : ""}`}>
       <a href={href} className={styles.stallLink} target="_blank" rel="noreferrer">
-        <span className={styles.sign}>빈 점포</span>
+        <span className={styles.sign}>
+          <span className={styles.signName}>빈 점포</span>
+          <span className={styles.signTrade}>입점 준비 중</span>
+          <span className={styles.plate}>{plate}</span>
+        </span>
         <span className={styles.front}>
-          <span className={styles.stallMeta}>
-            <span className={styles.plate}>{plate}</span>
-            <span className={styles.category}>입점 준비 중</span>
-          </span>
-          <span className={styles.tagline}>모듈 하나를 더하면 이 자리에 새 가게가 걸립니다.</span>
+          <span className={styles.tagline}>이 자리에 새 가게가 들어올 수 있어요.</span>
           <span className={styles.vacantNote}>
-            <Plus aria-hidden size={16} strokeWidth={2.25} />
-            새 가게를 여는 방법
+            <Plus aria-hidden size={16} strokeWidth={2.25} />새 가게를 여는 방법 (개발 문서)
           </span>
         </span>
       </a>
