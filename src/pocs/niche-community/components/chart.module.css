@@ -1,0 +1,198 @@
+.figure {
+  margin: 0;
+  display: grid;
+  gap: var(--nc-s2);
+  min-width: 0;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* Chart tones: emphasis grammar — the series the story is about in the accent, the rest recessive. */
+.lead {
+  --tone: var(--nc-accent);
+}
+
+.ink {
+  --tone: oklch(0.36 0.03 266);
+}
+
+.base {
+  --tone: oklch(0.72 0.018 262);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--nc-t-xs);
+  color: var(--nc-ink-2);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--tone);
+}
+
+.plot {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.svg {
+  display: block;
+  overflow: visible;
+}
+
+.grid {
+  stroke: var(--nc-rule);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.baseline {
+  stroke: var(--nc-rule-strong);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.tick,
+.axis,
+.axisStrong {
+  font-size: 11px;
+  fill: var(--nc-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.axisStrong {
+  fill: var(--nc-ink);
+  font-weight: 700;
+}
+
+.valueLabel {
+  font-size: 12px;
+  font-weight: 700;
+  fill: var(--nc-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.bar {
+  fill: var(--tone);
+  transition: opacity 160ms var(--nc-ease);
+}
+
+.hit {
+  fill: transparent;
+}
+
+.column {
+  outline: none;
+  cursor: default;
+}
+
+.column:focus-visible .hit {
+  fill: var(--nc-accent-soft);
+}
+
+.plot:has(.column[data-active="true"]) .column:not([data-active="true"]) .bar {
+  opacity: 0.55;
+}
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  translate: -50% 0;
+  z-index: 2;
+  min-width: 140px;
+  padding: 8px 10px;
+  border-radius: var(--nc-radius);
+  background: var(--nc-stage);
+  color: var(--nc-on-stage);
+  box-shadow: var(--nc-shadow-lift);
+  pointer-events: none;
+  font-size: var(--nc-t-xs);
+}
+
+.tooltipTitle {
+  font-weight: 700;
+  color: var(--nc-on-stage-2);
+  margin-bottom: 4px;
+}
+
+.tooltipRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.tooltipRow strong {
+  font-size: var(--nc-t-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.tooltipRow span:last-child {
+  color: var(--nc-on-stage-2);
+}
+
+.key {
+  width: 12px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--tone);
+}
+
+.tooltipRow .key.base {
+  --tone: oklch(0.8 0.015 262);
+}
+
+.tableView {
+  font-size: var(--nc-t-xs);
+  color: var(--nc-ink-2);
+}
+
+.tableView summary {
+  cursor: pointer;
+  font-weight: 600;
+  width: max-content;
+}
+
+.tableView table {
+  margin-top: var(--nc-s2);
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.tableView th,
+.tableView td {
+  padding: 4px 8px 4px 0;
+  border-bottom: 1px solid var(--nc-rule);
+  text-align: left;
+}
+
+.tableView td {
+  text-align: right;
+}
+
+.tableView thead th:not(:first-child) {
+  text-align: right;
+}

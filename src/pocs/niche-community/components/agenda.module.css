@@ -1,0 +1,123 @@
+.agenda {
+  display: grid;
+  gap: var(--nc-s2);
+}
+
+.heading {
+  font-size: var(--nc-t-xs);
+  font-weight: 700;
+  color: var(--nc-ink-3);
+  padding-left: 22px;
+}
+
+.list {
+  display: grid;
+  gap: 2px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 8px;
+  border-radius: var(--nc-radius);
+  color: var(--nc-ink-3);
+  font-size: var(--nc-t-md);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    color 160ms var(--nc-ease),
+    background-color 160ms var(--nc-ease);
+}
+
+.item:hover {
+  color: var(--nc-ink);
+  background: oklch(1 0 0 / 0.5);
+}
+
+.item[aria-current="page"] {
+  color: var(--nc-ink);
+  font-weight: 800;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+}
+
+.item[aria-current="page"] .dot {
+  background: var(--nc-accent);
+}
+
+.name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lock {
+  flex: none;
+  color: var(--nc-ink-2);
+}
+
+.count {
+  font-size: var(--nc-t-xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--nc-ink-3);
+  font-weight: 500;
+}
+
+@media (max-width: 860px) {
+  .heading {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .list[role="list"] {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 2px 2px 6px;
+    margin: 0 calc(var(--nc-gutter) * -1);
+    padding-inline: var(--nc-gutter);
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+
+  .list li {
+    flex: none;
+    scroll-snap-align: start;
+  }
+
+  .item {
+    min-height: 36px;
+    padding: 0 12px 0 10px;
+    border-radius: 999px;
+    background: var(--nc-slide);
+    box-shadow: inset 0 0 0 1px var(--nc-rule-strong);
+    font-size: var(--nc-t-sm);
+  }
+
+  .item[aria-current="page"] {
+    background: var(--nc-ink);
+    color: var(--nc-slide);
+    box-shadow: none;
+  }
+
+  .item[aria-current="page"] .lock,
+  .item[aria-current="page"] .count {
+    color: oklch(1 0 0 / 0.75);
+  }
+
+  .dot {
+    display: none;
+  }
+}

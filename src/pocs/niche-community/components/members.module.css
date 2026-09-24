@@ -1,0 +1,510 @@
+.page {
+  display: grid;
+  gap: var(--nc-s5);
+}
+
+.header {
+  display: grid;
+  gap: 4px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nc-s3);
+}
+
+.tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  padding: 3px;
+  border-radius: var(--nc-radius);
+  background: var(--nc-canvas-deep);
+}
+
+.tabs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: var(--nc-radius-sm);
+  color: var(--nc-ink-2);
+  font-size: var(--nc-t-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tabs a:hover {
+  color: var(--nc-ink);
+}
+
+.tabs a[aria-current="page"] {
+  background: var(--nc-slide);
+  color: var(--nc-ink);
+  font-weight: 800;
+  box-shadow: 0 1px 2px oklch(0.2 0.03 266 / 0.12);
+}
+
+.tabCount {
+  font-size: var(--nc-t-xs);
+  color: var(--nc-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.search {
+  position: relative;
+  flex: 1 1 220px;
+  max-width: 360px;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  color: var(--nc-ink-3);
+  pointer-events: none;
+}
+
+.searchInput {
+  padding-left: 36px;
+}
+
+/* the team slide ([role] beats the global list reset) */
+.team[role="list"] {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(236px, 1fr));
+  gap: var(--nc-s2) var(--nc-s4);
+  padding: var(--nc-s5);
+}
+
+.person {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--nc-s3);
+  padding: var(--nc-s3);
+  border-radius: var(--nc-radius);
+  color: var(--nc-ink);
+  text-decoration: none;
+  transition: background-color 160ms var(--nc-ease);
+}
+
+.person:hover {
+  background: var(--nc-slide-sunk);
+}
+
+.personText {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.personName {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 800;
+  font-size: var(--nc-t-base);
+  letter-spacing: -0.01em;
+}
+
+.you {
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--nc-accent);
+  color: var(--nc-slide);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.personHeadline {
+  font-size: var(--nc-t-sm);
+  color: var(--nc-ink-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.personMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: var(--nc-t-xs);
+  color: var(--nc-ink-2);
+}
+
+.personActive {
+  font-size: var(--nc-t-xs);
+  color: var(--nc-ink-3);
+}
+
+.empty {
+  padding: var(--nc-s6) var(--nc-s5);
+  display: grid;
+  justify-items: start;
+  gap: var(--nc-s3);
+}
+
+.emptyTitle {
+  font-weight: 800;
+  font-size: var(--nc-t-lg);
+}
+
+/* ---- profile ---- */
+
+.profilePage {
+  display: grid;
+  gap: var(--nc-s5);
+  max-width: 1000px;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  justify-self: start;
+  min-height: 36px;
+  color: var(--nc-ink-2);
+  font-size: var(--nc-t-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--nc-ink);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--nc-s5) var(--nc-s6);
+  padding: var(--nc-s6);
+  align-items: start;
+}
+
+.heroText {
+  display: grid;
+  gap: var(--nc-s2);
+  justify-items: start;
+}
+
+.heroName {
+  font-size: var(--nc-t-3xl);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.heroHeadline {
+  font-size: var(--nc-t-lg);
+  font-weight: 600;
+  color: var(--nc-ink-2);
+}
+
+.heroBio {
+  max-width: 60ch;
+  color: var(--nc-ink);
+}
+
+.heroMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  font-size: var(--nc-t-sm);
+  color: var(--nc-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.wearing {
+  font-size: var(--nc-t-sm);
+  font-weight: 700;
+  color: var(--nc-accent);
+}
+
+.stats {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid var(--nc-rule);
+}
+
+.stats > div {
+  padding: var(--nc-s4) var(--nc-s3) 0 0;
+}
+
+.stats dt {
+  font-size: var(--nc-t-xs);
+  color: var(--nc-ink-3);
+  font-weight: 600;
+}
+
+.stats dd {
+  margin: 0;
+  font-size: var(--nc-t-xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.edit {
+  padding: 0;
+}
+
+.editSummary {
+  padding: var(--nc-s4) var(--nc-s5);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.edit[open] .editSummary {
+  border-bottom: 1px solid var(--nc-rule);
+}
+
+.profileForm {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--nc-s4);
+  padding: var(--nc-s5);
+}
+
+.profileWide {
+  grid-column: 1 / -1;
+}
+
+.formFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--nc-s3);
+}
+
+/* milestone timeline: the deck's traction-milestones slide */
+.milestones {
+  display: grid;
+  gap: var(--nc-s4);
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: var(--nc-s5) var(--nc-s5) var(--nc-s4);
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(120px, 1fr);
+  overflow-x: auto;
+  background: var(--nc-slide);
+  border-radius: var(--nc-radius);
+  box-shadow: var(--nc-shadow-slide);
+}
+
+.milestone {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 2px;
+  padding-right: var(--nc-s3);
+}
+
+.milestone::before {
+  content: "";
+  position: absolute;
+  top: 17px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--nc-ink);
+}
+
+.milestone:last-child::before {
+  right: auto;
+  width: 36px;
+}
+
+.node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: var(--nc-s2);
+  border-radius: 50%;
+  background: var(--nc-ink);
+  color: var(--nc-slide);
+}
+
+.milestone:last-child .node {
+  background: var(--nc-accent);
+}
+
+.milestoneName {
+  font-weight: 800;
+  font-size: var(--nc-t-md);
+}
+
+.milestoneDate {
+  font-size: var(--nc-t-xs);
+  font-weight: 600;
+  color: var(--nc-ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.milestoneDesc {
+  font-size: var(--nc-t-xs);
+  color: var(--nc-ink-3);
+  max-width: 16ch;
+}
+
+.progressList {
+  display: grid;
+  gap: 0;
+}
+
+.progressItem {
+  display: grid;
+  grid-template-columns: 20px 90px minmax(0, 1fr) minmax(80px, 180px) 64px;
+  align-items: center;
+  gap: var(--nc-s3);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--nc-rule-strong);
+  font-size: var(--nc-t-sm);
+}
+
+.progressIcon {
+  color: var(--nc-ink-3);
+}
+
+.progressName {
+  font-weight: 700;
+}
+
+.progressDesc {
+  color: var(--nc-ink-2);
+}
+
+.progressBar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--nc-canvas-deep);
+  overflow: hidden;
+}
+
+.progressBar > span {
+  display: block;
+  height: 100%;
+  background: var(--nc-ink);
+  border-radius: 3px;
+}
+
+.progressValue {
+  text-align: right;
+  color: var(--nc-ink-2);
+  font-weight: 600;
+}
+
+.recent {
+  display: grid;
+  gap: var(--nc-s3);
+}
+
+.postList[role="list"] {
+  padding: var(--nc-s2) var(--nc-s5);
+}
+
+.postList li + li {
+  border-top: 1px solid var(--nc-rule);
+}
+
+.postLink {
+  display: grid;
+  gap: 2px;
+  padding: var(--nc-s3) 0;
+  color: var(--nc-ink);
+  text-decoration: none;
+}
+
+.postLink:hover .postTitle {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.postTitle {
+  font-weight: 700;
+}
+
+.postMeta {
+  font-size: var(--nc-t-xs);
+  color: var(--nc-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--nc-s5);
+  }
+
+  .heroName {
+    font-size: var(--nc-t-2xl);
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .profileForm {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--nc-s4);
+  }
+
+  .timeline {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    gap: var(--nc-s4);
+  }
+
+  .milestone {
+    grid-template-columns: 36px 1fr;
+    column-gap: var(--nc-s3);
+    padding-right: 0;
+  }
+
+  .milestone::before {
+    top: 36px;
+    bottom: calc(var(--nc-s4) * -1);
+    left: 17px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+
+  .milestone:last-child::before {
+    display: none;
+  }
+
+  .node {
+    grid-row: span 3;
+    margin-bottom: 0;
+  }
+
+  .progressItem {
+    grid-template-columns: 20px minmax(0, 1fr) 64px;
+  }
+
+  .progressDesc {
+    display: none;
+  }
+
+  .progressBar {
+    grid-column: 2 / -1;
+  }
+
+  .team[role="list"] {
+    padding: var(--nc-s3);
+  }
+}

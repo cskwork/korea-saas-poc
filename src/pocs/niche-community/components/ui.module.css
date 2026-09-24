@@ -1,0 +1,393 @@
+/* Shared atoms: slides, buttons, fields, tags. Tokens come from .root in shell.module.css. */
+
+.slide {
+  background: var(--nc-slide);
+  border-radius: var(--nc-radius);
+  box-shadow: var(--nc-shadow-slide);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- buttons ---- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 var(--nc-s4);
+  border: 1px solid var(--nc-rule-strong);
+  border-radius: var(--nc-radius);
+  background: var(--nc-slide);
+  color: var(--nc-ink);
+  font-size: var(--nc-t-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 160ms var(--nc-ease),
+    border-color 160ms var(--nc-ease),
+    color 160ms var(--nc-ease),
+    transform 160ms var(--nc-ease);
+}
+
+.button:hover:not(:disabled) {
+  border-color: var(--nc-ink-3);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.button:disabled {
+  opacity: 0.55;
+}
+
+.button svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.primary {
+  background: var(--nc-ink);
+  border-color: var(--nc-ink);
+  color: var(--nc-slide);
+}
+
+.primary:hover:not(:disabled) {
+  background: oklch(0.32 0.035 266);
+  border-color: oklch(0.32 0.035 266);
+}
+
+.accent {
+  background: var(--nc-accent);
+  border-color: var(--nc-accent);
+  color: var(--nc-slide);
+}
+
+.accent:hover:not(:disabled) {
+  background: oklch(0.5 0.19 31);
+  border-color: oklch(0.5 0.19 31);
+}
+
+.quiet {
+  background: transparent;
+  border-color: transparent;
+  color: var(--nc-ink-2);
+}
+
+.quiet:hover:not(:disabled) {
+  background: var(--nc-slide-sunk);
+  border-color: transparent;
+  color: var(--nc-ink);
+}
+
+.danger {
+  color: var(--nc-error);
+  border-color: oklch(0.52 0.19 27 / 0.4);
+}
+
+.danger:hover:not(:disabled) {
+  border-color: var(--nc-error);
+  background: oklch(0.52 0.19 27 / 0.06);
+}
+
+.dangerSolid {
+  background: var(--nc-error);
+  border-color: var(--nc-error);
+  color: var(--nc-slide);
+}
+
+.small {
+  min-height: 32px;
+  padding: 0 var(--nc-s3);
+}
+
+.iconOnly {
+  padding: 0;
+  width: 36px;
+  min-height: 36px;
+}
+
+/* ---- fields ---- */
+
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label {
+  font-size: var(--nc-t-sm);
+  font-weight: 600;
+  color: var(--nc-ink);
+}
+
+.hint {
+  font-size: var(--nc-t-xs);
+  color: var(--nc-ink-3);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid var(--nc-rule-strong);
+  border-radius: var(--nc-radius);
+  background: var(--nc-slide);
+  color: var(--nc-ink);
+  font-size: var(--nc-t-md);
+  line-height: 1.5;
+  transition: border-color 160ms var(--nc-ease);
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: var(--nc-ink-3);
+}
+
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: 2px solid var(--nc-accent);
+  outline-offset: 0;
+  border-color: var(--nc-accent);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--nc-ink-3);
+}
+
+.input[aria-invalid="true"],
+.select[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  border-color: var(--nc-error);
+}
+
+.textarea {
+  min-height: 96px;
+}
+
+.fieldError {
+  font-size: var(--nc-t-xs);
+  font-weight: 600;
+  color: var(--nc-error);
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--nc-t-sm);
+  color: var(--nc-ink-2);
+  cursor: pointer;
+}
+
+.check input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--nc-ink);
+}
+
+/* ---- tags ---- */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--nc-rule-strong);
+  font-size: var(--nc-t-xs);
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--nc-ink-2);
+  white-space: nowrap;
+}
+
+.tag svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* 대외비: the deck's confidential marker */
+.secret {
+  border-color: var(--nc-ink);
+  color: var(--nc-ink);
+  letter-spacing: 0.02em;
+}
+
+.tagInk {
+  background: var(--nc-ink);
+  border-color: var(--nc-ink);
+  color: var(--nc-slide);
+}
+
+.tagAccent {
+  border-color: var(--nc-accent);
+  color: var(--nc-accent);
+}
+
+/* ---- feedback ---- */
+
+.status {
+  font-size: var(--nc-t-sm);
+  font-weight: 600;
+  color: var(--nc-ink-2);
+}
+
+.statusError {
+  color: var(--nc-error);
+}
+
+.statusSuccess {
+  color: var(--nc-go);
+}
+
+/* ---- page frame ---- */
+
+.page {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: var(--nc-s6) var(--nc-gutter) var(--nc-s7);
+}
+
+.pageNarrow {
+  max-width: 880px;
+}
+
+.pageTitle {
+  font-size: var(--nc-t-2xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.pageLead {
+  margin-top: var(--nc-s2);
+  max-width: 62ch;
+  color: var(--nc-ink-2);
+  font-size: var(--nc-t-md);
+}
+
+.sectionTitle {
+  font-size: var(--nc-t-lg);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.link {
+  color: var(--nc-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--nc-rule-strong);
+  text-underline-offset: 3px;
+}
+
+.link:hover {
+  text-decoration-color: var(--nc-ink);
+}
+
+@media (max-width: 640px) {
+  .pageTitle {
+    font-size: var(--nc-t-xl);
+  }
+
+  .page {
+    padding-top: var(--nc-s5);
+  }
+}
+
+/* ---- the stage slide: failures, missing pages and operator-only gates ---- */
+
+.stageSlide {
+  display: grid;
+  justify-items: start;
+  gap: var(--nc-s3);
+  padding: var(--nc-s7) var(--nc-s6);
+  border-radius: var(--nc-radius);
+  background: var(--nc-stage);
+  color: var(--nc-on-stage);
+  aspect-ratio: 16 / 8;
+  align-content: center;
+}
+
+.stageSlideTitle {
+  font-size: var(--nc-t-2xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+.stageSlideText {
+  max-width: 56ch;
+  color: var(--nc-on-stage-2);
+}
+
+.stageSlideDigest {
+  font-variant-numeric: tabular-nums;
+}
+
+.stageSlideActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--nc-s2);
+  margin-top: var(--nc-s2);
+}
+
+.stageSlidePrimary {
+  background: var(--nc-on-stage);
+  border-color: var(--nc-on-stage);
+  color: var(--nc-stage);
+}
+
+.stageSlideSecondary {
+  background: transparent;
+  border-color: var(--nc-stage-rule);
+  color: var(--nc-on-stage);
+}
+
+.stageSlide :focus-visible {
+  outline-color: var(--nc-led);
+}
+
+@media (max-width: 640px) {
+  .stageSlide {
+    aspect-ratio: auto;
+    padding: var(--nc-s6) var(--nc-s4);
+  }
+
+  .stageSlideTitle {
+    font-size: var(--nc-t-xl);
+  }
+}
+
+.stageSlide [role="status"],
+.stageSlide [role="alert"] {
+  color: var(--nc-on-stage-2);
+}
