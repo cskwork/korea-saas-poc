@@ -1,0 +1,493 @@
+/* ── Page head ──────────────────────────────────────────── */
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin-bottom: 26px;
+}
+
+.headText {
+  min-width: 0;
+  max-width: 68ch;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--step-5);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.lede {
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: var(--step-0);
+}
+
+.headActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 720px) {
+  .title {
+    font-size: var(--step-4);
+  }
+}
+
+/* ── Slips: the white paper every list and form sits on ──── */
+
+.slip {
+  background: var(--slip);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-slip);
+  min-width: 0;
+}
+
+.slipHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+  padding: 16px 20px 12px;
+  border-bottom: 1.5px dashed var(--rule-strong);
+}
+
+.slipTitle {
+  font-size: var(--step-1);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.slipMeta {
+  color: var(--ink-3);
+  font-size: var(--step--1);
+}
+
+.slipBody {
+  padding: 16px 20px 20px;
+}
+
+@media (max-width: 720px) {
+  .slipHead {
+    padding: 14px 16px 10px;
+  }
+
+  .slipBody {
+    padding: 14px 16px 16px;
+  }
+}
+
+/* ── Buttons ────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--slip);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: var(--step--1);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 150ms var(--ease-out),
+    box-shadow 150ms var(--ease-out),
+    transform 150ms var(--ease-out);
+}
+
+.btn:hover {
+  background: var(--slip-alt);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* The primary action is a POP card: fluorescent yellow, marker outline. */
+.btnPop {
+  background: var(--pop);
+}
+
+.btnPop:hover {
+  background: var(--pop-strong);
+}
+
+.btnGhost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--ink-2);
+}
+
+.btnGhost:hover {
+  background: var(--floor-sunk);
+  color: var(--ink);
+}
+
+.btnDanger {
+  border-color: var(--loss);
+  color: var(--loss);
+}
+
+.btnDanger:hover {
+  background: var(--loss-wash);
+}
+
+.btnDangerSolid {
+  border-color: var(--loss);
+  background: var(--loss);
+  color: #fff;
+}
+
+.btnDangerSolid:hover {
+  background: #a81f16;
+}
+
+.btnSm {
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: var(--step--2);
+}
+
+.btnBlock {
+  width: 100%;
+}
+
+.spin {
+  animation: spin 900ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Fields ─────────────────────────────────────────────── */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label {
+  font-size: var(--step--1);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.hint {
+  font-size: var(--step--2);
+  color: var(--ink-3);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  font-size: var(--step-0);
+  transition:
+    border-color 150ms var(--ease-out),
+    box-shadow 150ms var(--ease-out);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--ink-3);
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: var(--ink-2);
+}
+
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px var(--pop);
+}
+
+.input[aria-invalid="true"],
+.textarea[aria-invalid="true"],
+.select[aria-invalid="true"] {
+  border-color: var(--loss);
+}
+
+.textarea {
+  min-height: 160px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.numeric {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.error {
+  font-size: var(--step--1);
+  color: var(--loss);
+  font-weight: 600;
+}
+
+/* ── Feedback ───────────────────────────────────────────── */
+
+.notice {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+
+.notice svg {
+  flex: none;
+  margin-top: 1px;
+}
+
+.noticeOk {
+  background: var(--pop-wash);
+  color: var(--ink);
+}
+
+.noticeError {
+  background: var(--loss-wash);
+  color: var(--loss);
+}
+
+.noticeInfo {
+  background: var(--slip-alt);
+  color: var(--ink-2);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 28px 20px;
+  color: var(--ink-2);
+}
+
+.emptyTitle {
+  color: var(--ink);
+  font-weight: 700;
+  font-size: var(--step-1);
+}
+
+/* ── Status stamps ──────────────────────────────────────── */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  font-size: var(--step--2);
+  font-weight: 700;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.chip_new {
+  background: var(--pop);
+}
+
+.chip_confirmed {
+  background: var(--slip);
+}
+
+.chip_shipping {
+  background: var(--tape);
+  border-color: var(--tape);
+  color: var(--tape-ink);
+}
+
+.chip_delivered {
+  border-color: var(--rule-strong);
+  color: var(--ink-2);
+}
+
+.chip_cancelled {
+  border-color: var(--loss);
+  color: var(--loss);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+}
+
+.chip_selling {
+  background: var(--slip);
+}
+
+.chip_paused {
+  border-style: dashed;
+  color: var(--ink-2);
+}
+
+.chip_quiet {
+  border-color: var(--rule-strong);
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
+/* 형광펜 mark on text */
+.mark {
+  background: linear-gradient(transparent 44%, var(--pop) 44%, var(--pop) 92%, transparent 92%);
+  padding: 0 2px;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.loss {
+  color: var(--loss);
+}
+
+.muted {
+  color: var(--ink-3);
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── Dialog ─────────────────────────────────────────────── */
+
+.dialog {
+  width: min(420px, calc(100vw - 32px));
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--slip);
+  color: var(--ink);
+  box-shadow: var(--shadow-lift);
+}
+
+.dialog::backdrop {
+  background: rgb(27 29 36 / 0.45);
+}
+
+.dialogBody {
+  padding: 20px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dialogTitle {
+  font-size: var(--step-2);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.dialogText {
+  color: var(--ink-2);
+}
+
+.dialogActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 20px 16px;
+  border-top: 1.5px dashed var(--rule-strong);
+}
+
+/* ── Tables on slips ────────────────────────────────────── */
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+}
+
+.table th {
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--ink-2);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.table td,
+.table tbody th {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: middle;
+}
+
+.table tbody th {
+  color: var(--ink);
+  font-weight: 700;
+  white-space: normal;
+}
+
+.table tbody tr:last-child td,
+.table tbody tr:last-child th {
+  border-bottom: 0;
+}
+
+.table .right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  border-top: 1.5px dashed var(--rule-strong);
+  font-size: var(--step--1);
+  color: var(--ink-2);
+}
+
+.pagination nav {
+  display: flex;
+  gap: 6px;
+}

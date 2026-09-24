@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T13:00:00+09:00",
+  "title": "Design System: 스마트셀러",
+  "extensions": {
+    "colorMeta": {
+      "pop": { "role": "primary", "displayName": "POP Fluoro", "canonical": "#dcf23c", "tonalRamp": ["#2f3505", "#4b5409", "#6b770f", "#8d9c16", "#b3c51f", "#dcf23c", "#ebf88a", "#f7fcd4"] },
+      "loss": { "role": "secondary", "displayName": "Red Marker", "canonical": "#c9281e", "tonalRamp": ["#3a0b08", "#5e120d", "#861a13", "#a92118", "#c9281e", "#e0604f", "#f0a497", "#fbe5e1"] },
+      "tape": { "role": "tertiary", "displayName": "Box Tape", "canonical": "#d6ad70", "tonalRamp": ["#2e2210", "#4a3719", "#6a4f24", "#8c6a31", "#b18a48", "#d6ad70", "#e8cfa6", "#f6ecdc"] },
+      "ink": { "role": "neutral", "displayName": "Marker Ink", "canonical": "#1b1d24", "tonalRamp": ["#1b1d24", "#2b2f3a", "#4a4f5a", "#5f6571", "#646a75", "#979da8", "#c4c8ce", "#eceef0"] },
+      "floor": { "role": "neutral", "displayName": "Cement Floor", "canonical": "#e2e5e1", "tonalRamp": ["#2a2d2a", "#474b47", "#6a6f69", "#8f958e", "#a3aaa2", "#d5d9d4", "#e2e5e1", "#f3f5f2"] },
+      "slip": { "role": "neutral", "displayName": "Slip Paper", "canonical": "#fcfdfb", "tonalRamp": ["#3b3d3a", "#5c5f5b", "#80837f", "#a6a9a4", "#cbcec9", "#e6e9e4", "#f3f5f2", "#fcfdfb"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Signboard Display", "purpose": "Page titles and the wordmark only; Black Han Sans." },
+      "tag-price": { "displayName": "Tag Figures", "purpose": "Prices and 남는 돈 on POP hang tags only." },
+      "section": { "displayName": "Section Heading", "purpose": "Headings between slips on the overview." },
+      "slip-title": { "displayName": "Slip Title", "purpose": "The heading row of each white slip." },
+      "body": { "displayName": "Body", "purpose": "Copy, table text, inputs." },
+      "label": { "displayName": "Label", "purpose": "Field labels, buttons, filter labels." },
+      "meta": { "displayName": "Meta", "purpose": "Order numbers, timestamps, hints, chart axes." }
+    },
+    "shadows": [
+      { "name": "slip", "value": "0 1px 0 rgb(27 29 36 / 0.05), 0 4px 12px -6px rgb(27 29 36 / 0.22)", "purpose": "Paper slips lifted off the cement floor." },
+      { "name": "lift", "value": "0 2px 0 rgb(27 29 36 / 0.06), 0 10px 22px -10px rgb(27 29 36 / 0.3)", "purpose": "Dialogs, toasts, chart tooltips." },
+      { "name": "tag-drop", "value": "drop-shadow(0 3px 3px rgb(27 29 36 / 0.16))", "purpose": "Hang tag silhouette, applied as a filter on the wrapper so it follows the clip and hole." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "All state transitions." },
+      { "name": "highlighter", "value": "transform scaleX 0→1, 220ms ease-out, origin left", "purpose": "Current stall and needs-action marks draw in; they retract while an order is being confirmed." },
+      { "name": "re-ink", "value": "clip-path inset(0 100% 0 0)→inset(0), 220ms ease-out", "purpose": "Hang-tag figures rewrite left to right as a live value changes (editors only, never on page load)." },
+      { "name": "state", "value": "150–200ms ease-out", "purpose": "Button, border and ink-color changes; toasts rise 8px." }
+    ],
+    "breakpoints": [
+      { "name": "phone", "value": "720px" },
+      { "name": "stacked-table", "value": "860px" },
+      { "name": "single-column-editor", "value": "960px" },
+      { "name": "rail-to-topbar", "value": "1023px" },
+      { "name": "overview-single-column", "value": "1100px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button (POP card)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "One primary action per area: fluoro card with a marker outline.",
+      "html": "<button class=\"ds-btn-pop\">주문 처리하기</button>",
+      "css": ".ds-btn-pop { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border: 1.5px solid #1b1d24; border-radius: 4px; background: #dcf23c; color: #1b1d24; font: 700 13px 'Pretendard Variable', sans-serif; cursor: pointer; transition: background-color 150ms cubic-bezier(0.16,1,0.3,1), transform 150ms; } .ds-btn-pop:hover { background: #c3dc1c; } .ds-btn-pop:active { transform: translateY(1px); } .ds-btn-pop:focus-visible { outline: 2.5px solid #1b1d24; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Row actions and everything that is not the one primary.",
+      "html": "<button class=\"ds-btn\">가격·상품명 수정</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border: 1.5px solid #1b1d24; border-radius: 4px; background: #fcfdfb; color: #1b1d24; font: 700 13px 'Pretendard Variable', sans-serif; cursor: pointer; } .ds-btn:hover { background: #f3f5f2; } .ds-btn:focus-visible { outline: 2.5px solid #1b1d24; outline-offset: 2px; }"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Destructive actions; always followed by a confirm dialog with a solid red button.",
+      "html": "<button class=\"ds-btn-danger\">삭제</button>",
+      "css": ".ds-btn-danger { min-height: 40px; padding: 0 14px; border: 1.5px solid #c9281e; border-radius: 4px; background: #fcfdfb; color: #c9281e; font: 700 13px 'Pretendard Variable', sans-serif; cursor: pointer; } .ds-btn-danger:hover { background: #fbe5e1; } .ds-btn-danger:focus-visible { outline: 2.5px solid #1b1d24; outline-offset: 2px; }"
+    },
+    {
+      "name": "Hang Tag",
+      "kind": "custom",
+      "refersTo": "hang-tag",
+      "description": "The signature object: price and what the seller keeps, black ink for 흑자, red for 적자.",
+      "html": "<div class=\"ds-tag-wrap\"><div class=\"ds-tag\"><span class=\"ds-tag-cap\">판매가</span><span class=\"ds-tag-price\">15,900<small>원</small></span><span class=\"ds-tag-rule\"></span><span class=\"ds-tag-cap\">남는 돈</span><span class=\"ds-tag-keep\">+7,946<small>원</small></span><span class=\"ds-tag-rate\">마진 50.0%</span></div></div>",
+      "css": ".ds-tag-wrap { display: inline-flex; filter: drop-shadow(0 3px 3px rgb(27 29 36 / .16)); } .ds-tag { display: flex; flex-direction: column; min-width: 232px; padding: 34px 22px 18px; background: #dcf23c; color: #1b1d24; clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%, 0 16px); mask: radial-gradient(circle at 50% 16px, transparent 6px, #000 6.5px); line-height: 1.1; font-family: 'Pretendard Variable', sans-serif; } .ds-tag-cap { font-size: 12px; font-weight: 700; } .ds-tag-price { font-family: 'Black Han Sans', sans-serif; font-size: 44px; } .ds-tag-price small, .ds-tag-keep small { font-size: .5em; } .ds-tag-rule { margin: 10px 0 8px; border-top: 1.5px dashed rgb(27 29 36 / .45); } .ds-tag-keep { font-family: 'Black Han Sans', sans-serif; font-size: 28px; } .ds-tag-rate { margin-top: 6px; font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Margin Chip",
+      "kind": "chip",
+      "refersTo": "margin-chip",
+      "description": "Inline 남는 돈 and margin rate for dense rows; loss variant in red on a pale wash.",
+      "html": "<span class=\"ds-chip\"><b>+12,063</b> 50.5%</span> <span class=\"ds-chip ds-chip-loss\"><b>−843</b> −3.4%</span>",
+      "css": ".ds-chip { display: inline-flex; align-items: baseline; gap: 6px; padding: 3px 8px 3px 12px; background: #dcf23c; color: #1b1d24; clip-path: polygon(6px 0, 100% 0, 100% 100%, 6px 100%, 0 50%); font: 600 12px 'Pretendard Variable', sans-serif; font-variant-numeric: tabular-nums; } .ds-chip b { font-size: 13px; font-weight: 800; } .ds-chip-loss { background: #fbe5e1; color: #c9281e; }"
+    },
+    {
+      "name": "Status Stamp",
+      "kind": "chip",
+      "refersTo": "status-new",
+      "description": "Order and listing states as rubber stamps.",
+      "html": "<span class=\"ds-stamp ds-stamp-new\">신규주문</span> <span class=\"ds-stamp\">발주확인</span> <span class=\"ds-stamp ds-stamp-ship\">배송중</span> <span class=\"ds-stamp ds-stamp-cancel\">취소</span>",
+      "css": ".ds-stamp { display: inline-flex; padding: 2px 8px; border: 1px solid #1b1d24; border-radius: 3px; background: #fcfdfb; color: #1b1d24; font: 700 12px/1.5 'Pretendard Variable', sans-serif; } .ds-stamp-new { background: #dcf23c; } .ds-stamp-ship { background: #d6ad70; border-color: #d6ad70; color: #43300f; } .ds-stamp-cancel { border-color: #c9281e; color: #c9281e; text-decoration: line-through; }"
+    },
+    {
+      "name": "Slip",
+      "kind": "card",
+      "refersTo": "slip",
+      "description": "The white 장끼 paper every list and form sits on, with a dashed tear rule under its heading.",
+      "html": "<section class=\"ds-slip\"><div class=\"ds-slip-head\"><h2>최근 7일 장끼</h2><span>9/18 – 9/24</span></div><div class=\"ds-slip-body\"><div class=\"ds-line\"><span>매출</span><b>₩895,700</b></div><div class=\"ds-line ds-total\"><span>남은 돈</span><b>₩473,142</b></div></div></section>",
+      "css": ".ds-slip { background: #fcfdfb; border-radius: 4px; box-shadow: 0 1px 0 rgb(27 29 36 / .05), 0 4px 12px -6px rgb(27 29 36 / .22); color: #1b1d24; font-family: 'Pretendard Variable', sans-serif; } .ds-slip-head { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 20px 12px; border-bottom: 1.5px dashed #a3aaa2; } .ds-slip-head h2 { margin: 0; font-size: 17px; font-weight: 700; } .ds-slip-head span { font-size: 13px; color: #646a75; } .ds-slip-body { padding: 16px 20px 20px; } .ds-line { display: flex; gap: 8px; align-items: baseline; padding: 5px 0; font-size: 13px; } .ds-line span { flex: 1; display: flex; gap: 8px; color: #4a4f5a; } .ds-line span::after { content: ''; flex: 1; border-bottom: 1.5px dotted #a3aaa2; transform: translateY(-4px); } .ds-total { border-top: 1.5px solid #1b1d24; margin-top: 4px; padding-top: 10px; font-size: 17px; } .ds-total span { color: #1b1d24; font-weight: 800; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Labelled field; money is right-aligned tabular; focus is an ink border with a POP ring.",
+      "html": "<label class=\"ds-field\"><span>판매가</span><input class=\"ds-input\" inputmode=\"numeric\" value=\"15900\"></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 6px; font: 700 13px 'Pretendard Variable', sans-serif; color: #1b1d24; } .ds-input { min-height: 42px; padding: 8px 12px; border: 1px solid #a3aaa2; border-radius: 4px; background: #fff; color: #1b1d24; font: 400 15px 'Pretendard Variable', sans-serif; text-align: right; font-variant-numeric: tabular-nums; } .ds-input:hover { border-color: #4a4f5a; } .ds-input:focus-visible { outline: none; border-color: #1b1d24; box-shadow: 0 0 0 3px #dcf23c; }"
+    },
+    {
+      "name": "Stall Navigation",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Floor-directory rail; the current stall is highlighted with a highlighter stroke.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item is-current\" href=\"#\"><span>오늘</span></a><a class=\"ds-nav-item\" href=\"#\"><span>소싱</span></a><a class=\"ds-nav-item\" href=\"#\"><span>주문</span><b>8</b></a></nav>",
+      "css": ".ds-nav { display: flex; flex-direction: column; gap: 2px; width: 200px; background: #e2e5e1; padding: 8px; font: 600 15px 'Pretendard Variable', sans-serif; } .ds-nav-item { display: flex; align-items: center; padding: 8px 10px; border-radius: 4px; color: #4a4f5a; text-decoration: none; } .ds-nav-item:hover { background: #d5d9d4; color: #1b1d24; } .ds-nav-item span { position: relative; z-index: 0; } .ds-nav-item span::before { content: ''; position: absolute; z-index: -1; left: -4px; right: -6px; top: 42%; bottom: -2px; background: #dcf23c; border-radius: 2px 6px 3px 5px; transform: scaleX(0); transform-origin: left; transition: transform 220ms cubic-bezier(0.16,1,0.3,1); } .ds-nav-item.is-current { color: #1b1d24; } .ds-nav-item.is-current span::before { transform: scaleX(1); } .ds-nav-item b { margin-left: auto; min-width: 22px; padding: 0 6px; border-radius: 999px; background: #1b1d24; color: #dcf23c; font-size: 12px; line-height: 20px; text-align: center; } .ds-nav-item:focus-visible { outline: 2.5px solid #1b1d24; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "새벽 도매시장 가판대 (the wholesale stall at dawn)",
+    "overview": "The console is a Dongdaemun-style wholesale stall, not a SaaS dashboard. The page is a cool cement floor under white tube light; every list and form sits on a white 장끼 slip (the wholesale receipt) with a dashed tear rule under its heading; and the one object that carries the product's promise is a fluorescent POP hang tag, lettered in heavy signboard gothic, that says what the seller actually keeps after cost, the Naver category fee and shipping. Profit is written in black marker (흑자), loss in red marker (적자), exactly as Korean bookkeeping says it.\n\nThis is an Operate surface: sellers confirm 발주, enter tracking numbers, list items and check margins in short sessions. Expression lives in a few precise objects (the tag, the highlighter, the slip) and never in the controls' affordances. Everything else is quiet, dense and legible: Pretendard with tabular numerals, thin rules, ink-tone charts.",
+    "keyCharacteristics": [
+      "Cool cement ground, white slips, marker-black ink, one fluorescent yellow.",
+      "The POP hang tag (clipped top corners, punched hole) is the only signature object; its price is set in Black Han Sans.",
+      "흑자 black / 적자 red is the whole semantic palette for money.",
+      "형광펜 (highlighter) strokes mark the current place and whatever needs action.",
+      "Receipt lines with dotted leaders itemise every margin."
+    ],
+    "rules": [
+      { "name": "The 흑자·적자 Rule", "body": "Money has two inks: black when the seller keeps something, red when they lose. Never green for profit, never red for a revenue drop.", "section": "colors" },
+      { "name": "The One Fluoro Rule", "body": "POP yellow is a material with a job (a tag, a highlighter stroke, the one primary action per area). Dense rows use the secondary button so a column of yellow never drowns the margin tags.", "section": "colors" },
+      { "name": "The Signboard Rule", "body": "Black Han Sans appears only in page titles, the wordmark and hang-tag figures. Never in buttons, labels, tables or data columns.", "section": "typography" },
+      { "name": "The Tabular Rule", "body": "Every column of money, counts and order numbers uses tabular numerals; large standalone figures (tag prices, KPI strip) keep proportional digits.", "section": "typography" },
+      { "name": "The Paper Rule", "body": "Declare depth once: slips have a shadow and no border; inputs and buttons have a border and no shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do put what the seller keeps next to every price: a hang tag, a margin chip or a receipt line.",
+      "Do mark needs-action items with the highlighter or the POP stamp, and retract the mark when the item is handled.",
+      "Do label sample data wherever it could be mistaken for a real store's numbers.",
+      "Do keep charts in ink tones with the one story series emphasised; legends and tables carry identity, not color alone."
+    ],
+    "donts": [
+      "Don't use green for profit or turn the console into a Naver-green dashboard; the product must not look like the platform it serves.",
+      "Don't set buttons, labels or table data in Black Han Sans.",
+      "Don't stack yellow: no POP buttons down a table column next to POP margin chips.",
+      "Don't add kicker or eyebrow labels above headings, emoji icons, gradient text, side-stripe borders or glass panels.",
+      "Don't fake product photography; items are represented by their name, supplier, category and tag."
+    ]
+  }
+}
