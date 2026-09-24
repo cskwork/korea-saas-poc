@@ -1,0 +1,545 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T12:44:47+00:00",
+  "title": "Design System: 크리에이트잇",
+  "extensions": {
+    "colorMeta": {
+      "copier-paper": {
+        "role": "neutral",
+        "displayName": "Copier Paper",
+        "canonical": "oklch(0.992 0.002 240)",
+        "hex": "#fbfdfe",
+        "tonalRamp": [
+          "#090b0f",
+          "#23272b",
+          "#41464b",
+          "#61676d",
+          "#848a90",
+          "#a9afb4",
+          "#cdd1d7",
+          "#eaeff4"
+        ]
+      },
+      "desk-gray": {
+        "role": "neutral",
+        "displayName": "Desk Gray",
+        "canonical": "oklch(0.94 0.006 240)",
+        "hex": "#e8ecef",
+        "tonalRamp": [
+          "#090b0f",
+          "#23272b",
+          "#41464b",
+          "#61676d",
+          "#848a90",
+          "#a9afb4",
+          "#cdd1d7",
+          "#eaeff4"
+        ]
+      },
+      "marker-wash": {
+        "role": "neutral",
+        "displayName": "Marker Wash",
+        "canonical": "oklch(0.962 0.007 235)",
+        "hex": "#eef3f7",
+        "tonalRamp": [
+          "#090b0f",
+          "#23272b",
+          "#41464b",
+          "#61676d",
+          "#848a90",
+          "#a9afb4",
+          "#cdd1d7",
+          "#eaeff4"
+        ]
+      },
+      "marker-wash-strong": {
+        "role": "neutral",
+        "displayName": "Marker Wash, Strong",
+        "canonical": "oklch(0.925 0.01 235)",
+        "hex": "#e0e7ec",
+        "tonalRamp": [
+          "#090b0f",
+          "#23272b",
+          "#41464b",
+          "#61676d",
+          "#848a90",
+          "#a9afb4",
+          "#cdd1d7",
+          "#eaeff4"
+        ]
+      },
+      "printed-rule": {
+        "role": "neutral",
+        "displayName": "Printed Rule",
+        "canonical": "oklch(0.87 0.006 245)",
+        "hex": "#d1d5d8",
+        "tonalRamp": [
+          "#090b0f",
+          "#23272b",
+          "#41464b",
+          "#61676d",
+          "#848a90",
+          "#a9afb4",
+          "#cdd1d7",
+          "#eaeff4"
+        ]
+      },
+      "printed-rule-soft": {
+        "role": "neutral",
+        "displayName": "Printed Rule, Soft",
+        "canonical": "oklch(0.92 0.005 245)",
+        "hex": "#e2e5e8",
+        "tonalRamp": [
+          "#090b0f",
+          "#23272b",
+          "#41464b",
+          "#61676d",
+          "#848a90",
+          "#a9afb4",
+          "#cdd1d7",
+          "#eaeff4"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Print Ink",
+        "canonical": "oklch(0.23 0.014 255)",
+        "hex": "#191d24",
+        "tonalRamp": [
+          "#090b0f",
+          "#23272c",
+          "#41454c",
+          "#61676e",
+          "#848a91",
+          "#a9aeb5",
+          "#ccd1d8",
+          "#eaeff5"
+        ]
+      },
+      "ink-hover": {
+        "role": "primary",
+        "displayName": "Print Ink, Lifted",
+        "canonical": "oklch(0.33 0.014 255)",
+        "hex": "#31363d",
+        "tonalRamp": [
+          "#090b0f",
+          "#23272c",
+          "#41454c",
+          "#61676e",
+          "#848a91",
+          "#a9aeb5",
+          "#ccd1d8",
+          "#eaeff5"
+        ]
+      },
+      "graphite": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "oklch(0.46 0.012 250)",
+        "hex": "#53595f",
+        "tonalRamp": [
+          "#090b0f",
+          "#23272b",
+          "#41464b",
+          "#61676d",
+          "#848a90",
+          "#a9afb4",
+          "#cdd1d7",
+          "#eaeff4"
+        ]
+      },
+      "pencil": {
+        "role": "neutral",
+        "displayName": "Pencil Line",
+        "canonical": "oklch(0.64 0.01 250)",
+        "hex": "#888d92",
+        "tonalRamp": [
+          "#090b0f",
+          "#23272b",
+          "#41464b",
+          "#61676d",
+          "#848a90",
+          "#a9afb4",
+          "#cdd1d7",
+          "#eaeff4"
+        ]
+      },
+      "non-photo-blue": {
+        "role": "tertiary",
+        "displayName": "Non-photo Blue",
+        "canonical": "oklch(0.76 0.09 228)",
+        "hex": "#70bdde",
+        "tonalRamp": [
+          "#00092d",
+          "#002853",
+          "#00487d",
+          "#076ba9",
+          "#4090cd",
+          "#70b5ef",
+          "#9ad8ff",
+          "#bdf6ff"
+        ]
+      },
+      "blue-line": {
+        "role": "tertiary",
+        "displayName": "Blue Sketch Line",
+        "canonical": "oklch(0.66 0.11 232)",
+        "hex": "#3e9dca",
+        "tonalRamp": [
+          "#00092d",
+          "#002853",
+          "#00487d",
+          "#076ba9",
+          "#4090cd",
+          "#70b5ef",
+          "#9ad8ff",
+          "#bdf6ff"
+        ]
+      },
+      "blue-pencil": {
+        "role": "primary",
+        "displayName": "Blue Pencil",
+        "canonical": "oklch(0.5 0.13 245)",
+        "hex": "#0068a7",
+        "tonalRamp": [
+          "#00092d",
+          "#002853",
+          "#00487d",
+          "#076ba9",
+          "#4090cd",
+          "#70b5ef",
+          "#9ad8ff",
+          "#bdf6ff"
+        ]
+      },
+      "blue-wash": {
+        "role": "tertiary",
+        "displayName": "Blue Wash",
+        "canonical": "oklch(0.955 0.02 230)",
+        "hex": "#e3f3fb",
+        "tonalRamp": [
+          "#00092d",
+          "#002853",
+          "#00487d",
+          "#076ba9",
+          "#4090cd",
+          "#70b5ef",
+          "#9ad8ff",
+          "#bdf6ff"
+        ]
+      },
+      "red-pencil": {
+        "role": "secondary",
+        "displayName": "Red Correction Pencil",
+        "canonical": "oklch(0.555 0.19 27)",
+        "hex": "#ca322e",
+        "tonalRamp": [
+          "#2f0000",
+          "#5b0000",
+          "#880005",
+          "#b82423",
+          "#e0534a",
+          "#ff8175",
+          "#ffab9e",
+          "#ffccbf"
+        ]
+      },
+      "red-wash": {
+        "role": "secondary",
+        "displayName": "Red Wash",
+        "canonical": "oklch(0.965 0.02 27)",
+        "hex": "#ffefec",
+        "tonalRamp": [
+          "#2f0000",
+          "#5b0000",
+          "#880005",
+          "#b82423",
+          "#e0534a",
+          "#ff8175",
+          "#ffab9e",
+          "#ffccbf"
+        ]
+      },
+      "chart-ink": {
+        "role": "tertiary",
+        "displayName": "Chart Ink",
+        "canonical": "oklch(0.36 0.014 255)",
+        "hex": "#383e45",
+        "tonalRamp": [
+          "#090b0f",
+          "#23272c",
+          "#41454c",
+          "#61676e",
+          "#848a91",
+          "#a9aeb5",
+          "#ccd1d8",
+          "#eaeff5"
+        ]
+      },
+      "chart-blue": {
+        "role": "tertiary",
+        "displayName": "Chart Blue",
+        "canonical": "oklch(0.58 0.12 238)",
+        "hex": "#1c83b9",
+        "tonalRamp": [
+          "#00092d",
+          "#002853",
+          "#00487d",
+          "#076ba9",
+          "#4090cd",
+          "#70b5ef",
+          "#9ad8ff",
+          "#bdf6ff"
+        ]
+      },
+      "red-deep": {
+        "role": "secondary",
+        "displayName": "Red Pencil, Pressed",
+        "canonical": "oklch(0.49 0.18 27)",
+        "hex": "#b21f1f",
+        "tonalRamp": [
+          "#2f0000",
+          "#5b0000",
+          "#880005",
+          "#b82423",
+          "#e0534a",
+          "#ff8175",
+          "#ffab9e",
+          "#ffccbf"
+        ]
+      },
+      "selection-blue": {
+        "role": "tertiary",
+        "displayName": "Selection Blue",
+        "canonical": "oklch(0.85 0.07 228)",
+        "hex": "#a8d8ef",
+        "tonalRamp": [
+          "#00092d",
+          "#002853",
+          "#00487d",
+          "#076ba9",
+          "#4090cd",
+          "#70b5ef",
+          "#9ad8ff",
+          "#bdf6ff"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Sheet Title",
+        "purpose": "The page title in each sheet's title block."
+      },
+      "headline": {
+        "displayName": "Section Title",
+        "purpose": "Section titles inside a sheet."
+      },
+      "title": {
+        "displayName": "Row Title",
+        "purpose": "Cut-row titles and list item titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose, facts, form text; 14px in dense rows."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Header-cell labels, column heads, meta lines."
+      },
+      "form-numeral": {
+        "displayName": "Printed Numeral",
+        "purpose": "Counts, codes, D-days, timecodes, big prices (Barlow Condensed, tabular)."
+      },
+      "rough-headline": {
+        "displayName": "Rough Headline",
+        "purpose": "A piece's own copy set inside a frame only (Black Han Sans)."
+      },
+      "subhead": {
+        "displayName": "Block Title",
+        "purpose": "Block titles inside a section and dialog titles (17px)."
+      },
+      "title-large": {
+        "displayName": "Large Title",
+        "purpose": "Package names and the AI 콘티 heading (19px)."
+      },
+      "body-small": {
+        "displayName": "Body Small",
+        "purpose": "Dense rows and meta text (14px)."
+      },
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "Tags and the OK stamp only (12px)."
+      },
+      "form-numeral-medium": {
+        "displayName": "Printed Numeral, Medium",
+        "purpose": "D-days and durations (22px)."
+      },
+      "form-numeral-display": {
+        "displayName": "Printed Numeral, Display",
+        "purpose": "Price-sheet prices (34px)."
+      }
+    },
+    "shadows": [
+      {
+        "name": "sheet-on-desk",
+        "value": "0 1px 2px oklch(0.3 0.02 250 / 0.08), 0 12px 32px -12px oklch(0.3 0.02 250 / 0.16)",
+        "purpose": "The page sheet lying on the desk."
+      },
+      {
+        "name": "pinned-piece",
+        "value": "0 1px 2px oklch(0.3 0.02 250 / 0.12), 0 10px 24px -14px oklch(0.3 0.02 250 / 0.35)",
+        "purpose": "Portfolio pieces pinned to the board."
+      },
+      {
+        "name": "floating-panel",
+        "value": "0 16px 32px -16px oklch(0.2 0.02 250 / 0.3)",
+        "purpose": "Mobile 목차 panel, chart tooltip, confirm dialog."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All state transitions (160ms) and the inking draw."
+      },
+      {
+        "name": "inking",
+        "value": "stroke-dashoffset 1→0 over 460ms, rough settles at +140ms, stamp at +380ms, 90ms stagger per storyboard cut",
+        "purpose": "Signature: a frame redraws in its new medium when the stage changes or a new AI 콘티 arrives. Off under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "720px"
+      },
+      {
+        "name": "row-reflow",
+        "value": "860px"
+      },
+      {
+        "name": "nav-fold",
+        "value": "960px"
+      },
+      {
+        "name": "form-stack",
+        "value": "1000px"
+      },
+      {
+        "name": "dense",
+        "value": "1100px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ink rectangle for the one main action of a sheet (주문 접수하기, 납품 완료).",
+      "html": "<button class=\"ds-btn\">주문 접수하기</button>",
+      "css": ":host{--paper:#fbfdfe;--ink:#191d24;--ink-hover:#31363d;--graphite:#53595f;--pencil:#888d92;--wash:#eef3f7;--wash-strong:#e0e7ec;--rule:#d1d5d8;--blue-line:#3e9dca;--blue-ink:#0068a7;--red:#ca322e;--red-wash:#ffefec;font-family:'Pretendard Variable',Pretendard,system-ui,sans-serif;color:var(--ink)}.ds-btn{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px;border:1.5px solid var(--ink);border-radius:2px;background:var(--ink);color:var(--paper);font-size:15px;font-weight:600;cursor:pointer;transition:background-color 160ms cubic-bezier(0.16,1,0.3,1)}.ds-btn:hover{background:var(--ink-hover);border-color:var(--ink-hover)}.ds-btn:focus-visible{outline:2px solid var(--blue-ink);outline-offset:2px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Paper button with an ink border for alternate moves (수정 요청 기록, 주문 수정).",
+      "html": "<button class=\"ds-btn-2\">수정 요청 기록</button>",
+      "css": ":host{--paper:#fbfdfe;--ink:#191d24;--ink-hover:#31363d;--graphite:#53595f;--pencil:#888d92;--wash:#eef3f7;--wash-strong:#e0e7ec;--rule:#d1d5d8;--blue-line:#3e9dca;--blue-ink:#0068a7;--red:#ca322e;--red-wash:#ffefec;font-family:'Pretendard Variable',Pretendard,system-ui,sans-serif;color:var(--ink)}.ds-btn-2{min-height:40px;padding:0 16px;border:1.5px solid var(--ink);border-radius:2px;background:var(--paper);color:var(--ink);font-size:15px;font-weight:600;cursor:pointer}.ds-btn-2:hover{background:var(--wash)}.ds-btn-2:focus-visible{outline:2px solid var(--blue-ink);outline-offset:2px}"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Red-pencil outline for destructive actions; always opens a confirm dialog.",
+      "html": "<button class=\"ds-btn-d\">삭제</button>",
+      "css": ":host{--paper:#fbfdfe;--ink:#191d24;--ink-hover:#31363d;--graphite:#53595f;--pencil:#888d92;--wash:#eef3f7;--wash-strong:#e0e7ec;--rule:#d1d5d8;--blue-line:#3e9dca;--blue-ink:#0068a7;--red:#ca322e;--red-wash:#ffefec;font-family:'Pretendard Variable',Pretendard,system-ui,sans-serif;color:var(--ink)}.ds-btn-d{min-height:34px;padding:0 12px;border:1.5px solid var(--red);border-radius:2px;background:var(--paper);color:var(--red);font-size:14px;font-weight:600;cursor:pointer}.ds-btn-d:hover{background:var(--red-wash)}.ds-btn-d:focus-visible{outline:2px solid var(--blue-ink);outline-offset:2px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Paper field with a pencil border; label above, hint/error below.",
+      "html": "<label class=\"ds-field\"><span>작업명</span><input class=\"ds-input\" placeholder=\"예: 가을 신메뉴 릴스 3편\"></label>",
+      "css": ":host{--paper:#fbfdfe;--ink:#191d24;--ink-hover:#31363d;--graphite:#53595f;--pencil:#888d92;--wash:#eef3f7;--wash-strong:#e0e7ec;--rule:#d1d5d8;--blue-line:#3e9dca;--blue-ink:#0068a7;--red:#ca322e;--red-wash:#ffefec;font-family:'Pretendard Variable',Pretendard,system-ui,sans-serif;color:var(--ink)}.ds-field{display:grid;gap:6px;font-size:14px;font-weight:600}.ds-input{min-height:42px;padding:9px 12px;border:1px solid var(--pencil);border-radius:2px;background:var(--paper);font:inherit;font-weight:400;font-size:15px}.ds-input:hover{border-color:var(--graphite)}.ds-input:focus-visible{border-color:var(--blue-ink);outline:2px solid rgba(0,104,167,.35);outline-offset:0}"
+    },
+    {
+      "name": "Nav Cells",
+      "kind": "nav",
+      "refersTo": "nav-cell",
+      "description": "The printed top bar: ruled cells, current one washed with a 4px ink underline.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-cell\" aria-current=\"page\">오늘</a><a class=\"ds-cell\">주문</a><a class=\"ds-cell\">포트폴리오</a></nav>",
+      "css": ":host{--paper:#fbfdfe;--ink:#191d24;--ink-hover:#31363d;--graphite:#53595f;--pencil:#888d92;--wash:#eef3f7;--wash-strong:#e0e7ec;--rule:#d1d5d8;--blue-line:#3e9dca;--blue-ink:#0068a7;--red:#ca322e;--red-wash:#ffefec;font-family:'Pretendard Variable',Pretendard,system-ui,sans-serif;color:var(--ink)}.ds-nav{display:flex;border-bottom:2px solid var(--ink);background:var(--paper)}.ds-cell{position:relative;display:flex;align-items:center;height:56px;padding:0 16px;border-right:1px solid var(--rule);color:var(--graphite);font-size:15px;text-decoration:none;cursor:pointer}.ds-cell:hover{background:var(--wash);color:var(--ink)}.ds-cell[aria-current]{background:var(--wash);color:var(--ink);font-weight:700}.ds-cell[aria-current]::after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:4px;background:var(--ink)}"
+    },
+    {
+      "name": "Header Cell",
+      "kind": "custom",
+      "refersTo": "header-cell",
+      "description": "A labelled form cell of the sheet's title block; linked cells filter the sheet.",
+      "html": "<dl class=\"ds-cells\"><div class=\"ds-hc\"><dt>S#2 시안작업</dt><dd>8컷</dd></div><div class=\"ds-hc ds-alert\"><dt>S#3 수정요청</dt><dd>2컷</dd></div></dl>",
+      "css": ":host{--paper:#fbfdfe;--ink:#191d24;--ink-hover:#31363d;--graphite:#53595f;--pencil:#888d92;--wash:#eef3f7;--wash-strong:#e0e7ec;--rule:#d1d5d8;--blue-line:#3e9dca;--blue-ink:#0068a7;--red:#ca322e;--red-wash:#ffefec;font-family:'Pretendard Variable',Pretendard,system-ui,sans-serif;color:var(--ink)}.ds-cells{display:grid;grid-template-columns:repeat(2,140px);margin:0;border-left:1px solid var(--rule)}.ds-hc{padding:14px 16px 16px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}.ds-hc dt{font-size:13px;color:var(--graphite)}.ds-hc dd{margin:0;font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:600}.ds-alert dt,.ds-alert dd{color:var(--red)}.ds-hc:hover{background:var(--wash)}"
+    },
+    {
+      "name": "Stage Frame",
+      "kind": "custom",
+      "refersTo": "frame",
+      "description": "An order drawn at its deliverable's ratio; the outline medium is the stage (here: 수정요청 red pencil).",
+      "html": "<div class=\"ds-frame\"><svg viewBox=\"0 0 160 90\"><rect x=\"8\" y=\"4.5\" width=\"144\" height=\"81\" fill=\"none\" stroke=\"#70bdde\" stroke-dasharray=\"3 3\"/><rect x=\"86\" y=\"9\" width=\"64\" height=\"72\" fill=\"rgba(136,141,146,.08)\" stroke=\"#888d92\"/><path d=\"M86 9L150 81M150 9L86 81\" stroke=\"#888d92\" stroke-width=\".9\"/><rect x=\"11\" y=\"27\" width=\"64\" height=\"12\" fill=\"rgba(136,141,146,.6)\"/><rect x=\"1\" y=\"1\" width=\"158\" height=\"88\" fill=\"none\" stroke=\"#ca322e\" stroke-width=\"2\"/></svg><span class=\"ds-cap\">16:9</span></div>",
+      "css": ":host{--paper:#fbfdfe;--ink:#191d24;--ink-hover:#31363d;--graphite:#53595f;--pencil:#888d92;--wash:#eef3f7;--wash-strong:#e0e7ec;--rule:#d1d5d8;--blue-line:#3e9dca;--blue-ink:#0068a7;--red:#ca322e;--red-wash:#ffefec;font-family:'Pretendard Variable',Pretendard,system-ui,sans-serif;color:var(--ink)}.ds-frame{display:inline-grid;gap:6px}.ds-frame svg{width:160px;height:90px;background:var(--paper)}.ds-cap{font-family:'Barlow Condensed',sans-serif;font-size:13px;color:var(--blue-ink)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The 콘티 Sheet",
+    "overview": "The studio is run from a storyboard (콘티) sheet: cool copier paper on a pale gray desk, printed with ink-black ruled tables and header blocks of labelled form cells. Every order is a cut on that sheet, drawn as a frame at the deliverable's true aspect ratio, with the format's non-photo-blue safe-area guides inside. Stage is the drawing medium: dashed blue sketch, graphite pencil line, red correction pencil, black ink with a circled OK; the frame redraws itself when the stage changes.",
+    "keyCharacteristics": [
+      "One sheet per page: a title block with printed header cells, then ruled content; no floating cards.",
+      "Frames at true aspect ratio carry the product's state; text beside them always names the stage too.",
+      "Ink for structure and primary action, blue pencil for sketch/in-progress and focus, red pencil only for 수정, overdue and destructive.",
+      "Condensed printed-form numerals for cut numbers, counts, D-days, timecodes and prices in header cells.",
+      "Motion only as state: 460ms stroke draw with exponential ease-out; nothing animates on first load."
+    ],
+    "rules": [
+      {
+        "name": "The Pencil Means Something Rule",
+        "body": "Blue is sketch, progress and focus; red is correction, lateness and deletion. A new use of either color must mean one of those, or it is ink or graphite.",
+        "section": "colors"
+      },
+      {
+        "name": "The Paper Rule",
+        "body": "The ground is cool copier paper on a cool gray desk. Never warm it toward cream or ivory.",
+        "section": "colors"
+      },
+      {
+        "name": "The Rough Stays Inside Rule",
+        "body": "Black Han Sans renders only inside a frame as a piece's own copy; below ~9px it is dropped and the frame shows plain copy bars instead.",
+        "section": "typography"
+      },
+      {
+        "name": "The Printed Numeral Rule",
+        "body": "Counts, codes, durations and aspect labels use the condensed numeral face with tabular figures; running prose never does.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper On Desk Rule",
+        "body": "Only whole sheets and pinned pieces cast shadows; a box inside the sheet that needs separation gets a rule.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do show every order as its frame at the true aspect ratio, and name its stage in text beside it.",
+      "Do keep pages as one sheet: title block with printed header cells, then ruled rows.",
+      "Do use blue pencil for focus, selection highlights and sketch/in-progress, and red pencil only for 수정, overdue and destructive actions.",
+      "Do set counts, codes, D-days and durations in the condensed numeral face with tabular figures.",
+      "Do label sample data as 샘플 where a visitor could mistake it for real work."
+    ],
+    "donts": [
+      "Don't go back to the dark blue/magenta creative-studio look, neon gradients, KPI tiles or kanban cards.",
+      "Don't put cards inside the sheet or shadows on anything inside it.",
+      "Don't use Black Han Sans for UI labels, buttons or headings.",
+      "Don't use Unicode glyphs or emoji as icons; icons come from lucide at one stroke weight.",
+      "Don't warm the paper toward cream or add paper textures; the sheet is clean copier paper.",
+      "Don't animate on page load; motion only marks a stage change or a new storyboard."
+    ]
+  }
+}

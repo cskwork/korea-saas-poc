@@ -1,0 +1,414 @@
+/* The AI brief: concepts in ruled columns, copy lines, and a real 콘티 table. */
+
+.panel {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  border-top: 2px solid var(--ink);
+  scroll-margin-top: 72px;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 24px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.lead {
+  max-width: 62ch;
+  margin-top: 4px;
+  color: var(--graphite);
+}
+
+.status:empty {
+  display: none;
+}
+
+.versions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.version {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-size: 13px;
+  color: var(--graphite);
+}
+
+.version[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--wash-strong);
+  color: var(--ink);
+}
+
+.versionNo {
+  font-family: var(--font-num);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.result {
+  display: grid;
+  gap: 12px;
+  transition: opacity 200ms var(--ease-out);
+}
+
+.result[data-pending] {
+  opacity: 0.55;
+}
+
+.source {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  font-size: 13px;
+  color: var(--graphite);
+}
+
+.sourceTag {
+  padding: 1px 8px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.sourceTag[data-source="template"] {
+  border-style: dashed;
+  border-color: var(--blue-line);
+  color: var(--blue-ink);
+}
+
+.subTitle {
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.concepts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+}
+
+.concept {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 14px 16px 16px;
+}
+
+.concept + .concept {
+  border-left: 1px solid var(--rule);
+}
+
+.conceptTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.conceptNo {
+  font-family: var(--font-num);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--blue-ink);
+}
+
+.conceptText {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.keywords {
+  font-size: 13px;
+  color: var(--graphite);
+}
+
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+.swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-num);
+  font-size: 13px;
+  color: var(--graphite);
+}
+
+.chip {
+  width: 16px;
+  height: 16px;
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+
+.copies {
+  border-top: 1px solid var(--ink);
+}
+
+.copy {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.copyNo {
+  font-family: var(--font-num);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--graphite);
+  text-align: center;
+}
+
+.copyText {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.copyCount {
+  font-family: var(--font-num);
+  font-size: 13px;
+  color: var(--graphite);
+  font-variant-numeric: tabular-nums;
+}
+
+.copyButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-size: 13px;
+  color: var(--graphite);
+}
+
+.copyButton:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.board {
+  --cols: 44px 212px minmax(0, 1.2fr) minmax(0, 1fr) 72px;
+  border-top: 1px solid var(--ink);
+}
+
+.boardHead {
+  display: grid;
+  grid-template-columns: var(--cols);
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--font-num);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--graphite);
+}
+
+.boardHead > span {
+  padding: 6px 10px;
+}
+
+.cut {
+  display: grid;
+  grid-template-columns: var(--cols);
+  align-items: start;
+  border-bottom: 1px solid var(--rule);
+}
+
+.cut > * {
+  padding: 12px 10px;
+}
+
+.cutNo {
+  font-family: var(--font-num);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--graphite);
+}
+
+.cutFrame {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.cutBody {
+  display: grid;
+  gap: 4px;
+}
+
+.cutLabel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  font-weight: 700;
+}
+
+.shot {
+  font-family: var(--font-num);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--blue-ink);
+}
+
+.cutVisual {
+  font-size: 14px;
+  color: var(--graphite);
+}
+
+.caption {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.seconds {
+  display: grid;
+  justify-items: end;
+  line-height: 1.2;
+}
+
+.secondsValue {
+  font-family: var(--font-num);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.timecode {
+  font-family: var(--font-num);
+  font-size: 13px;
+  color: var(--graphite);
+}
+
+.total {
+  padding: 10px 10px 0;
+  text-align: right;
+  font-size: 14px;
+  color: var(--graphite);
+}
+
+.total strong {
+  font-family: var(--font-num);
+  font-size: 17px;
+  color: var(--ink);
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cutSkeleton .skLine {
+  display: block;
+  height: 12px;
+  margin-bottom: 8px;
+  background: oklch(0.93 0.006 240);
+  animation: breathe 1.4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 960px) {
+  .concepts {
+    grid-template-columns: 1fr;
+  }
+
+  .concept + .concept {
+    border-left: none;
+    border-top: 1px solid var(--rule);
+  }
+}
+
+@media (max-width: 720px) {
+  .panel {
+    padding: 20px 16px;
+  }
+
+  .boardHead {
+    display: none;
+  }
+
+  .cut {
+    grid-template-columns: 28px auto minmax(0, 1fr);
+    grid-template-areas:
+      "no frame body"
+      "no frame caption"
+      "no frame seconds";
+    column-gap: 10px;
+    padding: 12px 0;
+  }
+
+  .cut > * {
+    padding: 0;
+  }
+
+  .cutNo {
+    grid-area: no;
+    font-size: 17px;
+  }
+
+  .cutFrame {
+    grid-area: frame;
+    max-width: 120px;
+  }
+
+  .cutBody {
+    grid-area: body;
+  }
+
+  .caption {
+    grid-area: caption;
+    margin-top: 4px;
+  }
+
+  .seconds {
+    grid-area: seconds;
+    justify-items: start;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .copy {
+    grid-template-columns: 22px minmax(0, 1fr) auto;
+  }
+
+  .copyCount {
+    display: none;
+  }
+}

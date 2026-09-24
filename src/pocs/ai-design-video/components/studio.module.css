@@ -1,0 +1,180 @@
+/*
+ * 크리에이트잇 — the 콘티 sheet world.
+ * Copier-paper sheets on a cool-gray desk, ink-ruled tables, blue sketch guides,
+ * red correction pencil. Tokens live on .root; every module file reads them.
+ */
+
+.root {
+  --paper: oklch(0.992 0.002 240);
+  --desk: oklch(0.94 0.006 240);
+  --wash: oklch(0.962 0.007 235);
+  --wash-strong: oklch(0.925 0.01 235);
+  --rule: oklch(0.87 0.006 245);
+  --rule-soft: oklch(0.92 0.005 245);
+  --ink: oklch(0.23 0.014 255);
+  --ink-hover: oklch(0.33 0.014 255);
+  --graphite: oklch(0.46 0.012 250);
+  --pencil: oklch(0.64 0.01 250);
+  --blue: oklch(0.76 0.09 228);
+  --blue-line: oklch(0.66 0.11 232);
+  --blue-ink: oklch(0.5 0.13 245);
+  --blue-wash: oklch(0.955 0.02 230);
+  --red: oklch(0.555 0.19 27);
+  --red-wash: oklch(0.965 0.02 27);
+  --red-deep: oklch(0.49 0.18 27);
+
+  --shadow-float: 0 16px 32px -16px oklch(0.2 0.02 250 / 0.3);
+
+  --font-ui:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
+  --font-num: var(--font-form), "Pretendard Variable", Pretendard, sans-serif;
+  --font-head: var(--font-rough), "Pretendard Variable", Pretendard, sans-serif;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 2px;
+  --gutter: clamp(16px, 3vw, 32px);
+  --sheet-max: 1320px;
+
+  min-height: 100dvh;
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.55;
+  font-feature-settings: "ss06";
+}
+
+:global(html):has(.root) {
+  background: var(--desk);
+  scrollbar-color: oklch(0.7 0.01 250) oklch(0.94 0.006 240);
+  accent-color: oklch(0.23 0.014 255);
+  caret-color: oklch(0.5 0.13 245);
+}
+
+:global(html):has(.root) ::selection {
+  background: oklch(0.85 0.07 228);
+  color: oklch(0.23 0.014 255);
+}
+
+.root :focus-visible {
+  outline: 2px solid var(--blue-ink);
+  outline-offset: 2px;
+}
+
+.root a {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+/* ── Top bar: the sheet's printed header row ─────────────────────────────── */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+}
+
+.topbarInner {
+  max-width: calc(var(--sheet-max) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: stretch;
+  min-height: 56px;
+}
+
+.wordmark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 20px;
+  margin-right: 4px;
+  border-right: 1px solid var(--rule);
+  text-decoration: none;
+  line-height: 1.15;
+}
+
+.wordmarkName {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.wordmarkRole {
+  font-size: 12px;
+  color: var(--graphite);
+}
+
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  padding: 8px 12px;
+  background: var(--ink);
+  color: var(--paper);
+  z-index: 30;
+}
+
+.skip:focus {
+  top: 8px;
+}
+
+.main {
+  max-width: calc(var(--sheet-max) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 24px var(--gutter) 48px;
+}
+
+/* ── The sheet ──────────────────────────────────────────────────────────── */
+
+.sheet {
+  background: var(--paper);
+  box-shadow:
+    0 1px 2px oklch(0.3 0.02 250 / 0.08),
+    0 12px 32px -12px oklch(0.3 0.02 250 / 0.16);
+}
+
+.sheetFooter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  border-top: 1px solid var(--rule);
+  font-size: 13px;
+  color: var(--graphite);
+}
+
+.sheetFooter p {
+  max-width: 70ch;
+}
+
+.body {
+  padding: 24px;
+}
+
+@media (max-width: 720px) {
+  .main {
+    padding: 0 0 32px;
+  }
+
+  .sheet {
+    box-shadow: none;
+  }
+
+  .body {
+    padding: 20px 16px;
+  }
+
+  .sheetFooter {
+    padding: 14px 16px;
+  }
+
+  .wordmark {
+    padding-right: 12px;
+    border-right: none;
+  }
+}

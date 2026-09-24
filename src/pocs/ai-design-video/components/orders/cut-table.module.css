@@ -1,0 +1,262 @@
+/* The cut rows of the sheet. */
+
+.table {
+  --cols: 56px 176px minmax(0, 1fr) 200px 132px;
+  border-top: 1px solid var(--ink);
+}
+
+.head {
+  display: grid;
+  grid-template-columns: var(--cols);
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--font-num);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--graphite);
+}
+
+.head > span {
+  padding: 6px 12px;
+  border-right: 1px solid var(--rule);
+}
+
+.head > span:last-child {
+  border-right: none;
+}
+
+.headDue {
+  text-align: right;
+}
+
+.rows {
+  margin: 0;
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--cols);
+  align-items: stretch;
+  border-bottom: 1px solid var(--rule);
+  transition: background-color 160ms var(--ease-out);
+}
+
+.row:hover {
+  background: var(--wash);
+}
+
+.row > * {
+  padding: 14px 12px;
+  border-right: 1px solid var(--rule-soft);
+}
+
+.row > *:last-child {
+  border-right: none;
+}
+
+.cut {
+  font-family: var(--font-num);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--graphite);
+  font-variant-numeric: tabular-nums;
+}
+
+.frameCell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+}
+
+.aspect {
+  font-family: var(--font-num);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--blue-ink);
+}
+
+.content {
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* The whole row opens the order. */
+.title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.title:focus-visible {
+  outline: none;
+}
+
+.title:focus-visible::after {
+  outline: 2px solid var(--blue-ink);
+  outline-offset: -2px;
+}
+
+.row:hover .title {
+  text-decoration: underline;
+  text-decoration-color: var(--pencil);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  font-size: 14px;
+  color: var(--graphite);
+}
+
+.snippet {
+  max-width: 64ch;
+  font-size: 14px;
+  color: var(--graphite);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.code {
+  font-family: var(--font-num);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+.progress {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 6px;
+}
+
+.brief,
+.briefMissing {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.brief {
+  color: var(--blue-ink);
+  font-weight: 600;
+}
+
+.briefMissing {
+  color: var(--graphite);
+}
+
+.due {
+  display: grid;
+  align-content: center;
+  justify-items: end;
+  gap: 6px;
+}
+
+.price {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.rush {
+  flex: none;
+  padding: 0 5px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+  .table {
+    --cols: 44px 150px minmax(0, 1fr) 176px 116px;
+  }
+}
+
+@media (max-width: 860px) {
+  .head {
+    display: none;
+  }
+
+  .row {
+    grid-template-columns: 30px 92px minmax(0, 1fr);
+    grid-template-areas:
+      "cut frame content"
+      "cut frame progress"
+      "cut frame due";
+    padding: 14px 16px 14px 8px;
+    column-gap: 12px;
+    row-gap: 8px;
+  }
+
+  .row > * {
+    padding: 0;
+    border-right: none;
+  }
+
+  .cut {
+    grid-area: cut;
+    font-size: 17px;
+  }
+
+  .code,
+  .package,
+  .snippet {
+    display: none;
+  }
+
+  .frameCell {
+    grid-area: frame;
+    justify-content: flex-start;
+  }
+
+  .content {
+    grid-area: content;
+  }
+
+  .progress {
+    grid-area: progress;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+  }
+
+  .due {
+    grid-area: due;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 12px;
+  }
+
+  .due > span:first-child {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    justify-items: start;
+  }
+}

@@ -36,6 +36,13 @@
       "when": 1790254664094,
       "tag": "0004_affiliate-marketing",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790254667927,
+      "tag": "0005_ai-design-video",
+      "breakpoints": true
     }
   ]
 }
