@@ -1,0 +1,100 @@
+/* Loading shapes that match the page they stand in for. */
+.page {
+  display: grid;
+  gap: 20px;
+}
+
+.block {
+  background: var(--steel-1);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.onBlue {
+  background: rgb(255 255 255 / 0.16);
+}
+
+.title {
+  width: min(420px, 70%);
+  height: 40px;
+}
+
+.line {
+  height: 14px;
+}
+
+.line:nth-child(2n) {
+  width: 82%;
+}
+
+.stand {
+  display: grid;
+  gap: 8px;
+  padding: 24px;
+  background: var(--cobalt);
+}
+
+.bar {
+  height: 30px;
+}
+
+.bar:nth-child(odd) {
+  width: 78%;
+  margin-left: 12%;
+}
+
+.bar:nth-child(even) {
+  width: 52%;
+  margin-left: 30%;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.card {
+  height: 150px;
+}
+
+.proof {
+  height: 132px;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 28px;
+}
+
+.stack {
+  display: grid;
+  gap: 12px;
+}
+
+.row {
+  height: 64px;
+}
+
+.pole {
+  height: 460px;
+}
+
+.poles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (max-width: 900px) {
+  .split,
+  .poles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

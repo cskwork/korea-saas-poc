@@ -1,0 +1,357 @@
+/*
+ * 글품 — the banner stand. Tokens live on .root; every component module reads them.
+ * Cobalt banner blue owns fields, steel greys carry structure, vinyl white carries text.
+ */
+.root {
+  /* banner substrates */
+  --cobalt: #1c4cc8;
+  --cobalt-press: #173fa6;
+  --cobalt-deep: #13295f;
+  --cobalt-wash: #e7eefc;
+  --cobalt-line: #3f66d4;
+  --yellow: #fccf28;
+  --yellow-press: #f2c20f;
+  --red: #db2c2b;
+  --red-ink: #b81f22;
+  --red-wash: #fdeaea;
+  --green: #00884b;
+
+  /* pipeline stages: one cobalt ramp, light → dark (validated ordinal) */
+  --stage-received: #91b1f1;
+  --stage-writing: #5782e0;
+  --stage-review: #2456d3;
+  --stage-delivered: #13295f;
+
+  /* content kinds: banner substrates (always shown with their label) */
+  --kind-blog: #00884b;
+  --kind-product: #e4a000;
+  --kind-ad: #db2c2b;
+
+  /* ink and ground */
+  --ink: #11161f;
+  --ink-2: #414b5c;
+  --ink-3: #5d6778;
+  --vinyl: #fbfcfe;
+  --ground: #eef1f5;
+  --steel-1: #dde2ea;
+  --steel-2: #c3cad6;
+  --steel-3: #8a94a6;
+  --steel-4: #5f6a7d;
+
+  --font-display: var(--font-banner), "Pretendard Variable", Pretendard, sans-serif;
+  --font-ui: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif;
+
+  --radius: 2px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --measure: 1240px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --focus: 0 0 0 2px var(--vinyl), 0 0 0 4px var(--cobalt);
+
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.55;
+  font-feature-settings: "ss05";
+}
+
+:global(html):has(.root) {
+  background: #eef1f5;
+  color-scheme: light;
+  scrollbar-color: #8a94a6 #eef1f5;
+  accent-color: #1c4cc8;
+}
+
+:global(html):has(.root) ::selection {
+  background: #fccf28;
+  color: #11161f;
+}
+
+.root :focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.root a {
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+/* ---------------------------------------------------------------- masthead */
+
+.masthead {
+  position: relative;
+  background: var(--cobalt);
+  color: #fff;
+  outline: 1px dashed rgb(255 255 255 / 0.28);
+  outline-offset: -6px;
+}
+
+.mastheadInner {
+  max-width: calc(var(--measure) + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  min-height: 60px;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 1;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  padding: 4px 2px;
+}
+
+.wordmark em {
+  font-style: normal;
+  color: var(--yellow);
+}
+
+.nav {
+  flex: 1;
+  min-width: 0;
+}
+
+.navList {
+  display: flex;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  position: relative;
+  display: block;
+  padding: 18px 12px;
+  color: rgb(255 255 255 / 0.86);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+  transition: color 160ms var(--ease-out);
+}
+
+.navLink:hover {
+  color: #fff;
+}
+
+.navLink[aria-current="page"] {
+  color: #fff;
+}
+
+.navLink[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 10px;
+  height: 4px;
+  background: var(--yellow);
+}
+
+.mastheadEnd {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sampleTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid rgb(255 255 255 / 0.55);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 14px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: var(--radius);
+  white-space: nowrap;
+  transition: background 160ms var(--ease-out);
+}
+
+.cta:hover {
+  background: var(--yellow-press);
+}
+
+.masthead .cta:focus-visible,
+.masthead .navLink:focus-visible,
+.masthead .wordmark:focus-visible {
+  box-shadow: 0 0 0 2px var(--cobalt), 0 0 0 4px var(--yellow);
+}
+
+/* grommets: four eyelets punched through the banner's hem */
+.grommets {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.grommets i {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ground);
+  border: 2px solid #c9d0db;
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / 0.35);
+}
+
+.grommets i:nth-child(1) { top: 9px; left: 9px; }
+.grommets i:nth-child(2) { top: 9px; right: 9px; }
+.grommets i:nth-child(3) { bottom: 9px; left: 9px; }
+.grommets i:nth-child(4) { bottom: 9px; right: 9px; }
+
+/* ---------------------------------------------------------------- main */
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: calc(var(--measure) + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 28px var(--gutter) 64px;
+}
+
+/* ---------------------------------------------------------------- footer */
+
+.footer {
+  border-top: 6px solid var(--steel-2);
+  background: var(--steel-1);
+  color: var(--ink-2);
+  font-size: 13px;
+}
+
+.footerInner {
+  max-width: calc(var(--measure) + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 20px var(--gutter) 28px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.footerNote {
+  flex: 1 1 320px;
+  margin: 0;
+}
+
+.footerNote strong {
+  color: var(--ink);
+}
+
+.aiMode {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.aiDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--steel-3);
+}
+
+.aiDot[data-mode="claude"] {
+  background: var(--green);
+}
+
+.hubLink {
+  color: var(--ink-2);
+}
+
+/* ---------------------------------------------------------------- phones */
+
+@media (max-width: 860px) {
+  .mastheadInner {
+    flex-wrap: wrap;
+    gap: 0 12px;
+    padding-top: 8px;
+  }
+
+  .wordmark {
+    font-size: 26px;
+  }
+
+  .mastheadEnd {
+    margin-left: auto;
+  }
+
+  .nav {
+    order: 3;
+    flex-basis: 100%;
+    margin: 0 calc(var(--gutter) * -1);
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+    /* The strip scrolls sideways: fade its right edge so the cut-off item reads as "more". */
+    mask-image: linear-gradient(to right, #000 86%, transparent);
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navList {
+    padding: 0 calc(var(--gutter) - 12px);
+  }
+
+  .navLink {
+    padding: 12px 12px 16px;
+    scroll-snap-align: start;
+  }
+
+  .navLink[aria-current="page"]::after {
+    bottom: 8px;
+  }
+
+  .main {
+    padding-top: 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  .sampleLong {
+    display: none;
+  }
+}
+
+@media print {
+  .masthead,
+  .footer {
+    display: none;
+  }
+
+  .root,
+  :global(html):has(.root) {
+    background: #fff;
+  }
+}
