@@ -1,0 +1,350 @@
+/*
+ * 링크잇 world: a Korean supermarket flyer (전단지) and its shelf-edge price labels (매대 가격표).
+ * Tokens live on .root; every other module file reads them through var().
+ */
+.root {
+  /* Surfaces */
+  --am-paper: oklch(1 0 0);
+  /* The page is flyer paper: a bright, faintly cool white. */
+  --am-page-ground: oklch(0.99 0.002 255);
+  --am-ground: oklch(0.953 0.005 255);
+  --am-ground-deep: oklch(0.915 0.007 255);
+  --am-rail: oklch(0.84 0.009 255);
+  --am-rail-lip: oklch(0.7 0.012 255);
+  --am-rule: oklch(0.86 0.007 255);
+  --am-rule-strong: oklch(0.2 0.015 265);
+
+  /* Ink */
+  --am-ink: oklch(0.2 0.015 265);
+  --am-ink-2: oklch(0.4 0.014 265);
+  --am-ink-3: oklch(0.49 0.012 265);
+  --am-on-red: oklch(1 0 0);
+
+  /* Flyer colours */
+  --am-yellow: oklch(0.895 0.172 96);
+  --am-yellow-deep: oklch(0.82 0.17 88);
+  --am-yellow-soft: oklch(0.965 0.07 100);
+  --am-red: oklch(0.565 0.222 27);
+  --am-red-deep: oklch(0.47 0.2 27);
+  --am-red-soft: oklch(0.95 0.035 25);
+  /* Korean market convention: red rises, blue falls. */
+  --am-up: oklch(0.54 0.21 27);
+  --am-down: oklch(0.5 0.17 258);
+  --am-down-soft: oklch(0.95 0.03 258);
+  --am-ok: oklch(0.5 0.13 150);
+  --am-ok-soft: oklch(0.95 0.04 150);
+
+  /* Categorical series (validated: CVD-separated, fixed order, never cycled) */
+  --am-series-1: #da151f;
+  --am-series-2: #145ec1;
+  --am-series-3: #dc8900;
+  --am-series-4: #23864b;
+  --am-series-5: #8e3b86;
+  --am-series-other: #9a9fa6;
+
+  /* Type */
+  --am-display: var(--am-font-display), "Pretendard Variable", sans-serif;
+  --am-figure: var(--am-font-figure), "Pretendard Variable", sans-serif;
+  --am-text: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  --am-fs-xs: 0.75rem;
+  --am-fs-sm: 0.8125rem;
+  --am-fs-md: 0.9375rem;
+  --am-fs-lg: 1.0625rem;
+  --am-fs-xl: 1.3125rem;
+  --am-fs-2xl: 1.625rem;
+  --am-fs-3xl: 2.125rem;
+
+  /* Space (4pt) */
+  --am-s1: 4px;
+  --am-s2: 8px;
+  --am-s3: 12px;
+  --am-s4: 16px;
+  --am-s5: 24px;
+  --am-s6: 32px;
+  --am-s7: 48px;
+  --am-s8: 64px;
+
+  --am-radius: 3px;
+  --am-radius-sm: 2px;
+  --am-page: 1320px;
+  --am-gutter: clamp(16px, 3vw, 40px);
+  --am-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --am-focus: var(--am-ink);
+
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--am-page-ground);
+  color: var(--am-ink);
+  font-family: var(--am-text);
+  font-size: var(--am-fs-md);
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+}
+
+:global(html):has(.root) {
+  background: oklch(0.915 0.007 255);
+  color-scheme: light;
+  scrollbar-color: oklch(0.62 0.012 255) oklch(0.915 0.007 255);
+  accent-color: oklch(0.565 0.222 27);
+  caret-color: oklch(0.565 0.222 27);
+}
+
+.root ::selection {
+  background: var(--am-yellow);
+  color: var(--am-ink);
+}
+
+.root :focus-visible {
+  outline: 3px solid var(--am-focus);
+  outline-offset: 2px;
+  border-radius: var(--am-radius-sm);
+}
+
+.root a {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1.5px;
+}
+
+.skip {
+  position: absolute;
+  left: var(--am-s4);
+  top: -80px;
+  z-index: 50;
+  padding: var(--am-s2) var(--am-s4);
+  background: var(--am-yellow);
+  color: var(--am-ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip:focus-visible {
+  top: var(--am-s2);
+}
+
+/* ---------- Store band (header) ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--am-red);
+  color: var(--am-on-red);
+  border-bottom: 3px solid var(--am-yellow);
+  --am-focus: var(--am-yellow);
+}
+
+.headerInner {
+  max-width: var(--am-page);
+  margin: 0 auto;
+  padding: 0 var(--am-gutter);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: var(--am-s5);
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--am-s2);
+  color: inherit;
+  text-decoration: none;
+  font-family: var(--am-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+}
+
+.wordmarkTag {
+  width: 26px;
+  height: 26px;
+  color: var(--am-yellow);
+}
+
+.nav {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 var(--am-s3);
+  color: oklch(1 0 0 / 0.86);
+  font-weight: 600;
+  font-size: var(--am-fs-md);
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+  transition: color 150ms var(--am-ease), background-color 150ms var(--am-ease);
+}
+
+.navLink:hover {
+  color: var(--am-on-red);
+  background: oklch(0 0 0 / 0.1);
+}
+
+.navLink[aria-current="page"] {
+  color: var(--am-ink);
+  background: var(--am-yellow);
+}
+
+.headerEnd {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--am-s3);
+}
+
+.menuButton {
+  display: none;
+  align-items: center;
+  gap: var(--am-s2);
+  height: 40px;
+  padding: 0 var(--am-s3);
+  border: 1.5px solid oklch(1 0 0 / 0.7);
+  border-radius: var(--am-radius);
+  background: transparent;
+  color: var(--am-on-red);
+  font-weight: 700;
+}
+
+.menuButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.directory {
+  display: none;
+}
+
+@media (max-width: 1080px) {
+  .navDesktop {
+    display: none;
+  }
+
+  .menuButton {
+    display: inline-flex;
+  }
+
+  .directory[data-open="true"] {
+    display: block;
+    border-top: 1px solid oklch(1 0 0 / 0.25);
+    background: var(--am-red-deep);
+  }
+
+  .directoryList {
+    list-style: none;
+    margin: 0 auto;
+    padding: var(--am-s2) var(--am-gutter) var(--am-s4);
+    max-width: var(--am-page);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--am-s1) var(--am-s3);
+  }
+
+  .directoryLink {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--am-s2);
+    padding: var(--am-s3) var(--am-s2);
+    color: var(--am-on-red);
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 1px solid oklch(1 0 0 / 0.2);
+  }
+
+  .directoryLink[aria-current="page"] {
+    color: var(--am-yellow);
+  }
+
+  .directoryHint {
+    font-weight: 500;
+    font-size: var(--am-fs-xs);
+    color: oklch(1 0 0 / 0.75);
+  }
+}
+
+.sampleSticker {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--am-yellow);
+  color: var(--am-ink);
+  font-weight: 800;
+  font-size: var(--am-fs-xs);
+  line-height: 1.1;
+  text-align: center;
+  transform: rotate(-8deg);
+  flex-shrink: 0;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main:focus {
+  outline: none;
+}
+
+.footer {
+  border-top: 1px solid var(--am-rule);
+  background: var(--am-ground-deep);
+  color: var(--am-ink-2);
+  font-size: var(--am-fs-sm);
+}
+
+.footerInner {
+  max-width: var(--am-page);
+  margin: 0 auto;
+  padding: var(--am-s5) var(--am-gutter) var(--am-s6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--am-s3) var(--am-s5);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footerNote {
+  max-width: 64ch;
+}
+
+.footerLinks {
+  display: flex;
+  gap: var(--am-s4);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footerLinks a {
+  color: var(--am-ink);
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .headerInner {
+    gap: var(--am-s3);
+  }
+
+  .sampleSticker {
+    width: 38px;
+    height: 38px;
+    font-size: 0.6875rem;
+  }
+}
+
+.navDesktop {
+  height: 100%;
+}

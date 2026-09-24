@@ -1,0 +1,170 @@
+/* Error / not-found panels and loading skeletons. */
+
+.state {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: var(--am-s3);
+  max-width: 640px;
+  padding: var(--am-s6);
+  background: var(--am-paper);
+  border: 2px solid var(--am-ink);
+  border-radius: var(--am-radius);
+}
+
+.stateSticker {
+  position: absolute;
+  top: -18px;
+  right: -12px;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--am-red);
+  color: var(--am-on-red);
+  font-weight: 800;
+  font-size: var(--am-fs-sm);
+  transform: rotate(-10deg);
+}
+
+.stateTitle {
+  font-family: var(--am-display);
+  font-weight: 400;
+  font-size: var(--am-fs-2xl);
+  line-height: 1.2;
+}
+
+.stateBody {
+  color: var(--am-ink-2);
+  max-width: 56ch;
+}
+
+.stateCode {
+  font-size: var(--am-fs-xs);
+  color: var(--am-ink-3);
+}
+
+.stateActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--am-s2);
+  margin-top: var(--am-s2);
+}
+
+/* ---------- Skeletons ---------- */
+.bone {
+  display: block;
+  background: var(--am-ground-deep);
+  border-radius: var(--am-radius-sm);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.onYellow .bone {
+  background: oklch(0.2 0.015 265 / 0.1);
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.skBand {
+  background: var(--am-yellow);
+  border-bottom: 3px solid var(--am-ink);
+}
+
+.skBandInner {
+  max-width: var(--am-page);
+  margin: 0 auto;
+  padding: var(--am-s6) var(--am-gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--am-s7);
+}
+
+.skBandSimple {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--am-s3);
+}
+
+.skStack {
+  display: grid;
+  gap: var(--am-s3);
+  align-content: start;
+}
+
+.skRail {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  padding: 10px 10px 16px;
+  background: var(--am-rail);
+  border-radius: var(--am-radius-sm);
+}
+
+.skLabel {
+  height: 200px;
+  background: var(--am-paper);
+  border: 1.5px solid var(--am-rule);
+  border-radius: var(--am-radius-sm);
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.skRows {
+  display: grid;
+  gap: 2px;
+  background: var(--am-paper);
+  border: 1.5px solid var(--am-rule);
+  border-radius: var(--am-radius);
+  padding: var(--am-s3);
+}
+
+.skRow {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr 1.4fr;
+  gap: var(--am-s4);
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--am-rule);
+}
+
+.skColumns {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--am-s6);
+}
+
+@media (max-width: 1080px) {
+  .skBandInner,
+  .skColumns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .skRail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .skRail > :nth-child(n + 3) {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .skRow {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .skRow > :nth-child(n + 3) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bone {
+    animation: none;
+  }
+}
