@@ -1,0 +1,596 @@
+/* Shared atoms: buttons, fields, tags, stickers, notices. Tokens come from the shell root. */
+
+/* ---------------------------------------------------------------- page header */
+
+.pageHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin-bottom: 24px;
+}
+
+.pageTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.pageLead {
+  margin-top: 6px;
+  max-width: 62ch;
+  color: var(--ink-2);
+}
+
+.pageActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.subTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--cobalt);
+}
+
+/* ---------------------------------------------------------------- buttons */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 160ms var(--ease-out),
+    color 160ms var(--ease-out),
+    box-shadow 160ms var(--ease-out);
+}
+
+.button svg {
+  flex: none;
+}
+
+.primary {
+  background: var(--cobalt);
+  color: #fff;
+}
+
+.primary:hover {
+  background: var(--cobalt-press);
+}
+
+.secondary {
+  background: var(--vinyl);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--steel-2);
+}
+
+.secondary:hover {
+  box-shadow: inset 0 0 0 1px var(--steel-3);
+  background: #fff;
+}
+
+.quiet {
+  background: transparent;
+  color: var(--cobalt);
+  padding: 0 8px;
+}
+
+.quiet:hover {
+  background: var(--cobalt-wash);
+}
+
+.danger {
+  background: var(--vinyl);
+  color: var(--red-ink);
+  box-shadow: inset 0 0 0 1px #efb3b3;
+}
+
+.danger:hover {
+  background: var(--red-wash);
+}
+
+.quietDanger {
+  color: var(--ink-3);
+}
+
+.quietDanger:hover {
+  background: var(--red-wash);
+  color: var(--red-ink);
+}
+
+.dangerSolid {
+  background: var(--red-ink);
+  color: #fff;
+}
+
+.dangerSolid:hover {
+  background: #9c1a1d;
+}
+
+.small {
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.button[data-pending="true"] {
+  cursor: progress;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* ---------------------------------------------------------------- fields */
+
+.form {
+  display: grid;
+  gap: 18px;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.field {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.optional {
+  margin-left: 4px;
+  font-weight: 500;
+  color: var(--ink-3);
+  font-size: 13px;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--steel-2);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.5;
+  caret-color: var(--cobalt);
+  transition:
+    border-color 160ms var(--ease-out),
+    box-shadow 160ms var(--ease-out);
+}
+
+.textarea {
+  min-height: 120px;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #737d8e;
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: var(--steel-3);
+}
+
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  border-color: var(--cobalt);
+  box-shadow: 0 0 0 3px rgb(28 76 200 / 0.18);
+}
+
+.input[aria-invalid="true"],
+.select[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  border-color: var(--red-ink);
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.error {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--red-ink);
+}
+
+/* segmented radio group: a strip of banner swatches */
+.segmented {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.segmented legend {
+  padding: 0;
+  margin-bottom: 6px;
+}
+
+.segments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border: 1px solid var(--steel-2);
+  border-radius: var(--radius);
+  background: #fff;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.segment {
+  position: relative;
+}
+
+.segment + .segment {
+  border-left: 1px solid var(--steel-1);
+}
+
+.segment input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.segment > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-2);
+  transition:
+    background-color 160ms var(--ease-out),
+    color 160ms var(--ease-out);
+}
+
+.segment > input:hover + span {
+  background: var(--cobalt-wash);
+  color: var(--ink);
+}
+
+.segment > input:checked + span {
+  background: var(--cobalt);
+  color: #fff;
+}
+
+.segment > input:checked + span .swatch {
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.segment > input:focus-visible + span {
+  box-shadow: inset 0 0 0 2px var(--yellow);
+}
+
+/* ---------------------------------------------------------------- tags */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid var(--steel-2);
+  background: #fff;
+  color: var(--ink-2);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  border-radius: var(--radius);
+}
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  flex: none;
+}
+
+.swatch[data-kind="blog"] {
+  background: var(--kind-blog);
+}
+
+.swatch[data-kind="product"] {
+  background: var(--kind-product);
+}
+
+.swatch[data-kind="ad"] {
+  background: var(--kind-ad);
+}
+
+.stage {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.stageBar {
+  display: inline-grid;
+  grid-template-columns: repeat(4, 8px);
+  gap: 2px;
+}
+
+.stageBar i {
+  height: 8px;
+  background: var(--steel-1);
+}
+
+.stageBar i[data-on="true"] {
+  background: var(--cobalt);
+}
+
+.source {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.source[data-source="claude"] {
+  color: var(--cobalt);
+}
+
+.sampleMark {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 6px;
+  border: 1px dashed var(--steel-3);
+  color: var(--ink-3);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: var(--radius);
+}
+
+/* ---------------------------------------------------------------- due sticker (게시기간 스티커) */
+
+.sticker {
+  display: inline-grid;
+  justify-items: center;
+  min-width: 64px;
+  padding: 3px 8px 4px;
+  border: 1px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  border-radius: var(--radius);
+  line-height: 1.1;
+}
+
+.stickerDate {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stickerLabel {
+  font-family: var(--font-display);
+  font-size: 19px;
+  white-space: nowrap;
+}
+
+.sticker[data-tone="soon"] .stickerLabel {
+  color: var(--red-ink);
+}
+
+.sticker[data-tone="today"] {
+  background: var(--yellow);
+  border-color: var(--ink);
+}
+
+.sticker[data-tone="today"] .stickerDate {
+  color: var(--ink);
+}
+
+.sticker[data-tone="late"] {
+  background: var(--red-ink);
+  border-color: var(--red-ink);
+  color: #fff;
+}
+
+.sticker[data-tone="late"] .stickerDate {
+  color: rgb(255 255 255 / 0.9);
+}
+
+.sticker[data-tone="done"] {
+  border-color: var(--steel-2);
+  color: var(--ink-2);
+}
+
+.sticker[data-tone="done"] .stickerLabel {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  padding-top: 2px;
+}
+
+/* ---------------------------------------------------------------- notices */
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.notice svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+.notice[data-tone="success"] {
+  background: var(--cobalt-wash);
+  color: var(--cobalt-deep);
+}
+
+.notice[data-tone="error"] {
+  background: var(--red-wash);
+  color: var(--red-ink);
+}
+
+.notice[data-tone="info"] {
+  background: #fff7d6;
+  color: #5a4600;
+}
+
+/* ---------------------------------------------------------------- confirm */
+
+.confirm {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.confirmText {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--red-ink);
+}
+
+/* ---------------------------------------------------------------- empty */
+
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  padding: 28px 24px;
+  border: 2px dashed var(--steel-2);
+  border-radius: var(--radius);
+  color: var(--ink-2);
+  background: rgb(255 255 255 / 0.5);
+}
+
+.emptyTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 640px) {
+  .pageTitle {
+    font-size: 30px;
+  }
+
+  .sectionTitle {
+    font-size: 22px;
+  }
+
+  .segments {
+    width: 100%;
+  }
+
+  .segment {
+    flex: 1 1 auto;
+  }
+
+  .segment > span {
+    justify-content: center;
+    padding: 0 10px;
+  }
+}

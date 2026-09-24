@@ -1,0 +1,392 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T12:48:04.106Z",
+  "title": "Design System: 글품",
+  "extensions": {
+    "colorMeta": {
+      "cobalt": {
+        "role": "primary",
+        "displayName": "Cobalt Banner Blue",
+        "canonical": "oklch(47.0% 0.199 264.0)",
+        "tonalRamp": [
+          "#0f005e",
+          "#010083",
+          "#042da9",
+          "#2254d0",
+          "#4278f8",
+          "#639dff",
+          "#85c3ff",
+          "#a9eaff"
+        ]
+      },
+      "cobalt-deep": {
+        "role": "primary",
+        "displayName": "Cobalt Deep",
+        "canonical": "oklch(29.9% 0.100 264.4)",
+        "tonalRamp": [
+          "#000134",
+          "#0b2055",
+          "#263f77",
+          "#445f9a",
+          "#6481bf",
+          "#85a4e5",
+          "#a8c9ff",
+          "#cdeeff"
+        ]
+      },
+      "banner-yellow": {
+        "role": "secondary",
+        "displayName": "Banner Yellow",
+        "canonical": "oklch(86.9% 0.170 92.0)",
+        "tonalRamp": [
+          "#230000",
+          "#421800",
+          "#623800",
+          "#845900",
+          "#a77c00",
+          "#cb9f00",
+          "#f1c409",
+          "#ffea50"
+        ]
+      },
+      "banner-red": {
+        "role": "tertiary",
+        "displayName": "Banner Red",
+        "canonical": "oklch(58.0% 0.210 27.1)",
+        "tonalRamp": [
+          "#3f0000",
+          "#670000",
+          "#8f0000",
+          "#b80212",
+          "#e13f39",
+          "#ff675c",
+          "#ff8d7f",
+          "#ffb4a3"
+        ]
+      },
+      "red-ink": {
+        "role": "tertiary",
+        "displayName": "Red Ink",
+        "canonical": "oklch(50.6% 0.187 26.5)",
+        "tonalRamp": [
+          "#3c0000",
+          "#640000",
+          "#8b0000",
+          "#b3181e",
+          "#dc4641",
+          "#ff6d63",
+          "#ff9286",
+          "#ffb8aa"
+        ]
+      },
+      "banner-green": {
+        "role": "tertiary",
+        "displayName": "Banner Green",
+        "canonical": "oklch(55.0% 0.138 154.4)",
+        "tonalRamp": [
+          "#001700",
+          "#003500",
+          "#00551b",
+          "#00773b",
+          "#279a5b",
+          "#52be7d",
+          "#79e3a0",
+          "#9fffc5"
+        ]
+      },
+      "kind-product": {
+        "role": "tertiary",
+        "displayName": "Product Amber",
+        "canonical": "oklch(75.2% 0.157 78.2)",
+        "tonalRamp": [
+          "#290000",
+          "#4a0b00",
+          "#6d2f00",
+          "#905000",
+          "#b47300",
+          "#da9600",
+          "#ffbb3a",
+          "#ffe167"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(19.9% 0.020 262.0)",
+        "tonalRamp": [
+          "#070b14",
+          "#20252f",
+          "#3c424d",
+          "#5b616d",
+          "#7c838f",
+          "#9ea5b2",
+          "#c2c9d6",
+          "#e7effc"
+        ]
+      },
+      "vinyl": {
+        "role": "neutral",
+        "displayName": "Vinyl White",
+        "canonical": "oklch(99.1% 0.003 264.5)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#414243",
+          "#606163",
+          "#818284",
+          "#a4a5a7",
+          "#c8c9cb",
+          "#edeef0"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Stand Ground",
+        "canonical": "oklch(95.7% 0.006 255.5)",
+        "tonalRamp": [
+          "#090b0e",
+          "#232528",
+          "#404245",
+          "#5f6165",
+          "#808286",
+          "#a2a5a9",
+          "#c6c9cd",
+          "#eceff3"
+        ]
+      },
+      "steel-3": {
+        "role": "neutral",
+        "displayName": "Galvanized Steel",
+        "canonical": "oklch(66.4% 0.029 262.3)",
+        "tonalRamp": [
+          "#050b17",
+          "#1d2533",
+          "#3a4252",
+          "#586272",
+          "#798394",
+          "#9ba6b8",
+          "#bfcadd",
+          "#e4efff"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Status headline",
+        "purpose": "The 현황 headline with yellow-marked counts."
+      },
+      "headline": {
+        "displayName": "Page title",
+        "purpose": "Page and order-sheet titles in Do Hyeon."
+      },
+      "proof": {
+        "displayName": "Banner proof",
+        "purpose": "Draft titles set as 시안 banners; compact 21px on the 사례 board and 납품서."
+      },
+      "title": {
+        "displayName": "Panel head",
+        "purpose": "Pretendard 800 section and panel heads."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All UI text."
+      },
+      "copy": {
+        "displayName": "Copy",
+        "purpose": "The draft itself, 68ch measure."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field labels and buttons."
+      },
+      "data": {
+        "displayName": "Data",
+        "purpose": "Dates, counts, meta rows; tabular numerals."
+      }
+    },
+    "shadows": [
+      {
+        "name": "hung-banner",
+        "value": "0 5px 8px -5px rgb(0 0 0 / 0.45)",
+        "purpose": "Order banners hung on the stand."
+      },
+      {
+        "name": "hung-proof",
+        "value": "0 6px 10px -6px rgb(17 22 31 / 0.35)",
+        "purpose": "시안 proofs and the order-sheet banner."
+      },
+      {
+        "name": "hung-pole",
+        "value": "0 8px 12px -8px rgb(17 22 31 / 0.4)",
+        "purpose": "Plan banners on the pricing page."
+      },
+      {
+        "name": "tooltip",
+        "value": "0 6px 16px -6px rgb(0 0 0 / 0.5)",
+        "purpose": "Chart tooltips."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Every transition and the unroll."
+      },
+      {
+        "name": "state",
+        "value": "160ms",
+        "purpose": "Hover, pressed and selection changes."
+      },
+      {
+        "name": "unroll",
+        "value": "620ms",
+        "purpose": "시안 펼치기: the proof unrolls from the left edge."
+      },
+      {
+        "name": "grommet-punch",
+        "value": "220ms after 560ms",
+        "purpose": "Grommets snap in once the proof has unrolled."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone-narrow",
+        "value": "420px"
+      },
+      {
+        "name": "phone",
+        "value": "640px"
+      },
+      {
+        "name": "stand-stack",
+        "value": "720px"
+      },
+      {
+        "name": "nav-strip",
+        "value": "860px"
+      },
+      {
+        "name": "columns-stack",
+        "value": "960px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one main action on a page: 의뢰서 쓰기, 시안 쓰기, 납품 완료.",
+      "html": "<button class=\"ds-btn-primary\">의뢰서 쓰기</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:0;border-radius:2px;background:#1c4cc8;color:#fff;font:700 15px 'Pretendard Variable',sans-serif;cursor:pointer;transition:background-color 160ms cubic-bezier(0.16,1,0.3,1)}.ds-btn-primary:hover{background:#173fa6}.ds-btn-primary:focus-visible{outline:none;box-shadow:0 0 0 2px #fbfcfe,0 0 0 4px #1c4cc8}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Companion actions: 시안 쓰기, 고치기, 복사.",
+      "html": "<button class=\"ds-btn-secondary\">고치기</button>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:0;border-radius:2px;background:#fbfcfe;color:#11161f;box-shadow:inset 0 0 0 1px #c3cad6;font:700 15px 'Pretendard Variable',sans-serif;cursor:pointer}.ds-btn-secondary:hover{background:#fff;box-shadow:inset 0 0 0 1px #8a94a6}.ds-btn-secondary:focus-visible{outline:none;box-shadow:0 0 0 2px #fbfcfe,0 0 0 4px #1c4cc8}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Every form field: white, steel border, cobalt focus.",
+      "html": "<label class=\"ds-field\"><span>주제</span><input class=\"ds-input\" placeholder=\"예: 새벽에 굽는 성수동 소금빵\"></label>",
+      "css": ".ds-field{display:grid;gap:6px;font:700 14px 'Pretendard Variable',sans-serif;color:#11161f}.ds-input{min-height:44px;padding:10px 12px;border:1px solid #c3cad6;border-radius:2px;background:#fff;color:#11161f;font:400 15px 'Pretendard Variable',sans-serif;caret-color:#1c4cc8}.ds-input:hover{border-color:#8a94a6}.ds-input:focus-visible{outline:none;border-color:#1c4cc8;box-shadow:0 0 0 3px rgb(28 76 200 / .18)}"
+    },
+    {
+      "name": "Masthead",
+      "kind": "nav",
+      "refersTo": "masthead",
+      "description": "The cobalt banner at the top of every page: wordmark, nav, sample tag, yellow CTA.",
+      "html": "<nav class=\"ds-mast\"><b class=\"ds-mark\">글<em>품</em></b><a class=\"ds-nav\" aria-current=\"page\">현황</a><a class=\"ds-nav\">의뢰 게시대</a><a class=\"ds-cta\">의뢰서 쓰기</a></nav>",
+      "css": ".ds-mast{display:flex;align-items:center;gap:20px;padding:0 20px;min-height:60px;background:#1c4cc8;outline:1px dashed rgb(255 255 255 / .28);outline-offset:-6px}.ds-mark{font:400 30px 'Do Hyeon',sans-serif;color:#fff}.ds-mark em{font-style:normal;color:#fccf28}.ds-nav{position:relative;padding:18px 8px;color:rgb(255 255 255 / .86);font:600 15px 'Pretendard Variable',sans-serif;text-decoration:none}.ds-nav:hover{color:#fff}.ds-nav[aria-current=page]{color:#fff;box-shadow:inset 0 -4px 0 #fccf28}.ds-cta{margin-left:auto;padding:9px 14px;background:#fccf28;color:#11161f;font:700 15px 'Pretendard Variable',sans-serif;border-radius:2px}"
+    },
+    {
+      "name": "Due Sticker",
+      "kind": "chip",
+      "refersTo": "due-sticker",
+      "description": "게시기간 sticker on every order: due day and D-day; yellow on the day, red when late.",
+      "html": "<span class=\"ds-sticker\"><small>마감 9.26 (토)</small><b>D-2</b></span> <span class=\"ds-sticker ds-late\"><small>마감 9.23 (수)</small><b>1일 지연</b></span>",
+      "css": ".ds-sticker{display:inline-grid;justify-items:center;min-width:64px;padding:3px 8px 4px;border:1px solid #11161f;border-radius:2px;background:#fff;color:#11161f;line-height:1.1}.ds-sticker small{font:600 11px 'Pretendard Variable',sans-serif;color:#414b5c}.ds-sticker b{font:400 19px 'Do Hyeon',sans-serif;color:#b81f22}.ds-late{background:#b81f22;border-color:#b81f22}.ds-late small,.ds-late b{color:#fff}"
+    },
+    {
+      "name": "Order Banner",
+      "kind": "card",
+      "refersTo": "order-banner",
+      "description": "An order hung on the stand: hem, grommets, topic in banner lettering, next step.",
+      "html": "<article class=\"ds-banner\"><i></i><i></i><i></i><i></i><small>#011 · 상품 설명</small><h3>주방 기름때 세정제 500ml</h3><p>청결연구소 · 생활/리빙</p><button>검수 요청</button></article>",
+      "css": ".ds-banner{position:relative;display:grid;gap:8px;max-width:300px;padding:16px 18px 14px;background:#fbfcfe;outline:1px dashed #c3cad6;outline-offset:-6px;box-shadow:0 5px 8px -5px rgb(0 0 0 / .45);font-family:'Pretendard Variable',sans-serif}.ds-banner i{position:absolute;width:8px;height:8px;border-radius:50%;border:1.5px solid #c9d0db;background:#1c4cc8}.ds-banner i:nth-child(1){top:9px;left:9px}.ds-banner i:nth-child(2){top:9px;right:9px}.ds-banner i:nth-child(3){bottom:9px;left:9px}.ds-banner i:nth-child(4){bottom:9px;right:9px}.ds-banner small{font:700 12px 'Pretendard Variable',sans-serif;color:#5d6778}.ds-banner h3{margin:0;font:400 21px/1.22 'Do Hyeon',sans-serif;color:#11161f}.ds-banner p{margin:0;font:600 14px 'Pretendard Variable',sans-serif;color:#414b5c}.ds-banner button{justify-self:end;min-height:32px;padding:0 10px;border:0;border-radius:2px;background:#1c4cc8;color:#fff;font:700 13px 'Pretendard Variable',sans-serif}.ds-banner button:hover{background:#173fa6}"
+    },
+    {
+      "name": "시안 Proof",
+      "kind": "custom",
+      "refersTo": "proof",
+      "description": "A draft title set as the banner it could become; unrolls from the left when written.",
+      "html": "<figure class=\"ds-proof\"><p><em>무선 가습기</em> 사무실 책상 위 작은 자리</p><small>모아일렉 · 상품 설명 시안 v1</small></figure>",
+      "css": ".ds-proof{margin:0;display:grid;gap:8px;padding:28px 44px;background:#fccf28;color:#11161f;outline:1px dashed rgb(17 22 31 / .35);outline-offset:-8px;box-shadow:0 6px 10px -6px rgb(17 22 31 / .35);animation:ds-unroll 620ms cubic-bezier(0.16,1,0.3,1) both}.ds-proof p{margin:0;font:400 34px/1.18 'Do Hyeon',sans-serif}.ds-proof em{font-style:normal;color:#b81f22}.ds-proof small{font:700 14px 'Pretendard Variable',sans-serif}@keyframes ds-unroll{from{clip-path:inset(-12px 100% -12px 0)}to{clip-path:inset(-12px 0 -12px 0)}}@media (prefers-reduced-motion:reduce){.ds-proof{animation:none}}"
+    },
+    {
+      "name": "Kind Tag",
+      "kind": "chip",
+      "refersTo": "kind-tag",
+      "description": "Content kind: substrate swatch plus its name.",
+      "html": "<span class=\"ds-tag\"><i style=\"background:#00884b\"></i>블로그 포스트</span> <span class=\"ds-tag\"><i style=\"background:#e4a000\"></i>상품 설명</span> <span class=\"ds-tag\"><i style=\"background:#db2c2b\"></i>광고 카피</span>",
+      "css": ".ds-tag{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 8px;border:1px solid #c3cad6;border-radius:2px;background:#fff;color:#414b5c;font:700 12px 'Pretendard Variable',sans-serif}.ds-tag i{width:10px;height:10px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Banner Stand (현수막 게시대)",
+    "overview": "글품 is drawn as the municipal banner stand Korean small shops hang their 현수막 on. Every order is a banner hung for a posting period that ends on its due date; every draft is a 시안, the banner proof a print shop shows before it prints. Cobalt banner blue owns whole fields (the masthead, the stand behind the timeline and the board), galvanized-steel greys carry structure, vinyl white carries the words, and the three banner substrates (green, yellow, red) name the three kinds of copy.\n\nThe product is an operator's console first. Density is honest: tables, ruled ledgers and tiers carry the work; the world lives in precise, repeated devices (the stitched hem, four grommets, the 게시기간 sticker, the sign-painter lettering) rather than in decoration. Light theme, from the scene: an office desk in daylight and a phone in a lit shop.\n\nIt rejects the SaaS default the legacy POC shipped (gradient hero, counters, icon cards, KPI tiles, kanban columns) and the editorial opposite (cream paper, serif, red pen).",
+    "keyCharacteristics": [
+      "Cobalt fields that own regions, not cobalt accents sprinkled on grey.",
+      "Banners are rectangles with a dashed stitched hem 6–8px inside the edge and four grommets.",
+      "Do Hyeon, the free sign-painter gothic of Korean shop banners, for titles, proofs, D-day and prices; Pretendard for everything a person reads or types.",
+      "Dates are stickers: due day plus D-day on every order, red when late, yellow on the day.",
+      "Pipeline stages read by position and a four-block meter, never by hue alone."
+    ],
+    "rules": [
+      {
+        "name": "The Substrate Rule",
+        "body": "Green, yellow and red mean blog, product and ad. They appear on proofs, kind swatches and charts only, and always beside their label.",
+        "section": "colors"
+      },
+      {
+        "name": "The Red Means Late Rule",
+        "body": "Outside the ad-copy proof, red is reserved for lateness, errors and destructive confirmation.",
+        "section": "colors"
+      },
+      {
+        "name": "The Lettering Rule",
+        "body": "Do Hyeon only where a banner or sticker would carry lettering: titles, proofs, D-day, prices, tier plates. Never in buttons, labels, tables or body copy.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Every date, count and character tally uses tabular numerals.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hanging Rule",
+        "body": "A shadow means \"this is hung\": banners, proofs and plan poles only. A panel that merely groups content gets a rail, never a shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do let cobalt own whole regions (#1c4cc8 masthead and stands) and keep the page ground cool (#eef1f5).",
+      "Do give every order a due sticker and every draft a character count (공백 포함/제외, 원고지 매수).",
+      "Do mark the facts AI left open as \"[확인 필요: …]\" and highlight them in drafts.",
+      "Do label sample data (the 샘플 tag, dashed sample marks on cases)."
+    ],
+    "donts": [
+      "Don't reintroduce the legacy SaaS look: gradient heroes, counters, KPI tiles, icon cards, kanban columns.",
+      "Don't drift to cream paper, serif display or red-pen editorial styling.",
+      "Don't put Do Hyeon in buttons, labels, tables or body copy.",
+      "Don't use green, yellow or red for anything but content kinds, lateness and errors.",
+      "Don't put shadows on panels; only hung things cast them.",
+      "Don't place label lines above headings; facts follow the title."
+    ]
+  }
+}

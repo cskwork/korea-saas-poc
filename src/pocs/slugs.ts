@@ -25,7 +25,7 @@ export type ModuleSlug = (typeof MODULE_SLUGS)[number];
  * A module joins this list in the same change that merges it. Until then the hub
  * shows it as "준비 중" and its legacy static demo keeps serving under /pocs/.
  */
-export const OPEN_MODULE_SLUGS: readonly ModuleSlug[] = ["smart-store", "micro-saas"];
+export const OPEN_MODULE_SLUGS: readonly ModuleSlug[] = ["ai-content-agency", "smart-store", "micro-saas"];
 
 export function isModuleOpen(slug: ModuleSlug): boolean {
   return OPEN_MODULE_SLUGS.includes(slug);
