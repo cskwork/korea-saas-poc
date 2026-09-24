@@ -1,0 +1,86 @@
+.meter {
+  --seat-taken: var(--nc-ink);
+  --seat-free: var(--nc-rule-strong);
+  --seat-text: var(--nc-ink-2);
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.stage {
+  --seat-taken: var(--nc-on-stage);
+  --seat-free: var(--nc-stage-rule);
+  --seat-text: var(--nc-on-stage-2);
+}
+
+.seats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  max-width: 260px;
+}
+
+.seats > span {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+}
+
+.taken {
+  background: var(--seat-taken);
+}
+
+.free {
+  box-shadow: inset 0 0 0 1.5px var(--seat-free);
+}
+
+.meter[data-state="closing"] .free {
+  box-shadow: inset 0 0 0 1.5px var(--nc-warn);
+}
+
+.bar {
+  display: block;
+  height: 8px;
+  max-width: 260px;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1.5px var(--seat-free);
+}
+
+.bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--seat-taken);
+}
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  font-size: var(--nc-t-xs);
+  color: var(--seat-text);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.stateDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--nc-go);
+}
+
+.meter[data-state="closing"] .stateDot {
+  background: var(--nc-warn);
+}
+
+.meter[data-state="full"] .stateDot {
+  background: var(--nc-stop);
+}
+
+.state {
+  font-weight: 700;
+}
