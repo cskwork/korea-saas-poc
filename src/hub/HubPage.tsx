@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
-import { MODULES } from "@/pocs/registry";
+import { MODULES, OPEN_MODULES } from "@/pocs/registry";
+import { isModuleOpen, legacyDemoPath } from "@/pocs/slugs";
 import { signFace } from "./fonts";
 import { Stall, VacantStall } from "./Stall";
 import styles from "./hub.module.css";
@@ -22,12 +23,13 @@ export function HubPage() {
   const lowerGaps = perRow - lower.length;
   const endCapUnit = MODULES.length + lowerGaps + 1;
   const plan = { "--units": perRow } as CSSProperties;
+  const preparing = MODULES.length - OPEN_MODULES.length;
 
   return (
     <div className={`${styles.root} ${signFace.variable}`}>
       <header className={styles.entrance}>
         <div className={styles.board}>
-          <div className={styles.boardLead}>
+          <div>
             <h1 className={styles.title}>한국형 1인 SaaS 10선</h1>
             <p className={styles.promise}>
               AI 시대에 혼자 운영할 수 있는 열 가지 사업을, 실제로 돌아가는 가게로 차렸습니다. 간판을 눌러 들어가 직접
@@ -38,14 +40,15 @@ export function HubPage() {
             <p id="directory-title" className={styles.directoryTitle}>
               <span className={styles.lamp} aria-hidden />
               <span className={styles.directoryLabel}>점포 안내 · </span>
-              {MODULES.length}개 가게 영업 중
+              {OPEN_MODULES.length}개 가게 영업 중{preparing > 0 && ` · ${preparing}개 리뉴얼 중`}
             </p>
             <ol className={styles.directoryList} role="list">
               {MODULES.map((meta, index) => (
                 <li key={meta.slug}>
-                  <a href={`/${meta.slug}`}>
+                  <a href={isModuleOpen(meta.slug) ? `/${meta.slug}` : legacyDemoPath(meta.slug)}>
                     <span>{plateFor(index < perRow ? 0 : 1, meta.order)}</span>
                     {meta.name}
+                    {!isModuleOpen(meta.slug) && <em className={styles.directoryPending}>준비 중</em>}
                   </a>
                 </li>
               ))}
@@ -91,7 +94,8 @@ export function HubPage() {
         <p className={styles.titleBlock}>
           <span>1층 안내도</span>
           <span>
-            가게 {MODULES.length} · 빈 점포 {lowerGaps + 1}
+            가게 {MODULES.length}
+            {preparing > 0 && ` (리뉴얼 중 ${preparing})`} · 빈 점포 {lowerGaps + 1}
           </span>
           <span>매출·고객·주문 수치는 모두 샘플</span>
         </p>

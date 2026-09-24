@@ -54,6 +54,8 @@ PGlite는 진짜 Postgres(WASM)라서 SQL·마이그레이션·제약 조건이 
 ### 마이그레이션
 
 - 스키마 변경 후 `npm run db:generate` → `/drizzle`에 SQL 마이그레이션 생성 (직접 수정 금지).
+  마이그레이션은 플랫폼과 **출시된 모듈**(`src/pocs/slugs.ts`의 `OPEN_MODULE_SLUGS`)만 다룹니다.
+  만드는 중인 모듈의 스키마가 섞이지 않고, 모듈마다 자기 마이그레이션을 가진 채 하나씩 `main`에 합쳐집니다.
 - `npm run db:migrate`가 적용합니다. Vercel 빌드(`build:vercel`)는 `DATABASE_URL`이 있을 때 자동 실행합니다.
 - PGlite는 프로세스 전용이므로 부팅 시 스스로 마이그레이션합니다. 개발 모드에서는 Postgres도 자동 적용됩니다
   (`DB_AUTO_MIGRATE`로 끌 수 있음).
@@ -126,8 +128,10 @@ export const createOrder = formAction(orderInput, async (input) => {
 1. `src/pocs/slugs.ts`의 `MODULE_SLUGS`에 slug 추가 (예: `"pet-care"`).
 2. `src/pocs/pet-care/`를 위 구조대로 만들고, `meta.ts`를 `src/pocs/registry.ts`에 등록.
 3. `db/schema.ts`에 `pgSchema("pet_care")`로 테이블 정의 → `npm run db:generate`.
-4. `src/app/pet-care/`에 얇은 라우트 작성.
-5. `npm run check` 통과 확인. 허브 안내도에 자동으로 새 가게가 걸리고, 사이트맵·레거시 리다이렉트도 따라옵니다.
+4. `src/app/pet-care/`에 얇은 라우트 작성. 개발 중에는 `DRIZZLE_MODULE=pet-care npm run db:push`로 개발 DB에 스키마를 맞춥니다.
+5. 출시할 때 `OPEN_MODULE_SLUGS`에 slug를 추가하고 `npm run db:generate`로 그 모듈의 마이그레이션을 만듭니다.
+   마이그레이션·허브 링크·사이트맵·레거시 리다이렉트·E2E 스모크 테스트가 모두 이 목록을 따릅니다.
+6. `npm run check` 통과 확인. 열리기 전의 모듈은 허브에 ‘리뉴얼 공사 중’ 가게로 표시됩니다.
 
 ## 운영
 

@@ -13,7 +13,6 @@
   --ink-2: #34404c;
   --ink-3: #4f5a66;
   --enamel: #0d5a44;
-  --enamel-deep: #0a4535;
   --enamel-ink: #ffffff;
   --safety: #e3a400;
   --you-are-here: #a8261f;
@@ -41,8 +40,10 @@
 }
 
 .root a:focus-visible {
-  outline: 3px solid var(--safety);
+  /* Ink ring for the concrete and plaster; the amber halo carries it on the enamel board. */
+  outline: 3px solid var(--ink);
   outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--safety);
 }
 
 .visuallyHidden {
@@ -652,4 +653,31 @@
 
 .endCap .signName {
   padding-right: 0;
+}
+
+/* ── A shop under renovation: shutter stays down, the old demo is still open ── */
+
+.preparing .shutter {
+  animation: none;
+  transform: none;
+}
+
+.shutterNotice {
+  position: absolute;
+  inset: auto 10px 16px;
+  z-index: 3;
+  padding: 6px 10px;
+  background: var(--safety);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.directoryPending {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 0.75rem;
+  color: rgb(255 255 255 / 0.75);
 }

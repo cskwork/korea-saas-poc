@@ -34,7 +34,7 @@ src/
       server/actions.ts   # "use server" mutations
       components/         # UI + CSS Modules
       PRODUCT.md DESIGN.md .impeccable/   # design context (impeccable)
-drizzle/                  # generated SQL migrations (never hand-edit)
+drizzle/                  # generated SQL migrations for the platform + OPEN modules (never hand-edit)
 ```
 
 ## Rules
@@ -60,6 +60,8 @@ drizzle/                  # generated SQL migrations (never hand-edit)
   Pretendard Variable is loaded globally.
 - **Formatting** with `@/core/format` (KRW, Asia/Seoul dates). Copy is Korean.
 - **Links.** Inside a module use `next/link`; links to the hub or another module use a plain `<a>` (full load isolates module CSS).
+- **Shipping a module**: add its slug to `OPEN_MODULE_SLUGS` (src/pocs/slugs.ts) and run `npm run db:generate`.
+  Migrations, hub links, sitemap, legacy redirects and e2e smoke tests all follow that list.
 - **Tests** sit next to code as `*.test.ts`. Domain logic gets unit tests; seeds and key queries/mutations get an
   integration test on `createTestDatabase(schema)` from `@/core/testing/database` (in-memory PGlite).
 

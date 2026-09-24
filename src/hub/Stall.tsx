@@ -1,7 +1,8 @@
 import type { CSSProperties } from "react";
 import { ArrowRight, Plus } from "lucide-react";
 import type { ModuleMeta } from "@/core/modules/meta";
-import { signLettering } from "./contrast";
+import { isModuleOpen, legacyDemoPath } from "@/pocs/slugs";
+import { signPaint } from "./contrast";
 import styles from "./hub.module.css";
 
 type PaintedStyle = CSSProperties & { "--paint": string; "--paint-ink": string; "--i": number };
@@ -11,14 +12,17 @@ export type Side = "upper" | "lower";
 /**
  * One shop: a painted sign (name, trade, unit plate) against the aisle, and the
  * shop window behind it. `index` staggers the shutter as the arcade opens.
+ * A shop still being rebuilt keeps its shutter down and points to its old static demo.
  */
 export function Stall({ meta, plate, side, index }: { meta: ModuleMeta; plate: string; side: Side; index: number }) {
-  const paint: PaintedStyle = { "--paint": meta.accent, "--paint-ink": signLettering(meta.accent), "--i": index };
+  const sign = signPaint(meta.accent);
+  const paint: PaintedStyle = { "--paint": sign.paint, "--paint-ink": sign.ink, "--i": index };
+  const open = isModuleOpen(meta.slug);
 
   return (
-    <li className={`${styles.stall} ${styles[side]}`} style={paint}>
+    <li className={`${styles.stall} ${styles[side]} ${open ? "" : styles.preparing}`} style={paint}>
       {/* A full page load keeps each product's styles isolated from the hub. */}
-      <a href={`/${meta.slug}`} className={styles.stallLink}>
+      <a href={open ? `/${meta.slug}` : legacyDemoPath(meta.slug)} className={styles.stallLink}>
         <span className={styles.sign}>
           <span className={styles.signName}>{meta.name}</span>
           <span className={styles.signTrade}>
@@ -32,6 +36,7 @@ export function Stall({ meta, plate, side, index }: { meta: ModuleMeta; plate: s
           <span className={styles.window}>
             <span className={styles.description}>{meta.description}</span>
             <span className={styles.shutter} aria-hidden />
+            {!open && <span className={styles.shutterNotice}>리뉴얼 공사 중 · 이전 데모 열기</span>}
           </span>
         </span>
       </a>
