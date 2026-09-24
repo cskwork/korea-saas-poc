@@ -1,0 +1,154 @@
+.board {
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+}
+
+.table thead th {
+  padding: 12px 14px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--ink-2);
+  white-space: nowrap;
+  border-bottom: 1.5px dashed var(--rule-strong);
+}
+
+.table tbody th,
+.table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child th,
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.table tbody tr:hover {
+  background: var(--slip-alt);
+}
+
+.table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.strong {
+  font-weight: 800;
+}
+
+.feeRate {
+  display: block;
+  font-size: var(--step--2);
+  color: var(--ink-3);
+}
+
+.product {
+  min-width: 220px;
+  text-align: left;
+  font-weight: 400;
+}
+
+.productName {
+  display: block;
+  font-weight: 700;
+  font-size: var(--step-0);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.productName:hover {
+  text-decoration: underline;
+}
+
+.productMeta {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--step--2);
+  color: var(--ink-3);
+}
+
+.margin {
+  white-space: nowrap;
+}
+
+.action {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Phone: each row becomes a stacked slip entry. */
+@media (max-width: 860px) {
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 14px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .table tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .table tbody th,
+  .table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    padding: 0;
+    border: 0;
+  }
+
+  .table tbody td[data-label]::before {
+    content: attr(data-label);
+    color: var(--ink-3);
+    font-size: var(--step--2);
+    font-weight: 600;
+  }
+
+  .product {
+    grid-column: 1 / -1;
+    display: block !important;
+    min-width: 0;
+  }
+
+  .feeRate {
+    display: inline;
+    margin-left: 4px;
+  }
+
+  .margin,
+  .action {
+    grid-column: 1 / -1;
+  }
+
+  .action {
+    justify-content: stretch !important;
+  }
+
+  .action > * {
+    flex: 1;
+  }
+
+  .action form,
+  .action button,
+  .action a {
+    width: 100%;
+  }
+}

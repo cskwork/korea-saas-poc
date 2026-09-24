@@ -1,0 +1,211 @@
+.results {
+  transition: opacity 160ms var(--ease-out);
+}
+
+.results[data-pending] {
+  opacity: 0.55;
+}
+
+/* Filter bar: one row above the results it scopes. */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px 18px;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  background: var(--slip-alt);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.groupLabel {
+  padding: 0;
+  font-size: var(--step--2);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+/* Segmented choice (radio buttons) */
+.segments {
+  display: inline-flex;
+  flex-wrap: wrap;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--slip);
+}
+
+.segment {
+  position: relative;
+}
+
+.segment input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.segment > span {
+  display: block;
+  padding: 7px 12px;
+  font-size: var(--step--1);
+  font-weight: 700;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.segment + .segment > span {
+  border-left: 1px solid var(--rule-strong);
+}
+
+.segment input:checked + span {
+  background: var(--pop);
+  color: var(--ink);
+}
+
+.segment input:focus-visible + span {
+  outline: 2.5px solid var(--focus);
+  outline-offset: -4px;
+}
+
+.segment:hover input:not(:checked) + span {
+  background: var(--slip-alt);
+  color: var(--ink);
+}
+
+.control {
+  min-height: 38px;
+  padding: 6px 10px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: #fff;
+  font-size: var(--step--1);
+}
+
+.control:focus-visible {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px var(--pop);
+}
+
+.search {
+  flex: 1 1 220px;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.searchBox:focus-within {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px var(--pop);
+}
+
+.searchBox svg {
+  flex: none;
+  color: var(--ink-3);
+}
+
+.searchBox input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font-size: var(--step--1);
+  padding: 6px 0;
+}
+
+.searchBox input:focus {
+  outline: none;
+}
+
+.range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+}
+
+.range input[type="range"] {
+  width: 150px;
+  accent-color: var(--ink);
+}
+
+.range output {
+  min-width: 64px;
+  padding: 2px 6px;
+  background: var(--pop);
+  font-size: var(--step--1);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.summary {
+  margin: -6px 0 12px;
+  font-size: var(--step--1);
+  color: var(--ink-2);
+}
+
+.noscriptSubmit {
+  align-self: flex-end;
+}
+
+@media (max-width: 720px) {
+  .bar {
+    padding: 12px;
+  }
+
+  .group,
+  .search {
+    flex: 1 1 100%;
+  }
+
+  /* two short selects share a row */
+  .half {
+    flex: 1 1 calc(50% - 10px);
+  }
+
+  .segments {
+    display: flex;
+  }
+
+  .segment {
+    flex: 1;
+  }
+
+  .segment > span {
+    text-align: center;
+  }
+
+  .range input[type="range"] {
+    flex: 1;
+    width: auto;
+  }
+}
+
+.count {
+  display: inline;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
