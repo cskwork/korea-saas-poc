@@ -1,0 +1,28 @@
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--s2);
+  padding: var(--s6) var(--s4);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.cells {
+  display: flex;
+  gap: 3px;
+  margin-bottom: var(--s1);
+}
+
+.title {
+  font-weight: 650;
+}
+
+.text {
+  max-width: 60ch;
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
+
+.action {
+  margin-top: var(--s2);
+}

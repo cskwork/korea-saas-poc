@@ -1,0 +1,13 @@
+.wrap {
+  display: grid;
+  justify-items: start;
+  gap: var(--s4);
+}
+
+.body {
+  width: 100%;
+  padding: var(--s5);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--panel);
+}

@@ -1,0 +1,477 @@
+/* Shared primitives: controls, fields, tables, tags and the cell vocabulary. */
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 var(--s3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--fast) var(--ease),
+    border-color var(--fast) var(--ease),
+    color var(--fast) var(--ease);
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--raise);
+  border-color: var(--ink-3);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+}
+
+.btn svg {
+  flex: none;
+}
+
+.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: var(--accent-ink);
+}
+
+.ghost {
+  border-color: transparent;
+  color: var(--ink-2);
+}
+
+.ghost:hover:not(:disabled) {
+  color: var(--ink);
+  border-color: transparent;
+}
+
+.danger {
+  color: var(--rose);
+  border-color: color-mix(in oklch, var(--rose) 45%, transparent);
+}
+
+.danger:hover:not(:disabled) {
+  background: var(--rose-deep);
+  border-color: var(--rose);
+  color: var(--ink);
+}
+
+.danger.iconOnly {
+  border-color: transparent;
+  color: var(--ink-3);
+}
+
+.danger.iconOnly:hover:not(:disabled) {
+  border-color: transparent;
+  color: var(--rose);
+}
+
+.small {
+  min-height: 28px;
+  padding: 0 var(--s2);
+  font-size: var(--text-xs);
+}
+
+.iconOnly {
+  width: 32px;
+  min-height: 32px;
+  padding: 0;
+}
+
+.small.iconOnly {
+  width: 28px;
+  min-height: 28px;
+}
+
+.pending {
+  cursor: progress;
+}
+
+/* ---------- Fields ---------- */
+
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label {
+  color: var(--ink-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.hint {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+.fieldError {
+  color: var(--rose);
+  font-size: var(--text-xs);
+  font-weight: 500;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--well);
+  color: var(--ink);
+  font-size: var(--text-md);
+  transition: border-color var(--fast) var(--ease);
+}
+
+.input,
+.select {
+  height: 36px;
+}
+
+.textarea {
+  min-height: 88px;
+  padding: 8px 10px;
+  line-height: 1.55;
+}
+
+.select {
+  appearance: none;
+  padding-right: 30px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--ink-3) 50%),
+    linear-gradient(135deg, var(--ink-3) 50%, transparent 50%);
+  background-position:
+    calc(100% - 15px) 50%,
+    calc(100% - 10px) 50%;
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: var(--line-strong);
+}
+
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  border-color: var(--c3);
+  outline-offset: 1px;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--ink-3);
+}
+
+.input[aria-invalid="true"],
+.select[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  border-color: var(--rose);
+}
+
+.numberInput {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.check input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: var(--s3) var(--s4);
+}
+
+.span2 {
+  grid-column: 1 / -1;
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2);
+}
+
+/* ---------- Messages ---------- */
+
+.message {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.message[data-tone="error"] {
+  color: var(--rose);
+}
+
+.message[data-tone="success"]::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-cell);
+  background: var(--c3);
+}
+
+/* ---------- Tables ---------- */
+
+.tableWrap {
+  width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.table th {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid color-mix(in oklch, var(--line) 60%, transparent);
+  vertical-align: middle;
+}
+
+.table tbody tr {
+  transition: background-color var(--fast) var(--ease);
+}
+
+.table tbody tr:hover {
+  background: color-mix(in oklch, var(--raise) 60%, transparent);
+}
+
+.table .num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.rowLink {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.rowLink:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Tags, numbers ---------- */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 22px;
+  padding: 0 7px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-cell);
+  color: var(--ink-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tag[data-tone="warn"] {
+  border-color: color-mix(in oklch, var(--rose) 55%, transparent);
+  color: var(--rose);
+}
+
+.tag[data-tone="accent"] {
+  border-color: var(--c2);
+  color: var(--c4);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.measure {
+  font-family: var(--font-measure);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.muted {
+  color: var(--ink-3);
+}
+
+.kbd {
+  display: inline-grid;
+  place-items: center;
+  vertical-align: -3px;
+  min-height: 18px;
+  min-width: 18px;
+  padding: 0 4px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-cell);
+  font-family: var(--font-measure);
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+  color: var(--ink-2);
+}
+
+/* ---------- The cell vocabulary ---------- */
+
+.cell {
+  display: inline-block;
+  flex: none;
+  width: var(--size, var(--cell));
+  height: var(--size, var(--cell));
+  border-radius: var(--radius-cell);
+  background: var(--c0);
+  vertical-align: -1px;
+}
+
+.cell[data-state="hollow"] {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--line-strong);
+}
+
+.cell[data-state="partial"] {
+  background: linear-gradient(to top, var(--c3) 50%, transparent 50%);
+  box-shadow: inset 0 0 0 1.5px var(--c3);
+}
+
+.cell[data-state="solid"] {
+  background: var(--c3);
+}
+
+.cell[data-state="bright"] {
+  background: var(--c4);
+}
+
+.cell[data-state="muted"] {
+  background: var(--c1);
+}
+
+.cell[data-state="warn"] {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--rose);
+}
+
+.cell[data-state="warnSolid"] {
+  background: var(--rose);
+}
+
+.stateLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---------- Regions ---------- */
+
+.region {
+  display: grid;
+  gap: var(--s3);
+  min-width: 0;
+}
+
+.regionHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s2) var(--s4);
+}
+
+.regionTitle {
+  font-size: var(--text-lg);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.regionNote {
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+}
+
+.panel {
+  padding: var(--s4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  min-width: 0;
+}
+
+.textLink {
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.textLink:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .input,
+  .select,
+  .textarea,
+  .table tbody tr {
+    transition: none;
+  }
+}

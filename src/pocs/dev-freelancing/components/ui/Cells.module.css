@@ -1,0 +1,74 @@
+.hours {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.run {
+  --size: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.goal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* A cell that fills from the bottom when its state changes (칸 채우기). */
+.rise {
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--slow) var(--ease);
+}
+
+.rise[data-state="solid"],
+.rise[data-state="warnSolid"] {
+  background: transparent;
+}
+
+.rise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--c3);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--slow) var(--ease);
+}
+
+.rise[data-state="warnSolid"]::after {
+  background: var(--rose);
+}
+
+.rise[data-state="solid"]::after,
+.rise[data-state="warnSolid"]::after {
+  transform: scaleY(1);
+}
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  color: var(--ink-2);
+  font-size: var(--text-xs);
+}
+
+.unit {
+  color: var(--ink-3);
+}
+
+.over {
+  color: var(--rose);
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .rise::after {
+    transition: none;
+  }
+}
