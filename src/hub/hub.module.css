@@ -1,13 +1,14 @@
 /*
  * Hub — a market arcade's guide map (시장 안내도).
  * Concrete ground, blue-black plan ink, an enamel entrance board, and shop signs
- * painted in each product's own colour. See src/hub/DESIGN.md.
+ * painted in each product's own colour, facing a central aisle. See src/hub/DESIGN.md.
  */
 
 .root {
   --concrete: #dde2de;
   --concrete-deep: #cbd2cd;
   --plaster: #f2f4f1;
+  --window: #ffffff;
   --ink: #16202b;
   --ink-2: #34404c;
   --ink-3: #4f5a66;
@@ -17,6 +18,8 @@
   --safety: #e3a400;
   --you-are-here: #a8261f;
   --wall: 2px solid var(--ink);
+  --housing: 12px;
+  --gutter: clamp(16px, 4vw, 48px);
   --sign-face: var(--font-sign), "Pretendard Variable", sans-serif;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -54,81 +57,115 @@
 /* ── Entrance board ─────────────────────────────────────────────── */
 
 .entrance {
-  padding: clamp(16px, 3vw, 32px) clamp(16px, 4vw, 48px) 0;
+  padding: clamp(12px, 2vw, 16px) var(--gutter) 0;
 }
 
 .board {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 24px 40px;
   max-width: 1320px;
   margin: 0 auto;
-  padding: clamp(28px, 5vw, 56px) clamp(22px, 4vw, 48px) clamp(24px, 4vw, 40px);
+  padding: clamp(24px, 3.4vw, 32px) clamp(22px, 3.4vw, 40px);
   background: var(--enamel);
   color: var(--enamel-ink);
-  /* Enamel sign: a white inner keyline inset from the edge. */
-  box-shadow: inset 0 0 0 6px var(--enamel), inset 0 0 0 8px rgb(255 255 255 / 0.85);
+  /* Enamel sign: a white keyline inset from the edge. */
+  box-shadow:
+    inset 0 0 0 6px var(--enamel),
+    inset 0 0 0 8px rgb(255 255 255 / 0.85);
 }
 
 .title {
   font-family: var(--sign-face);
   font-weight: 400;
-  font-size: clamp(2.5rem, 1.4rem + 4.6vw, 5.25rem);
+  font-size: clamp(2.25rem, 1.1rem + 3.4vw, 4.25rem);
   line-height: 1.02;
   letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
 .promise {
-  margin-top: clamp(14px, 2vw, 20px);
+  margin-top: 12px;
   max-width: 44ch;
-  font-size: clamp(1rem, 0.95rem + 0.35vw, 1.1875rem);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
   line-height: 1.6;
   color: rgb(255 255 255 / 0.92);
   text-wrap: pretty;
 }
 
-.openPlate {
-  display: inline-flex;
+.directory {
+  padding: 12px 16px 10px;
+  border: 1.5px solid rgb(255 255 255 / 0.7);
+}
+
+.directoryTitle {
+  display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 24px;
-  padding: 8px 14px;
-  background: var(--enamel-deep);
-  border: 1.5px solid rgb(255 255 255 / 0.7);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .lamp {
+  flex: none;
   width: 9px;
   height: 9px;
   border-radius: 50%;
   background: var(--safety);
 }
 
+.directoryList {
+  columns: 2;
+  column-gap: 24px;
+  margin: 8px 0 0;
+  padding: 8px 0 0;
+  border-top: 1px solid rgb(255 255 255 / 0.45);
+  list-style: none;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.directoryList li {
+  display: flex;
+  gap: 10px;
+  padding: 2px 0;
+  break-inside: avoid;
+}
+
+.directoryList span {
+  color: rgb(255 255 255 / 0.75);
+}
+
 /* ── Plan ───────────────────────────────────────────────────────── */
 
 .plan {
   position: relative;
-  max-width: 1320px;
-  margin: clamp(20px, 3vw, 32px) auto 0;
-  padding: 0 clamp(16px, 4vw, 48px);
-  box-sizing: content-box;
+  width: min(1320px, 100% - 2 * var(--gutter));
+  margin: clamp(12px, 2vw, 16px) auto 0;
+}
+
+.arcade {
+  position: relative;
+  display: grid;
+  /* Shop units, plus the vacant unit that caps the end of the aisle. */
+  grid-template-columns: repeat(var(--units), minmax(0, 1fr)) minmax(132px, 0.55fr);
+  grid-template-rows: auto 52px auto;
+  border: 1px solid var(--ink);
 }
 
 .row {
-  display: grid;
-  /* Both rows share the column count, so units line up across the aisle even when a row holds fewer shops. */
-  grid-template-columns: repeat(var(--units), minmax(0, 1fr));
-  border: 1px solid var(--ink);
+  display: contents;
 }
 
 .aisle {
   position: relative;
+  grid-column: 1 / -2;
+  grid-row: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 72px;
   background: var(--concrete-deep);
-  border-inline: var(--wall);
 }
 
 .aisle::before {
@@ -151,7 +188,7 @@
 
 .youAreHere {
   position: absolute;
-  left: 16px;
+  left: 14px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -163,18 +200,21 @@
 }
 
 .youAreHereDot {
+  flex: none;
   width: 14px;
   height: 14px;
   border-radius: 50%;
   background: var(--you-are-here);
-  box-shadow: 0 0 0 3px var(--concrete-deep), 0 0 0 5px var(--you-are-here);
+  box-shadow:
+    0 0 0 3px var(--concrete-deep),
+    0 0 0 5px var(--you-are-here);
 }
 
 .titleBlock {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  margin-top: 12px;
+  margin-top: 10px;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--ink-3);
@@ -205,137 +245,143 @@
   width: 100%;
   text-decoration: none;
   color: inherit;
-  transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
+  transition:
+    transform 320ms var(--ease-out),
+    box-shadow 320ms var(--ease-out);
 }
 
+/* The sign board: name, trade and unit plate, painted in the shop's colour. */
 .sign {
+  position: relative;
   display: flex;
-  align-items: center;
-  min-height: 76px;
+  flex-direction: column;
+  gap: 6px;
   padding: 14px 16px 12px;
   background: var(--paint);
   color: var(--paint-ink);
   border-bottom: var(--wall);
+}
+
+.signName {
+  padding-right: 52px;
   font-family: var(--sign-face);
-  font-size: clamp(1.5rem, 1.1rem + 0.9vw, 2rem);
+  font-size: clamp(1.45rem, 1.1rem + 0.7vw, 1.875rem);
   line-height: 1.05;
   overflow-wrap: anywhere;
+}
+
+.signTrade {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.signArrow {
+  flex: none;
+  transition: transform 320ms var(--ease-out);
+}
+
+.plate {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 1px 6px;
+  background: var(--ink);
+  color: var(--plaster);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .front {
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 10px;
-  padding: 14px 16px 16px;
-}
-
-.stallMeta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px 10px;
-}
-
-.plate {
-  padding: 1px 7px;
-  background: var(--ink);
-  color: var(--plaster);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-.category {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--ink-3);
+  gap: 8px;
+  padding: 10px 12px 12px;
 }
 
 .tagline {
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 700;
   line-height: 1.45;
   text-wrap: pretty;
 }
 
-.interior {
+/* The shop window, with the shutter housing along its top edge. */
+.window {
   position: relative;
-  display: flex;
   flex: 1;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 4px;
-  padding: 12px 12px 14px;
+  padding: calc(var(--housing) + 10px) 10px 10px;
   border: 1.5px solid var(--ink);
-  background: #fff;
+  background: var(--window);
   overflow: hidden;
 }
 
+.window::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--housing);
+  background: var(--ink-2);
+  z-index: 2;
+}
+
 .description {
-  font-size: 0.875rem;
+  display: block;
+  font-size: 0.8125rem;
   line-height: 1.6;
   color: var(--ink-2);
   text-wrap: pretty;
 }
 
-.audience {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--ink-3);
-}
-
-.enter {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: auto;
-  padding-top: 6px;
-  font-size: 0.9375rem;
-  font-weight: 800;
-}
-
 /*
- * The roll shutter, rolled up into its box above the window while the shop is open.
- * On load the arcade opens: every shutter rolls up in turn (one orchestrated moment).
+ * The roll shutter: steel slats with a heavy bottom rail. On load the arcade opens —
+ * each shutter rolls up into its housing in turn, bottom rail leading.
  */
 .shutter {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background:
     linear-gradient(to top, var(--ink-2) 0 7px, transparent 7px),
     repeating-linear-gradient(to bottom, #aeb6b1 0 9px, #8f9994 9px 11px);
-  clip-path: inset(0 0 calc(100% - 12px) 0);
-  animation: open-shop 720ms var(--ease-out) both;
+  transform: translateY(-100%);
+  animation: open-shop 760ms var(--ease-out) both;
   animation-delay: calc(160ms + var(--i, 0) * 55ms);
 }
 
 @keyframes open-shop {
   from {
-    clip-path: inset(0 0 0 0);
+    transform: translateY(0);
   }
   to {
-    clip-path: inset(0 0 calc(100% - 12px) 0);
+    transform: translateY(-100%);
   }
 }
 
-.enter svg {
-  transition: transform 320ms var(--ease-out);
+@media (prefers-reduced-motion: reduce) {
+  .shutter {
+    animation: none;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
   .stallLink:hover {
     transform: translateY(-3px);
     box-shadow: 0 14px 24px -14px rgb(22 32 43 / 0.55);
-    z-index: 1;
+    z-index: 3;
   }
 
-  .stallLink:hover .enter svg {
+  .stallLink:hover .signArrow {
     transform: translateX(4px);
   }
 }
 
-/* ── Vacant unit ────────────────────────────────────────────────── */
+/* ── Vacant units ───────────────────────────────────────────────── */
 
 .vacant {
   background: var(--concrete);
@@ -347,29 +393,37 @@
   border-bottom-style: dashed;
 }
 
+.vacant .plate {
+  background: var(--ink-3);
+}
+
 .vacantNote {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 6px;
   margin-top: auto;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 800;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
-/* ── Notice & footer ────────────────────────────────────────────── */
+.vacantNote svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+/* ── Notice plaque ──────────────────────────────────────────────── */
 
 .notice {
-  max-width: 1320px;
+  width: min(760px, 100% - 2 * var(--gutter));
   margin: clamp(40px, 6vw, 72px) auto 0;
-  padding: 0 clamp(16px, 4vw, 48px);
-  box-sizing: content-box;
+  border: var(--wall);
+  background: var(--plaster);
 }
 
 .noticeTitle {
-  display: inline-block;
-  padding: 6px 14px;
+  padding: 10px 20px;
   background: var(--ink);
   color: var(--plaster);
   font-size: 1rem;
@@ -377,19 +431,16 @@
 }
 
 .noticeList {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 0;
-  border-top: var(--wall);
+  padding: 4px 20px;
 }
 
 .noticeList > div {
-  padding: 18px 20px 20px 0;
+  padding: 16px 0;
 }
 
 .noticeList > div + div {
-  padding-left: 20px;
-  border-left: 1px solid var(--ink-3);
+  border-top: 1px solid var(--ink-3);
 }
 
 .noticeList dt {
@@ -398,8 +449,8 @@
 }
 
 .noticeList dd {
-  margin: 8px 0 0;
-  max-width: 42ch;
+  margin: 6px 0 0;
+  max-width: 62ch;
   font-size: 0.9375rem;
   line-height: 1.65;
   color: var(--ink-2);
@@ -410,7 +461,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 8px 24px;
-  width: min(1320px, 100% - 2 * clamp(16px, 4vw, 48px));
+  width: min(1320px, 100% - 2 * var(--gutter));
   margin: clamp(40px, 6vw, 64px) auto 0;
   padding: 20px 0 40px;
   border-top: 1px solid var(--ink-3);
@@ -424,43 +475,112 @@
   text-underline-offset: 4px;
 }
 
-/* ── Responsive ─────────────────────────────────────────────────── */
+/* ── Desktop: two rows of shops face each other across the aisle ─ */
+
+@media (min-width: 1100px) {
+  .upper .stallLink,
+  .upper .front {
+    flex-direction: column-reverse;
+  }
+
+  .upper .sign {
+    border-bottom: 0;
+    border-top: var(--wall);
+  }
+
+  .endCap {
+    grid-column: -2 / -1;
+    grid-row: 1 / -1;
+  }
+}
+
+/* ── Tablet and phone: the aisle runs down the page ─────────────── */
 
 @media (max-width: 1099px) {
-  .row {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .board {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .directory {
+    justify-self: start;
+    padding: 8px 14px;
+  }
+
+  .directoryList {
+    display: none;
+  }
+
+  .plan {
+    /* Room on the left for the aisle strip, and above for the entrance marker. */
+    padding: 34px 0 0 40px;
+  }
+
+  .arcade {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+  }
+
+  .aisle {
+    position: absolute;
+    top: -34px;
+    bottom: 0;
+    right: 100%;
+    width: 40px;
+    grid-column: auto;
+    grid-row: auto;
+    background: transparent;
+  }
+
+  .aisle::before {
+    inset: 0 auto 0 50%;
+    border-top: 0;
+    border-left: 3px dashed var(--safety);
+    transform: translateX(-50%);
+  }
+
+  .aisleLabel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 12px 2px;
+    background: var(--concrete);
+    writing-mode: vertical-rl;
+    transform: translate(-50%, -50%);
+  }
+
+  .youAreHere {
+    top: 0;
+    left: 13px;
+    background: var(--concrete);
+    white-space: nowrap;
+  }
+
+  .youAreHereDot {
+    box-shadow:
+      0 0 0 3px var(--concrete),
+      0 0 0 5px var(--you-are-here);
+  }
+
+  .endCap {
+    grid-column: 1 / -1;
+  }
+
+  .description {
+    font-size: 0.875rem;
+  }
+
+  .notice {
+    margin-top: 48px;
   }
 }
 
 @media (max-width: 719px) {
-  .row {
+  .arcade {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .sign {
-    min-height: 64px;
-  }
-
-  .audience {
-    display: none;
-  }
-
-  .aisle {
-    min-height: 60px;
-  }
-
-  .noticeList {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .noticeList > div,
-  .noticeList > div + div {
-    padding: 16px 0;
-    border-left: 0;
-  }
-
-  .noticeList > div + div {
-    border-top: 1px solid var(--ink-3);
+    padding: 12px 14px 10px;
   }
 
   .titleBlock {
@@ -510,4 +630,15 @@
   color: var(--enamel-ink);
   font-weight: 800;
   text-decoration: none;
+}
+
+/* The end-cap unit is narrow: its plate sits in the flow above the name. */
+.endCap .plate {
+  position: static;
+  align-self: flex-start;
+  order: -1;
+}
+
+.endCap .signName {
+  padding-right: 0;
 }

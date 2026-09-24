@@ -9,20 +9,20 @@ test("health check reports a working database", async ({ request }) => {
 
 test("hub lists every module", async ({ page }) => {
   await page.goto("/");
-  for (const module of MODULES) {
-    await expect(page.locator(`a[href="/${module.slug}"]`).first()).toBeVisible();
+  for (const mod of MODULES) {
+    await expect(page.locator(`a[href="/${mod.slug}"]`).first()).toBeVisible();
   }
 });
 
-for (const module of MODULES) {
-  test(`${module.slug} renders without errors`, async ({ page }) => {
+for (const mod of MODULES) {
+  test(`${mod.slug} renders without errors`, async ({ page }) => {
     const errors: string[] = [];
     page.on("pageerror", (error) => errors.push(error.message));
     page.on("console", (message) => {
       if (message.type() === "error") errors.push(message.text());
     });
 
-    const response = await page.goto(`/${module.slug}`);
+    const response = await page.goto(`/${mod.slug}`);
     expect(response?.status(), "HTTP status").toBeLessThan(400);
     await expect(page.locator("main").first()).toBeVisible();
     await expect(page).toHaveTitle(/.+/);

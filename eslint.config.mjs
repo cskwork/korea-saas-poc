@@ -8,6 +8,8 @@ export default defineConfig([
   {
     rules: {
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+      // Links between the hub and modules are deliberately full page loads (each module is its own world).
+      "@next/next/no-html-link-for-pages": "off",
     },
   },
   {
