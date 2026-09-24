@@ -1,0 +1,7 @@
+.next
+.next-*
+node_modules
+drizzle
+pocs
+.data
+package-lock.json
