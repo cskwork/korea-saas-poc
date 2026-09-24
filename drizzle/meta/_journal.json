@@ -29,6 +29,13 @@
       "when": 1790254659614,
       "tag": "0003_ai-content-agency",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790254664094,
+      "tag": "0004_affiliate-marketing",
+      "breakpoints": true
     }
   ]
 }

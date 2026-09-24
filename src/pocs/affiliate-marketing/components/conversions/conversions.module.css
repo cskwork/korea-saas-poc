@@ -1,0 +1,295 @@
+/* Orders: the record form, the ledger table and the monthly status strip. */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: var(--am-s6);
+  align-items: start;
+}
+
+.formPanel {
+  display: grid;
+  gap: var(--am-s4);
+  padding: var(--am-s5);
+  background: var(--am-paper);
+  border: 1.5px solid var(--am-ink);
+  border-radius: var(--am-radius);
+  scroll-margin-top: 80px;
+}
+
+.formTitle {
+  font-family: var(--am-display);
+  font-weight: 400;
+  font-size: var(--am-fs-xl);
+}
+
+.preview {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--am-s3);
+  padding: var(--am-s3) var(--am-s4);
+  background: var(--am-yellow-soft);
+  border: 1.5px solid var(--am-yellow-deep);
+  border-radius: var(--am-radius);
+  font-size: var(--am-fs-sm);
+  font-weight: 700;
+}
+
+.strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  background: var(--am-paper);
+  border: 1.5px solid var(--am-ink);
+  border-radius: var(--am-radius);
+}
+
+.stripCell {
+  display: grid;
+  gap: 2px;
+  padding: 10px 14px;
+  border-left: 1.5px solid var(--am-ink);
+  min-width: 0;
+}
+
+.stripCell:first-child {
+  border-left: 0;
+}
+
+.stripCell dt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--am-fs-xs);
+  font-weight: 700;
+  color: var(--am-ink-2);
+}
+
+.stripCell dd {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+}
+
+.count {
+  font-size: var(--am-fs-xs);
+  font-weight: 700;
+  color: var(--am-ink-2);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--am-s3);
+}
+
+.toolbarFields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--am-s3);
+  align-items: end;
+}
+
+.toolbarFields > * {
+  min-width: 150px;
+}
+
+.ledger {
+  background: var(--am-paper);
+  border: 1.5px solid var(--am-ink);
+  border-radius: var(--am-radius);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--am-fs-sm);
+}
+
+.table th,
+.table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--am-rule);
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--am-paper);
+  font-size: var(--am-fs-xs);
+  color: var(--am-ink-2);
+  border-bottom: 1.5px solid var(--am-ink);
+}
+
+.table .left {
+  text-align: left;
+}
+
+.table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.table tbody tr[data-status="cancelled"] > * {
+  color: var(--am-ink-3);
+}
+
+.table tbody tr[data-status="cancelled"] .money {
+  text-decoration: line-through;
+}
+
+.product {
+  display: grid;
+  gap: 2px;
+  white-space: normal;
+  min-width: 160px;
+}
+
+.product a {
+  color: var(--am-ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.product a:hover {
+  text-decoration: underline;
+}
+
+.sub {
+  font-size: var(--am-fs-xs);
+  color: var(--am-ink-2);
+  font-weight: 600;
+}
+
+.money {
+  font-weight: 800;
+}
+
+.commission {
+  color: var(--am-red-deep);
+  font-weight: 800;
+}
+
+.override {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--am-ink-2);
+}
+
+.rowActions {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+}
+
+.scopeNote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  font-size: var(--am-fs-sm);
+  font-weight: 700;
+}
+
+.note {
+  max-width: 16em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 1080px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .strip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stripCell {
+    border-left: 0;
+    border-top: 1.5px solid var(--am-ink);
+  }
+
+  .stripCell:first-child {
+    border-top: 0;
+  }
+
+  .ledger {
+    overflow: visible;
+    background: transparent;
+    border: 0;
+  }
+
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+  }
+
+  .table tbody {
+    display: grid;
+    gap: 8px;
+  }
+
+  .table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 12px;
+    padding: 12px;
+    background: var(--am-paper);
+    border: 1.5px solid var(--am-ink);
+    border-radius: var(--am-radius-sm);
+  }
+
+  .table td {
+    padding: 0;
+    border: 0;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .table td[data-label]::before {
+    content: attr(data-label) " ";
+    font-size: var(--am-fs-xs);
+    font-weight: 700;
+    color: var(--am-ink-2);
+  }
+
+  .table .product,
+  .table .full {
+    grid-column: 1 / -1;
+  }
+
+  .rowActions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}

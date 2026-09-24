@@ -1,0 +1,304 @@
+/* Charts: square flyer bars, hairline grid, labels in text ink, hover/focus readout. */
+
+.chart {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  min-width: 0;
+}
+
+.frame {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+}
+
+.yAxis {
+  position: relative;
+  width: 3.4em;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--am-ink-2);
+  text-align: right;
+}
+
+.yTick {
+  position: absolute;
+  right: 0;
+  translate: 0 50%;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.plot {
+  position: relative;
+  outline: none;
+  touch-action: pan-y;
+}
+
+.plot:focus-visible {
+  outline: 3px solid var(--am-focus);
+  outline-offset: 4px;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.grid {
+  stroke: var(--am-rule);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.onYellow .grid {
+  stroke: oklch(0.2 0.015 265 / 0.18);
+}
+
+.baseline {
+  stroke: var(--am-ink);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.bar {
+  fill: var(--am-red);
+}
+
+.inkBars .bar {
+  fill: var(--am-ink);
+}
+
+.bar[data-dim="true"] {
+  fill-opacity: 0.35;
+}
+
+.bar[data-today="true"] {
+  fill: var(--am-ink);
+}
+
+.inkBars .bar[data-today="true"] {
+  fill: var(--am-red);
+}
+
+.band {
+  fill: var(--am-yellow);
+}
+
+.onYellow .band {
+  fill: var(--am-paper);
+}
+
+.cursor {
+  fill: oklch(0.2 0.015 265 / 0.08);
+}
+
+.marker {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  margin-bottom: 4px;
+  border-radius: 50%;
+  background: var(--am-red);
+  box-shadow: 0 0 0 2px var(--am-paper);
+  pointer-events: none;
+}
+
+.xAxis {
+  position: relative;
+  height: 1.2em;
+  margin-left: calc(3.4em + 8px);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--am-ink-2);
+}
+
+.xTick {
+  position: absolute;
+  top: 0;
+  translate: -50% 0;
+  white-space: nowrap;
+}
+
+.xTick:first-child {
+  translate: 0 0;
+}
+
+.xTick:last-child {
+  translate: -100% 0;
+}
+
+.readout {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  z-index: 2;
+  min-width: 132px;
+  padding: 6px 9px;
+  background: var(--am-ink);
+  color: var(--am-paper);
+  border-radius: var(--am-radius-sm);
+  font-size: var(--am-fs-xs);
+  line-height: 1.45;
+  pointer-events: none;
+  white-space: nowrap;
+  translate: -50% 0;
+}
+
+.readout b,
+.readout span {
+  display: block;
+}
+
+.readout b {
+  font-size: var(--am-fs-sm);
+}
+
+.srTable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.caption {
+  font-size: var(--am-fs-xs);
+  color: var(--am-ink-2);
+}
+
+/* ---------- Share bar (stacked, one row) ---------- */
+.share {
+  display: grid;
+  gap: 10px;
+}
+
+.shareTrack {
+  display: flex;
+  gap: 2px;
+  height: 22px;
+  background: var(--am-paper);
+}
+
+.shareSeg {
+  min-width: 3px;
+  height: 100%;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--am-fs-xs);
+  font-weight: 600;
+  color: var(--am-ink-2);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend b {
+  color: var(--am-ink);
+}
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.c0 {
+  background: var(--am-series-1);
+}
+
+.c1 {
+  background: var(--am-series-2);
+}
+
+.c2 {
+  background: var(--am-series-3);
+}
+
+.c3 {
+  background: var(--am-series-4);
+}
+
+.c4 {
+  background: var(--am-series-5);
+}
+
+.cOther {
+  background: var(--am-series-other);
+}
+
+/* ---------- Bar list (labelled rows, single hue) ---------- */
+.barList {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.barRow {
+  display: grid;
+  grid-template-columns: minmax(84px, 9em) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--am-fs-sm);
+}
+
+.barLabel {
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.barTrack {
+  display: block;
+  height: 12px;
+  background: var(--am-ground);
+}
+
+.barFill {
+  display: block;
+  height: 100%;
+  background: var(--am-ink);
+  min-width: 2px;
+}
+
+.barValue {
+  font-weight: 700;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--am-ink);
+}
+
+.barValue small {
+  font-weight: 600;
+  color: var(--am-ink-2);
+  font-size: var(--am-fs-xs);
+  margin-left: 4px;
+}
+
+@media (max-width: 560px) {
+  .barRow {
+    grid-template-columns: minmax(72px, 7em) minmax(0, 1fr) auto;
+  }
+}
