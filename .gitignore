@@ -26,3 +26,8 @@ playwright-report/
 .vercel
 .impeccable/config.local.json
 tsconfig.*.local.json
+
+# impeccable review captures: keep only the canonical desktop/mobile pair per surface
+src/pocs/*/.impeccable/review/*
+!src/pocs/*/.impeccable/review/desktop.png
+!src/pocs/*/.impeccable/review/mobile.png
