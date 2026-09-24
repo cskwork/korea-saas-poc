@@ -1,0 +1,141 @@
+/*
+ * 펴냄 — two-colour print on coated white stock.
+ * 먹 (ink) and 종이 (paper) carry the interface; colour arrives only as issue
+ * covers (eight printing inks) and as chart series drawn from the same inks.
+ */
+.root {
+  /* paper & ink */
+  --paper: oklch(0.988 0.002 250);
+  --paper-2: oklch(0.962 0.004 250);
+  --paper-3: oklch(0.935 0.005 250);
+  --ink: oklch(0.2 0.014 262);
+  --ink-2: oklch(0.4 0.014 262);
+  --ink-3: oklch(0.5 0.012 262);
+  --hair: oklch(0.86 0.006 262);
+  --hair-strong: oklch(0.74 0.008 262);
+
+  /* states */
+  --highlight: oklch(0.93 0.13 102);
+  --danger: oklch(0.53 0.19 28);
+  --danger-deep: oklch(0.46 0.18 28);
+  --danger-wash: oklch(0.96 0.03 28);
+  --ok: oklch(0.5 0.11 155);
+  --ok-wash: oklch(0.96 0.03 155);
+
+  /* chart series (validated: adjacent CVD ΔE ≥ 24, see DESIGN.md) */
+  --series-paid: #e25c26;
+  --series-ads: #3857ac;
+  --series-membership: #a6a01b;
+  --series-total: #3857ac;
+
+  /* type */
+  --font-myeongjo: var(--nc-myeongjo), "Nanum Myeongjo", "AppleMyungjo", "Batang", serif;
+  --font-ui: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui,
+    sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-md: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2.125rem;
+
+  /* space (4px grid) */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  --radius: 2px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --page-max: 1280px;
+  --gutter: clamp(16px, 3vw, 32px);
+
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  line-height: 1.55;
+  caret-color: var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+
+:global(html):has(.root) {
+  background: var(--paper, #fafbfc);
+  color-scheme: light;
+  scrollbar-color: oklch(0.74 0.008 262) oklch(0.962 0.004 250);
+}
+
+.root ::selection {
+  background: var(--highlight);
+  color: var(--ink);
+}
+
+.root :focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.root a {
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+}
+
+.root :where(table) {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- cover inks: --cover is the field, --on-cover the type printed on it ---- */
+.ink-jjok {
+  --cover: oklch(0.4 0.13 266);
+  --on-cover: oklch(0.985 0.004 266);
+}
+.ink-juhong {
+  --cover: oklch(0.64 0.18 40);
+  --on-cover: oklch(0.18 0.03 40);
+}
+.ink-ssuk {
+  --cover: oklch(0.48 0.1 130);
+  --on-cover: oklch(0.985 0.01 130);
+}
+.ink-hwang {
+  --cover: oklch(0.83 0.15 86);
+  --on-cover: oklch(0.2 0.03 86);
+}
+.ink-jaju {
+  --cover: oklch(0.44 0.14 352);
+  --on-cover: oklch(0.985 0.008 352);
+}
+.ink-cheongrok {
+  --cover: oklch(0.48 0.085 200);
+  --on-cover: oklch(0.985 0.006 200);
+}
+.ink-meokhoe {
+  --cover: oklch(0.36 0.02 262);
+  --on-cover: oklch(0.985 0.004 262);
+}
+.ink-bunhong {
+  --cover: oklch(0.82 0.08 14);
+  --on-cover: oklch(0.2 0.03 14);
+}
+
+/* ---- shared helpers ---- */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

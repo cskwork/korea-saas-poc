@@ -1,0 +1,297 @@
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-4);
+  font-variant-numeric: tabular-nums;
+}
+
+.counts strong {
+  color: var(--ink);
+}
+
+.tools {
+  display: grid;
+  gap: var(--s-4);
+  margin-bottom: var(--s-6);
+}
+
+.toolButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.panel {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  background: var(--paper-2);
+  border-top: 3px solid var(--ink);
+}
+
+.panelFields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) 140px auto;
+  gap: var(--s-3);
+  align-items: start;
+}
+
+.fileField {
+  grid-column: 1 / -2;
+}
+
+.panelSubmit {
+  margin-top: 26px;
+}
+
+.importErrors {
+  display: grid;
+  gap: 4px;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.importErrors strong {
+  color: var(--danger);
+  margin-right: var(--s-2);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--ink);
+}
+
+.searchField {
+  display: flex;
+  gap: var(--s-2);
+  flex: 1 1 260px;
+  max-width: 380px;
+}
+
+.inlineSelect {
+  display: grid;
+  gap: 4px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.inlineSelect select {
+  min-width: 124px;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.table th,
+.table td {
+  padding: 10px var(--s-3);
+  border-bottom: 1px solid var(--hair);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table thead th {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--ink-2);
+  border-bottom-color: var(--ink);
+  white-space: nowrap;
+}
+
+.table tbody tr:hover {
+  background: var(--paper-2);
+}
+
+.nameCell {
+  display: grid;
+  gap: 1px;
+  font-weight: 600;
+}
+
+.name {
+  white-space: nowrap;
+}
+
+.source {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+.email {
+  color: var(--ink-2);
+  word-break: break-all;
+}
+
+.tierSelect {
+  min-height: 32px;
+  width: 104px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: var(--text-sm);
+}
+
+.date {
+  white-space: nowrap;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.rowActions {
+  white-space: nowrap;
+  text-align: right !important;
+}
+
+.inactive .name,
+.inactive .email {
+  color: var(--ink-3);
+}
+
+.editRow td {
+  background: var(--paper-2);
+  padding: var(--s-4);
+}
+
+.editForm {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) 120px 120px auto;
+  gap: var(--s-3);
+  align-items: end;
+}
+
+.editActions {
+  display: flex;
+  gap: var(--s-2);
+  padding-bottom: 4px;
+}
+
+.editForm > p:last-child {
+  grid-column: 1 / -1;
+}
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.pagerLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.pageNumber {
+  min-width: 56px;
+  text-align: center;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .panelFields,
+  .editForm {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .fileField {
+    grid-column: 1 / -1;
+  }
+
+  .panelSubmit {
+    margin-top: 0;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 760px) {
+  .tableWrap {
+    overflow: visible;
+  }
+
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .table,
+  .table tbody {
+    display: block;
+  }
+
+  .table tbody tr:not(.editRow) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-2) var(--s-3);
+    padding: var(--s-4) 0;
+    border-bottom: 1px solid var(--hair);
+  }
+
+  .table tbody tr:hover {
+    background: transparent;
+  }
+
+  .table th,
+  .table td {
+    padding: 0;
+    border: 0;
+  }
+
+  .nameCell,
+  .email {
+    grid-column: 1 / -1;
+  }
+
+  .table td[data-label]:not(.email) {
+    display: grid;
+    justify-items: start;
+    gap: 2px;
+    font-size: var(--text-xs);
+  }
+
+  .table td[data-label]:not(.email)::before {
+    content: attr(data-label);
+    color: var(--ink-3);
+  }
+
+  .rowActions {
+    grid-column: 1 / -1;
+    text-align: left !important;
+    margin-left: calc(var(--s-2) * -1);
+  }
+
+  .editRow {
+    display: block;
+  }
+
+  .editRow td {
+    display: block;
+  }
+
+  .editForm,
+  .panelFields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
