@@ -1,0 +1,396 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T21:02:29.990645+00:00",
+  "title": "Design System: 스마트셀러",
+  "extensions": {
+    "colorMeta": {
+      "up": {
+        "role": "primary",
+        "displayName": "Rising Red (상승)",
+        "dark": "oklch(69% 0.19 24)",
+        "tonalRamp": [
+          "oklch(15% 0.2 25)",
+          "oklch(25% 0.2 25)",
+          "oklch(35% 0.2 25)",
+          "oklch(45% 0.2 25)",
+          "oklch(55% 0.2 25)",
+          "oklch(65% 0.2 25)",
+          "oklch(80% 0.2 25)",
+          "oklch(95% 0.2 25)"
+        ]
+      },
+      "buy": {
+        "role": "primary",
+        "displayName": "Order Red (매수)",
+        "dark": "oklch(55% 0.2 25)",
+        "tonalRamp": [
+          "oklch(15% 0.2 25)",
+          "oklch(25% 0.2 25)",
+          "oklch(35% 0.2 25)",
+          "oklch(45% 0.2 25)",
+          "oklch(55% 0.2 25)",
+          "oklch(65% 0.2 25)",
+          "oklch(80% 0.2 25)",
+          "oklch(95% 0.2 25)"
+        ]
+      },
+      "down": {
+        "role": "primary",
+        "displayName": "Falling Blue (하락)",
+        "dark": "oklch(71% 0.14 252)",
+        "tonalRamp": [
+          "oklch(15% 0.17 258)",
+          "oklch(25% 0.17 258)",
+          "oklch(35% 0.17 258)",
+          "oklch(45% 0.17 258)",
+          "oklch(55% 0.17 258)",
+          "oklch(65% 0.17 258)",
+          "oklch(80% 0.17 258)",
+          "oklch(95% 0.17 258)"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "Ledger Amber",
+        "dark": "oklch(78% 0.12 80)",
+        "tonalRamp": [
+          "oklch(15% 0.12 70)",
+          "oklch(25% 0.12 70)",
+          "oklch(35% 0.12 70)",
+          "oklch(45% 0.12 70)",
+          "oklch(55% 0.12 70)",
+          "oklch(65% 0.12 70)",
+          "oklch(80% 0.12 70)",
+          "oklch(95% 0.12 70)"
+        ]
+      },
+      "vol": {
+        "role": "secondary",
+        "displayName": "Volume Grey-Blue",
+        "dark": "oklch(42% 0.02 258)",
+        "tonalRamp": [
+          "oklch(15% 0.012 258)",
+          "oklch(25% 0.012 258)",
+          "oklch(35% 0.012 258)",
+          "oklch(45% 0.012 258)",
+          "oklch(55% 0.012 258)",
+          "oklch(65% 0.012 258)",
+          "oklch(80% 0.012 258)",
+          "oklch(95% 0.012 258)"
+        ]
+      },
+      "focus": {
+        "role": "secondary",
+        "displayName": "Focus Blue",
+        "dark": "oklch(72% 0.14 252)",
+        "tonalRamp": [
+          "oklch(15% 0.16 258)",
+          "oklch(25% 0.16 258)",
+          "oklch(35% 0.16 258)",
+          "oklch(45% 0.16 258)",
+          "oklch(55% 0.16 258)",
+          "oklch(65% 0.16 258)",
+          "oklch(80% 0.16 258)",
+          "oklch(95% 0.16 258)"
+        ]
+      },
+      "bar": {
+        "role": "neutral",
+        "displayName": "Title Bar Navy",
+        "dark": "oklch(11.5% 0.014 262)",
+        "tonalRamp": [
+          "oklch(15% 0.045 263)",
+          "oklch(25% 0.045 263)",
+          "oklch(35% 0.045 263)",
+          "oklch(45% 0.045 263)",
+          "oklch(55% 0.045 263)",
+          "oklch(65% 0.045 263)",
+          "oklch(80% 0.045 263)",
+          "oklch(95% 0.045 263)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "dark": "oklch(93.5% 0.008 255)",
+        "tonalRamp": [
+          "oklch(15% 0.03 262)",
+          "oklch(25% 0.03 262)",
+          "oklch(35% 0.03 262)",
+          "oklch(45% 0.03 262)",
+          "oklch(55% 0.03 262)",
+          "oklch(65% 0.03 262)",
+          "oklch(80% 0.03 262)",
+          "oklch(95% 0.03 262)"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Window Grey",
+        "dark": "oklch(15.5% 0.012 262)",
+        "tonalRamp": [
+          "oklch(15.5% 0.012 262)",
+          "oklch(20% 0.014 262)",
+          "oklch(26.5% 0.018 262)",
+          "oklch(38% 0.02 262)",
+          "oklch(50% 0.016 262)",
+          "oklch(80% 0.01 255)",
+          "oklch(89.5% 0.006 255)",
+          "oklch(96.9% 0.004 255)"
+        ]
+      },
+      "pane": {
+        "role": "neutral",
+        "displayName": "Pane White",
+        "dark": "oklch(20% 0.014 262)",
+        "tonalRamp": [
+          "oklch(15.5% 0.012 262)",
+          "oklch(20% 0.014 262)",
+          "oklch(23% 0.016 262)",
+          "oklch(26.5% 0.018 262)",
+          "oklch(93.2% 0.007 255)",
+          "oklch(94% 0.006 255)",
+          "oklch(96.9% 0.004 255)",
+          "oklch(99.3% 0.002 255)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "dark": "oklch(29% 0.016 262)",
+        "tonalRamp": [
+          "oklch(15% 0.006 255)",
+          "oklch(25% 0.006 255)",
+          "oklch(35% 0.006 255)",
+          "oklch(45% 0.006 255)",
+          "oklch(55% 0.006 255)",
+          "oklch(65% 0.006 255)",
+          "oklch(80% 0.006 255)",
+          "oklch(95% 0.006 255)"
+        ]
+      }
+    },
+    "themes": {
+      "dark": {
+        "trigger": ":root[data-theme=\"dark\"] or prefers-color-scheme: dark without data-theme=\"light\"",
+        "note": "Night HTS skin: same tokens and market law; values in colorMeta.*.dark and style.css."
+      }
+    },
+    "typographyMeta": {
+      "figure-xl": {
+        "displayName": "Figure XL (28px)",
+        "purpose": "One big number per view: quote panel 순수익, calculator result, tally counts."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Screen titles beside the bordered 화면번호."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Pane titles and block heads."
+      },
+      "figure-md": {
+        "displayName": "Figure MD (15px)",
+        "purpose": "Ladder totals, index values, rank amounts, quote-strip values."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text; tabular numerals set globally."
+      },
+      "figure-sm": {
+        "displayName": "Figure SM (13px)",
+        "purpose": "Every data grid cell, tape, readouts."
+      },
+      "label": {
+        "displayName": "Label (12px)",
+        "purpose": "Labels and identifiers only; never a figure."
+      }
+    },
+    "shadows": [
+      {
+        "name": "float",
+        "value": "0 10px 30px oklch(20% 0.03 262 / 0.16), 0 2px 6px oklch(20% 0.03 262 / 0.08)",
+        "dark": "0 14px 40px oklch(5% 0.01 262 / 0.6), 0 2px 8px oklch(5% 0.01 262 / 0.4)",
+        "purpose": "Modal quote panel, bottom sheet, toast. Docked panel has none."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All state transitions, panel entry, toast, tick."
+      },
+      {
+        "name": "state",
+        "value": "160ms",
+        "purpose": "Hover and colour transitions on buttons, tabs, inputs."
+      },
+      {
+        "name": "panel-in",
+        "value": "260ms translateX(24px) + fade",
+        "purpose": "Modal quote panel; sheet-in uses translateY(24px) below 720px; dock-in uses translateX(12px)."
+      },
+      {
+        "name": "tick",
+        "value": "700ms (900ms rows) background from 22% (16% rows) up/down colour to transparent",
+        "purpose": "Signature price tick: red when a value rose, blue when it fell. Disabled under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "max-width 719px",
+        "purpose": "Bottom tab bar with 화면번호, quote rows, bottom sheet."
+      },
+      {
+        "name": "stack",
+        "value": "max-width 960px",
+        "purpose": "Split panes stack; tally 3 columns; index board 2 columns."
+      },
+      {
+        "name": "dock",
+        "value": "min-width 1024px",
+        "purpose": "Quote panel docks non-modally beside the screener (380px)."
+      },
+      {
+        "name": "wide",
+        "value": "max-width 1180px",
+        "purpose": "Screener 수수료 column and clock drop."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Buy Button (매수)",
+      "kind": "button",
+      "refersTo": "button-buy",
+      "description": "The single order key per screen or panel.",
+      "html": "<button class=\"ds-btn-buy\">AI 등록하기</button>",
+      "css": ".ds-btn-buy{display:inline-flex;align-items:center;height:36px;padding:0 14px;border:1px solid transparent;border-radius:2px;background:var(--buy,oklch(54% 0.2 25));color:#fff;font:600 0.8125rem 'Pretendard Variable',sans-serif;transition:background-color 160ms cubic-bezier(0.16,1,0.3,1)}.ds-btn-buy:hover{background:var(--buy-hover,oklch(48% 0.19 25))}.ds-btn-buy:active{transform:translateY(1px)}.ds-btn-buy:focus-visible{outline:2px solid var(--focus,oklch(58% 0.16 258));outline-offset:2px}"
+    },
+    {
+      "name": "Line Button",
+      "kind": "button",
+      "refersTo": "button-line",
+      "description": "Default neutral per-row action; never red.",
+      "html": "<button class=\"ds-btn-line\">AI 등록</button>",
+      "css": ".ds-btn-line{height:30px;padding:0 10px;border:1px solid var(--ink-3,oklch(50% 0.016 262));border-radius:2px;background:var(--pane,oklch(99.3% 0.002 255));color:var(--ink,oklch(23% 0.03 262));font:700 0.75rem 'Pretendard Variable',sans-serif;transition:background-color 160ms,border-color 160ms}.ds-btn-line:hover{background:var(--pane-2,oklch(96.9% 0.004 255));border-color:var(--ink,oklch(23% 0.03 262))}.ds-btn-line:focus-visible{outline:2px solid var(--focus,oklch(58% 0.16 258));outline-offset:2px}"
+    },
+    {
+      "name": "Sell Button (매도)",
+      "kind": "button",
+      "refersTo": "button-sell",
+      "description": "Reversing actions such as 취소.",
+      "html": "<button class=\"ds-btn-sell\">취소</button>",
+      "css": ".ds-btn-sell{height:30px;padding:0 10px;border:1px solid color-mix(in oklch,var(--down,oklch(49% 0.17 258)) 55%,transparent);border-radius:2px;background:transparent;color:var(--down,oklch(49% 0.17 258));font:600 0.75rem 'Pretendard Variable',sans-serif}.ds-btn-sell:hover{background:var(--down-soft,oklch(95.5% 0.022 255))}.ds-btn-sell:focus-visible{outline:2px solid var(--focus,oklch(58% 0.16 258));outline-offset:2px}"
+    },
+    {
+      "name": "Ink Button",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "Record or advance commands (저장, 계산하기, 다음 단계).",
+      "html": "<button class=\"ds-btn-ink\">배송중으로</button>",
+      "css": ".ds-btn-ink{height:36px;padding:0 14px;border:0;border-radius:2px;background:var(--ink,oklch(23% 0.03 262));color:var(--pane,oklch(99.3% 0.002 255));font:600 0.8125rem 'Pretendard Variable',sans-serif}.ds-btn-ink:hover{background:var(--ink-2,oklch(40% 0.022 262))}.ds-btn-ink:focus-visible{outline:2px solid var(--focus,oklch(58% 0.16 258));outline-offset:2px}"
+    },
+    {
+      "name": "Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Ruled terminal field with label above.",
+      "html": "<label class=\"ds-field\"><span>판매가</span><input class=\"ds-input\" value=\"15,900\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:4px;font:600 0.75rem 'Pretendard Variable',sans-serif;color:var(--ink-2,oklch(40% 0.022 262))}.ds-input{height:36px;padding:0 10px;border:1px solid var(--rule-strong,oklch(80% 0.01 255));border-radius:2px;background:var(--pane,oklch(99.3% 0.002 255));color:var(--ink,oklch(23% 0.03 262));font:400 0.8125rem 'Pretendard Variable',sans-serif;text-align:right;font-variant-numeric:tabular-nums}.ds-input:hover{border-color:var(--ink-3,oklch(50% 0.016 262))}.ds-input:focus{outline:none;border-color:var(--focus,oklch(58% 0.16 258));box-shadow:0 0 0 3px color-mix(in oklch,var(--focus,oklch(58% 0.16 258)) 22%,transparent)}"
+    },
+    {
+      "name": "Screen Tabs",
+      "kind": "nav",
+      "refersTo": "screen-tab",
+      "description": "HTS window tabs with 4-digit 화면번호; active tab has a red top rule.",
+      "html": "<div class=\"ds-tabs\"><button class=\"ds-tab\" aria-selected=\"true\"><span class=\"ds-code\">1001</span>상품 소싱</button><button class=\"ds-tab\"><span class=\"ds-code\">2001</span>주문 관리</button></div>",
+      "css": ".ds-tabs{display:flex;gap:2px;padding:0 12px;background:var(--pane-3,oklch(93.2% 0.007 255));border-bottom:1px solid var(--rule-strong,oklch(80% 0.01 255))}.ds-tab{position:relative;display:flex;align-items:center;gap:8px;height:44px;margin-top:4px;padding:0 16px;border:1px solid transparent;border-bottom:0;background:transparent;color:var(--ink-2,oklch(40% 0.022 262));font:500 0.8125rem 'Pretendard Variable',sans-serif}.ds-tab:hover{color:var(--ink,oklch(23% 0.03 262))}.ds-code{font-size:0.6875rem;letter-spacing:0.04em;color:var(--ink-3,oklch(50% 0.016 262))}.ds-tab[aria-selected=true]{background:var(--pane,oklch(99.3% 0.002 255));color:var(--ink,oklch(23% 0.03 262));font-weight:700;border-color:var(--rule-strong,oklch(80% 0.01 255));margin-bottom:-1px;height:45px}.ds-tab[aria-selected=true]::before{content:'';position:absolute;left:-1px;right:-1px;top:-1px;height:2px;background:var(--up,oklch(54% 0.2 25))}.ds-tab[aria-selected=true] .ds-code{color:var(--up,oklch(54% 0.2 25))}.ds-tab:focus-visible{outline:2px solid var(--focus,oklch(58% 0.16 258));outline-offset:2px}"
+    },
+    {
+      "name": "Price Ladder",
+      "kind": "custom",
+      "description": "Quote panel breakdown from 판매가 to 순수익; deductions in blue.",
+      "html": "<dl class=\"ds-ladder\"><div><dt>판매가</dt><dd>₩15,900</dd></div><div class=\"ds-minus\"><dt>네이버 수수료 6.0%</dt><dd>-₩954</dd></div><div class=\"ds-minus\"><dt>매입가</dt><dd>-₩4,000</dd></div><div class=\"ds-total\"><dt>순수익</dt><dd>₩10,946</dd></div></dl>",
+      "css": ".ds-ladder{margin:0;border-top:1px solid var(--rule,oklch(89.5% 0.006 255));font:400 0.8125rem 'Pretendard Variable',sans-serif;font-variant-numeric:tabular-nums;color:var(--ink,oklch(23% 0.03 262))}.ds-ladder>div{display:flex;justify-content:space-between;padding:8px 2px;border-bottom:1px solid var(--rule,oklch(89.5% 0.006 255))}.ds-ladder dt{color:var(--ink-2,oklch(40% 0.022 262))}.ds-ladder dd{margin:0;font-weight:600}.ds-minus dd{color:var(--down,oklch(49% 0.17 258))}.ds-ladder .ds-total{border-top:1px solid var(--ink,oklch(23% 0.03 262));border-bottom:0}.ds-total dt{color:var(--ink,oklch(23% 0.03 262));font-weight:700}.ds-total dd{font-size:0.9375rem;font-weight:800;color:var(--up,oklch(54% 0.2 25))}"
+    },
+    {
+      "name": "Stage Meter",
+      "kind": "custom",
+      "description": "Four-cell order progress; 취소 is hatched so status is not colour-only.",
+      "html": "<span class=\"ds-stage\"><i class=\"on\"></i><i class=\"on\"></i><i></i><i></i></span> 처리중 <span class=\"ds-stage ds-void\"><i></i><i></i><i></i><i></i></span> 취소",
+      "css": ".ds-stage{display:inline-grid;grid-template-columns:repeat(4,10px);gap:2px;vertical-align:middle}.ds-stage i{height:8px;background:var(--rule,oklch(89.5% 0.006 255))}.ds-stage i.on{background:var(--ink,oklch(23% 0.03 262))}.ds-void i{background:repeating-linear-gradient(135deg,var(--ink-3,oklch(50% 0.016 262)) 0 1px,transparent 1px 3px)}"
+    },
+    {
+      "name": "Signed Quote",
+      "kind": "chip",
+      "description": "Margin as a signed quote (SVG triangle + %) over a 3px meter; red up, blue down.",
+      "html": "<span class=\"ds-m ds-up\"><span class=\"ds-q\"><svg class=\"ds-tri\" viewBox=\"0 0 10 10\" aria-hidden=\"true\"><path d=\"M5 1.5 9 8.5H1z\"/></svg>68.8%</span><span class=\"ds-meter\"><span style=\"width:69%\"></span></span></span> <span class=\"ds-m ds-down\"><span class=\"ds-q\"><svg class=\"ds-tri\" viewBox=\"0 0 10 10\" aria-hidden=\"true\"><path d=\"M5 8.5 1 1.5h8z\"/></svg>4.2%</span><span class=\"ds-meter\"><span style=\"width:4%\"></span></span></span>",
+      "css": ".ds-m{display:inline-flex;flex-direction:column;align-items:flex-end;gap:4px;margin-right:16px}.ds-q{display:inline-flex;align-items:center;gap:3px;font:700 0.8125rem 'Pretendard Variable',sans-serif;font-variant-numeric:tabular-nums}.ds-tri{width:9px;height:9px;fill:currentColor}.ds-meter{display:block;width:64px;height:3px;background:var(--rule,oklch(89.5% 0.006 255))}.ds-meter>span{display:block;height:100%;background:currentColor}.ds-up{color:var(--up,oklch(54% 0.2 25))}.ds-down{color:var(--down,oklch(49% 0.17 258))}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Seller's HTS",
+    "overview": "스마트셀러 is drawn as a Korean home trading system (증권사 HTS): a deep ink-navy title bar, cool grey window chrome, white data panes ruled by 1px hairlines, and dense right-aligned tabular figures. The seller's catalogue is a screener of 종목; each product's 순수익 and 마진율 read as a signed quote; a product opens into a quote panel that ladders 판매가 down to 순수익; orders advance through 체결 stages. Every screen carries a 4-digit 화면번호 (1001, 1002, 2001, 3001, 4001, 5001), shown on its tab and beside its title, and a jump box in the title bar accepts those numbers.\n\nDensity is the point. Rows are compact, columns align on one numeric edge, and colour is spent almost entirely on the Korean market law: red for gain, blue for loss. The rest of the screen is ink on grey-white panes. The dark theme is the night HTS skin: same structure and same law, with lifted red and blue for contrast.\n\nThe one authored motion is the price tick. When a figure changes, it flashes red if it went up and blue if it went down, then settles. Under reduced motion nothing flashes.",
+    "keyCharacteristics": [
+      "Square panes (2px corners at most), 1px hairline rules, no floating cards.",
+      "Korean market colour law everywhere: red = profit, blue = loss or reversal, in both themes.",
+      "Tabular figures in three fixed sizes; money right-aligned on a shared edge.",
+      "4-digit 화면번호 on every screen tab, beside every screen title, and in the jump box.",
+      "Status is carried by shape or pattern as well as colour (stage meters, hatched 취소).",
+      "Light \"day HTS\" and dark \"night HTS\" skins, following `prefers-color-scheme` with a manual toggle."
+    ],
+    "rules": [
+      {
+        "name": "The Market Law Rule",
+        "body": "Red (`up`) means profit, gain, or a rise. Blue (`down`) means loss, a deduction, or a reversal such as 취소. The mapping never inverts, and dark mode keeps it. Green never means profit.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Order Key Rule",
+        "body": "Red fills only the 매수-style order key (`buy`), at most one per screen or panel. Neutral per-row actions (AI 등록, 상세) are ink line or ghost buttons and never red.",
+        "section": "colors"
+      },
+      {
+        "name": "The Closed Ramp Rule",
+        "body": "Every neutral comes from the ground / pane / rule / ink ramp. No ad-hoc greys.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three Figures Rule",
+        "body": "Figures (money, percentages, counts) use exactly three sizes: 13px (`fs-sm`), 15px (`fs-md`), 28px (`fs-xl`). The 12px label size (`fs-xs`) is for labels and identifiers, never for a figure.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Everywhere Rule",
+        "body": "`font-variant-numeric: tabular-nums` is set on the body; money is right-aligned so columns share one numeric edge.",
+        "section": "typography"
+      },
+      {
+        "name": "The Ruled Pane Rule",
+        "body": "Anything that is part of the desk is ruled onto it, never lifted off it. Only floating layers cast a shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** colour every signed figure by the market law: red (`up`) for profit or rise, blue (`down`) for loss, deduction, or reversal, in both themes.",
+      "**Do** keep figures at 13px, 15px or 28px and right-align money on a shared column edge.",
+      "**Do** give every screen a 4-digit 화면번호 on its tab, beside its title, and reachable from the jump box, including on the mobile bottom bar.",
+      "**Do** carry status in a shape or pattern too: stage meters, hatching for 취소, ▲▼ marks for direction.",
+      "**Do** flash changed figures red (up) or blue (down) once, and never under reduced motion.",
+      "**Do** dock the quote panel beside the screener at 1024px and wider, use a modal side panel from 720px to 1023px, and a bottom sheet below 720px.",
+      "**Do** write `[.. 입력 필요]` / `[.. 확인 필요]` placeholders in generated copy wherever a claim cannot be verified.",
+      "**Do** keep provenance JSON next to every generated raster."
+    ],
+    "donts": [
+      "**Don't** fill neutral per-row actions in red; the red fill is reserved for the single 매수-style order key per screen or panel.",
+      "**Don't** use green for profit or invert the red/blue mapping in any theme.",
+      "**Don't** introduce greys outside the closed ramp, or radii above 2px on panes, buttons, inputs, and chips.",
+      "**Don't** split figures into floating KPI cards; counts live in one ruled strip (tally, index board, quote strip).",
+      "**Don't** cast shadows at rest; only the modal quote panel, sheet, and toast float.",
+      "**Don't** use gradient fills as decoration; gradients appear only as drawing devices (hatching, stage fill, select caret, skeleton shimmer).",
+      "**Don't** imitate NAVER's logo or brand identity."
+    ]
+  }
+}
