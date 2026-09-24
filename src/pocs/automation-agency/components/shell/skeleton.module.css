@@ -1,0 +1,128 @@
+.wrap {
+  display: grid;
+  gap: 28px;
+}
+
+.bar {
+  display: block;
+  height: 14px;
+}
+
+.head {
+  display: grid;
+  gap: 10px;
+}
+
+.title {
+  width: 220px;
+  height: 30px;
+}
+
+.lede {
+  width: min(520px, 90%);
+}
+
+.line {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.stop {
+  display: grid;
+  gap: 8px;
+}
+
+.disc {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+
+.short {
+  width: 70%;
+}
+
+.shorter {
+  width: 45%;
+}
+
+.loop {
+  display: block;
+  height: 260px;
+  border-radius: 72px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  width: 72px;
+  height: 32px;
+  border-radius: 999px;
+}
+
+.rows {
+  display: grid;
+  gap: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--aa-rule);
+}
+
+.cellWide {
+  width: 80%;
+}
+
+.cell {
+  width: 60%;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 24px;
+}
+
+.canvas {
+  display: block;
+  height: 360px;
+  border-radius: var(--aa-radius-lg);
+}
+
+.side {
+  display: block;
+  height: 360px;
+  border-radius: var(--aa-radius-lg);
+}
+
+.sheet {
+  display: block;
+  width: 100%;
+  max-width: 860px;
+  height: 640px;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+@media (max-width: 899px) {
+  .line {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .side {
+    height: 200px;
+  }
+}
