@@ -1,0 +1,38 @@
+.rsvp {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+
+.note {
+  min-height: 1.2em;
+  font-size: var(--nc-t-xs);
+  font-weight: 600;
+  color: var(--nc-ink-2);
+}
+
+.note:empty {
+  display: none;
+}
+
+.error {
+  color: var(--nc-error);
+}
+
+.onStage .note {
+  color: var(--nc-on-stage-2);
+}
+
+.onStage .error {
+  color: var(--nc-led);
+}
+
+.stageGhost {
+  background: transparent;
+  border-color: var(--nc-stage-rule);
+  color: var(--nc-on-stage);
+}
+
+.stageGhost:hover:not(:disabled) {
+  border-color: var(--nc-on-stage-2);
+}

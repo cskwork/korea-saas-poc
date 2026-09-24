@@ -1,0 +1,60 @@
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  border-radius: 50%;
+  color: oklch(1 0 0);
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+}
+
+.sm {
+  width: 24px;
+  height: 24px;
+  font-size: 11px;
+}
+
+.md {
+  width: 36px;
+  height: 36px;
+  font-size: 14px;
+}
+
+.lg {
+  width: 56px;
+  height: 56px;
+  font-size: 22px;
+}
+
+.xl {
+  width: 112px;
+  height: 112px;
+  font-size: 44px;
+}
+
+.operator {
+  box-shadow:
+    0 0 0 2px var(--nc-slide),
+    0 0 0 4px var(--nc-accent);
+}
+
+/* Muted portrait tones, all dark enough for white initials (≥ 4.5:1). */
+.tone0 {
+  background: oklch(0.48 0.09 262);
+}
+.tone1 {
+  background: oklch(0.48 0.08 200);
+}
+.tone2 {
+  background: oklch(0.47 0.08 150);
+}
+.tone3 {
+  background: oklch(0.49 0.09 70);
+}
+.tone4 {
+  background: oklch(0.48 0.1 20);
+}
+.tone5 {
+  background: oklch(0.46 0.09 320);
+}

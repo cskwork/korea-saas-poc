@@ -1,0 +1,212 @@
+/*
+ * 스타트업 빌더스 — the module's visual world.
+ * A light table of slides on a Keynote-grey canvas; a dark stage for meetups;
+ * one accent, the pitch-timer red-orange, for "now", the current marker and the highlighted bar.
+ */
+.root {
+  --nc-canvas: oklch(0.93 0.006 262);
+  --nc-canvas-deep: oklch(0.895 0.009 262);
+  --nc-slide: oklch(1 0 0);
+  --nc-slide-sunk: oklch(0.975 0.004 262);
+  --nc-ink: oklch(0.23 0.03 266);
+  --nc-ink-2: oklch(0.42 0.022 266);
+  --nc-ink-3: oklch(0.5 0.018 266);
+  --nc-rule: oklch(0.88 0.008 266);
+  --nc-rule-strong: oklch(0.8 0.012 266);
+  --nc-stage: oklch(0.2 0.028 268);
+  --nc-stage-2: oklch(0.26 0.032 268);
+  --nc-stage-rule: oklch(0.34 0.03 268);
+  --nc-on-stage: oklch(0.97 0.004 266);
+  --nc-on-stage-2: oklch(0.8 0.014 266);
+  --nc-accent: oklch(0.56 0.2 32);
+  --nc-accent-soft: oklch(0.56 0.2 32 / 0.1);
+  --nc-led: oklch(0.72 0.19 40);
+  --nc-go: oklch(0.58 0.13 152);
+  --nc-warn: oklch(0.66 0.14 68);
+  --nc-stop: oklch(0.55 0.2 27);
+  --nc-error: oklch(0.52 0.19 27);
+
+  --nc-font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
+  --nc-led-font: var(--nc-font-led), ui-monospace, monospace;
+
+  --nc-t-xs: 0.75rem;
+  --nc-t-sm: 0.8125rem;
+  --nc-t-md: 0.9375rem;
+  --nc-t-base: 1rem;
+  --nc-t-lg: 1.1875rem;
+  --nc-t-xl: 1.4375rem;
+  --nc-t-2xl: 1.75rem;
+  --nc-t-3xl: 2.125rem;
+
+  --nc-s1: 4px;
+  --nc-s2: 8px;
+  --nc-s3: 12px;
+  --nc-s4: 16px;
+  --nc-s5: 24px;
+  --nc-s6: 32px;
+  --nc-s7: 48px;
+  --nc-s8: 64px;
+
+  --nc-radius: 6px;
+  --nc-radius-sm: 4px;
+  --nc-shadow-slide: 0 1px 2px oklch(0.2 0.03 266 / 0.06), 0 8px 20px -12px oklch(0.2 0.03 266 / 0.28);
+  --nc-shadow-lift: 0 2px 4px oklch(0.2 0.03 266 / 0.08), 0 16px 32px -16px oklch(0.2 0.03 266 / 0.35);
+  --nc-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --nc-gutter: clamp(16px, 3vw, 32px);
+  --nc-header: 60px;
+
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--nc-canvas);
+  color: var(--nc-ink);
+  font-family: var(--nc-font);
+  font-size: var(--nc-t-base);
+  line-height: 1.6;
+  caret-color: var(--nc-accent);
+}
+
+:global(html):has(.root) {
+  color-scheme: light;
+  background: oklch(0.93 0.006 262);
+  scrollbar-color: oklch(0.72 0.012 266) oklch(0.93 0.006 262);
+  scrollbar-width: thin;
+}
+
+.root ::selection {
+  background: oklch(0.56 0.2 32 / 0.18);
+  color: var(--nc-ink);
+}
+
+.root :focus-visible {
+  outline: 2px solid var(--nc-accent);
+  outline-offset: 2px;
+  border-radius: var(--nc-radius-sm);
+}
+
+.skip {
+  position: absolute;
+  left: var(--nc-s4);
+  top: -48px;
+  z-index: 60;
+  padding: var(--nc-s2) var(--nc-s3);
+  background: var(--nc-ink);
+  color: var(--nc-slide);
+  border-radius: var(--nc-radius);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.skip:focus-visible {
+  top: var(--nc-s2);
+}
+
+/* ---- deck chrome ---- */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: var(--nc-header);
+  display: flex;
+  align-items: center;
+  gap: var(--nc-s5);
+  padding: 0 var(--nc-gutter);
+  background: oklch(0.93 0.006 262 / 0.94);
+  border-bottom: 1px solid var(--nc-rule-strong);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--nc-ink);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: var(--nc-t-md);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.brandMark {
+  width: 28px;
+  height: 18px;
+  flex: none;
+}
+
+.navDesktop {
+  flex: 1;
+  min-width: 0;
+}
+
+.headerEnd {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--nc-s3);
+}
+
+.sample {
+  padding: 2px 8px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px var(--nc-rule-strong);
+  font-size: var(--nc-t-xs);
+  font-weight: 600;
+  color: var(--nc-ink-2);
+  white-space: nowrap;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+}
+
+.footer {
+  border-top: 1px solid var(--nc-rule-strong);
+  padding: var(--nc-s5) var(--nc-gutter) calc(var(--nc-s5) + env(safe-area-inset-bottom));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nc-s3) var(--nc-s5);
+  font-size: var(--nc-t-sm);
+  color: var(--nc-ink-2);
+}
+
+.footerNote {
+  flex: 1 1 320px;
+  max-width: 70ch;
+}
+
+.footerLink {
+  color: var(--nc-ink-2);
+  text-underline-offset: 3px;
+}
+
+.footerLink:hover {
+  color: var(--nc-ink);
+}
+
+@media (max-width: 420px) {
+  .sample {
+    padding: 2px 6px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 860px) {
+  .navDesktop {
+    display: none;
+  }
+
+  .header {
+    gap: var(--nc-s3);
+  }
+
+  .brand {
+    font-size: var(--nc-t-sm);
+  }
+
+  .footer {
+    padding-bottom: calc(var(--nc-s5) + 64px + env(safe-area-inset-bottom));
+  }
+}

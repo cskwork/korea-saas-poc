@@ -1,0 +1,534 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T12:57:49.805Z",
+  "title": "Design System: 스타트업 빌더스",
+  "extensions": {
+    "colorMeta": {
+      "keynote-canvas": {
+        "role": "neutral",
+        "displayName": "Keynote Canvas",
+        "canonical": "oklch(0.93 0.006 262)",
+        "tonalRamp": [
+          "oklch(0.15 0.006 262)",
+          "oklch(0.26 0.006 262)",
+          "oklch(0.37 0.006 262)",
+          "oklch(0.48 0.006 262)",
+          "oklch(0.6 0.006 262)",
+          "oklch(0.72 0.006 262)",
+          "oklch(0.84 0.006 262)",
+          "oklch(0.95 0.006 262)"
+        ]
+      },
+      "canvas-deep": {
+        "role": "neutral",
+        "displayName": "Canvas Deep",
+        "canonical": "oklch(0.895 0.009 262)",
+        "tonalRamp": [
+          "oklch(0.15 0.009 262)",
+          "oklch(0.26 0.009 262)",
+          "oklch(0.37 0.009 262)",
+          "oklch(0.48 0.009 262)",
+          "oklch(0.6 0.009 262)",
+          "oklch(0.72 0.009 262)",
+          "oklch(0.84 0.009 262)",
+          "oklch(0.95 0.009 262)"
+        ]
+      },
+      "slide-white": {
+        "role": "neutral",
+        "displayName": "Slide White",
+        "canonical": "oklch(1 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.26 0 0)",
+          "oklch(0.37 0 0)",
+          "oklch(0.48 0 0)",
+          "oklch(0.6 0 0)",
+          "oklch(0.72 0 0)",
+          "oklch(0.84 0 0)",
+          "oklch(0.95 0 0)"
+        ]
+      },
+      "slide-sunk": {
+        "role": "neutral",
+        "displayName": "Slide Sunk",
+        "canonical": "oklch(0.975 0.004 262)",
+        "tonalRamp": [
+          "oklch(0.15 0.004 262)",
+          "oklch(0.26 0.004 262)",
+          "oklch(0.37 0.004 262)",
+          "oklch(0.48 0.004 262)",
+          "oklch(0.6 0.004 262)",
+          "oklch(0.72 0.004 262)",
+          "oklch(0.84 0.004 262)",
+          "oklch(0.95 0.004 262)"
+        ]
+      },
+      "deck-ink": {
+        "role": "neutral",
+        "displayName": "Deck Ink",
+        "canonical": "oklch(0.23 0.03 266)",
+        "tonalRamp": [
+          "oklch(0.15 0.03 266)",
+          "oklch(0.26 0.03 266)",
+          "oklch(0.37 0.03 266)",
+          "oklch(0.48 0.03 266)",
+          "oklch(0.6 0.03 266)",
+          "oklch(0.72 0.03 266)",
+          "oklch(0.84 0.03 266)",
+          "oklch(0.95 0.03 266)"
+        ]
+      },
+      "ink-secondary": {
+        "role": "neutral",
+        "displayName": "Ink Secondary",
+        "canonical": "oklch(0.42 0.022 266)",
+        "tonalRamp": [
+          "oklch(0.15 0.022 266)",
+          "oklch(0.26 0.022 266)",
+          "oklch(0.37 0.022 266)",
+          "oklch(0.48 0.022 266)",
+          "oklch(0.6 0.022 266)",
+          "oklch(0.72 0.022 266)",
+          "oklch(0.84 0.022 266)",
+          "oklch(0.95 0.022 266)"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "canonical": "oklch(0.5 0.018 266)",
+        "tonalRamp": [
+          "oklch(0.15 0.018 266)",
+          "oklch(0.26 0.018 266)",
+          "oklch(0.37 0.018 266)",
+          "oklch(0.48 0.018 266)",
+          "oklch(0.6 0.018 266)",
+          "oklch(0.72 0.018 266)",
+          "oklch(0.84 0.018 266)",
+          "oklch(0.95 0.018 266)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(0.88 0.008 266)",
+        "tonalRamp": [
+          "oklch(0.15 0.008 266)",
+          "oklch(0.26 0.008 266)",
+          "oklch(0.37 0.008 266)",
+          "oklch(0.48 0.008 266)",
+          "oklch(0.6 0.008 266)",
+          "oklch(0.72 0.008 266)",
+          "oklch(0.84 0.008 266)",
+          "oklch(0.95 0.008 266)"
+        ]
+      },
+      "hairline-strong": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "oklch(0.8 0.012 266)",
+        "tonalRamp": [
+          "oklch(0.15 0.012 266)",
+          "oklch(0.26 0.012 266)",
+          "oklch(0.37 0.012 266)",
+          "oklch(0.48 0.012 266)",
+          "oklch(0.6 0.012 266)",
+          "oklch(0.72 0.012 266)",
+          "oklch(0.84 0.012 266)",
+          "oklch(0.95 0.012 266)"
+        ]
+      },
+      "stage": {
+        "role": "neutral",
+        "displayName": "Stage",
+        "canonical": "oklch(0.2 0.028 268)",
+        "tonalRamp": [
+          "oklch(0.15 0.028 268)",
+          "oklch(0.26 0.028 268)",
+          "oklch(0.37 0.028 268)",
+          "oklch(0.48 0.028 268)",
+          "oklch(0.6 0.028 268)",
+          "oklch(0.72 0.028 268)",
+          "oklch(0.84 0.028 268)",
+          "oklch(0.95 0.028 268)"
+        ]
+      },
+      "stage-raised": {
+        "role": "neutral",
+        "displayName": "Stage Raised",
+        "canonical": "oklch(0.26 0.032 268)",
+        "tonalRamp": [
+          "oklch(0.15 0.032 268)",
+          "oklch(0.26 0.032 268)",
+          "oklch(0.37 0.032 268)",
+          "oklch(0.48 0.032 268)",
+          "oklch(0.6 0.032 268)",
+          "oklch(0.72 0.032 268)",
+          "oklch(0.84 0.032 268)",
+          "oklch(0.95 0.032 268)"
+        ]
+      },
+      "stage-rule": {
+        "role": "neutral",
+        "displayName": "Stage Rule",
+        "canonical": "oklch(0.34 0.03 268)",
+        "tonalRamp": [
+          "oklch(0.15 0.03 268)",
+          "oklch(0.26 0.03 268)",
+          "oklch(0.37 0.03 268)",
+          "oklch(0.48 0.03 268)",
+          "oklch(0.6 0.03 268)",
+          "oklch(0.72 0.03 268)",
+          "oklch(0.84 0.03 268)",
+          "oklch(0.95 0.03 268)"
+        ]
+      },
+      "on-stage": {
+        "role": "neutral",
+        "displayName": "On Stage",
+        "canonical": "oklch(0.97 0.004 266)",
+        "tonalRamp": [
+          "oklch(0.15 0.004 266)",
+          "oklch(0.26 0.004 266)",
+          "oklch(0.37 0.004 266)",
+          "oklch(0.48 0.004 266)",
+          "oklch(0.6 0.004 266)",
+          "oklch(0.72 0.004 266)",
+          "oklch(0.84 0.004 266)",
+          "oklch(0.95 0.004 266)"
+        ]
+      },
+      "on-stage-secondary": {
+        "role": "neutral",
+        "displayName": "On Stage Secondary",
+        "canonical": "oklch(0.8 0.014 266)",
+        "tonalRamp": [
+          "oklch(0.15 0.014 266)",
+          "oklch(0.26 0.014 266)",
+          "oklch(0.37 0.014 266)",
+          "oklch(0.48 0.014 266)",
+          "oklch(0.6 0.014 266)",
+          "oklch(0.72 0.014 266)",
+          "oklch(0.84 0.014 266)",
+          "oklch(0.95 0.014 266)"
+        ]
+      },
+      "pitch-timer": {
+        "role": "primary",
+        "displayName": "Pitch-Timer Red",
+        "canonical": "oklch(0.56 0.2 32)",
+        "tonalRamp": [
+          "oklch(0.15 0.2 32)",
+          "oklch(0.26 0.2 32)",
+          "oklch(0.37 0.2 32)",
+          "oklch(0.48 0.2 32)",
+          "oklch(0.6 0.2 32)",
+          "oklch(0.72 0.2 32)",
+          "oklch(0.84 0.2 32)",
+          "oklch(0.95 0.2 32)"
+        ]
+      },
+      "led": {
+        "role": "primary",
+        "displayName": "LED Orange",
+        "canonical": "oklch(0.72 0.19 40)",
+        "tonalRamp": [
+          "oklch(0.15 0.19 40)",
+          "oklch(0.26 0.19 40)",
+          "oklch(0.37 0.19 40)",
+          "oklch(0.48 0.19 40)",
+          "oklch(0.6 0.19 40)",
+          "oklch(0.72 0.19 40)",
+          "oklch(0.84 0.19 40)",
+          "oklch(0.95 0.19 40)"
+        ]
+      },
+      "seats-open": {
+        "role": "semantic",
+        "displayName": "Seats Open (여유)",
+        "canonical": "oklch(0.58 0.13 152)",
+        "tonalRamp": [
+          "oklch(0.15 0.13 152)",
+          "oklch(0.26 0.13 152)",
+          "oklch(0.37 0.13 152)",
+          "oklch(0.48 0.13 152)",
+          "oklch(0.6 0.13 152)",
+          "oklch(0.72 0.13 152)",
+          "oklch(0.84 0.13 152)",
+          "oklch(0.95 0.13 152)"
+        ]
+      },
+      "seats-closing": {
+        "role": "semantic",
+        "displayName": "Seats Closing (마감 임박)",
+        "canonical": "oklch(0.66 0.14 68)",
+        "tonalRamp": [
+          "oklch(0.15 0.14 68)",
+          "oklch(0.26 0.14 68)",
+          "oklch(0.37 0.14 68)",
+          "oklch(0.48 0.14 68)",
+          "oklch(0.6 0.14 68)",
+          "oklch(0.72 0.14 68)",
+          "oklch(0.84 0.14 68)",
+          "oklch(0.95 0.14 68)"
+        ]
+      },
+      "seats-full": {
+        "role": "semantic",
+        "displayName": "Seats Full (마감)",
+        "canonical": "oklch(0.55 0.2 27)",
+        "tonalRamp": [
+          "oklch(0.15 0.2 27)",
+          "oklch(0.26 0.2 27)",
+          "oklch(0.37 0.2 27)",
+          "oklch(0.48 0.2 27)",
+          "oklch(0.6 0.2 27)",
+          "oklch(0.72 0.2 27)",
+          "oklch(0.84 0.2 27)",
+          "oklch(0.95 0.2 27)"
+        ]
+      },
+      "error": {
+        "role": "semantic",
+        "displayName": "Error",
+        "canonical": "oklch(0.52 0.19 27)",
+        "tonalRamp": [
+          "oklch(0.15 0.19 27)",
+          "oklch(0.26 0.19 27)",
+          "oklch(0.37 0.19 27)",
+          "oklch(0.48 0.19 27)",
+          "oklch(0.6 0.19 27)",
+          "oklch(0.72 0.19 27)",
+          "oklch(0.84 0.19 27)",
+          "oklch(0.95 0.19 27)"
+        ]
+      },
+      "chart-recessive": {
+        "role": "neutral",
+        "displayName": "Chart Recessive",
+        "canonical": "oklch(0.72 0.018 262)",
+        "tonalRamp": [
+          "oklch(0.15 0.018 262)",
+          "oklch(0.26 0.018 262)",
+          "oklch(0.37 0.018 262)",
+          "oklch(0.48 0.018 262)",
+          "oklch(0.6 0.018 262)",
+          "oklch(0.72 0.018 262)",
+          "oklch(0.84 0.018 262)",
+          "oklch(0.95 0.018 262)"
+        ]
+      },
+      "chart-ink": {
+        "role": "neutral",
+        "displayName": "Chart Ink",
+        "canonical": "oklch(0.36 0.03 266)",
+        "tonalRamp": [
+          "oklch(0.15 0.03 266)",
+          "oklch(0.26 0.03 266)",
+          "oklch(0.37 0.03 266)",
+          "oklch(0.48 0.03 266)",
+          "oklch(0.6 0.03 266)",
+          "oklch(0.72 0.03 266)",
+          "oklch(0.84 0.03 266)",
+          "oklch(0.95 0.03 266)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "action-title-page": {
+        "displayName": "Action title (page)",
+        "purpose": "Post title in presenter view, profile names."
+      },
+      "action-title": {
+        "displayName": "Action title",
+        "purpose": "Feed slide titles, composer title placeholder, stage band title."
+      },
+      "panel-title": {
+        "displayName": "Panel title",
+        "purpose": "Dashboard action titles and section headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Excerpts, comments, descriptions."
+      },
+      "reading": {
+        "displayName": "Reading",
+        "purpose": "Post body in presenter view (pre-wrapped, 68ch)."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, meta lines, tabs."
+      },
+      "led": {
+        "displayName": "LED digits",
+        "purpose": "Countdowns and meetup times only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "slide",
+        "value": "0 1px 2px oklch(0.2 0.03 266 / 0.06), 0 8px 20px -12px oklch(0.2 0.03 266 / 0.28)",
+        "purpose": "Every slide on the light table."
+      },
+      {
+        "name": "lift",
+        "value": "0 2px 4px oklch(0.2 0.03 266 / 0.08), 0 16px 32px -16px oklch(0.2 0.03 266 / 0.35)",
+        "purpose": "Popovers, tooltips, hovered previews, the meetup title slide."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-deck",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All state transitions (160ms) and the slide push."
+      },
+      {
+        "name": "slide-push",
+        "value": "200ms out / 220ms in, 56px translate + fade",
+        "purpose": "발표 모드: stepping to the previous/next post (off under reduced motion)."
+      },
+      {
+        "name": "led-tick",
+        "value": "1s interval",
+        "purpose": "The pitch timer counting down."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "640px"
+      },
+      {
+        "name": "single-column",
+        "value": "860px"
+      },
+      {
+        "name": "presenter-stack",
+        "value": "960px"
+      },
+      {
+        "name": "rail-tuck",
+        "value": "1180px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ink-filled action: 게시, 저장, 등록.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">게시</button>",
+      "css": ":host{--nc-ink: oklch(0.23 0.03 266); --nc-slide: oklch(1 0 0); --nc-accent: oklch(0.56 0.2 32); --nc-stage: oklch(0.2 0.028 268); --nc-on-stage: oklch(0.97 0.004 266); --nc-rule: oklch(0.88 0.008 266); --nc-rule-strong: oklch(0.8 0.012 266); --nc-ink-2: oklch(0.42 0.022 266); --nc-ink-3: oklch(0.5 0.018 266); --nc-led: oklch(0.72 0.19 40);} .ds-btn{font-family: \"Pretendard Variable\", Pretendard, \"Apple SD Gothic Neo\", system-ui, sans-serif; display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 16px;border-radius:6px;font-size:13px;font-weight:600;border:1px solid var(--nc-rule-strong);cursor:pointer;transition:background-color 160ms cubic-bezier(0.16,1,0.3,1),transform 160ms cubic-bezier(0.16,1,0.3,1);} .ds-btn-primary{background:var(--nc-ink);border-color:var(--nc-ink);color:var(--nc-slide);} .ds-btn-primary:hover{background:oklch(0.32 0.035 266);} .ds-btn:active{transform:translateY(1px);} .ds-btn:focus-visible{outline:2px solid var(--nc-accent);outline-offset:2px;}"
+    },
+    {
+      "name": "Pitch-Timer Button",
+      "kind": "button",
+      "refersTo": "button-accent",
+      "description": "The one hot action: RSVP on the stage, start premium.",
+      "html": "<button class=\"ds-btn ds-btn-accent\">참석 신청</button>",
+      "css": ":host{--nc-ink: oklch(0.23 0.03 266); --nc-slide: oklch(1 0 0); --nc-accent: oklch(0.56 0.2 32); --nc-stage: oklch(0.2 0.028 268); --nc-on-stage: oklch(0.97 0.004 266); --nc-rule: oklch(0.88 0.008 266); --nc-rule-strong: oklch(0.8 0.012 266); --nc-ink-2: oklch(0.42 0.022 266); --nc-ink-3: oklch(0.5 0.018 266); --nc-led: oklch(0.72 0.19 40);} .ds-btn{font-family: \"Pretendard Variable\", Pretendard, \"Apple SD Gothic Neo\", system-ui, sans-serif; display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;} .ds-btn-accent{background:var(--nc-accent);border:1px solid var(--nc-accent);color:var(--nc-slide);} .ds-btn-accent:hover{background:oklch(0.5 0.19 31);} .ds-btn:focus-visible{outline:2px solid var(--nc-accent);outline-offset:2px;}"
+    },
+    {
+      "name": "Composer Placeholder",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "PowerPoint placeholder: dashed box until filled, solid pitch-timer on focus.",
+      "html": "<input class=\"ds-placeholder\" placeholder=\"제목을 입력하십시오\">",
+      "css": ":host{--nc-ink: oklch(0.23 0.03 266); --nc-slide: oklch(1 0 0); --nc-accent: oklch(0.56 0.2 32); --nc-stage: oklch(0.2 0.028 268); --nc-on-stage: oklch(0.97 0.004 266); --nc-rule: oklch(0.88 0.008 266); --nc-rule-strong: oklch(0.8 0.012 266); --nc-ink-2: oklch(0.42 0.022 266); --nc-ink-3: oklch(0.5 0.018 266); --nc-led: oklch(0.72 0.19 40);} .ds-placeholder{font-family: \"Pretendard Variable\", Pretendard, \"Apple SD Gothic Neo\", system-ui, sans-serif; width:100%;padding:10px 12px;border:1px dashed var(--nc-rule-strong);border-radius:4px;background:transparent;color:var(--nc-ink);font-size:23px;font-weight:800;letter-spacing:-0.03em;} .ds-placeholder::placeholder{color:var(--nc-ink-3);} .ds-placeholder:hover{border-color:var(--nc-ink-3);} .ds-placeholder:focus-visible{outline:none;border-style:solid;border-color:var(--nc-accent);box-shadow:0 0 0 1px var(--nc-accent);}"
+    },
+    {
+      "name": "Agenda Nav",
+      "kind": "nav",
+      "refersTo": "deck-ink",
+      "description": "Current item in ink with the laser dot; the rest dimmed.",
+      "html": "<nav class=\"ds-agenda\"><a aria-current=\"page\" href=\"#\"><span></span>피드</a><a href=\"#\"><span></span>모임</a><a href=\"#\"><span></span>멤버</a><a href=\"#\"><span></span>멤버십</a></nav>",
+      "css": ":host{--nc-ink: oklch(0.23 0.03 266); --nc-slide: oklch(1 0 0); --nc-accent: oklch(0.56 0.2 32); --nc-stage: oklch(0.2 0.028 268); --nc-on-stage: oklch(0.97 0.004 266); --nc-rule: oklch(0.88 0.008 266); --nc-rule-strong: oklch(0.8 0.012 266); --nc-ink-2: oklch(0.42 0.022 266); --nc-ink-3: oklch(0.5 0.018 266); --nc-led: oklch(0.72 0.19 40);} .ds-agenda{font-family: \"Pretendard Variable\", Pretendard, \"Apple SD Gothic Neo\", system-ui, sans-serif; display:flex;gap:4px;} .ds-agenda a{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 12px;color:var(--nc-ink-3);font-size:15px;font-weight:500;text-decoration:none;} .ds-agenda a:hover{color:var(--nc-ink);} .ds-agenda span{width:7px;height:7px;border-radius:50%;} .ds-agenda a[aria-current=\"page\"]{color:var(--nc-ink);font-weight:800;} .ds-agenda a[aria-current=\"page\"] span{background:var(--nc-accent);} .ds-agenda a:focus-visible{outline:2px solid var(--nc-accent);outline-offset:2px;border-radius:4px;}"
+    },
+    {
+      "name": "대외비 Tag",
+      "kind": "chip",
+      "refersTo": "tag-secret",
+      "description": "The deck's confidential marker for premium-only posts and channels.",
+      "html": "<span class=\"ds-secret\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/></svg>대외비</span>",
+      "css": ":host{--nc-ink: oklch(0.23 0.03 266); --nc-slide: oklch(1 0 0); --nc-accent: oklch(0.56 0.2 32); --nc-stage: oklch(0.2 0.028 268); --nc-on-stage: oklch(0.97 0.004 266); --nc-rule: oklch(0.88 0.008 266); --nc-rule-strong: oklch(0.8 0.012 266); --nc-ink-2: oklch(0.42 0.022 266); --nc-ink-3: oklch(0.5 0.018 266); --nc-led: oklch(0.72 0.19 40);} .ds-secret{font-family: \"Pretendard Variable\", Pretendard, \"Apple SD Gothic Neo\", system-ui, sans-serif; display:inline-flex;align-items:center;gap:4px;padding:1px 8px;border-radius:999px;border:1px solid var(--nc-ink);color:var(--nc-ink);font-size:12px;font-weight:600;letter-spacing:0.02em;}"
+    },
+    {
+      "name": "Post Slide",
+      "kind": "card",
+      "refersTo": "slide",
+      "description": "A post as a slide: meta line, action title, excerpt, deck footer.",
+      "html": "<article class=\"ds-slide\"><p class=\"ds-meta\"><b>창업 이야기</b> · 박지훈 · 5일 전</p><h3>시리즈A 투자 유치 후기: IR 자료를 10장으로 줄였더니 달라진 것</h3><p class=\"ds-excerpt\">6개월 걸린 라운드를 마무리하며 배운 점을 정리합니다. IR 자료는 10장 이내로…</p><footer><button class=\"ds-like\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z\"/></svg>35</button><span class=\"ds-mark\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/></svg>대외비</span></footer></article>",
+      "css": ":host{--nc-ink: oklch(0.23 0.03 266); --nc-slide: oklch(1 0 0); --nc-accent: oklch(0.56 0.2 32); --nc-stage: oklch(0.2 0.028 268); --nc-on-stage: oklch(0.97 0.004 266); --nc-rule: oklch(0.88 0.008 266); --nc-rule-strong: oklch(0.8 0.012 266); --nc-ink-2: oklch(0.42 0.022 266); --nc-ink-3: oklch(0.5 0.018 266); --nc-led: oklch(0.72 0.19 40);} .ds-slide{font-family: \"Pretendard Variable\", Pretendard, \"Apple SD Gothic Neo\", system-ui, sans-serif; background:var(--nc-slide);border-radius:6px;box-shadow:0 1px 2px oklch(0.2 0.03 266 / 0.06),0 8px 20px -12px oklch(0.2 0.03 266 / 0.28);padding:24px 24px 0;display:grid;gap:8px;max-width:640px;color:var(--nc-ink);} .ds-meta{margin:0;font-size:13px;color:var(--nc-ink-2);} .ds-slide h3{margin:0;font-size:23px;font-weight:800;letter-spacing:-0.03em;line-height:1.3;} .ds-excerpt{margin:0;font-size:15px;line-height:1.7;color:var(--nc-ink-2);} .ds-slide footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--nc-rule);padding:6px 0 8px;margin-top:8px;} .ds-like{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 10px;border:0;border-radius:6px;background:transparent;color:var(--nc-accent);font-weight:600;cursor:pointer;} .ds-like:hover{background:oklch(0.975 0.004 262);} .ds-mark{display:inline-flex;align-items:center;gap:4px;padding:1px 8px;border-radius:999px;border:1px solid var(--nc-ink);font-size:12px;font-weight:600;}"
+    },
+    {
+      "name": "Covered Slide",
+      "kind": "custom",
+      "refersTo": "covered-slide",
+      "description": "대외비 content for a free member: the presenter's blank screen with length and the way in.",
+      "html": "<div class=\"ds-cover\"><p><b><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/></svg> 프리미엄 멤버에게 공개된 슬라이드예요</b></p><p class=\"ds-cover-meta\">본문 240자 · 댓글 5개</p><a href=\"#\">프리미엄으로 열기</a></div>",
+      "css": ":host{--nc-ink: oklch(0.23 0.03 266); --nc-slide: oklch(1 0 0); --nc-accent: oklch(0.56 0.2 32); --nc-stage: oklch(0.2 0.028 268); --nc-on-stage: oklch(0.97 0.004 266); --nc-rule: oklch(0.88 0.008 266); --nc-rule-strong: oklch(0.8 0.012 266); --nc-ink-2: oklch(0.42 0.022 266); --nc-ink-3: oklch(0.5 0.018 266); --nc-led: oklch(0.72 0.19 40);} .ds-cover{font-family: \"Pretendard Variable\", Pretendard, \"Apple SD Gothic Neo\", system-ui, sans-serif; display:grid;justify-items:start;gap:6px;padding:16px;border-radius:4px;background:var(--nc-stage);color:var(--nc-on-stage);max-width:560px;} .ds-cover p{margin:0;font-size:15px;} .ds-cover-meta{font-size:12px !important;color:oklch(0.8 0.014 266);} .ds-cover a{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:6px;background:var(--nc-on-stage);color:var(--nc-stage);font-size:13px;font-weight:600;text-decoration:none;} .ds-cover a:focus-visible{outline:2px solid var(--nc-led);outline-offset:2px;}"
+    },
+    {
+      "name": "Pitch Timer",
+      "kind": "custom",
+      "refersTo": "stage-band",
+      "description": "Dot-matrix countdown to the next meetup, lit digits over their unlit ghost.",
+      "html": "<div class=\"ds-timer\" role=\"timer\" aria-label=\"시작까지 1일 12시간 48분\"><span class=\"ds-day\">D-1</span><span class=\"ds-led\"><span class=\"ds-ghost\">88:88:88</span><span>12:48:31</span></span></div>",
+      "css": "@import url(\"https://fonts.googleapis.com/css2?family=Doto:ROND,wght@100,700&display=swap\"); :host{--nc-ink: oklch(0.23 0.03 266); --nc-slide: oklch(1 0 0); --nc-accent: oklch(0.56 0.2 32); --nc-stage: oklch(0.2 0.028 268); --nc-on-stage: oklch(0.97 0.004 266); --nc-rule: oklch(0.88 0.008 266); --nc-rule-strong: oklch(0.8 0.012 266); --nc-ink-2: oklch(0.42 0.022 266); --nc-ink-3: oklch(0.5 0.018 266); --nc-led: oklch(0.72 0.19 40);} .ds-timer{display:inline-flex;align-items:baseline;gap:12px;padding:24px 32px;background:var(--nc-stage);border-radius:6px;font-family:Doto,ui-monospace,monospace;font-variation-settings:\"ROND\" 100;font-weight:700;color:var(--nc-led);line-height:1;font-variant-numeric:tabular-nums;} .ds-day{font-size:24px;} .ds-led{display:inline-grid;font-size:44px;} .ds-led > span{grid-area:1/1;} .ds-ghost{color:oklch(0.72 0.19 40 / 0.13);}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Demo Day Deck",
+    "overview": "The community is run like a demo day. Every post is a slide on a Keynote-grey light table, headed by an action title that states its point. The operator's dashboard is the traction section of the community's own IR deck: every panel's title is a computed sentence and every panel ends in a source line. Meetups live on a dark stage under a dot-matrix pitch timer. Premium content is 대외비 — a covered slide, the presenter's blank screen — never a blur or a paywall modal.\n\nThe surface is light because the scene is daytime: members read on phones between meetings and in bright coworking spaces; the operator works at a laptop. The stage is the one dark field, and it is reserved for the live moments: the next meetup, a meetup's own title slide, a covered slide, failure and permission states. Density is Operate-grade: small, calm labels; large, heavy titles; tabular numbers.",
+    "keyCharacteristics": [
+      "Light table of white slides on a cool grey canvas; slides carry shadow, never a border.",
+      "Heavy Pretendard action titles (800) do the talking; labels stay small and quiet.",
+      "One accent, the pitch-timer red-orange, meaning \"now / the one that matters\".",
+      "Dot-matrix LED digits (Doto) only for times and countdowns.",
+      "Deck grammar everywhere: footer rules, 대외비 markers, PowerPoint placeholders, source lines, slide counters."
+    ],
+    "rules": [
+      {
+        "name": "The One Hot Thing Rule",
+        "body": "The pitch-timer red marks at most one thing per region: the current item, the latest bar, the live action. If two things are red, one of them is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The Stage Is Earned Rule",
+        "body": "The dark stage appears only for live or withheld things (next meetup, a meetup's title slide, 대외비 covers, errors, operator gates, tooltips). Never as a decorative section background.",
+        "section": "colors"
+      },
+      {
+        "name": "The Action Title Rule",
+        "body": "A panel or slide title is a sentence that states the takeaway (\"MRR이 5개월 동안 … 늘었습니다\"), computed from rows. Never a label like \"매출 추이\", never a kicker above it.",
+        "section": "typography"
+      },
+      {
+        "name": "The LED Is a Readout Rule",
+        "body": "Doto is for time and countdown digits. Never for headings, labels or prose.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper Not Glass Rule",
+        "body": "No blur, no glow, no halo. Depth is an offset shadow or a change of field (canvas → slide → stage).",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do state every chart's takeaway as its title and end it with a 출처 line.",
+      "Do keep premium content server-side and show it as a covered slide with its length and comment count.",
+      "Do label sample data wherever a visitor could take it for real (chrome tag, footer, 샘플 장소, dashboard header).",
+      "Do use tabular numerals for columns, counters and times; proportional figures elsewhere.",
+      "Do give every destructive action the two-step inline confirm."
+    ],
+    "donts": [
+      "Don't use emoji or unicode glyphs as icons; channel and badge icons are lucide at 1.75 stroke.",
+      "Don't put a kicker or eyebrow label above a title, or number sections that are not a real sequence.",
+      "Don't paint more than one pitch-timer red element per region, or use it for decoration.",
+      "Don't add gradients, glass, glows or side-stripe borders; depth is the slide shadow only.",
+      "Don't set Doto outside time digits, or display type anywhere in labels and data."
+    ]
+  }
+}

@@ -1,0 +1,209 @@
+.slide {
+  padding: var(--nc-s5) var(--nc-s5) 0;
+  display: grid;
+  gap: var(--nc-s2);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  font-size: var(--nc-t-sm);
+  color: var(--nc-ink-2);
+}
+
+.channel {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+  color: var(--nc-ink);
+}
+
+.author {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.authorLink {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.authorLink:hover {
+  color: var(--nc-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.time {
+  color: var(--nc-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.title {
+  font-size: var(--nc-t-xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.titleLink {
+  color: var(--nc-ink);
+  text-decoration: none;
+}
+
+.titleLink:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.excerpt {
+  color: var(--nc-ink-2);
+  font-size: var(--nc-t-md);
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* A covered slide: the presenter blanked the screen — 대외비 content stays on the server. */
+.cover {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  padding: var(--nc-s4) var(--nc-s4) var(--nc-s4);
+  border-radius: var(--nc-radius-sm);
+  background: var(--nc-stage);
+  color: var(--nc-on-stage);
+}
+
+.coverText {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: var(--nc-t-md);
+}
+
+.coverMeta {
+  font-size: var(--nc-t-xs);
+  color: var(--nc-on-stage-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.coverCta {
+  margin-top: 4px;
+  background: var(--nc-on-stage);
+  border-color: var(--nc-on-stage);
+  color: var(--nc-stage);
+}
+
+.coverCta:hover:not(:disabled) {
+  background: oklch(1 0 0);
+}
+
+.cover :focus-visible {
+  outline-color: var(--nc-led);
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  margin-top: var(--nc-s2);
+  padding: 6px 0 8px;
+  border-top: 1px solid var(--nc-rule);
+  margin-inline: calc(var(--nc-s2) * -1);
+  padding-inline: 0;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--nc-radius);
+  background: transparent;
+  color: var(--nc-ink-2);
+  font-size: var(--nc-t-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 160ms var(--nc-ease),
+    color 160ms var(--nc-ease);
+}
+
+.action:hover {
+  background: var(--nc-slide-sunk);
+  color: var(--nc-ink);
+}
+
+.action[data-active="true"] {
+  color: var(--nc-accent);
+}
+
+.action[data-active="true"] svg {
+  animation: beat 260ms var(--nc-ease);
+}
+
+@keyframes beat {
+  40% {
+    scale: 1.25;
+  }
+}
+
+.static {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 10px;
+  font-size: var(--nc-t-sm);
+  font-weight: 600;
+  color: var(--nc-ink-3);
+}
+
+.count {
+  font-variant-numeric: tabular-nums;
+}
+
+.shareNote,
+.actionError {
+  font-size: var(--nc-t-xs);
+  font-weight: 600;
+  color: var(--nc-ink-2);
+}
+
+.shareNote:empty {
+  display: none;
+}
+
+.actionError {
+  color: var(--nc-error);
+}
+
+.marks {
+  margin-left: auto;
+  display: inline-flex;
+  gap: 6px;
+  padding-right: var(--nc-s2);
+}
+
+@media (max-width: 640px) {
+  .slide {
+    padding: var(--nc-s4) var(--nc-s4) 0;
+  }
+
+  .title {
+    font-size: var(--nc-t-lg);
+  }
+}

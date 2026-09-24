@@ -32,6 +32,7 @@ export const OPEN_MODULE_SLUGS: readonly ModuleSlug[] = [
   "affiliate-marketing",
   "automation-agency",
   "ai-design-video",
+  "niche-community",
 ];
 
 export function isModuleOpen(slug: ModuleSlug): boolean {
