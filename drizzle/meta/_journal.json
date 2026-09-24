@@ -64,6 +64,13 @@
       "when": 1790271262368,
       "tag": "0008_dev-freelancing",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1790271310425,
+      "tag": "0009_online-education",
+      "breakpoints": true
     }
   ]
 }

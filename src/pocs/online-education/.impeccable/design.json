@@ -1,0 +1,661 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T17:34:16.901982+00:00",
+  "title": "Design System: 에듀마켓",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Timetable Paper",
+        "canonical": "oklch(0.993 0.002 255)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#262627",
+          "#444546",
+          "#656667",
+          "#88898a",
+          "#adaeaf",
+          "#d3d4d5",
+          "#edeef0"
+        ]
+      },
+      "paper-sunk": {
+        "role": "neutral",
+        "displayName": "Paper Sunk",
+        "canonical": "oklch(0.974 0.005 255)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#252729",
+          "#434548",
+          "#646669",
+          "#87898c",
+          "#acaeb1",
+          "#d2d4d7",
+          "#eceff2"
+        ]
+      },
+      "paper-deep": {
+        "role": "neutral",
+        "displayName": "Paper Deep",
+        "canonical": "oklch(0.952 0.008 255)",
+        "tonalRamp": [
+          "#090b0f",
+          "#24272a",
+          "#424549",
+          "#63666b",
+          "#86898e",
+          "#abaeb3",
+          "#d1d5d9",
+          "#ebeff4"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "oklch(0.912 0.007 255)",
+        "tonalRamp": [
+          "#090b0e",
+          "#24272a",
+          "#434549",
+          "#63666a",
+          "#86898d",
+          "#abaeb2",
+          "#d1d4d9",
+          "#ebeff3"
+        ]
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Rule Strong",
+        "canonical": "oklch(0.845 0.011 255)",
+        "tonalRamp": [
+          "#080b10",
+          "#23272c",
+          "#41454b",
+          "#62666c",
+          "#858a90",
+          "#a9aeb5",
+          "#cfd5dc",
+          "#eaeff6"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Timetable Ink",
+        "canonical": "oklch(0.235 0.03 262)",
+        "tonalRamp": [
+          "#050b18",
+          "#1e2735",
+          "#3c4555",
+          "#5d6678",
+          "#7f8a9c",
+          "#a4aec2",
+          "#cad5e9",
+          "#e4efff"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "canonical": "oklch(0.43 0.024 262)",
+        "tonalRamp": [
+          "#060b15",
+          "#202732",
+          "#3e4552",
+          "#5f6674",
+          "#818a98",
+          "#a6aebe",
+          "#ccd5e5",
+          "#e6efff"
+        ]
+      },
+      "ink-mute": {
+        "role": "neutral",
+        "displayName": "Ink Mute",
+        "canonical": "oklch(0.53 0.018 262)",
+        "tonalRamp": [
+          "#070b13",
+          "#22272f",
+          "#40454f",
+          "#606671",
+          "#838994",
+          "#a8aeba",
+          "#ced5e0",
+          "#e8effb"
+        ]
+      },
+      "lemon": {
+        "role": "secondary",
+        "displayName": "Today Lemon",
+        "canonical": "oklch(0.925 0.14 102)",
+        "tonalRamp": [
+          "#180600",
+          "#362400",
+          "#554400",
+          "#776700",
+          "#9b8b00",
+          "#c0b034",
+          "#e7d760",
+          "#fff27c"
+        ]
+      },
+      "lemon-wash": {
+        "role": "secondary",
+        "displayName": "Lemon Wash",
+        "canonical": "oklch(0.978 0.04 102)",
+        "tonalRamp": [
+          "#0f0b00",
+          "#2a270e",
+          "#49462d",
+          "#6a674d",
+          "#8e8a6f",
+          "#b3af93",
+          "#d9d6b8",
+          "#f3f0d2"
+        ]
+      },
+      "lemon-ink": {
+        "role": "secondary",
+        "displayName": "Lemon Ink",
+        "canonical": "oklch(0.44 0.095 95)",
+        "tonalRamp": [
+          "#180700",
+          "#352400",
+          "#554300",
+          "#776518",
+          "#9b8840",
+          "#c1ae65",
+          "#e8d48b",
+          "#ffefa5"
+        ]
+      },
+      "focus": {
+        "role": "state",
+        "displayName": "Focus Cobalt",
+        "canonical": "oklch(0.56 0.19 258)",
+        "tonalRamp": [
+          "#080059",
+          "#000880",
+          "#0039a7",
+          "#005fd0",
+          "#3485f9",
+          "#5bacff",
+          "#81d4ff",
+          "#9befff"
+        ]
+      },
+      "danger": {
+        "role": "state",
+        "displayName": "Danger",
+        "canonical": "oklch(0.53 0.19 27)",
+        "tonalRamp": [
+          "#3d0000",
+          "#670000",
+          "#900000",
+          "#ba1e20",
+          "#e54d45",
+          "#ff7569",
+          "#ff9d8e",
+          "#ffb8a8"
+        ]
+      },
+      "ok": {
+        "role": "state",
+        "displayName": "Growth Green",
+        "canonical": "oklch(0.5 0.12 158)",
+        "tonalRamp": [
+          "#001600",
+          "#00360b",
+          "#00572a",
+          "#007a4b",
+          "#3b9f6d",
+          "#64c591",
+          "#8cecb6",
+          "#a6ffd0"
+        ]
+      },
+      "warn": {
+        "role": "state",
+        "displayName": "Behind Amber",
+        "canonical": "oklch(0.5 0.12 62)",
+        "tonalRamp": [
+          "#290000",
+          "#4c0d00",
+          "#703100",
+          "#955300",
+          "#bc7732",
+          "#e49c59",
+          "#ffc27f",
+          "#ffdc99"
+        ]
+      },
+      "block-sky": {
+        "role": "tertiary",
+        "displayName": "Block Sky",
+        "canonical": "oklch(0.865 0.068 236)",
+        "tonalRamp": [
+          "#000d23",
+          "#002a43",
+          "#1a4a64",
+          "#3d6c88",
+          "#6090ad",
+          "#84b5d4",
+          "#aadcfb",
+          "#c3f7ff"
+        ]
+      },
+      "block-sky-ink": {
+        "role": "tertiary",
+        "displayName": "Block Sky Ink",
+        "canonical": "oklch(0.37 0.1 250)",
+        "tonalRamp": [
+          "#000532",
+          "#002654",
+          "#0e4778",
+          "#35699d",
+          "#588dc3",
+          "#7cb3eb",
+          "#a2daff",
+          "#bbf4ff"
+        ]
+      },
+      "block-pink": {
+        "role": "tertiary",
+        "displayName": "Block Pink",
+        "canonical": "oklch(0.865 0.07 352)",
+        "tonalRamp": [
+          "#1e000e",
+          "#3f152a",
+          "#613449",
+          "#85556a",
+          "#ab788e",
+          "#d29cb3",
+          "#fac2d9",
+          "#ffdcf3"
+        ]
+      },
+      "block-pink-ink": {
+        "role": "tertiary",
+        "displayName": "Block Pink Ink",
+        "canonical": "oklch(0.41 0.13 356)",
+        "tonalRamp": [
+          "#2b000d",
+          "#510028",
+          "#761c47",
+          "#9d4168",
+          "#c5658c",
+          "#ee89b1",
+          "#ffafd7",
+          "#ffc9f1"
+        ]
+      },
+      "block-mint": {
+        "role": "tertiary",
+        "displayName": "Block Mint",
+        "canonical": "oklch(0.88 0.075 170)",
+        "tonalRamp": [
+          "#001406",
+          "#003121",
+          "#05523f",
+          "#33745f",
+          "#579882",
+          "#7cbea7",
+          "#a2e5cd",
+          "#bcffe7"
+        ]
+      },
+      "block-mint-ink": {
+        "role": "tertiary",
+        "displayName": "Block Mint Ink",
+        "canonical": "oklch(0.38 0.075 176)",
+        "tonalRamp": [
+          "#00140a",
+          "#003125",
+          "#005243",
+          "#2e7464",
+          "#549887",
+          "#79beac",
+          "#9fe5d2",
+          "#b9ffed"
+        ]
+      },
+      "block-tangerine": {
+        "role": "tertiary",
+        "displayName": "Block Tangerine",
+        "canonical": "oklch(0.875 0.09 62)",
+        "tonalRamp": [
+          "#220000",
+          "#441800",
+          "#663800",
+          "#8b592a",
+          "#b07c4e",
+          "#d7a172",
+          "#ffc797",
+          "#ffe2b0"
+        ]
+      },
+      "block-tangerine-ink": {
+        "role": "tertiary",
+        "displayName": "Block Tangerine Ink",
+        "canonical": "oklch(0.43 0.11 52)",
+        "tonalRamp": [
+          "#290000",
+          "#4c0b00",
+          "#712f00",
+          "#965122",
+          "#bd7547",
+          "#e59a6b",
+          "#ffc090",
+          "#ffdaaa"
+        ]
+      },
+      "block-lavender": {
+        "role": "tertiary",
+        "displayName": "Block Lavender",
+        "canonical": "oklch(0.855 0.07 296)",
+        "tonalRamp": [
+          "#0f0224",
+          "#2a1e44",
+          "#483d66",
+          "#695e8a",
+          "#8d81af",
+          "#b1a5d6",
+          "#d8ccfe",
+          "#f2e6ff"
+        ]
+      },
+      "block-lavender-ink": {
+        "role": "tertiary",
+        "displayName": "Block Lavender Ink",
+        "canonical": "oklch(0.4 0.13 296)",
+        "tonalRamp": [
+          "#15003a",
+          "#2f0b5d",
+          "#4d3181",
+          "#6e53a7",
+          "#9177ce",
+          "#b59cf7",
+          "#dcc2ff",
+          "#f6ddff"
+        ]
+      },
+      "block-tomato": {
+        "role": "tertiary",
+        "displayName": "Block Tomato",
+        "canonical": "oklch(0.845 0.085 30)",
+        "tonalRamp": [
+          "#250000",
+          "#47100a",
+          "#6b3129",
+          "#905249",
+          "#b7756a",
+          "#df9a8e",
+          "#ffc0b3",
+          "#ffdacd"
+        ]
+      },
+      "block-tomato-ink": {
+        "role": "tertiary",
+        "displayName": "Block Tomato Ink",
+        "canonical": "oklch(0.43 0.14 30)",
+        "tonalRamp": [
+          "#320000",
+          "#580000",
+          "#7f180e",
+          "#a73f32",
+          "#d06454",
+          "#fa8978",
+          "#ffb09d",
+          "#ffcab6"
+        ]
+      },
+      "block-lime": {
+        "role": "tertiary",
+        "displayName": "Block Lime",
+        "canonical": "oklch(0.89 0.11 128)",
+        "tonalRamp": [
+          "#001100",
+          "#162f00",
+          "#334f00",
+          "#547124",
+          "#76964a",
+          "#9abb6e",
+          "#bfe293",
+          "#d9fdad"
+        ]
+      },
+      "block-lime-ink": {
+        "role": "tertiary",
+        "displayName": "Block Lime Ink",
+        "canonical": "oklch(0.4 0.1 134)",
+        "tonalRamp": [
+          "#001200",
+          "#0e3000",
+          "#2d500f",
+          "#4d7234",
+          "#709657",
+          "#94bc7b",
+          "#b9e3a0",
+          "#d3feb9"
+        ]
+      },
+      "block-lemon": {
+        "role": "tertiary",
+        "displayName": "Block Lemon",
+        "canonical": "oklch(0.93 0.11 100)",
+        "tonalRamp": [
+          "#170700",
+          "#342500",
+          "#534500",
+          "#756700",
+          "#998a31",
+          "#beb058",
+          "#e5d67f",
+          "#fff198"
+        ]
+      },
+      "block-lemon-ink": {
+        "role": "tertiary",
+        "displayName": "Block Lemon Ink",
+        "canonical": "oklch(0.43 0.09 94)",
+        "tonalRamp": [
+          "#180700",
+          "#352400",
+          "#554300",
+          "#77651f",
+          "#9b8845",
+          "#c1ad6a",
+          "#e7d48f",
+          "#ffeea9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Public course titles and the storefront school name only."
+      },
+      "page-title": {
+        "displayName": "Page Title",
+        "purpose": "One h1 per studio page (e.g. the week title)."
+      },
+      "section-title": {
+        "displayName": "Section Title",
+        "purpose": "Section heads inside pages."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose, ledes, table cells."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, form labels, tabs, chips."
+      },
+      "block-meta": {
+        "displayName": "Block Meta",
+        "purpose": "Lesson type/time inside blocks, timetable gutter and day totals."
+      }
+    },
+    "shadows": [
+      {
+        "name": "lift",
+        "value": "0 1px 2px oklch(0.235 0.03 262 / 0.06), 0 10px 24px -14px oklch(0.235 0.03 262 / 0.28)",
+        "purpose": "Active nav item, active tab, the registration panel."
+      },
+      {
+        "name": "block-edge",
+        "value": "inset 0 0 0 1px oklch(from var(--block-edge) l c h / 0.6)",
+        "purpose": "Defines coloured blocks without shadow."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All state transitions (160ms) and FLIP block slides (240ms)."
+      },
+      {
+        "name": "block-slide",
+        "value": "240ms transform FLIP",
+        "purpose": "Lesson/section reorders and study-planner re-pacing; reduced motion shows the end state."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "640px"
+      },
+      {
+        "name": "board-stack",
+        "value": "700px"
+      },
+      {
+        "name": "tablet",
+        "value": "1023px"
+      },
+      {
+        "name": "home-split",
+        "value": "1180px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one primary action per view: ink fill, paper text.",
+      "html": "<button class=\"ds-btn-primary\">새 강의</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 14px;border:1px solid #161e2c;border-radius:8px;background:#161e2c;color:#fcfdfe;font:650 13px/1 'Pretendard Variable',Pretendard,sans-serif;cursor:pointer;transition:background-color 160ms cubic-bezier(0.16,1,0.3,1),transform 120ms}.ds-btn-primary:hover{background:#262f3f}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:2px solid #1a6fe1;outline-offset:2px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Every other action: paper with a rule border.",
+      "html": "<button class=\"ds-btn\">지난주</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 14px;border:1px solid #c7cdd3;border-radius:8px;background:#fcfdfe;color:#161e2c;font:650 13px/1 'Pretendard Variable',Pretendard,sans-serif;cursor:pointer;transition:background-color 160ms,border-color 160ms}.ds-btn:hover{background:#f4f7fa;border-color:#666c77}.ds-btn:focus-visible{outline:2px solid #1a6fe1;outline-offset:2px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Label above, hint and error below, cobalt focus.",
+      "html": "<label class=\"ds-field\"><span>레슨 제목</span><input class=\"ds-input\" placeholder=\"예: useState 훅\"></label>",
+      "css": ".ds-field{display:grid;gap:6px;font:650 13px 'Pretendard Variable',Pretendard,sans-serif;color:#161e2c}.ds-input{min-height:40px;padding:8px 12px;border:1px solid #c7cdd3;border-radius:8px;background:#fcfdfe;font:400 15px 'Pretendard Variable',Pretendard,sans-serif;color:#161e2c}.ds-input:hover{border-color:#666c77}.ds-input:focus-visible{outline:none;border-color:#1a6fe1;box-shadow:0 0 0 3px rgba(26,111,225,.18)}"
+    },
+    {
+      "name": "Choice Chip",
+      "kind": "chip",
+      "refersTo": "choice-chip-selected",
+      "description": "Radio groups drawn as timetable tabs; the selected chip is ink.",
+      "html": "<span class=\"ds-chips\"><button class=\"ds-chip\">주 2회</button><button class=\"ds-chip is-on\">주 3회</button><button class=\"ds-chip\">매일</button></span>",
+      "css": ".ds-chips{display:flex;gap:6px}.ds-chip{min-height:34px;padding:0 12px;border:1px solid #c7cdd3;border-radius:8px;background:#fcfdfe;color:#161e2c;font:600 13px 'Pretendard Variable',Pretendard,sans-serif;cursor:pointer}.ds-chip:hover{border-color:#666c77}.ds-chip.is-on{background:#161e2c;border-color:#161e2c;color:#fcfdfe}.ds-chip:focus-visible{outline:2px solid #1a6fe1;outline-offset:2px}"
+    },
+    {
+      "name": "Course Block",
+      "kind": "custom",
+      "refersTo": "course-block",
+      "description": "A lesson or course: course-colour fill, same-hue ink, height grows with running time.",
+      "html": "<div class=\"ds-block\" style=\"--m:20\"><span class=\"ds-block-meta\"><svg width=\"11\" height=\"11\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linejoin=\"round\"><path d=\"M6 4l14 8-14 8z\"/></svg> 영상 · 20:15</span><span class=\"ds-block-title\">useState 훅</span><span class=\"ds-block-tag\">미리보기</span></div>",
+      "css": ".ds-block{position:relative;display:grid;align-content:start;gap:3px;width:260px;min-height:clamp(54px,calc(40px + var(--m) * 1.7px),150px);padding:8px 10px;border-radius:6px;background:#a8dafa;color:#064172;box-shadow:inset 0 0 0 1px rgba(80,150,210,.6);font-family:'Pretendard Variable',Pretendard,sans-serif}.ds-block-meta{display:inline-flex;align-items:center;gap:4px;font:700 11px/1.2 inherit}.ds-block-title{font:750 13px/1.35 inherit}.ds-block-tag{position:absolute;top:7px;right:7px;padding:1px 6px;border-radius:4px;background:#fcfdfe;color:#161e2c;font:750 11px inherit}"
+    },
+    {
+      "name": "Product Block",
+      "kind": "custom",
+      "refersTo": "product-block",
+      "description": "A digital product: paper block with an ink-mute outline, never filled.",
+      "html": "<div class=\"ds-product\">React 치트시트 PDF <b>9,900원</b></div>",
+      "css": ".ds-product{display:flex;justify-content:space-between;gap:12px;width:260px;padding:10px 12px;border-radius:6px;background:#fcfdfe;box-shadow:inset 0 0 0 1.5px #666c77;color:#49505d;font:700 13px 'Pretendard Variable',Pretendard,sans-serif}.ds-product b{color:#161e2c}"
+    },
+    {
+      "name": "Rail Nav Item",
+      "kind": "nav",
+      "refersTo": "nav-item-active",
+      "description": "Studio rail link; the current page lifts and its icon square turns lemon.",
+      "html": "<nav class=\"ds-rail\"><a class=\"ds-nav is-on\"><i></i>이번 주 시간표</a><a class=\"ds-nav\"><i></i>강의</a></nav>",
+      "css": ".ds-rail{display:grid;gap:2px;width:216px;padding:8px;background:#f4f7fa}.ds-nav{display:flex;align-items:center;gap:10px;min-height:40px;padding:0 10px;border-radius:9px;color:#49505d;font:650 13px 'Pretendard Variable',Pretendard,sans-serif;text-decoration:none;cursor:pointer}.ds-nav i{width:28px;height:28px;border-radius:7px;border:1.5px solid currentColor;opacity:.5}.ds-nav:hover{background:#eceff5;color:#161e2c}.ds-nav.is-on{background:#fcfdfe;color:#161e2c;font-weight:750;box-shadow:0 1px 2px rgba(22,30,44,.06),0 10px 24px -14px rgba(22,30,44,.28)}.ds-nav.is-on i{background:#f9ea73;border-color:#f9ea73;opacity:1}"
+    },
+    {
+      "name": "Sample Badge",
+      "kind": "chip",
+      "refersTo": "badge-sample",
+      "description": "Marks demo data wherever a visitor could mistake it for real activity.",
+      "html": "<span class=\"ds-sample\">샘플 데이터</span>",
+      "css": ".ds-sample{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:5px;background:#fdf9db;color:#635100;box-shadow:inset 0 0 0 1px #eedf8a;font:700 12px 'Pretendard Variable',Pretendard,sans-serif}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Semester Timetable",
+    "overview": "에듀마켓 borrows the one screen every Korean student builds each semester: a white timetable of hairline rules with a coloured block per course. The creator's studio is that timetable. The home screen lays this week's payments on a 월–일 × hour grid. The curriculum builder stacks lessons as blocks under section columns, and each block grows with the lesson's running time. Revenue charts stack the same course colours month by month. On the public course page the course's own block is zoomed to page scale, and the 수강신청 ritual ends with the course placed into the student's week (\"내 시간표 짜기\").\n\nThe surface is calm, light and exact. It is meant for a creator at a desk after work, and for a student deciding on a phone. Colour appears only as data (which course is which), plus one lemon marker for \"today / now / you are here\". Every other part of the page is paper, ink and rules.",
+    "keyCharacteristics": [
+      "Filled block = course, outlined block = digital product, everywhere (timetables, charts, chips, storefront).",
+      "One colour per course, chosen from an eight-swatch block palette and kept for the course's lifetime.",
+      "Block height carries running time; rules appear only where they measure time or rows.",
+      "Lemon is the only accent: today's column, the now-line context, the active nav item, the sample-data badge.",
+      "Near-black ink for primary actions; the palette never paints buttons."
+    ],
+    "rules": [
+      {
+        "name": "The Colour-Is-Data Rule",
+        "body": "A block colour always means \"this course\". Never use a block swatch for decoration, a button or a heading.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Lemon Rule",
+        "body": "Lemon marks the present: today, now, the current page, sample data. It never marks a call to action.",
+        "section": "colors"
+      },
+      {
+        "name": "The Outline-Is-Product Rule",
+        "body": "Digital products never get a fill. They are paper blocks with a 1.5px ink-mute outline, so a timetable or chart reads course vs. product at a glance.",
+        "section": "colors"
+      },
+      {
+        "name": "The Weight-Not-Face Rule",
+        "body": "Hierarchy comes from Pretendard's weight and size steps (a ratio of about 1.2 in the studio). Never add a display face to studio UI.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Paper Rule",
+        "body": "A timetable is paper. Never stack a border and a wide soft shadow on the same element. Cards use a 1px rule and no shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** give every new course a block colour and use that colour everywhere the course appears.",
+      "**Do** draw products as outlined blocks next to filled course blocks, so the course/product split reads without a legend.",
+      "**Do** compute every number on screen from payment and enrollment rows, and label demo data with the lemon \"샘플\" badge.",
+      "**Do** use a real `<table>` for timetables and data, with tabular numerals.",
+      "**Do** keep motion for state only: block reorders, planner re-pacing, pending spinners."
+    ],
+    "donts": [
+      "**Don't** add KPI tile rows or big-number strips. Summaries are sentences (the ledger line) or table footers.",
+      "**Don't** paint buttons, headings or backgrounds with a block swatch; colour is data.",
+      "**Don't** add an eyebrow or kicker above headings, or number sections that carry no sequence.",
+      "**Don't** use thumbnail images or icon tiles for courses. The curriculum fingerprint (the course's own timetable silhouette) is the course's picture.",
+      "**Don't** animate layout properties (height, width, top) or use bouncy easing; slide with transforms.",
+      "**Don't** switch to a dark theme or a cream ground. The world is cool timetable paper."
+    ]
+  }
+}

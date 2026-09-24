@@ -1,0 +1,179 @@
+.flash {
+  margin-bottom: 16px;
+}
+
+.filterForm {
+  display: flex;
+  flex: 1 1 360px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.sortField {
+  flex: 0 0 170px;
+}
+
+.list {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-panel);
+  background: var(--paper);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "art main figures"
+    "art actions actions";
+  align-items: center;
+  gap: 10px 20px;
+  padding: 16px 18px;
+}
+
+.row + .row {
+  border-top: 1px solid var(--rule);
+}
+
+.row > svg {
+  grid-area: art;
+  align-self: start;
+}
+
+.main {
+  grid-area: main;
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--text-lg);
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+.title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.title a:hover {
+  text-decoration: underline;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  color: var(--ink-mute);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.figures {
+  grid-area: figures;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+}
+
+.figures div {
+  display: grid;
+  justify-items: end;
+}
+
+.figures dt {
+  color: var(--ink-mute);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.figures dd {
+  margin: 0;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.discount {
+  margin-left: 6px;
+  color: var(--danger);
+  font-size: var(--text-xs);
+  font-weight: 800;
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.fieldset {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.formPage {
+  display: grid;
+  grid-template-columns: minmax(0, 680px) minmax(0, 300px);
+  align-items: start;
+  gap: 40px;
+}
+
+.formAside {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border-radius: var(--radius-panel);
+  background: var(--paper-sunk);
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+}
+
+.formAside h2 {
+  color: var(--ink);
+  font-size: var(--text-sm);
+  font-weight: 750;
+}
+
+.formAside ol {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+@media (max-width: 900px) {
+  .formPage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .row {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "art main"
+      "figures figures"
+      "actions actions";
+    padding: 14px;
+  }
+
+  .figures {
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .figures div {
+    justify-items: start;
+  }
+
+  .sortField {
+    flex: 1 1 140px;
+  }
+}

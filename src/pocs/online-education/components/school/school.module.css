@@ -1,0 +1,590 @@
+/* Course / product landing ---------------------------------------------------------- */
+
+.landing {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  grid-template-areas:
+    "hero rail"
+    "body rail";
+  align-items: start;
+  gap: 32px 40px;
+}
+
+.hero {
+  grid-area: hero;
+  display: grid;
+  gap: 16px;
+}
+
+.rail {
+  grid-area: rail;
+  position: sticky;
+  top: 76px;
+}
+
+.body {
+  grid-area: body;
+  display: grid;
+  gap: 40px;
+  min-width: 0;
+}
+
+.previewBanner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: var(--radius-control);
+  background: var(--lemon-wash);
+  box-shadow: inset 0 0 0 1px oklch(0.86 0.1 100);
+  color: var(--lemon-ink);
+  font-size: var(--text-sm);
+  font-weight: 650;
+}
+
+.previewBanner a {
+  color: inherit;
+  font-weight: 750;
+}
+
+/* The course's own block, zoomed to page scale. */
+.courseTitle {
+  max-width: 22ch;
+  font-size: clamp(2rem, 1.4rem + 2.2vw, 3.25rem);
+  font-weight: 850;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+.landing[data-color] .hero {
+  padding: clamp(22px, 3vw, 36px);
+  border-radius: 14px;
+  background: var(--block);
+  color: var(--block-ink);
+  box-shadow: inset 0 0 0 1px oklch(from var(--block-edge) l c h / 0.5);
+}
+
+.courseLede {
+  max-width: 60ch;
+  font-size: var(--text-lg);
+  line-height: 1.65;
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.facts li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.outcomes {
+  margin-top: 8px;
+  padding-top: 18px;
+  border-top: 1px solid oklch(from var(--block-edge, var(--rule)) l c h / 0.7);
+}
+
+.outcomes ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 8px 24px;
+  margin-top: 10px;
+}
+
+.outcomes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.outcomes svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+.blockTitle {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 6px 0 14px;
+  color: var(--ink-mute);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.teacher {
+  display: grid;
+  gap: 6px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+}
+
+/* Registration panel with the study planner ------------------------------------------- */
+
+.enroll {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 14px;
+  background: var(--paper);
+  box-shadow: var(--lift);
+}
+
+.price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+
+.price strong {
+  font-size: var(--text-3xl);
+  font-weight: 850;
+  letter-spacing: -0.03em;
+}
+
+.price s {
+  color: var(--ink-mute);
+  font-size: var(--text-sm);
+}
+
+.discount {
+  color: var(--danger);
+  font-size: var(--text-sm);
+  font-weight: 800;
+}
+
+.plannerTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  font-size: var(--text-lg);
+  font-weight: 800;
+}
+
+.paceGroup {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.paceGroup legend {
+  margin-bottom: 6px;
+  color: var(--ink-soft);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.weekCaption {
+  margin-bottom: -8px;
+  color: var(--ink-mute);
+  font-size: var(--text-xs);
+  font-weight: 650;
+}
+
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.weekDay {
+  display: grid;
+  gap: 4px;
+  justify-items: stretch;
+}
+
+.weekDayName {
+  color: var(--ink-soft);
+  font-size: var(--text-xs);
+  font-weight: 750;
+  text-align: center;
+}
+
+.weekDay[data-rest] .weekDayName {
+  color: var(--ink-mute);
+  font-weight: 600;
+}
+
+.weekSlot {
+  display: flex;
+  align-items: flex-start;
+  height: 88px;
+  padding: 3px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper);
+}
+
+.weekDay[data-rest] .weekSlot {
+  background: var(--paper-sunk);
+}
+
+.session {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  border-radius: 4px;
+  background: var(--block);
+  color: var(--block-ink);
+  box-shadow: inset 0 0 0 1px oklch(from var(--block-edge) l c h / 0.6);
+}
+
+.session[data-over] {
+  box-shadow: inset 0 0 0 1.5px var(--block-edge);
+}
+
+.sessionMinutes {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.planSummary {
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+}
+
+.planSummary strong {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.schedule {
+  font-size: var(--text-sm);
+}
+
+.schedule summary {
+  color: var(--ink-soft);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.schedule ol {
+  display: grid;
+  gap: 6px;
+  max-height: 220px;
+  margin-top: 8px;
+  padding-right: 4px;
+  overflow-y: auto;
+}
+
+.schedule li {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--text-xs);
+}
+
+.scheduleDay {
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+
+.enrollForm {
+  display: grid;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+
+.fine {
+  color: var(--ink-mute);
+  font-size: var(--text-xs);
+}
+
+.receipt {
+  display: grid;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+
+.receiptTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ok);
+  font-weight: 800;
+}
+
+.receiptFacts {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.receiptFacts div {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 8px;
+}
+
+.receiptFacts dt {
+  color: var(--ink-mute);
+  font-weight: 600;
+}
+
+.receiptFacts dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.mobileCta {
+  display: none;
+}
+
+/* Storefront ------------------------------------------------------------------------ */
+
+.storeHead {
+  display: grid;
+  gap: 10px;
+  max-width: 760px;
+  margin-bottom: 40px;
+}
+
+.storeTitle {
+  font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.storeLede {
+  color: var(--ink-soft);
+  font-size: var(--text-lg);
+}
+
+.storeSection {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 44px;
+}
+
+.courseList {
+  display: grid;
+  gap: 12px;
+}
+
+.courseItem {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 20px 16px 16px;
+  border-radius: 14px;
+  background: var(--block);
+  color: var(--block-ink);
+  text-decoration: none;
+  box-shadow: inset 0 0 0 1px oklch(from var(--block-edge) l c h / 0.55);
+  transition:
+    transform 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out);
+}
+
+.courseItem:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 0 0 1px var(--block-edge),
+    var(--lift);
+}
+
+.courseArt {
+  display: block;
+}
+
+.courseBody {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.courseName {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.courseDesc {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.courseFacts {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.coursePrice {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.coursePrice strong {
+  font-size: var(--text-xl);
+  font-weight: 850;
+}
+
+.coursePrice .discount {
+  color: inherit;
+}
+
+.go {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: var(--text-xs);
+  font-weight: 750;
+}
+
+.productList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 10px;
+}
+
+.productItem {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--rule-strong);
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 160ms var(--ease-out);
+}
+
+.productItem:hover {
+  border-color: var(--ink-mute);
+}
+
+.productArt,
+.productHeroArt {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--ink-mute);
+  border-radius: 8px;
+  color: var(--ink-soft);
+}
+
+.productHeroArt {
+  width: 60px;
+  height: 60px;
+}
+
+.productName {
+  font-weight: 750;
+}
+
+@media (max-width: 1023px) {
+  .landing {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "hero"
+      "rail"
+      "body";
+  }
+
+  .rail {
+    position: static;
+  }
+
+  .mobileCta {
+    position: fixed;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    left: 12px;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 52px;
+    padding: 0 18px;
+    border-radius: 12px;
+    background: var(--ink);
+    color: var(--on-ink);
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 10px 30px -12px oklch(0.235 0.03 262 / 0.6);
+  }
+}
+
+@media (max-width: 640px) {
+  .courseItem {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .coursePrice {
+    grid-template-columns: auto auto 1fr;
+    align-items: baseline;
+    justify-items: start;
+    gap: 8px;
+  }
+
+  .go {
+    justify-self: end;
+    margin-top: 0;
+  }
+
+  .productList {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .enroll {
+    padding: 16px;
+  }
+
+  .schedule li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .scheduleDay {
+    grid-column: 1 / -1;
+  }
+}
