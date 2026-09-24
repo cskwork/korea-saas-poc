@@ -1,0 +1,648 @@
+/* 의뢰 게시대: tiers of a cobalt stand with order banners hung on steel rails. */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters .search {
+  flex: 1 1 260px;
+  max-width: 420px;
+}
+
+.filterNote {
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.stand {
+  position: relative;
+  display: grid;
+  gap: 0;
+  background: var(--cobalt);
+  padding: 14px 18px 22px;
+  outline: 1px dashed rgb(255 255 255 / 0.28);
+  outline-offset: -7px;
+}
+
+.tier {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 16px 20px;
+  padding: 18px 8px 20px;
+  scroll-margin-top: 16px;
+}
+
+/* galvanized steel crossbars between the stand's tiers */
+.tier + .tier {
+  border-top: 6px solid var(--steel-3);
+  box-shadow:
+    0 -1px 0 #c3cad6,
+    inset 0 1px 0 rgb(0 0 0 / 0.18);
+}
+
+.plate {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  color: #fff;
+}
+
+.plateName {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.1;
+}
+
+.plateCount {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: rgb(255 255 255 / 0.85);
+}
+
+.plateHint {
+  font-size: 13px;
+  color: rgb(255 255 255 / 0.8);
+}
+
+.plateStage {
+  margin-top: 6px;
+  display: grid;
+  grid-template-columns: repeat(4, 14px);
+  gap: 3px;
+}
+
+.plateStage i {
+  height: 6px;
+  background: rgb(255 255 255 / 0.25);
+}
+
+.plateStage i[data-on="true"] {
+  background: var(--yellow);
+}
+
+.hung {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: start;
+}
+
+.tierEmpty {
+  align-self: center;
+  padding: 18px 16px;
+  border: 1.5px dashed rgb(255 255 255 / 0.55);
+  color: rgb(255 255 255 / 0.9);
+  font-size: 14px;
+}
+
+.tierMore {
+  grid-column: 2;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tierMore a {
+  color: #fff;
+}
+
+/* ---------------------------------------------------------------- an order banner */
+
+.banner {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px 14px;
+  background: var(--vinyl);
+  color: var(--ink);
+  outline: 1px dashed var(--steel-2);
+  outline-offset: -6px;
+  box-shadow: 0 5px 8px -5px rgb(0 0 0 / 0.45);
+}
+
+.banner[data-stage="received"] {
+  background: #f3f6fd;
+}
+
+.banner[data-stage="review"] {
+  outline-color: #c79a00;
+  background: #fffbea;
+}
+
+.banner[data-stage="delivered"] {
+  background: #eef1f6;
+}
+
+.bannerTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.bannerMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.bannerTopic {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 1.22;
+  text-wrap: balance;
+}
+
+.bannerTopic a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.bannerTopic a:hover {
+  color: var(--cobalt);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.bannerClient {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.bannerFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--steel-1);
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.move {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+}
+
+.moveError {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--red-ink);
+  text-align: right;
+  max-width: 28ch;
+}
+
+.grommets i {
+  width: 8px;
+  height: 8px;
+  border-width: 1.5px;
+  background: var(--cobalt);
+}
+
+/* ---------------------------------------------------------------- order sheet (detail) */
+
+.sheet {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(300px, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.sheetHead {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 0;
+  padding: 24px 30px 26px;
+  background: var(--vinyl);
+  outline: 1px dashed var(--steel-2);
+  outline-offset: -8px;
+  box-shadow: 0 6px 10px -6px rgb(17 22 31 / 0.35);
+}
+
+.sheetHead[data-stage="review"] {
+  background: #fffbea;
+  outline-color: #c79a00;
+}
+
+.sheetGrommets i {
+  background: var(--ground);
+}
+
+.sheetMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.sheetTitleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 24px;
+}
+
+/* the four stages, as a strip of steps with their dates */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2px;
+  list-style: none;
+  margin: 14px 0 24px;
+  padding: 0;
+}
+
+.step {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px 12px;
+  background: var(--steel-1);
+  color: var(--ink-3);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.step strong {
+  font-size: 15px;
+  color: var(--ink-2);
+}
+
+.step[data-state="done"] {
+  background: var(--cobalt-wash);
+  color: var(--cobalt-deep);
+}
+
+.step[data-state="done"] strong {
+  color: var(--cobalt-deep);
+}
+
+.step[data-state="current"] {
+  background: var(--cobalt);
+  color: rgb(255 255 255 / 0.88);
+}
+
+.step[data-state="current"] strong {
+  color: #fff;
+}
+
+.panel {
+  display: grid;
+  gap: 14px;
+  padding: 20px 22px;
+  background: var(--vinyl);
+  border-top: 4px solid var(--steel-3);
+}
+
+.panel + .panel {
+  margin-top: 20px;
+}
+
+.panelHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.panelTitle {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 10px 20px;
+  margin: 0;
+}
+
+.facts dt {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.facts dd {
+  margin: 0;
+  min-width: 0;
+}
+
+.briefText {
+  white-space: pre-wrap;
+  max-width: 62ch;
+}
+
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.keywords li {
+  padding: 2px 8px;
+  background: var(--cobalt-wash);
+  color: var(--cobalt-deep);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--radius);
+}
+
+.actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.draftList {
+  display: grid;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.draftItem {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 2px 12px;
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--steel-1);
+}
+
+.draftItemPlain {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.draftItemPlain .draftMeta {
+  grid-column: 1;
+}
+
+.fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.fieldset legend {
+  padding: 0;
+  margin-bottom: 4px;
+}
+
+.draftItem input {
+  margin-top: 4px;
+  width: 18px;
+  height: 18px;
+}
+
+.draftTitle {
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.draftTitle:hover {
+  color: var(--cobalt);
+  text-decoration: underline;
+}
+
+.draftMeta {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  font-size: 13px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.checks {
+  color: var(--red-ink);
+  font-weight: 700;
+}
+
+.log {
+  display: grid;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.logItem {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--steel-1);
+  font-size: 14px;
+}
+
+.logItem time {
+  color: var(--ink-3);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.logStage {
+  font-weight: 700;
+}
+
+.dangerZone {
+  display: grid;
+  gap: 8px;
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid var(--steel-2);
+  font-size: 14px;
+  color: var(--ink-3);
+}
+
+/* ---------------------------------------------------------------- request form (의뢰서) */
+
+.requestLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 32px;
+  align-items: start;
+}
+
+.slip {
+  display: grid;
+  gap: 22px;
+  padding: 26px 28px 28px;
+  background: var(--vinyl);
+  border-top: 6px solid var(--cobalt);
+}
+
+.slipSection {
+  display: grid;
+  gap: 16px;
+}
+
+.slipSection + .slipSection {
+  padding-top: 22px;
+  border-top: 1px dashed var(--steel-2);
+}
+
+.slipTitle {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.aside {
+  display: grid;
+  gap: 16px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.asideBox {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  background: var(--vinyl);
+  border-top: 4px solid var(--steel-3);
+}
+
+.asideBox strong {
+  color: var(--ink);
+}
+
+.dateInput {
+  max-width: 220px;
+}
+
+.submitRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---------------------------------------------------------------- delivery sheet (납품서) */
+
+.delivery {
+  max-width: 760px;
+  margin: 0 auto;
+  display: grid;
+  gap: 20px;
+}
+
+.deliveryHead {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 16px;
+  border-bottom: 3px solid var(--ink);
+}
+
+.deliveryFacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  font-size: 14px;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.deliveryActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------------------------------------------------------------- phones */
+
+@media (max-width: 960px) {
+  .sheet,
+  .requestLayout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .stand {
+    margin: 0 calc(var(--gutter) * -1);
+    padding: 8px 12px 16px;
+  }
+
+  .tier {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px 4px;
+  }
+
+  .tierMore {
+    grid-column: 1;
+  }
+
+  .hung {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sheetHead {
+    padding: 22px 18px 22px;
+  }
+
+  .slip {
+    padding: 20px 16px 22px;
+    margin: 0 calc(var(--gutter) * -1);
+  }
+
+  .facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+
+  .facts dd {
+    margin-bottom: 10px;
+  }
+
+  .panel {
+    padding: 18px 16px;
+  }
+}
+
+@media print {
+  .deliveryActions {
+    display: none;
+  }
+}

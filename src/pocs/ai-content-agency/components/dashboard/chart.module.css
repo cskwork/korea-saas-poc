@@ -1,0 +1,224 @@
+/* Weekly throughput: grouped columns in the stage ramp's two ends. */
+.chart {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.key {
+  width: 12px;
+  height: 12px;
+}
+
+.key[data-series="received"],
+.bar[data-series="received"] {
+  background: var(--stage-received);
+}
+
+.key[data-series="delivered"],
+.bar[data-series="delivered"] {
+  background: var(--stage-delivered);
+}
+
+.frame {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 0 8px;
+}
+
+.yAxis {
+  position: relative;
+  height: 180px;
+  font-size: 11px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.yAxis span {
+  position: absolute;
+  right: 0;
+  transform: translateY(50%);
+}
+
+.plot {
+  position: relative;
+  height: 180px;
+  display: grid;
+  grid-template-columns: repeat(var(--weeks), minmax(0, 1fr));
+  border-bottom: 1px solid var(--steel-3);
+}
+
+.grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--steel-1);
+  pointer-events: none;
+}
+
+.group {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  height: 100%;
+  padding: 0 2px;
+  cursor: default;
+  border-radius: var(--radius);
+}
+
+.group:hover,
+.group:focus-visible,
+.group[data-active="true"] {
+  background: rgb(28 76 200 / 0.06);
+}
+
+.bar {
+  position: relative;
+  width: min(14px, 40%);
+  min-height: 2px;
+  border-radius: 4px 4px 0 0;
+}
+
+.bar[data-zero="true"] {
+  background: var(--steel-2);
+  min-height: 2px;
+  height: 2px;
+}
+
+.value {
+  position: absolute;
+  bottom: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.xAxis {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(var(--weeks), minmax(0, 1fr));
+  padding-top: 6px;
+  font-size: 11px;
+  color: var(--ink-3);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.xAxis span[data-current="true"] {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: grid;
+  gap: 2px;
+  min-width: 128px;
+  padding: 8px 10px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 12px;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 16px -6px rgb(0 0 0 / 0.5);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.group:first-child .tooltip {
+  left: 0;
+  transform: none;
+}
+
+.group:last-child .tooltip {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+.tooltipTitle {
+  color: rgb(255 255 255 / 0.75);
+}
+
+.tooltipRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tooltipRow strong {
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.line {
+  width: 12px;
+  height: 3px;
+}
+
+.line[data-series="received"] {
+  background: var(--stage-received);
+}
+
+.line[data-series="delivered"] {
+  background: #8fa8e6;
+}
+
+.table summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cobalt);
+  width: fit-content;
+}
+
+.table table {
+  margin-top: 8px;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--steel-1);
+  text-align: right;
+}
+
+.table th:first-child,
+.table td:first-child {
+  text-align: left;
+}
+
+.summary {
+  font-size: 14px;
+  color: var(--ink-2);
+}
