@@ -1,0 +1,63 @@
+.page {
+  display: grid;
+  gap: var(--s8);
+  max-width: 880px;
+}
+
+.form {
+  display: grid;
+  gap: var(--s6);
+}
+
+.group {
+  display: grid;
+  gap: var(--s4);
+  margin: 0;
+  padding: 0 0 var(--s6);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.legend {
+  margin-bottom: var(--s3);
+  padding: 0;
+  font-size: var(--text-lg);
+  font-weight: 650;
+}
+
+.taxModes {
+  display: grid;
+  gap: var(--s2);
+}
+
+.taxMode {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  padding: var(--s3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.taxMode:has(input:checked) {
+  border-color: var(--c3);
+}
+
+.taxMode input {
+  margin: 3px 0 0;
+}
+
+.taxMode > span {
+  display: grid;
+  gap: 2px;
+}
+
+.reset {
+  display: grid;
+  justify-items: start;
+  gap: var(--s3);
+  padding: var(--s5);
+  border: 1px solid color-mix(in oklch, var(--rose) 40%, var(--line));
+  border-radius: var(--radius);
+}
