@@ -1,0 +1,236 @@
+.skip {
+  position: absolute;
+  left: var(--s-4);
+  top: -48px;
+  z-index: 60;
+  padding: var(--s-2) var(--s-3);
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 600;
+  border-radius: var(--radius);
+}
+
+.skip:focus {
+  top: var(--s-2);
+}
+
+/* ---- masthead ---- */
+
+.masthead {
+  background: var(--paper);
+  border-bottom: 3px solid var(--ink);
+  position: relative;
+}
+
+.masthead::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -7px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.mastheadInner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--s-4) var(--gutter) var(--s-3);
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  column-gap: var(--s-5);
+}
+
+.wordmark {
+  display: inline-grid;
+  place-items: center;
+  min-width: 76px;
+  height: 52px;
+  padding: 0 var(--s-3) 3px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-myeongjo);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  line-height: 1;
+  border-radius: var(--radius);
+}
+
+.imprint {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  min-width: 0;
+}
+
+.pubName {
+  font-family: var(--font-myeongjo);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.office {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.dateline {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.mastActions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+/* ---- section strip ---- */
+
+.nav {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.navList {
+  display: flex;
+  gap: var(--s-6);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.navList::-webkit-scrollbar {
+  display: none;
+}
+
+.navLink {
+  display: block;
+  padding: var(--s-2) 0 var(--s-3);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--ink-2);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -3px;
+  transition:
+    color 160ms var(--ease-out),
+    border-color 160ms var(--ease-out);
+}
+
+.navLink:hover {
+  color: var(--ink);
+  border-bottom-color: var(--hair-strong);
+}
+
+.navLink[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+/* ---- page frame ---- */
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--s-10) var(--gutter) var(--s-16);
+}
+
+.footer {
+  border-top: 1px solid var(--ink);
+  background: var(--paper-2);
+}
+
+.footerInner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--s-6) var(--gutter) calc(var(--s-8) + env(safe-area-inset-bottom));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-3) var(--s-8);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.footerInner p:first-child {
+  max-width: 68ch;
+}
+
+.footerLinks {
+  display: flex;
+  gap: var(--s-5);
+  flex-wrap: wrap;
+}
+
+.footerLinks a {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .dateline {
+    display: none;
+  }
+
+  .mastheadInner {
+    grid-template-columns: auto 1fr auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .mastheadInner {
+    column-gap: var(--s-3);
+    padding-top: var(--s-3);
+  }
+
+  .wordmark {
+    min-width: 58px;
+    height: 42px;
+    font-size: 24px;
+  }
+
+  .imprint {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .pubName {
+    font-size: var(--text-lg);
+  }
+
+  .office {
+    font-size: var(--text-xs);
+  }
+
+  .letterLink {
+    padding: 0 var(--s-1);
+  }
+
+  .newLabel {
+    display: none;
+  }
+
+  .navList {
+    gap: var(--s-5);
+    padding-right: var(--s-8);
+    /* The strip scrolls sideways on phones; the fade says there is more. */
+    mask-image: linear-gradient(to right, var(--ink) calc(100% - 40px), transparent);
+  }
+
+  .main {
+    padding-top: var(--s-8);
+  }
+}

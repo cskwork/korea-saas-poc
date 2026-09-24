@@ -1,0 +1,182 @@
+/* The reading page: an issue typeset like a magazine article. */
+
+.band {
+  background: var(--cover);
+  color: var(--on-cover);
+}
+
+.bandInner {
+  display: grid;
+  gap: var(--s-4);
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: var(--s-10) var(--gutter) var(--s-8);
+}
+
+.bandNumber {
+  font-family: var(--font-myeongjo);
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.affix {
+  font-size: 0.34em;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin: 0 0.14em;
+  vertical-align: 0.12em;
+}
+
+.bandTitle {
+  font-family: var(--font-myeongjo);
+  font-size: clamp(28px, 4.6vw, 44px);
+  font-weight: 700;
+  line-height: 1.26;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.bandLede {
+  font-size: var(--text-lg);
+  line-height: 1.65;
+  max-width: 36em;
+}
+
+.bandMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid currentColor;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.band a {
+  color: inherit;
+}
+
+.band :focus-visible {
+  outline-color: var(--on-cover);
+}
+
+/* ---- body ---- */
+
+.body {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: var(--s-10) var(--gutter) 0;
+  font-family: var(--font-myeongjo);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.92;
+  color: var(--ink);
+  word-break: keep-all;
+}
+
+.body > * + * {
+  margin-top: 1.1em;
+}
+
+.paragraph {
+  white-space: pre-line;
+}
+
+.heading {
+  margin-top: 2em !important;
+  font-size: 1.3em;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
+
+.heading + * {
+  margin-top: 0.6em;
+}
+
+.list {
+  padding-left: 1.1em;
+  list-style: none;
+}
+
+.list li {
+  position: relative;
+  padding-left: 0.2em;
+}
+
+.list li + li {
+  margin-top: 0.35em;
+}
+
+.list li::before {
+  content: "";
+  position: absolute;
+  left: -0.9em;
+  top: 0.9em;
+  width: 0.45em;
+  height: 2px;
+  background: var(--ink);
+}
+
+.quote {
+  margin: 1.6em 0;
+  padding: 0.2em 0 0.2em 1.2em;
+  border-left: 1px solid var(--ink);
+  font-size: 1.12em;
+  font-weight: 600;
+  line-height: 1.75;
+  white-space: pre-line;
+}
+
+.divider {
+  margin: 2.2em auto !important;
+  width: 72px;
+  border: 0;
+  border-top: 3px solid var(--ink);
+  position: relative;
+  overflow: visible;
+}
+
+.divider::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 2px;
+  border-top: 1px solid var(--ink);
+}
+
+.body strong {
+  font-weight: 700;
+  background: linear-gradient(transparent 62%, var(--highlight) 62%);
+}
+
+.body a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+.body a:hover {
+  text-decoration-thickness: 2px;
+}
+
+@media (max-width: 640px) {
+  .bandInner {
+    padding-top: var(--s-8);
+  }
+
+  .bandNumber {
+    font-size: 52px;
+  }
+
+  .body {
+    font-size: 17px;
+    line-height: 1.88;
+    padding-top: var(--s-8);
+  }
+}

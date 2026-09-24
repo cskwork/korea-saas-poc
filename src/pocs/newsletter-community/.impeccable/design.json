@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T13:00:00+09:00",
+  "title": "Design System: 펴냄",
+  "extensions": {
+    "colorMeta": {
+      "paper": { "role": "neutral", "displayName": "Coated Paper", "canonical": "oklch(0.988 0.002 250)", "tonalRamp": ["oklch(0.2 0.002 250)", "oklch(0.32 0.002 250)", "oklch(0.44 0.002 250)", "oklch(0.56 0.002 250)", "oklch(0.68 0.002 250)", "oklch(0.8 0.002 250)", "oklch(0.9 0.002 250)", "oklch(0.988 0.002 250)"] },
+      "paper-panel": { "role": "neutral", "displayName": "Panel Paper", "canonical": "oklch(0.962 0.004 250)" },
+      "paper-press": { "role": "neutral", "displayName": "Press Grey", "canonical": "oklch(0.935 0.005 250)" },
+      "ink": { "role": "primary", "displayName": "먹 Ink", "canonical": "oklch(0.2 0.014 262)", "tonalRamp": ["oklch(0.15 0.014 262)", "oklch(0.2 0.014 262)", "oklch(0.3 0.014 262)", "oklch(0.4 0.014 262)", "oklch(0.5 0.012 262)", "oklch(0.62 0.01 262)", "oklch(0.74 0.008 262)", "oklch(0.86 0.006 262)"] },
+      "ink-secondary": { "role": "neutral", "displayName": "Secondary Ink", "canonical": "oklch(0.4 0.014 262)" },
+      "ink-tertiary": { "role": "neutral", "displayName": "Tertiary Ink", "canonical": "oklch(0.5 0.012 262)" },
+      "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "oklch(0.86 0.006 262)" },
+      "hairline-strong": { "role": "neutral", "displayName": "Field Stroke", "canonical": "oklch(0.74 0.008 262)" },
+      "highlighter": { "role": "tertiary", "displayName": "형광펜 Highlighter", "canonical": "oklch(0.93 0.13 102)" },
+      "correction-red": { "role": "status", "displayName": "Correction Red", "canonical": "oklch(0.53 0.19 28)" },
+      "settled-green": { "role": "status", "displayName": "Settled Green", "canonical": "oklch(0.5 0.11 155)" },
+      "card-stock": { "role": "neutral", "displayName": "Reply-Card Stock", "canonical": "oklch(0.955 0.022 262)" },
+      "cover-jjok": { "role": "secondary", "displayName": "쪽 Indigo cover", "canonical": "oklch(0.4 0.13 266)" },
+      "cover-juhong": { "role": "secondary", "displayName": "주홍 Vermilion cover", "canonical": "oklch(0.64 0.18 40)" },
+      "cover-ssuk": { "role": "secondary", "displayName": "쑥 Mugwort cover", "canonical": "oklch(0.48 0.1 130)" },
+      "cover-hwang": { "role": "secondary", "displayName": "황 Ochre cover", "canonical": "oklch(0.83 0.15 86)" },
+      "cover-jaju": { "role": "secondary", "displayName": "자주 Plum cover", "canonical": "oklch(0.44 0.14 352)" },
+      "cover-cheongrok": { "role": "secondary", "displayName": "청록 Teal cover", "canonical": "oklch(0.48 0.085 200)" },
+      "cover-meokhoe": { "role": "secondary", "displayName": "먹회 Slate cover", "canonical": "oklch(0.36 0.02 262)" },
+      "cover-bunhong": { "role": "secondary", "displayName": "분홍 Pink cover", "canonical": "oklch(0.82 0.08 14)" },
+      "series-subscription": { "role": "tertiary", "displayName": "Chart · 구독료", "canonical": "#e25c26" },
+      "series-ads": { "role": "tertiary", "displayName": "Chart · 광고", "canonical": "#3857ac" },
+      "series-membership": { "role": "tertiary", "displayName": "Chart · 멤버십", "canonical": "#a6a01b" }
+    },
+    "typographyMeta": {
+      "nameplate": { "displayName": "Nameplate", "purpose": "The publication's name on the letter front; the reversed 펴냄 wordmark uses the same face at 30px." },
+      "numeral": { "displayName": "Issue numeral", "purpose": "호수 on covers and bands, with 제/호 at 0.32em." },
+      "headline": { "displayName": "Headline", "purpose": "Studio page titles; reading-page titles at clamp(28px, 4.6vw, 44px)." },
+      "title": { "displayName": "Title", "purpose": "Section heads under the ink rule, contents and board titles." },
+      "reading": { "displayName": "Reading", "purpose": "Issue bodies and board posts, 36rem measure; 17px on phones." },
+      "body": { "displayName": "Body", "purpose": "Every control, form and table; tabular figures in tables." },
+      "label": { "displayName": "Label", "purpose": "Field labels, tags, table heads; never uppercase or tracked." }
+    },
+    "shadows": [
+      { "name": "manuscript", "value": "0 1px 0 oklch(0.86 0.006 262), 0 18px 40px -28px oklch(0.2 0.014 262 / 0.35)", "purpose": "The writing sheet lying on the desk." },
+      { "name": "dialog", "value": "0 18px 48px -12px oklch(0.2 0.014 262 / 0.35)", "purpose": "Confirmation dialogs." },
+      { "name": "toast", "value": "0 10px 30px -10px oklch(0.2 0.014 262 / 0.5)", "purpose": "Ink toasts at the bottom of the viewport." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Every state transition (160–240ms)." },
+      { "name": "lay-proof", "value": "clip-path inset(0 100% 0 0) → inset(0) over 360ms", "purpose": "The 교정쇄 laid over the 원고, left to right; instant under reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "phone", "value": "640px" },
+      { "name": "table-cards", "value": "760px" },
+      { "name": "one-column", "value": "860px" },
+      { "name": "editor-stack", "value": "1000px" },
+      { "name": "desk-tight", "value": "1100px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid ink block for the one action a screen is for (새 호 쓰기, 지금 발행, 올리기).",
+      "html": "<button class=\"ds-btn-primary\">지금 발행</button>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:0 16px; border:1px solid oklch(0.2 0.014 262); border-radius:2px; background:oklch(0.2 0.014 262); color:oklch(0.988 0.002 250); font:600 15px/1 'Pretendard Variable', Pretendard, system-ui, sans-serif; transition:background-color 160ms cubic-bezier(0.16,1,0.3,1); } .ds-btn-primary:hover { background:oklch(0.4 0.014 262); border-color:oklch(0.4 0.014 262); } .ds-btn-primary:focus-visible { outline:2px solid oklch(0.2 0.014 262); outline-offset:2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Paper with a 1px ink edge for supporting actions (원고 저장, 예약 발행).",
+      "html": "<button class=\"ds-btn-secondary\">원고 저장</button>",
+      "css": ".ds-btn-secondary { display:inline-flex; align-items:center; min-height:40px; padding:0 16px; border:1px solid oklch(0.2 0.014 262); border-radius:2px; background:oklch(0.988 0.002 250); color:oklch(0.2 0.014 262); font:600 15px/1 'Pretendard Variable', Pretendard, system-ui, sans-serif; transition:background-color 160ms; } .ds-btn-secondary:hover { background:oklch(0.935 0.005 250); } .ds-btn-secondary:focus-visible { outline:2px solid oklch(0.2 0.014 262); outline-offset:2px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Label above, square field, ink stroke on focus, red stroke and message on error.",
+      "html": "<label class=\"ds-field\"><span>이메일</span><input class=\"ds-input\" placeholder=\"reader@example.com\"></label>",
+      "css": ".ds-field { display:grid; gap:6px; font:600 13px 'Pretendard Variable', Pretendard, sans-serif; color:oklch(0.2 0.014 262); } .ds-input { min-height:40px; padding:8px 12px; border:1px solid oklch(0.74 0.008 262); border-radius:2px; background:oklch(0.988 0.002 250); font:400 15px 'Pretendard Variable', Pretendard, sans-serif; } .ds-input:hover { border-color:oklch(0.4 0.014 262); } .ds-input:focus-visible { outline:none; border-color:oklch(0.2 0.014 262); box-shadow:0 0 0 1px oklch(0.2 0.014 262); }"
+    },
+    {
+      "name": "Status Tags",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "초안 dashed, 발행 예약 outlined, 발행 solid ink.",
+      "html": "<span class=\"ds-tag ds-tag-draft\">초안</span> <span class=\"ds-tag\">발행 예약</span> <span class=\"ds-tag ds-tag-solid\">발행</span>",
+      "css": ".ds-tag { display:inline-flex; padding:1px 6px; border:1px solid currentColor; border-radius:2px; font:600 12px/1.5 'Pretendard Variable', Pretendard, sans-serif; color:oklch(0.4 0.014 262); } .ds-tag-draft { border-style:dashed; } .ds-tag-solid { background:oklch(0.2 0.014 262); border-color:oklch(0.2 0.014 262); color:oklch(0.988 0.002 250); }"
+    },
+    {
+      "name": "Section Head",
+      "kind": "custom",
+      "refersTo": "section-head",
+      "description": "Heavy-over-light ink rule and a 명조 title; opens every block.",
+      "html": "<div class=\"ds-section\"><h2>목차</h2><a href=\"#\">발행 목록 전체</a></div>",
+      "css": ".ds-section { position:relative; display:flex; justify-content:space-between; align-items:baseline; padding-top:12px; border-top:3px solid oklch(0.2 0.014 262); } .ds-section::before { content:''; position:absolute; top:2px; left:0; right:0; border-top:1px solid oklch(0.2 0.014 262); } .ds-section h2 { margin:0; font:700 20px/1.3 Hahmlet, 'Nanum Myeongjo', serif; } .ds-section a { font:600 13px 'Pretendard Variable', sans-serif; color:oklch(0.2 0.014 262); }"
+    },
+    {
+      "name": "Issue Cover",
+      "kind": "card",
+      "refersTo": "issue-cover",
+      "description": "A solid field in the issue's ink: 호수 numeral, title, standfirst, ruled meta line.",
+      "html": "<div class=\"ds-cover\"><p class=\"ds-num\"><small>제</small>21<small>호</small></p><h3>무료에서 유료로, 독자가 넘어오는 순간</h3><p class=\"ds-meta\">9월 29일 (화) 07:00 발행 예약 · 유료 구독자 68명에게</p></div>",
+      "css": ".ds-cover { display:grid; gap:16px; padding:32px; background:oklch(0.44 0.14 352); color:oklch(0.985 0.008 352); border-radius:2px; } .ds-num { margin:0; font:800 96px/0.9 Hahmlet, serif; letter-spacing:-0.04em; } .ds-num small { font-size:0.32em; margin:0 0.12em; } .ds-cover h3 { margin:0; font:700 30px/1.28 Hahmlet, serif; letter-spacing:-0.02em; } .ds-meta { margin:0; padding-top:12px; border-top:1px solid currentColor; font:600 13px 'Pretendard Variable', sans-serif; }"
+    },
+    {
+      "name": "Contents Row",
+      "kind": "custom",
+      "refersTo": "contents-row",
+      "description": "Swatch, 명조 호수, title, dotted leader, right-aligned meta.",
+      "html": "<div class=\"ds-row\"><span class=\"ds-sw\"></span><span class=\"ds-n\">20</span><span class=\"ds-t\">번아웃 없이 매주 보내는 법</span><span class=\"ds-l\"></span><span class=\"ds-m\">9. 22. · 오픈 46.5%</span></div>",
+      "css": ".ds-row { display:flex; align-items:baseline; gap:12px; padding:12px 0; border-bottom:1px solid oklch(0.86 0.006 262); font:600 15px 'Pretendard Variable', sans-serif; } .ds-sw { width:10px; height:28px; background:oklch(0.83 0.15 86); align-self:flex-start; } .ds-n { font:700 20px Hahmlet, serif; } .ds-l { flex:1; border-bottom:2px dotted oklch(0.74 0.008 262); transform:translateY(-4px); } .ds-m { font:400 13px 'Pretendard Variable', sans-serif; color:oklch(0.4 0.014 262); }"
+    },
+    {
+      "name": "정기구독 신청서",
+      "kind": "custom",
+      "refersTo": "reply-card",
+      "description": "The bound-in reply card: perforated edge, tick boxes, underlined blanks.",
+      "html": "<div class=\"ds-card\"><p class=\"ds-perf\">자르는 선</p><div class=\"ds-in\"><h3>정기구독 신청서</h3><label class=\"ds-pl\"><span class=\"ds-box\"></span>베이직 <b>월 9,900원</b></label><label class=\"ds-line\">이메일 <input></label></div></div>",
+      "css": ".ds-card { background:oklch(0.955 0.022 262); color:oklch(0.2 0.014 262); border-radius:2px; } .ds-perf { margin:0; height:22px; padding:0 16px; border-bottom:2px dashed oklch(0.4 0.014 262); background:oklch(0.988 0.002 250); font:600 12px sans-serif; color:oklch(0.4 0.014 262); } .ds-in { padding:20px 24px 24px; display:grid; gap:12px; } .ds-in h3 { margin:0; padding-bottom:12px; border-bottom:3px solid oklch(0.2 0.014 262); font:800 26px Hahmlet, serif; } .ds-pl { display:flex; gap:12px; align-items:center; font:700 15px sans-serif; } .ds-pl b { margin-left:auto; } .ds-box { width:20px; height:20px; border:1.5px solid oklch(0.2 0.014 262); background:#fff; } .ds-line { display:flex; gap:12px; font:700 12px sans-serif; } .ds-line input { flex:1; border:0; border-bottom:1.5px solid oklch(0.2 0.014 262); background:transparent; font-size:17px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Monthly Magazine's Editorial Office",
+    "overview": "펴냄 treats a newsletter as a periodical. The studio is the office of a 1970s–80s Korean monthly — issues carry 호수, the lineup is a 목차, the publication's vital record is a 판권, sponsors buy 광고 지면 and members write in the 독자 마당. The public letter is that magazine's own pages: a nameplate, a cover band per issue, 명조 text set for reading, and a bound-in 정기구독 신청서 that tears off along a perforated line. The world is two-colour print on bright coated stock: black ink and white paper carry every control, table and label; colour arrives only as issue covers, where each numbered issue owns one of eight printing inks.",
+    "keyCharacteristics": [
+      "먹 and 종이 for the interface; eight cover inks for issue identity only.",
+      "Hahmlet 명조 for nameplates, issue numerals, titles and reading text; Pretendard for every control, label and table.",
+      "Heavy-over-light ink rules open sections; hairlines separate rows.",
+      "Square 2px corners on everything printed; pills only for the 좋아요 control.",
+      "Magazine vocabulary as structure: 호수, 목차, 판권, 교정쇄, 정기구독 신청서, 광고 지면."
+    ],
+    "rules": [
+      { "name": "The Cover-Only Colour Rule", "body": "Chromatic colour belongs to an issue's cover (or a chart series). No button, tag, link or state is ever tinted with a cover ink.", "section": "colors" },
+      { "name": "The Sample Mark Rule", "body": "Every figure a visitor could mistake for real — simulated opens and clicks, sample ledgers — carries the highlighter \"샘플\" mark beside it.", "section": "colors" },
+      { "name": "The Two Voices Rule", "body": "명조 speaks for the publication (names, numbers, titles, prose); Pretendard speaks for the tool (controls, labels, data). A button or table cell is never set in 명조, except the 원고 | 교정쇄 switch, which names the two states of the text itself.", "section": "typography" },
+      { "name": "The Ruled, Not Raised Rule", "body": "A section is opened by a heavy-over-light ink rule, never by a card with a shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do open every block with the heavy-over-light ink rule (3px + 1px).",
+      "Do give each new issue its ink by number, (n − 1) mod 8, and use it only on that issue's cover and swatch.",
+      "Do set figures in tables with tabular numerals and money through the KRW formatter.",
+      "Do mark simulated or sample figures with the highlighter \"샘플\" note.",
+      "Do keep charts to the three validated series colours, with a legend and a table view."
+    ],
+    "donts": [
+      "Don't tint controls, links or states with cover inks.",
+      "Don't replace the colophon or statement with KPI tiles of big numbers.",
+      "Don't add eyebrows or kickers above headings; the rule and the title carry the section.",
+      "Don't warm the paper toward cream; the stock is cool coated white.",
+      "Don't use emoji or glyphs as icons; icons are lucide at 14–16px, one stroke weight."
+    ]
+  }
+}
