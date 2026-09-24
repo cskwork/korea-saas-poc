@@ -1,0 +1,254 @@
+.body {
+  padding: 20px 24px 32px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: var(--graphite);
+}
+
+.keyKit,
+.keyUsed {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+
+.keyKit {
+  background: var(--ink);
+}
+
+.keyUsed {
+  border: 1.5px solid var(--pencil);
+}
+
+.keyCount {
+  margin-left: 12px;
+  font-family: var(--font-num);
+  font-weight: 600;
+  color: var(--blue-ink);
+}
+
+.scroller {
+  overflow-x: auto;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.scroller:focus-visible {
+  outline-offset: 4px;
+}
+
+.matrix {
+  width: 100%;
+  min-width: 920px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.matrix th,
+.matrix td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.matrix thead th {
+  border-bottom: 1px solid var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--graphite);
+  white-space: nowrap;
+}
+
+.matrix tbody tr:hover {
+  background: var(--wash);
+}
+
+.matrix tbody tr:last-child th,
+.matrix tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.toolHead,
+.toolCell {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--paper);
+  border-right: 1px solid var(--rule);
+}
+
+.matrix tbody tr:hover .toolCell {
+  background: var(--wash);
+}
+
+.toolCell {
+  display: grid;
+  min-width: 140px;
+}
+
+.toolName {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.toolUses {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--graphite);
+}
+
+.pricing {
+  white-space: nowrap;
+}
+
+.pricing[data-pricing="free"] {
+  font-weight: 700;
+}
+
+.difficulty {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+  color: var(--graphite);
+}
+
+.step {
+  width: 8px;
+  height: 14px;
+  border: 1.5px solid var(--pencil);
+}
+
+.step[data-on="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
+.difficulty > span:last-child {
+  margin-left: 6px;
+}
+
+.matrix .typeHead {
+  text-align: center;
+}
+
+.matrix .mark {
+  text-align: center;
+  border-left: 1px solid var(--rule-soft);
+}
+
+.markInner {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.count {
+  font-family: var(--font-num);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--blue-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.matrix .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.notesTitle {
+  margin: 32px 0 12px;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid var(--ink);
+}
+
+.note {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  column-gap: 16px;
+  row-gap: 2px;
+  padding: 12px 16px 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.note:nth-child(even) {
+  padding-left: 16px;
+  border-left: 1px solid var(--rule);
+}
+
+.noteName {
+  grid-row: span 2;
+  font-weight: 700;
+}
+
+.noteText {
+  margin: 0;
+}
+
+.noteStrengths {
+  margin: 0;
+  font-size: 13px;
+  color: var(--graphite);
+}
+
+@media (max-width: 860px) {
+  .notes {
+    grid-template-columns: 1fr;
+  }
+
+  .note:nth-child(even) {
+    padding-left: 0;
+    border-left: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .body {
+    padding: 16px 16px 24px;
+  }
+
+  .note {
+    grid-template-columns: 1fr;
+  }
+
+  .noteName {
+    grid-row: auto;
+  }
+}

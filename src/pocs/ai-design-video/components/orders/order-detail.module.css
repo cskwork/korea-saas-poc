@@ -1,0 +1,359 @@
+.code {
+  font-family: var(--font-num);
+  letter-spacing: 0.02em;
+}
+
+.textValue {
+  font-family: var(--font-ui);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.flash {
+  margin: 16px 24px 0;
+}
+
+/* ── Stage: the big frame and its scene strip ─────────────────────────── */
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  border-bottom: 1px solid var(--rule);
+}
+
+.stageFrame {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  min-height: 320px;
+  padding: 32px 24px;
+  background: var(--wash);
+  border-right: 1px solid var(--rule);
+}
+
+.frameCaption {
+  font-family: var(--font-num);
+  font-size: 14px;
+  color: var(--blue-ink);
+}
+
+.stageSide {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 24px;
+}
+
+.scenes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid var(--ink);
+}
+
+.sceneStep {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  color: var(--graphite);
+}
+
+.sceneStep + .sceneStep {
+  border-left: 1px solid var(--rule);
+}
+
+.sceneNo {
+  font-family: var(--font-num);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.sceneLabel {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sceneStep[data-state="done"] {
+  color: var(--ink);
+}
+
+.sceneNo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sceneStep[data-state="current"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.sceneStep[data-state="current"][data-medium="redline"] {
+  background: var(--red);
+}
+
+.stageHint {
+  color: var(--graphite);
+}
+
+.moves {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.revisionForm {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--red);
+  background: var(--paper);
+}
+
+.revisionTitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--red);
+}
+
+.revisionLeft,
+.revisionExtra {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.revisionLeft {
+  color: var(--graphite);
+}
+
+.revisionExtra {
+  padding: 0 6px;
+  background: var(--red);
+  color: var(--paper);
+}
+
+.extra {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  background: var(--red-wash);
+}
+
+.revisionActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── Facts, rounds and history ─────────────────────────────────────────── */
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+}
+
+.block {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 24px;
+  min-width: 0;
+}
+
+.block + .block {
+  border-left: 1px solid var(--rule);
+}
+
+.blockTitle {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.spaced {
+  margin-top: 16px;
+}
+
+.history {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.facts {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--ink);
+}
+
+.facts > div {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.facts dt {
+  font-size: 14px;
+  color: var(--graphite);
+}
+
+.facts dd {
+  margin: 0;
+}
+
+.briefText {
+  white-space: pre-line;
+  max-width: 62ch;
+}
+
+.refs {
+  display: grid;
+  gap: 4px;
+}
+
+.refs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--blue-ink);
+  overflow-wrap: anywhere;
+}
+
+.publish {
+  display: flex;
+}
+
+.rounds {
+  border-top: 1px solid var(--ink);
+}
+
+.round {
+  display: grid;
+  gap: 4px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.roundHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+
+.roundNo {
+  font-weight: 800;
+  color: var(--red);
+}
+
+.roundExtra {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+}
+
+.roundState {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--graphite);
+}
+
+.roundNote {
+  font-size: 15px;
+}
+
+.roundDate {
+  font-size: 13px;
+  color: var(--graphite);
+}
+
+.events {
+  border-top: 1px solid var(--ink);
+}
+
+.event {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 14px;
+}
+
+.eventTime {
+  font-family: var(--font-num);
+  font-size: 14px;
+  color: var(--graphite);
+  font-variant-numeric: tabular-nums;
+}
+
+.eventText {
+  display: grid;
+}
+
+.eventMove {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.eventNote {
+  color: var(--graphite);
+}
+
+@media (max-width: 960px) {
+  .stage,
+  .columns {
+    grid-template-columns: 1fr;
+  }
+
+  .stageFrame {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    min-height: 0;
+  }
+
+  .block + .block {
+    border-left: none;
+    border-top: 1px solid var(--rule);
+  }
+}
+
+@media (max-width: 720px) {
+  .stageFrame {
+    padding: 24px 16px;
+  }
+
+  .stageSide,
+  .block {
+    padding: 20px 16px;
+  }
+
+  .scenes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sceneStep:nth-child(3) {
+    border-left: none;
+  }
+
+  .sceneStep:nth-child(n + 3) {
+    border-top: 1px solid var(--rule);
+  }
+
+  .facts > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .flash {
+    margin: 12px 16px 0;
+  }
+}
