@@ -1,0 +1,157 @@
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.stamp {
+  display: inline-grid;
+  place-items: center;
+}
+
+.stamp svg {
+  display: block;
+  overflow: visible;
+}
+
+.ring {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+}
+
+.thin {
+  stroke-width: 1.2;
+}
+
+.text {
+  font-family: var(--font-seal);
+  font-size: 16px;
+  fill: currentColor;
+}
+
+.big {
+  font-size: 34px;
+}
+
+.mid {
+  font-size: 24px;
+}
+
+.confirmed {
+  color: var(--ok);
+  width: 50px;
+  height: 50px;
+  transform: rotate(var(--tilt, 0deg));
+}
+
+.confirmed svg {
+  width: 50px;
+  height: 50px;
+}
+
+.cancelled {
+  color: var(--seal);
+  width: 58px;
+  height: 32px;
+  transform: rotate(var(--tilt, -4deg));
+}
+
+.cancelled svg {
+  width: 58px;
+  height: 32px;
+}
+
+.pending {
+  width: 46px;
+  height: 40px;
+  border: 1.5px dashed var(--wait);
+  font-size: var(--t-caption);
+  font-weight: 700;
+  color: var(--wait-ink);
+  background: var(--wait-soft);
+}
+
+.roundSeal {
+  display: block;
+  color: var(--seal);
+  transform: rotate(var(--tilt, -8deg));
+}
+
+.roundSeal svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Signature: the stamp press. The seal lands from above, overshoots and settles. */
+.fresh {
+  animation: stamp-press 0.52s var(--ease-out) both;
+}
+
+@keyframes stamp-press {
+  0% {
+    transform: rotate(var(--tilt, 0deg)) scale(1.9);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  45% {
+    transform: rotate(var(--tilt, 0deg)) scale(0.94);
+    opacity: 1;
+    filter: blur(0);
+  }
+  70% {
+    transform: rotate(var(--tilt, 0deg)) scale(1.03);
+  }
+  100% {
+    transform: rotate(var(--tilt, 0deg)) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fresh {
+    animation: none;
+  }
+}
+
+/* Brand seal */
+.sealLogo {
+  display: block;
+  flex: none;
+}
+
+.sealBg {
+  fill: var(--seal);
+}
+
+.sealText {
+  font-family: var(--font-seal);
+  font-size: 21px;
+  fill: var(--paper);
+  letter-spacing: -0.5px;
+}
+
+/* Legend marks */
+.mark {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  flex: none;
+}
+
+.mark-confirmed {
+  border: 2px solid var(--ok);
+  border-radius: 50%;
+}
+
+.mark-pending {
+  border: 1.5px dashed var(--wait);
+}
+
+.mark-cancelled {
+  border: 2px solid var(--seal);
+  width: 14px;
+  height: 9px;
+}

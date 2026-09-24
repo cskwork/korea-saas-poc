@@ -1,0 +1,268 @@
+.grid {
+  display: grid;
+  gap: var(--s8);
+}
+
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) 400px;
+    align-items: start;
+  }
+
+  .detail,
+  .placeholder {
+    position: sticky;
+    top: 90px;
+  }
+}
+
+@media (max-width: 1099px) {
+  .hasDetail .listSheet,
+  .placeholder {
+    display: none;
+  }
+}
+
+/* Search strip */
+.searchForm {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--s2);
+  margin: var(--s4) 0;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: 0 var(--s3);
+  min-height: 48px;
+  border: 1.5px solid var(--ink);
+  background: var(--field);
+  color: var(--ink-3);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+  min-height: 44px;
+  font-size: var(--t-input);
+  color: var(--ink);
+}
+
+.search:focus-within {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.search[aria-busy="true"] {
+  border-style: dashed;
+}
+
+.count {
+  font-size: var(--t-small);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.sort select {
+  height: 100%;
+  min-height: 48px;
+  padding: 0 var(--s3);
+  border: 1.5px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--t-small);
+  font-weight: 700;
+}
+
+/* The card file */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.customer {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s3) var(--s2);
+  border-bottom: 1px solid var(--rule);
+  color: inherit;
+  text-decoration: none;
+}
+
+.customer:hover {
+  background: var(--field);
+}
+
+.customer[aria-current="true"] {
+  background: var(--field);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+
+.mark {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--ink-2);
+  font-weight: 800;
+  color: var(--ink-2);
+}
+
+.main,
+.side {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.phone,
+.last {
+  font-size: var(--t-small);
+  color: var(--ink-3);
+}
+
+.side {
+  text-align: right;
+}
+
+.visits {
+  font-size: var(--t-small);
+  font-weight: 700;
+}
+
+.register {
+  margin-top: var(--s4);
+}
+
+.register > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.register > summary::-webkit-details-marker {
+  display: none;
+}
+
+.register[open] > summary {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.registerBody {
+  padding: var(--s4) 0;
+}
+
+.form {
+  display: grid;
+  gap: var(--s3);
+}
+
+/* One customer's record */
+.detail {
+  outline: none;
+}
+
+.memo {
+  white-space: pre-line;
+}
+
+.muted {
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+.detailActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  padding: var(--s4) 0 0;
+}
+
+.history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.history li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: var(--s3);
+  align-items: baseline;
+  padding: var(--s2) 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--t-small);
+}
+
+.hService {
+  font-weight: 700;
+  font-size: var(--t-body);
+  color: inherit;
+  text-decoration: none;
+}
+
+.hService:hover {
+  text-decoration: underline;
+}
+
+.hDate {
+  color: var(--ink-2);
+}
+
+.hStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 700;
+  font-size: var(--t-caption);
+  color: var(--ink-2);
+}
+
+.void .hService,
+.void .hDate {
+  text-decoration: line-through;
+  text-decoration-color: var(--seal);
+  color: var(--ink-3);
+}
+
+.more {
+  padding: var(--s2) 0;
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+
+@media (max-width: 420px) {
+  .searchForm {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .history li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .hDate {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .hStatus {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+  }
+}
