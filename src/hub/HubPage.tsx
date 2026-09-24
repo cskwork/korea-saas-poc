@@ -34,21 +34,23 @@ export function HubPage() {
               써 보세요.
             </p>
           </div>
-          <div className={styles.directory}>
-            <p className={styles.directoryTitle}>
+          <nav className={styles.directory} aria-labelledby="directory-title">
+            <p id="directory-title" className={styles.directoryTitle}>
               <span className={styles.lamp} aria-hidden />
-              점포 안내 · {MODULES.length}개 가게 영업 중
+              <span className={styles.directoryLabel}>점포 안내 · </span>
+              {MODULES.length}개 가게 영업 중
             </p>
-            {/* Mirrors the plan below for sighted visitors; the stalls carry the same names for assistive tech. */}
-            <ol className={styles.directoryList} role="list" aria-hidden>
+            <ol className={styles.directoryList} role="list">
               {MODULES.map((meta, index) => (
                 <li key={meta.slug}>
-                  <span>{plateFor(index < perRow ? 0 : 1, meta.order)}</span>
-                  {meta.name}
+                  <a href={`/${meta.slug}`}>
+                    <span>{plateFor(index < perRow ? 0 : 1, meta.order)}</span>
+                    {meta.name}
+                  </a>
                 </li>
               ))}
             </ol>
-          </div>
+          </nav>
         </div>
       </header>
 
@@ -110,8 +112,8 @@ export function HubPage() {
           <div>
             <dt>마음껏 바꿔 보세요</dt>
             <dd>
-              주문을 받고, 예약을 확정하고, 글을 발행해도 됩니다. 가게마다 있는 ‘데모 데이터 초기화’로 언제든 처음
-              상태로 돌아갑니다.
+              주문을 받고, 예약을 확정하고, 글을 발행해도 됩니다. 가게마다 샘플 데이터를 처음 상태로 되돌리는 초기화
+              기능이 있습니다.
             </dd>
           </div>
           <div>

@@ -60,9 +60,10 @@ export function VacantStall({
           <span className={styles.plate}>{plate}</span>
         </span>
         <span className={styles.front}>
-          <span className={styles.tagline}>이 자리에 새 가게가 들어올 수 있어요.</span>
+          <span className={styles.tagline}>새 가게가 들어올 자리</span>
           <span className={styles.vacantNote}>
-            <Plus aria-hidden size={16} strokeWidth={2.25} />새 가게를 여는 방법 (개발 문서)
+            <Plus aria-hidden size={16} strokeWidth={2.25} />
+            입점 안내
           </span>
         </span>
       </a>

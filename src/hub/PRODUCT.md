@@ -47,7 +47,7 @@ keeps its own identity.
 ## Evidence on Hand
 
 - The ten products themselves (live routes) and their catalogue metadata.
-- No real customers, revenue, testimonials or usage numbers exist. The legacy READMEs state revenue *targets*
+- No real customers, revenue, testimonials or usage numbers exist. The legacy READMEs state revenue _targets_
   ("월 최대 1,500만원" etc.); these are goals, not results, and must not be presented as achievements.
 
 ## Product Principles
