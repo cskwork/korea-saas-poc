@@ -1,0 +1,7 @@
+PRODUCT.md
+DESIGN.md
+README.md
+.impeccable
+docs
+tests
+assets/*.json
