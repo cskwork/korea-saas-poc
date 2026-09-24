@@ -71,6 +71,13 @@
       "when": 1790271310425,
       "tag": "0009_online-education",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1790271580687,
+      "tag": "0010_newsletter-community",
+      "breakpoints": true
     }
   ]
 }

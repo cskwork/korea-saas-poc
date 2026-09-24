@@ -1,0 +1,288 @@
+.summary {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--s-12) var(--s-8);
+  align-items: start;
+  margin-bottom: var(--s-12);
+}
+
+.statement {
+  grid-row: span 2;
+}
+
+.caption {
+  text-align: left;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  padding-bottom: var(--s-2);
+}
+
+.statementTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.statementTable th,
+.statementTable td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--hair);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.statementTable thead th {
+  font-size: var(--text-xs);
+  color: var(--ink-2);
+  border-bottom-color: var(--ink);
+}
+
+.statementTable th[scope="row"],
+.statementTable thead th:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+
+.lineNote {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--ink-3);
+  white-space: normal;
+}
+
+.statementTable tfoot th,
+.statementTable tfoot td {
+  border-top: 3px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--font-myeongjo);
+  font-size: var(--text-xl);
+  font-weight: 800;
+}
+
+.figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0;
+  margin: var(--s-6) 0 0;
+}
+
+.figures div {
+  display: grid;
+  gap: 2px;
+  padding: var(--s-3) var(--s-3) var(--s-3) 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.figures dt {
+  font-size: var(--text-xs);
+  color: var(--ink-2);
+}
+
+.figures dd {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.goals {
+  display: grid;
+  gap: var(--s-5);
+}
+
+.goal {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.goalHead {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-3);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.goalFigure {
+  font-variant-numeric: tabular-nums;
+}
+
+.goalFigure strong {
+  color: var(--ink);
+}
+
+.meter {
+  height: 10px;
+  background: var(--paper-3);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.meterFill {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+  transform-origin: left center;
+  transition: transform 240ms var(--ease-out);
+}
+
+.meterDone {
+  background: var(--ok);
+}
+
+.goalRatio {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.chart {
+  min-width: 0;
+}
+
+/* ---- ledgers ---- */
+
+.ledgers {
+  display: grid;
+  gap: var(--s-12);
+}
+
+.ledger {
+  display: grid;
+  gap: var(--s-4);
+  min-width: 0;
+}
+
+.disclosure {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-3);
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-3);
+  width: 100%;
+  padding: var(--s-5);
+  background: var(--paper-2);
+  border-top: 3px solid var(--ink);
+}
+
+.wide {
+  grid-column: span 3;
+}
+
+.formActions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.table td {
+  white-space: nowrap;
+}
+
+.table th,
+.table td {
+  padding: 10px 10px;
+  border-bottom: 1px solid var(--hair);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table thead th {
+  font-size: var(--text-xs);
+  color: var(--ink-2);
+  border-bottom-color: var(--ink);
+  white-space: nowrap;
+}
+
+.table tbody th {
+  font-weight: 600;
+}
+
+.num {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.date {
+  white-space: nowrap;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.sponsor {
+  display: grid;
+  gap: 2px;
+  min-width: 200px;
+}
+
+.sponsor span {
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+.statusSelect {
+  min-height: 32px;
+  width: 120px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: var(--text-sm);
+}
+
+.rowAction {
+  text-align: right !important;
+  width: 48px;
+}
+
+@media (max-width: 960px) {
+  .summary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .statement {
+    grid-row: auto;
+  }
+
+  .form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wide {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .statementTable th,
+  .statementTable td {
+    padding: 10px 4px;
+  }
+
+  .statementTable td:nth-child(3),
+  .statementTable th:nth-child(3) {
+    display: none;
+  }
+}
