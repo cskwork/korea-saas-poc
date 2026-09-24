@@ -1,0 +1,162 @@
+/*
+ * 시안 (banner proof). A draft's headline set as the street banner it could become:
+ * substrate colour by content kind, stitched hem, four grommets.
+ * Signature interaction: 시안 펼치기 — the vinyl unrolls from the left edge.
+ */
+.proof {
+  position: relative;
+  margin: 0;
+  --field: var(--green);
+  --lettering: #fff;
+  --key: var(--yellow);
+  --hem: rgb(255 255 255 / 0.45);
+}
+
+.proof[data-kind="product"] {
+  --field: var(--yellow);
+  --lettering: var(--ink);
+  --key: var(--red-ink);
+  --hem: rgb(17 22 31 / 0.35);
+}
+
+.proof[data-kind="ad"] {
+  --field: var(--red);
+  --lettering: #fff;
+  --key: var(--yellow);
+}
+
+.field {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  min-height: 132px;
+  padding: 28px 44px;
+  background: var(--field);
+  color: var(--lettering);
+  outline: 1px dashed var(--hem);
+  outline-offset: -8px;
+  box-shadow: 0 6px 10px -6px rgb(17 22 31 / 0.35);
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.4vw, 42px);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.headline em {
+  font-style: normal;
+  color: var(--key);
+}
+
+.byline {
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.compact .field {
+  min-height: 88px;
+  padding: 18px 26px;
+  gap: 4px;
+}
+
+.compact .headline {
+  font-size: 21px;
+  line-height: 1.22;
+}
+
+.compact .byline {
+  font-size: 12px;
+}
+
+.grommets i {
+  width: 10px;
+  height: 10px;
+}
+
+.compact .grommets i {
+  width: 8px;
+  height: 8px;
+  border-width: 1.5px;
+}
+
+/* ---------------------------------------------------------------- 시안 펼치기 */
+
+.unfurl .field {
+  animation: unroll 620ms var(--ease-out) both;
+}
+
+.unfurl .field::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 16px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgb(0 0 0 / 0.35), rgb(255 255 255 / 0.25) 45%, rgb(0 0 0 / 0.3));
+  background-color: var(--field);
+  animation: roll 620ms var(--ease-out) both;
+  pointer-events: none;
+}
+
+.unfurl .grommets i {
+  animation: punch 220ms var(--ease-out) 560ms both;
+}
+
+@keyframes unroll {
+  from {
+    clip-path: inset(-12px 100% -12px 0);
+  }
+  to {
+    clip-path: inset(-12px 0 -12px 0);
+  }
+}
+
+@keyframes roll {
+  0% {
+    left: -8px;
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 8px);
+    opacity: 0;
+  }
+}
+
+@keyframes punch {
+  from {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .unfurl .field,
+  .unfurl .field::after,
+  .unfurl .grommets i {
+    animation: none;
+  }
+
+  .unfurl .field::after {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .field {
+    min-height: 108px;
+    padding: 22px 26px;
+  }
+}

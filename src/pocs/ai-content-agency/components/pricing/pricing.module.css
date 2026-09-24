@@ -1,0 +1,246 @@
+/* 요금제: three lamp-post banners (가로등 배너) hung side by side. */
+
+.usage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-bottom: 28px;
+  padding: 14px 18px;
+  background: var(--vinyl);
+  border-top: 4px solid var(--steel-3);
+  font-weight: 600;
+}
+
+.usage strong {
+  font-size: 17px;
+}
+
+.poles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: stretch;
+}
+
+.pole {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 14px;
+  padding: 34px 26px 28px;
+  background: var(--vinyl);
+  color: var(--ink);
+  outline: 1px dashed var(--steel-2);
+  outline-offset: -8px;
+  box-shadow: 0 8px 12px -8px rgb(17 22 31 / 0.4);
+  --price: var(--cobalt);
+  --muted: var(--ink-3);
+}
+
+.pole[data-plan="pro"] {
+  background: var(--cobalt);
+  color: #fff;
+  outline-color: rgb(255 255 255 / 0.35);
+  --price: var(--yellow);
+  --muted: rgb(255 255 255 / 0.82);
+}
+
+.pole[data-plan="enterprise"] {
+  background: var(--cobalt-deep);
+  color: #fff;
+  outline-color: rgb(255 255 255 / 0.3);
+  --price: #fff;
+  --muted: rgb(255 255 255 / 0.78);
+}
+
+.stickers {
+  position: absolute;
+  top: -12px;
+  left: 22px;
+  display: flex;
+  gap: 6px;
+}
+
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  font-size: 13px;
+  font-weight: 800;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 3px rgb(0 0 0 / 0.25);
+}
+
+.sticker[data-type="recommend"] {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.sticker[data-type="current"] {
+  background: var(--red-ink);
+  color: #fff;
+}
+
+.planName {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.1;
+}
+
+.audience {
+  font-size: 14px;
+  color: var(--muted);
+  min-height: 2.9em;
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 52px;
+  line-height: 1;
+  color: var(--price);
+}
+
+.price small {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.features {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  list-style: none;
+  margin: 0;
+  padding: 16px 0 0;
+  border-top: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  font-size: 15px;
+}
+
+.features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.features svg {
+  flex: none;
+  margin-top: 3px;
+}
+
+.features li[data-included="false"] {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.choose {
+  display: grid;
+  gap: 8px;
+}
+
+.pole[data-plan="pro"] .choose button,
+.pole[data-plan="enterprise"] .choose button {
+  background: #fff;
+  color: var(--ink);
+}
+
+.pole[data-plan="pro"] .choose button:hover,
+.pole[data-plan="enterprise"] .choose button:hover {
+  background: var(--yellow);
+}
+
+.current {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  font-weight: 800;
+  border: 1.5px solid currentColor;
+  border-radius: var(--radius);
+}
+
+.chooseError {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 8px;
+  background: #fff;
+  color: var(--red-ink);
+}
+
+.demoNote {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.lower {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 28px;
+  margin-top: 40px;
+  align-items: start;
+}
+
+.panel {
+  display: grid;
+  gap: 14px;
+  padding: 22px 24px;
+  background: var(--vinyl);
+  border-top: 4px solid var(--steel-3);
+}
+
+.panelTitle {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.history {
+  display: grid;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+.history li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--steel-1);
+  font-variant-numeric: tabular-nums;
+}
+
+.history time {
+  color: var(--ink-3);
+}
+
+@media (max-width: 960px) {
+  .poles {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 520px;
+  }
+
+  .lower {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .panel {
+    padding: 18px 16px;
+    margin: 0 calc(var(--gutter) * -1);
+  }
+}
