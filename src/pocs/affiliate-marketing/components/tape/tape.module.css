@@ -1,0 +1,88 @@
+/* Scan tape: the latest clicks, printed like a POS log. */
+.tape {
+  background: var(--am-paper);
+  border: 1.5px solid var(--am-ink);
+  border-radius: var(--am-radius);
+}
+
+.tapeHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 10px 14px;
+  border-bottom: 1.5px dashed var(--am-rail-lip);
+  font-size: var(--am-fs-xs);
+  font-weight: 700;
+  color: var(--am-ink-2);
+}
+
+.tapeHead b {
+  color: var(--am-ink);
+}
+
+.tapeList {
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+}
+
+.tapeRow {
+  display: grid;
+  grid-template-columns: 3.4em minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 10px;
+  padding: 7px 14px;
+  font-size: var(--am-fs-sm);
+  border-bottom: 1px dashed var(--am-rule);
+}
+
+.tapeRow:last-child {
+  border-bottom: 0;
+}
+
+.tapeTime {
+  font-weight: 800;
+  color: var(--am-ink);
+}
+
+.tapeProduct {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--am-ink);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a.tapeProduct:hover {
+  text-decoration: underline;
+}
+
+.tapeChannel {
+  font-size: var(--am-fs-xs);
+  font-weight: 700;
+  color: var(--am-ink-2);
+  white-space: nowrap;
+}
+
+.tapeEmpty {
+  padding: 18px 14px;
+  color: var(--am-ink-2);
+  font-size: var(--am-fs-sm);
+}
+
+.tapeWide .tapeRow {
+  grid-template-columns: 6.4em minmax(0, 1fr) auto;
+}
+
+@media (max-width: 420px) {
+  .tapeRow,
+  .tapeWide .tapeRow {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .tapeChannel {
+    grid-column: 2;
+  }
+}

@@ -1,0 +1,553 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T12:52:04+00:00",
+  "title": "Design System: 링크잇",
+  "extensions": {
+    "colorMeta": {
+      "flyer-red": {
+        "role": "primary",
+        "displayName": "Flyer Red",
+        "canonical": "oklch(0.565 0.222 27)",
+        "tonalRamp": [
+          "oklch(0.15 0.133 27)",
+          "oklch(0.27 0.133 27)",
+          "oklch(0.39 0.200 27)",
+          "oklch(0.51 0.200 27)",
+          "oklch(0.63 0.200 27)",
+          "oklch(0.75 0.200 27)",
+          "oklch(0.86 0.200 27)",
+          "oklch(0.95 0.133 27)"
+        ]
+      },
+      "flyer-red-deep": {
+        "role": "primary",
+        "displayName": "Flyer Red Deep",
+        "canonical": "oklch(0.47 0.2 27)",
+        "tonalRamp": [
+          "oklch(0.15 0.120 27)",
+          "oklch(0.27 0.120 27)",
+          "oklch(0.39 0.200 27)",
+          "oklch(0.51 0.200 27)",
+          "oklch(0.63 0.200 27)",
+          "oklch(0.75 0.200 27)",
+          "oklch(0.86 0.200 27)",
+          "oklch(0.95 0.120 27)"
+        ]
+      },
+      "flyer-red-soft": {
+        "role": "primary",
+        "displayName": "Flyer Red Soft",
+        "canonical": "oklch(0.95 0.035 25)",
+        "tonalRamp": [
+          "oklch(0.15 0.021 25)",
+          "oklch(0.27 0.021 25)",
+          "oklch(0.39 0.035 25)",
+          "oklch(0.51 0.035 25)",
+          "oklch(0.63 0.035 25)",
+          "oklch(0.75 0.035 25)",
+          "oklch(0.86 0.035 25)",
+          "oklch(0.95 0.021 25)"
+        ]
+      },
+      "event-yellow": {
+        "role": "secondary",
+        "displayName": "Event Yellow",
+        "canonical": "oklch(0.895 0.172 96)",
+        "tonalRamp": [
+          "oklch(0.15 0.103 96)",
+          "oklch(0.27 0.103 96)",
+          "oklch(0.39 0.172 96)",
+          "oklch(0.51 0.172 96)",
+          "oklch(0.63 0.172 96)",
+          "oklch(0.75 0.172 96)",
+          "oklch(0.86 0.172 96)",
+          "oklch(0.95 0.103 96)"
+        ]
+      },
+      "event-yellow-deep": {
+        "role": "secondary",
+        "displayName": "Event Yellow Deep",
+        "canonical": "oklch(0.82 0.17 88)",
+        "tonalRamp": [
+          "oklch(0.15 0.102 88)",
+          "oklch(0.27 0.102 88)",
+          "oklch(0.39 0.170 88)",
+          "oklch(0.51 0.170 88)",
+          "oklch(0.63 0.170 88)",
+          "oklch(0.75 0.170 88)",
+          "oklch(0.86 0.170 88)",
+          "oklch(0.95 0.102 88)"
+        ]
+      },
+      "event-yellow-soft": {
+        "role": "secondary",
+        "displayName": "Event Yellow Soft",
+        "canonical": "oklch(0.965 0.07 100)",
+        "tonalRamp": [
+          "oklch(0.15 0.042 100)",
+          "oklch(0.27 0.042 100)",
+          "oklch(0.39 0.070 100)",
+          "oklch(0.51 0.070 100)",
+          "oklch(0.63 0.070 100)",
+          "oklch(0.75 0.070 100)",
+          "oklch(0.86 0.070 100)",
+          "oklch(0.95 0.042 100)"
+        ]
+      },
+      "label-ink": {
+        "role": "neutral",
+        "displayName": "Label Ink",
+        "canonical": "oklch(0.2 0.015 265)",
+        "tonalRamp": [
+          "oklch(0.15 0.009 265)",
+          "oklch(0.27 0.009 265)",
+          "oklch(0.39 0.015 265)",
+          "oklch(0.51 0.015 265)",
+          "oklch(0.63 0.015 265)",
+          "oklch(0.75 0.015 265)",
+          "oklch(0.86 0.015 265)",
+          "oklch(0.95 0.009 265)"
+        ]
+      },
+      "ink-secondary": {
+        "role": "neutral",
+        "displayName": "Ink Secondary",
+        "canonical": "oklch(0.4 0.014 265)",
+        "tonalRamp": [
+          "oklch(0.15 0.008 265)",
+          "oklch(0.27 0.008 265)",
+          "oklch(0.39 0.014 265)",
+          "oklch(0.51 0.014 265)",
+          "oklch(0.63 0.014 265)",
+          "oklch(0.75 0.014 265)",
+          "oklch(0.86 0.014 265)",
+          "oklch(0.95 0.008 265)"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "canonical": "oklch(0.49 0.012 265)",
+        "tonalRamp": [
+          "oklch(0.15 0.007 265)",
+          "oklch(0.27 0.007 265)",
+          "oklch(0.39 0.012 265)",
+          "oklch(0.51 0.012 265)",
+          "oklch(0.63 0.012 265)",
+          "oklch(0.75 0.012 265)",
+          "oklch(0.86 0.012 265)",
+          "oklch(0.95 0.007 265)"
+        ]
+      },
+      "label-white": {
+        "role": "neutral",
+        "displayName": "Label White",
+        "canonical": "oklch(1 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0.000 0)",
+          "oklch(0.27 0.000 0)",
+          "oklch(0.39 0.000 0)",
+          "oklch(0.51 0.000 0)",
+          "oklch(0.63 0.000 0)",
+          "oklch(0.75 0.000 0)",
+          "oklch(0.86 0.000 0)",
+          "oklch(0.95 0.000 0)"
+        ]
+      },
+      "flyer-paper": {
+        "role": "neutral",
+        "displayName": "Flyer Paper",
+        "canonical": "oklch(0.99 0.002 255)",
+        "tonalRamp": [
+          "oklch(0.15 0.001 255)",
+          "oklch(0.27 0.001 255)",
+          "oklch(0.39 0.002 255)",
+          "oklch(0.51 0.002 255)",
+          "oklch(0.63 0.002 255)",
+          "oklch(0.75 0.002 255)",
+          "oklch(0.86 0.002 255)",
+          "oklch(0.95 0.001 255)"
+        ]
+      },
+      "shelf-gray": {
+        "role": "neutral",
+        "displayName": "Shelf Gray",
+        "canonical": "oklch(0.953 0.005 255)",
+        "tonalRamp": [
+          "oklch(0.15 0.003 255)",
+          "oklch(0.27 0.003 255)",
+          "oklch(0.39 0.005 255)",
+          "oklch(0.51 0.005 255)",
+          "oklch(0.63 0.005 255)",
+          "oklch(0.75 0.005 255)",
+          "oklch(0.86 0.005 255)",
+          "oklch(0.95 0.003 255)"
+        ]
+      },
+      "shelf-gray-deep": {
+        "role": "neutral",
+        "displayName": "Shelf Gray Deep",
+        "canonical": "oklch(0.915 0.007 255)",
+        "tonalRamp": [
+          "oklch(0.15 0.004 255)",
+          "oklch(0.27 0.004 255)",
+          "oklch(0.39 0.007 255)",
+          "oklch(0.51 0.007 255)",
+          "oklch(0.63 0.007 255)",
+          "oklch(0.75 0.007 255)",
+          "oklch(0.86 0.007 255)",
+          "oklch(0.95 0.004 255)"
+        ]
+      },
+      "rail-gray": {
+        "role": "neutral",
+        "displayName": "Rail Gray",
+        "canonical": "oklch(0.84 0.009 255)",
+        "tonalRamp": [
+          "oklch(0.15 0.005 255)",
+          "oklch(0.27 0.005 255)",
+          "oklch(0.39 0.009 255)",
+          "oklch(0.51 0.009 255)",
+          "oklch(0.63 0.009 255)",
+          "oklch(0.75 0.009 255)",
+          "oklch(0.86 0.009 255)",
+          "oklch(0.95 0.005 255)"
+        ]
+      },
+      "rail-lip": {
+        "role": "neutral",
+        "displayName": "Rail Lip",
+        "canonical": "oklch(0.7 0.012 255)",
+        "tonalRamp": [
+          "oklch(0.15 0.007 255)",
+          "oklch(0.27 0.007 255)",
+          "oklch(0.39 0.012 255)",
+          "oklch(0.51 0.012 255)",
+          "oklch(0.63 0.012 255)",
+          "oklch(0.75 0.012 255)",
+          "oklch(0.86 0.012 255)",
+          "oklch(0.95 0.007 255)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(0.86 0.007 255)",
+        "tonalRamp": [
+          "oklch(0.15 0.004 255)",
+          "oklch(0.27 0.004 255)",
+          "oklch(0.39 0.007 255)",
+          "oklch(0.51 0.007 255)",
+          "oklch(0.63 0.007 255)",
+          "oklch(0.75 0.007 255)",
+          "oklch(0.86 0.007 255)",
+          "oklch(0.95 0.004 255)"
+        ]
+      },
+      "market-up": {
+        "role": "status",
+        "displayName": "Market Up (red rises)",
+        "canonical": "oklch(0.54 0.21 27)",
+        "tonalRamp": [
+          "oklch(0.15 0.126 27)",
+          "oklch(0.27 0.126 27)",
+          "oklch(0.39 0.200 27)",
+          "oklch(0.51 0.200 27)",
+          "oklch(0.63 0.200 27)",
+          "oklch(0.75 0.200 27)",
+          "oklch(0.86 0.200 27)",
+          "oklch(0.95 0.126 27)"
+        ]
+      },
+      "market-down": {
+        "role": "status",
+        "displayName": "Market Down (blue falls)",
+        "canonical": "oklch(0.5 0.17 258)",
+        "tonalRamp": [
+          "oklch(0.15 0.102 258)",
+          "oklch(0.27 0.102 258)",
+          "oklch(0.39 0.170 258)",
+          "oklch(0.51 0.170 258)",
+          "oklch(0.63 0.170 258)",
+          "oklch(0.75 0.170 258)",
+          "oklch(0.86 0.170 258)",
+          "oklch(0.95 0.102 258)"
+        ]
+      },
+      "market-down-soft": {
+        "role": "status",
+        "displayName": "Market Down Soft",
+        "canonical": "oklch(0.95 0.03 258)",
+        "tonalRamp": [
+          "oklch(0.15 0.018 258)",
+          "oklch(0.27 0.018 258)",
+          "oklch(0.39 0.030 258)",
+          "oklch(0.51 0.030 258)",
+          "oklch(0.63 0.030 258)",
+          "oklch(0.75 0.030 258)",
+          "oklch(0.86 0.030 258)",
+          "oklch(0.95 0.018 258)"
+        ]
+      },
+      "confirmed-green": {
+        "role": "status",
+        "displayName": "Confirmed Green",
+        "canonical": "oklch(0.5 0.13 150)",
+        "tonalRamp": [
+          "oklch(0.15 0.078 150)",
+          "oklch(0.27 0.078 150)",
+          "oklch(0.39 0.130 150)",
+          "oklch(0.51 0.130 150)",
+          "oklch(0.63 0.130 150)",
+          "oklch(0.75 0.130 150)",
+          "oklch(0.86 0.130 150)",
+          "oklch(0.95 0.078 150)"
+        ]
+      },
+      "confirmed-green-soft": {
+        "role": "status",
+        "displayName": "Confirmed Green Soft",
+        "canonical": "oklch(0.95 0.04 150)",
+        "tonalRamp": [
+          "oklch(0.15 0.024 150)",
+          "oklch(0.27 0.024 150)",
+          "oklch(0.39 0.040 150)",
+          "oklch(0.51 0.040 150)",
+          "oklch(0.63 0.040 150)",
+          "oklch(0.75 0.040 150)",
+          "oklch(0.86 0.040 150)",
+          "oklch(0.95 0.024 150)"
+        ]
+      },
+      "series-1": {
+        "role": "data",
+        "displayName": "Series 1 Red",
+        "canonical": "#da151f"
+      },
+      "series-2": {
+        "role": "data",
+        "displayName": "Series 2 Blue",
+        "canonical": "#145ec1"
+      },
+      "series-3": {
+        "role": "data",
+        "displayName": "Series 3 Amber",
+        "canonical": "#dc8900"
+      },
+      "series-4": {
+        "role": "data",
+        "displayName": "Series 4 Green",
+        "canonical": "#23864b"
+      },
+      "series-5": {
+        "role": "data",
+        "displayName": "Series 5 Plum",
+        "canonical": "#8e3b86"
+      },
+      "series-other": {
+        "role": "data",
+        "displayName": "Series Other Gray",
+        "canonical": "#9a9fa6"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Signboard Display",
+        "purpose": "Page band titles and the dashboard headline sentence."
+      },
+      "headline": {
+        "displayName": "Section Headline",
+        "purpose": "Section and form panel titles."
+      },
+      "price-hero": {
+        "displayName": "Price Hero",
+        "purpose": "The month's earnings on the dashboard, once per view."
+      },
+      "price": {
+        "displayName": "Price",
+        "purpose": "Label prices, summary figures, goal percentage."
+      },
+      "title": {
+        "displayName": "Product Title",
+        "purpose": "Product names on labels and rows."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Tables, forms, notes; tabular numerals."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Table headers, field labels, chips, small print."
+      }
+    },
+    "shadows": [
+      {
+        "name": "rail-lip",
+        "value": "inset 0 2px 0 oklch(1 0 0 / 0.55), inset 0 -6px 0 oklch(0.7 0.012 255)",
+        "purpose": "Flat top highlight and darker bottom lip of the shelf rail (bands, not a gradient)."
+      },
+      {
+        "name": "marker-ring",
+        "value": "0 0 0 2px oklch(1 0 0)",
+        "purpose": "Paper ring around chart order markers so they read over bars."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-flyer",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Exponential ease-out for every state transition."
+      },
+      {
+        "name": "state-transition",
+        "value": "150ms",
+        "purpose": "Hover and colour changes."
+      },
+      {
+        "name": "scan-sweep",
+        "value": "280ms",
+        "purpose": "Scanner line across a barcode on copy (스캔 복사)."
+      },
+      {
+        "name": "sticker-stamp",
+        "value": "180ms",
+        "purpose": "Success notices and the 복사됨 pill stamping in."
+      },
+      {
+        "name": "clip-on",
+        "value": "220ms",
+        "purpose": "A newly registered label clipping onto its rail; the only label motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "stack",
+        "value": "1080px"
+      },
+      {
+        "name": "shelf-cards",
+        "value": "900px"
+      },
+      {
+        "name": "ledger-cards",
+        "value": "760px"
+      },
+      {
+        "name": "phone",
+        "value": "560px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one red action per area: 링크 등록, 판매 기록, 초안 만들기.",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M12 5v14M5 12h14\"/></svg>링크 등록</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border:2px solid oklch(0.47 0.2 27);border-radius:3px;background:oklch(0.565 0.222 27);color:#fff;font:700 15px/1 \"Pretendard Variable\", Pretendard, -apple-system, sans-serif;cursor:pointer;transition:background-color 150ms cubic-bezier(0.16,1,0.3,1),transform 120ms}.ds-btn-primary:hover{background:oklch(0.47 0.2 27)}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:3px solid oklch(0.2 0.015 265);outline-offset:2px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "White with an ink border; hover takes the yellow-soft fill.",
+      "html": "<button class=\"ds-btn\">판매 기록</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border:2px solid oklch(0.2 0.015 265);border-radius:3px;background:#fff;color:oklch(0.2 0.015 265);font:700 15px/1 \"Pretendard Variable\", Pretendard, -apple-system, sans-serif;cursor:pointer;transition:background-color 150ms}.ds-btn:hover{background:oklch(0.965 0.07 100)}.ds-btn:focus-visible{outline:3px solid oklch(0.2 0.015 265);outline-offset:2px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "44px field with an inside unit suffix; focus adds a yellow ring.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">주문 금액</span><span class=\"ds-field-box\"><input class=\"ds-input\" placeholder=\"219,000\"><span class=\"ds-unit\">원</span></span></label>",
+      "css": ".ds-field{display:grid;gap:6px;font-family:\"Pretendard Variable\", Pretendard, -apple-system, sans-serif}.ds-field-label{font-weight:700;font-size:13px;color:oklch(0.2 0.015 265)}.ds-field-box{position:relative;display:flex;align-items:center}.ds-input{width:100%;min-height:44px;padding:0 40px 0 12px;border:1.5px solid oklch(0.7 0.012 255);border-radius:3px;background:#fff;color:oklch(0.2 0.015 265);font-size:16px}.ds-input:hover{border-color:oklch(0.4 0.014 265)}.ds-input:focus-visible{outline:none;border-color:oklch(0.2 0.015 265);box-shadow:0 0 0 3px oklch(0.895 0.172 96)}.ds-unit{position:absolute;right:12px;font-weight:700;font-size:13px;color:oklch(0.4 0.014 265)}"
+    },
+    {
+      "name": "Store Band",
+      "kind": "nav",
+      "refersTo": "store-band",
+      "description": "Red header with the wordmark, aisle nav (current page = yellow tab) and the 샘플 sticker.",
+      "html": "<nav class=\"ds-band\"><strong class=\"ds-mark\">링크잇</strong><a class=\"ds-nav\" aria-current=\"page\" href=\"#\">대시보드</a><a class=\"ds-nav\" href=\"#\">링크</a><a class=\"ds-nav\" href=\"#\">판매 기록</a><span class=\"ds-sticker\">샘플</span></nav>",
+      "css": ".ds-band{display:flex;align-items:stretch;gap:2px;height:56px;padding:0 16px;background:oklch(0.565 0.222 27);border-bottom:3px solid oklch(0.895 0.172 96);font-family:\"Pretendard Variable\", Pretendard, -apple-system, sans-serif}.ds-mark{align-self:center;margin-right:20px;color:#fff;font:400 24px/1 'Black Han Sans',sans-serif}.ds-nav{display:flex;align-items:center;padding:0 12px;color:rgba(255,255,255,.86);font-weight:600;font-size:15px;text-decoration:none}.ds-nav:hover{color:#fff;background:rgba(0,0,0,.1)}.ds-nav[aria-current=page]{background:oklch(0.895 0.172 96);color:oklch(0.2 0.015 265)}.ds-nav:focus-visible{outline:3px solid oklch(0.895 0.172 96);outline-offset:-3px}.ds-sticker{align-self:center;margin-left:auto;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:oklch(0.895 0.172 96);color:oklch(0.2 0.015 265);font-weight:800;font-size:12px;transform:rotate(-8deg)}"
+    },
+    {
+      "name": "Status Chip",
+      "kind": "chip",
+      "refersTo": "chip-status",
+      "description": "Outlined status tag in its tone: 판매 중, 구매 확정, 판매 종료.",
+      "html": "<span class=\"ds-chip ds-chip-ok\">판매 중</span> <span class=\"ds-chip ds-chip-red\">판매 종료</span>",
+      "css": ".ds-chip{display:inline-flex;padding:1px 7px;border:1.5px solid currentColor;border-radius:2px;font:700 12px/1.5 \"Pretendard Variable\",sans-serif}.ds-chip-ok{color:oklch(0.5 0.13 150);background:oklch(0.95 0.04 150)}.ds-chip-red{color:oklch(0.47 0.2 27);background:oklch(0.95 0.035 25)}"
+    },
+    {
+      "name": "Shelf Label",
+      "kind": "custom",
+      "refersTo": "shelf-label",
+      "description": "A link as a shelf-edge price label on its rail: earned amount as the price, 클릭당 수익 as the unit price, barcode copies the short link.",
+      "html": "<div class=\"ds-rail\"><article class=\"ds-label ds-promo\"><div class=\"ds-top\"><span>쿠팡 파트너스</span><span>전자기기</span></div><p class=\"ds-name\">애플 에어팟 프로 2</p><div class=\"ds-price-row\"><span class=\"ds-unit-box\">클릭당<b>480원</b></span><span class=\"ds-price\">123,384<small>원</small></span></div><p class=\"ds-facts\">클릭 <b>257</b> · 판매 <b>10</b> · 전환 <b>3.9%</b></p><button class=\"ds-scan\" aria-label=\"짧은 링크 복사\"><svg viewBox=\"0 0 40 10\" preserveAspectRatio=\"none\" width=\"120\" height=\"28\"><rect x=\"0\" width=\"1\" height=\"10\"/><rect x=\"2\" width=\"2.5\" height=\"10\"/><rect x=\"6\" width=\"1\" height=\"10\"/><rect x=\"9\" width=\"2.5\" height=\"10\"/><rect x=\"13\" width=\"1\" height=\"10\"/><rect x=\"15\" width=\"1\" height=\"10\"/><rect x=\"18\" width=\"2.5\" height=\"10\"/><rect x=\"22\" width=\"1\" height=\"10\"/><rect x=\"25\" width=\"2.5\" height=\"10\"/><rect x=\"29\" width=\"1\" height=\"10\"/><rect x=\"31\" width=\"2.5\" height=\"10\"/><rect x=\"35\" width=\"1\" height=\"10\"/><rect x=\"38\" width=\"2\" height=\"10\"/></svg><span>pdn4x9</span></button></article></div>",
+      "css": ".ds-rail{padding:10px 10px 16px;background:oklch(0.84 0.009 255);border-radius:2px;box-shadow:inset 0 2px 0 rgba(255,255,255,.55),inset 0 -6px 0 oklch(0.7 0.012 255);font-family:\"Pretendard Variable\", Pretendard, -apple-system, sans-serif}.ds-label{display:grid;gap:8px;max-width:240px;padding:12px 12px 10px;background:#fff;border:1.5px solid oklch(0.2 0.015 265);border-radius:2px;color:oklch(0.2 0.015 265)}.ds-promo{background:oklch(0.895 0.172 96)}.ds-top{display:flex;justify-content:space-between;padding-bottom:6px;border-bottom:1.5px solid oklch(0.2 0.015 265);font-size:12px;font-weight:700}.ds-name{margin:0;font-weight:800;font-size:15px}.ds-price-row{display:flex;align-items:flex-end;justify-content:space-between}.ds-unit-box{display:grid;padding:4px 6px;border:1.5px solid oklch(0.2 0.015 265);background:#fff;font-size:11px;font-weight:700}.ds-price{color:oklch(0.565 0.222 27);font:800 28px/0.95 Archivo,sans-serif;font-stretch:72%;font-variation-settings:'wdth' 72}.ds-price small{font:800 0.42em \"Pretendard Variable\", Pretendard, -apple-system, sans-serif}.ds-facts{margin:0;font-size:12px;font-weight:600}.ds-scan{display:flex;align-items:center;gap:8px;padding:4px 6px;border:1.5px dashed transparent;background:#fff;color:oklch(0.2 0.015 265);font-weight:700;font-size:12px;cursor:copy}.ds-scan:hover{border-color:oklch(0.49 0.012 265)}.ds-scan:focus-visible{outline:3px solid oklch(0.2 0.015 265);outline-offset:2px}"
+    },
+    {
+      "name": "Flyer Band",
+      "kind": "card",
+      "refersTo": "flyer-band",
+      "description": "The yellow page header every screen opens with, closed by a 3px ink rule.",
+      "html": "<header class=\"ds-flyer\"><h1>링크 진열대</h1><p>링크 12개 · 판매 중 10개. 금액은 링크가 지금까지 번 수수료예요.</p></header>",
+      "css": ".ds-flyer{padding:32px 24px 24px;background:oklch(0.895 0.172 96);border-bottom:3px solid oklch(0.2 0.015 265);color:oklch(0.2 0.015 265);font-family:\"Pretendard Variable\", Pretendard, -apple-system, sans-serif}.ds-flyer h1{margin:0 0 12px;font:400 40px/1.1 'Black Han Sans',sans-serif;letter-spacing:-0.01em}.ds-flyer p{margin:0;font-size:15px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Shelf Label",
+    "overview": "링크잇 is built from a Korean supermarket's weekly flyer (마트 전단지) and the price labels clipped to its shelves (매대 가격표). Every affiliate link is a product on the shelf, and its label shows what the link has earned, not what the product costs. The page is flyer paper: a red store band at the top, yellow event bands that own whole regions, ink-black text, and gray shelf rails that the labels clip onto. Money is always a price: condensed heavy numerals with a small 원.\n\nThe system is an operating tool first. The flyer grammar lives in precise, functional places — the price numerals, the 단위가격 box that reads 클릭당 수익, the barcode that copies the short link, the round price-gun stickers — while tables, forms and navigation stay plain and familiar. Density is welcome. Light theme, from the scene: an evening desk or a daytime commute, copy drafted for white blog pages.",
+    "keyCharacteristics": [
+      "Red store band, yellow flyer bands, white flyer paper, gray shelf rails.",
+      "Prices in condensed heavy numerals (Archivo, width 72) with a small Pretendard 원.",
+      "Headings in a signboard face (Black Han Sans); everything else in Pretendard.",
+      "Square-ish corners (2–3px), 1.5px ink rules, no drop shadows.",
+      "Korean market colour convention: red rises, blue falls.",
+      "One signature interaction: 스캔 복사 (scan the barcode to copy the short link)."
+    ],
+    "rules": [
+      {
+        "name": "The Price Is Red Rule",
+        "body": "An earned amount is always red condensed numerals; nothing else in the UI wears red text except errors and destructive actions.",
+        "section": "colors"
+      },
+      {
+        "name": "The Region Rule",
+        "body": "Yellow and red paint whole bands (header, page band, promo label), never small decorative accents on gray.",
+        "section": "colors"
+      },
+      {
+        "name": "The Signboard Stops at Headings Rule",
+        "body": "Black Han Sans never sets buttons, labels, data or body text.",
+        "section": "typography"
+      },
+      {
+        "name": "The Small 원 Rule",
+        "body": "The currency unit sits at 0.42em beside a price numeral, in Pretendard 800.",
+        "section": "typography"
+      },
+      {
+        "name": "The Printed Rule",
+        "body": "No drop shadows, no blur, no glass. If something needs to stand out, give it a band of colour or a heavier rule.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do show every earned amount as a red Archivo price with a small 원.",
+      "Do open every screen with a yellow flyer band and a 3px ink rule.",
+      "Do keep sample data labelled: the 샘플 sticker in the store band and the footer note.",
+      "Do use red ▲ for rises and blue ▼ for falls, and show a change that rounds to zero as 변화 없음.",
+      "Do put destructive actions behind an inline confirmation step."
+    ],
+    "donts": [
+      "Don't use drop shadows, blur, glass or gradients; the flyer is printed.",
+      "Don't set buttons, labels or data in Black Han Sans.",
+      "Don't colour deltas green/red; this is a Korean market convention (red up, blue down).",
+      "Don't place a small label or kicker above a heading; state tags are corner stickers.",
+      "Don't animate labels on page load; only a newly registered label moves.",
+      "Don't return to the four-KPI-card dashboard of the legacy POC."
+    ]
+  }
+}
