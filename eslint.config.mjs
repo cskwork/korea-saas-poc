@@ -22,5 +22,5 @@ export default defineConfig([
       ],
     },
   },
-  globalIgnores([".next/**", ".next-*/**", "out/**", "build/**", "next-env.d.ts", "pocs/**", ".data/**", "drizzle/**"]),
+  globalIgnores([".next/**", ".next-*/**", "out/**", "build/**", "next-env.d.ts", "pocs/**", "public/pocs/**", ".data/**", "drizzle/**"]),
 ]);
