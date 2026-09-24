@@ -1,0 +1,192 @@
+.grid {
+  display: grid;
+  gap: var(--s8);
+}
+
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.head {
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.head h2 {
+  font-size: var(--t-head);
+  letter-spacing: -0.02em;
+  flex: 1;
+  text-align: center;
+}
+
+.headEnd {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.dow,
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.dow {
+  border-bottom: 1px solid var(--rule);
+}
+
+.dow span {
+  text-align: center;
+  font-size: var(--t-caption);
+  font-weight: 700;
+  color: var(--ink-3);
+  padding: var(--s2) 0;
+}
+
+.dow .sun {
+  color: var(--sun);
+}
+
+.dow .sat {
+  color: var(--sat);
+}
+
+.days {
+  border-left: 1px solid var(--rule);
+}
+
+.day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 72px;
+  padding: 6px;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink);
+  text-decoration: none;
+  min-width: 0;
+}
+
+a.day:hover {
+  background: var(--field);
+}
+
+.dayNo {
+  font-weight: 700;
+  font-size: var(--t-small);
+  line-height: 1;
+}
+
+.sun .dayNo {
+  color: var(--sun);
+}
+
+.sat .dayNo {
+  color: var(--sat);
+}
+
+.other {
+  color: var(--ink-3);
+  opacity: 0.45;
+}
+
+.other .dayNo {
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+.count {
+  font-size: var(--t-caption);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.closed {
+  background: var(--paper-deep);
+}
+
+.closedTag {
+  font-size: var(--t-micro);
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.pendingMark {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 9px;
+  height: 9px;
+  border: 1.5px dashed var(--wait);
+}
+
+.today .dayNo {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  margin: -4px 0 0 -4px;
+  border: 1.5px solid var(--seal);
+  border-radius: 50%;
+  color: var(--seal);
+}
+
+.selected {
+  background: var(--ink);
+}
+
+a.selected:hover {
+  background: var(--ink-2);
+}
+
+.selected .dayNo,
+.selected .count,
+.selected .closedTag {
+  color: var(--on-ink);
+}
+
+.selected.today .dayNo {
+  border-color: var(--on-ink);
+}
+
+.selected .pendingMark {
+  border-color: var(--on-ink);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s3) 0;
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+
+.legendPending {
+  width: 9px;
+  height: 9px;
+  border: 1.5px dashed var(--wait);
+  flex: none;
+}
+
+.addRow {
+  padding-top: var(--s4);
+}
+
+@media (max-width: 480px) {
+  .day {
+    min-height: 56px;
+    padding: 5px 4px;
+  }
+
+  .count {
+    font-size: var(--t-micro);
+  }
+}

@@ -1,0 +1,164 @@
+/*
+ * 예약잇다 — the signed ledger.
+ * Official-form paper, form-green rules, blue-black ink, stamp inks.
+ * Tokens live on the module root; every component module reads them.
+ */
+
+.root {
+  color-scheme: light;
+
+  /* Paper and rules */
+  --paper: #e5ede8;
+  --paper-deep: #d8e3dc;
+  --field: #f3f7f4;
+  --rule: #b7cabe;
+  --rule-strong: #6f8f7e;
+  --rule-faint: #cfdcd4;
+
+  /* Ink */
+  --ink: #1d2738;
+  --ink-2: #3b4658;
+  --ink-3: #566170;
+  --on-ink: #eef4f0;
+
+  /* Stamp inks */
+  --seal: #c23a2c; /* 인주 cinnabar: brand seal, 취소 */
+  --ok: #276a51; /* 확정 seal green */
+  --wait: #b0700d; /* 대기 amber line */
+  --wait-ink: #85530a; /* 대기 text */
+  --wait-soft: #e8b04a2e;
+  --sun: #b93a2e;
+  --sat: #2d5a9b;
+  --on-seal: #ffffff;
+
+  /* Type */
+  --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic",
+    system-ui, sans-serif;
+  --font-seal: var(--font-seal-face, "Black Han Sans"), "Pretendard Variable", sans-serif;
+  /* Type ramp (px at 16px root): micro 11 · caption 12 · small 13 · body 15 · input 16 · time 17 · head 18 ·
+     plan 20 · count-sm 24 · count 28 · price 32 · display 28–40. Rank comes from weight first. */
+  --t-micro: 0.6875rem;
+  --t-caption: 0.75rem;
+  --t-small: 0.8125rem;
+  --t-body: 0.9375rem;
+  --t-input: 1rem;
+  --t-time: 1.0625rem;
+  --t-head: 1.125rem;
+  --t-plan: 1.25rem;
+  --t-count-sm: 1.5rem;
+  --t-count: 1.75rem;
+  --t-price: 2rem;
+  --t-display: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+
+  /* Space */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 20px;
+  --s6: 24px;
+  --s8: 32px;
+  --s10: 40px;
+  --s12: 48px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --spine-w: 236px;
+  --tabbar-h: 64px;
+  --shadow-float: 0 24px 60px -12px #0b12204d, 0 4px 12px #0b122026;
+  --shadow-toast: 0 12px 32px -8px #0b122059;
+
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  font-feature-settings: "tnum" 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  .root {
+    color-scheme: dark;
+    --paper: #161b24;
+    --paper-deep: #10141b;
+    --field: #1e2530;
+    --rule: #33403f;
+    --rule-strong: #5f7a6d;
+    --rule-faint: #262f33;
+    --ink: #e4ece7;
+    --ink-2: #bcc8c1;
+    --ink-3: #97a39c;
+    --on-ink: #10141b;
+    --seal: #ec6a57;
+    --ok: #6fc49d;
+    --wait: #e2a847;
+    --wait-ink: #eab65a;
+    --wait-soft: #e2a8472b;
+    --sun: #f07b6a;
+    --sat: #86aee8;
+    --shadow-float: 0 24px 60px -12px #000000a6, 0 4px 12px #00000066;
+    --shadow-toast: 0 12px 32px -8px #000000a6;
+  }
+}
+
+/* The page itself is the form paper: ground, scrollbars and overscroll match. */
+:global(html):has(.root) {
+  background: #e5ede8;
+  scrollbar-color: #6f8f7e transparent;
+  scrollbar-width: thin;
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(html):has(.root) {
+    background: #161b24;
+    scrollbar-color: #5f7a6d transparent;
+  }
+}
+
+.root ::selection {
+  background: var(--seal);
+  color: var(--on-seal);
+}
+
+.root :focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.root :is(input, textarea) {
+  caret-color: var(--seal);
+}
+
+.root ::placeholder {
+  color: var(--ink-3);
+  opacity: 1;
+}
+
+.root :is(h1, h2, h3) {
+  text-wrap: balance;
+}
+
+.root strong {
+  font-weight: 700;
+}
+
+.root a {
+  text-underline-offset: 3px;
+  text-decoration-color: var(--rule-strong);
+}
+
+.skipLink {
+  position: absolute;
+  left: var(--s3);
+  top: -60px;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--on-ink);
+  padding: var(--s2) var(--s4);
+  text-decoration: none;
+}
+
+.skipLink:focus {
+  top: var(--s3);
+}

@@ -1,0 +1,215 @@
+/* ===== Ledger head: the book's date and the day's tally ===== */
+.ledgerHead {
+  display: grid;
+  gap: var(--s5);
+  padding-bottom: var(--s6);
+}
+
+.ledgerDate {
+  display: grid;
+  gap: 2px;
+}
+
+.ledgerYear {
+  font-size: var(--t-small);
+  color: var(--ink-3);
+  font-weight: 600;
+}
+
+.ledgerDay {
+  font-size: var(--t-display);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.shopLine {
+  margin-top: var(--s1);
+  font-size: var(--t-small);
+  color: var(--ink-2);
+}
+
+.tally {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1.5px solid var(--ink);
+  margin: 0;
+}
+
+.tallyCell {
+  padding: var(--s3) var(--s3) var(--s2);
+  border-left: 1px solid var(--rule-strong);
+  min-width: 0;
+}
+
+.tallyCell:first-child {
+  border-left: 0;
+}
+
+.tally dt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--t-caption);
+  font-weight: 600;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.tally dd {
+  margin: 0;
+  font-size: var(--t-count);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.isConfirmed dd {
+  color: var(--ok);
+}
+
+.isPending dd {
+  color: var(--wait-ink);
+}
+
+.isCancelled dd {
+  color: var(--seal);
+}
+
+@media (max-width: 420px) {
+  .tallyCell {
+    padding: var(--s2);
+  }
+
+  .tally dt {
+    font-size: var(--t-micro);
+    gap: 4px;
+  }
+
+  .tally dd {
+    font-size: var(--t-count-sm);
+  }
+}
+
+@media (min-width: 720px) {
+  .ledgerHead {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: end;
+    gap: var(--s8);
+  }
+
+  .tally {
+    max-width: 560px;
+    justify-self: end;
+    width: 100%;
+  }
+}
+
+/* ===== Layout: the day-book, then a narrow column of decisions and the week ===== */
+.grid {
+  display: grid;
+  gap: var(--s8);
+}
+
+.side {
+  display: grid;
+  gap: var(--s8);
+  align-content: start;
+}
+
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+  }
+}
+
+.more {
+  padding: var(--s3) 0;
+  font-size: var(--t-small);
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ===== Week chart ===== */
+.week {
+  padding-top: var(--s4);
+}
+
+.bars {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--s2);
+  height: 200px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bar {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.barCount {
+  font-size: var(--t-small);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.barCol {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.barFill {
+  width: 100%;
+  height: var(--h);
+  background: var(--rule-faint);
+  border: 1px solid var(--rule-strong);
+  border-bottom: 0;
+}
+
+.barPending {
+  width: 100%;
+  height: var(--h);
+  background: var(--wait-soft);
+  border: 1.5px dashed var(--wait);
+  border-bottom: 0;
+}
+
+.barLabel {
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+  font-weight: 600;
+}
+
+.today .barFill {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.today .barCount,
+.today .barLabel {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.weekNote {
+  margin-top: var(--s4);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--rule);
+  font-size: var(--t-small);
+  color: var(--ink-3);
+}
+
+.weekNote strong {
+  color: var(--ink);
+}

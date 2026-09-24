@@ -1,0 +1,148 @@
+.wrap {
+  display: grid;
+  gap: var(--s6);
+}
+
+.bar {
+  display: block;
+  background: var(--rule-faint);
+  animation: ink-dry 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes ink-dry {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.45;
+  }
+}
+
+.stack {
+  display: grid;
+  gap: var(--s2);
+  min-width: 0;
+}
+
+.ledger {
+  display: grid;
+  gap: var(--s5);
+}
+
+.tally {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1.5px solid var(--rule-strong);
+  max-width: 560px;
+  width: 100%;
+}
+
+.tallyCell {
+  display: grid;
+  gap: var(--s2);
+  padding: var(--s3);
+  border-left: 1px solid var(--rule);
+}
+
+.tallyCell:first-child {
+  border-left: 0;
+}
+
+@media (min-width: 720px) {
+  .ledger {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: end;
+  }
+
+  .tally {
+    justify-self: end;
+  }
+}
+
+.split {
+  display: grid;
+  gap: var(--s8);
+}
+
+@media (min-width: 1100px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+  }
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.row,
+.rowShort {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 76px;
+  gap: var(--s3);
+  align-items: center;
+  border-bottom: 1px solid var(--rule);
+}
+
+.row {
+  min-height: 64px;
+}
+
+.rowShort {
+  grid-template-columns: 40px minmax(0, 1fr);
+  min-height: 58px;
+}
+
+.sealCell {
+  height: 48px;
+  border-left: 1px solid var(--rule);
+}
+
+.month {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-left: 1px solid var(--rule);
+}
+
+.dayCell {
+  min-height: 64px;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.search {
+  display: block;
+  height: 48px;
+  margin: var(--s4) 0;
+  border: 1.5px solid var(--rule-strong);
+}
+
+.slipWrap {
+  display: grid;
+  max-width: 640px;
+  margin: var(--s10) auto 0;
+  padding: 0 var(--s4);
+}
+
+.plate {
+  display: block;
+  aspect-ratio: 3 / 2;
+  border: 1.5px solid var(--rule-strong);
+  background: var(--paper-deep);
+}
+
+.slip {
+  display: grid;
+  gap: var(--s3);
+  padding: var(--s5);
+  border: 1.5px solid var(--rule-strong);
+  border-top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    animation: none;
+  }
+}
