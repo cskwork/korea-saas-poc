@@ -116,6 +116,7 @@ function sampleOrders(
   for (let daysAgo = HISTORY_DAYS - 1; daysAgo >= 0; daysAgo -= 1) {
     const dayKey = addDays(todayKey, -daysAgo);
     const dayStart = seoulDayStart(dayKey).getTime();
+    const minutesSinceDayStart = Math.max(0, Math.floor((now.getTime() - dayStart) / 60_000));
     const weekday = new Date(`${dayKey}T12:00:00+09:00`).getUTCDay();
     // Slow growth toward today, busier Sundays and Mondays, some noise.
     const growth = ((HISTORY_DAYS - daysAgo) / HISTORY_DAYS) * 3;
@@ -123,10 +124,11 @@ function sampleOrders(
     const count = daysAgo === 0 ? 5 : Math.max(1, Math.round(3 + growth + weekend + random.int(-2, 2)));
 
     for (let n = 0; n < count; n += 1) {
-      // Today's orders land between 6 hours ago and 5 minutes ago; earlier days 07:00–23:59.
+      // Today's orders land in the last 6 hours but never before Seoul midnight (so they stay
+      // "today" at any hour); earlier days 07:00–23:59.
       const orderedMs =
         daysAgo === 0
-          ? now.getTime() - random.int(5, 360) * 60_000
+          ? now.getTime() - random.int(Math.min(5, minutesSinceDayStart), Math.min(360, minutesSinceDayStart)) * 60_000
           : dayStart + 7 * HOUR + random.int(0, 17 * 60 - 1) * 60_000;
       const orderedAt = new Date(orderedMs);
       const available = rows.filter((row) => row.status === "selling" || daysAgo > 14);
