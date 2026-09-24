@@ -1,0 +1,284 @@
+/* ===== Day-book: ruled rows, 결재 cell at the right edge ===== */
+.legend {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 76px;
+  gap: var(--s3);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  color: var(--ink-3);
+  padding: var(--s2) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.legend span:last-child {
+  text-align: center;
+}
+
+.book {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto 76px;
+  gap: var(--s3);
+  align-items: center;
+  min-height: 64px;
+  padding: var(--s2) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.row[aria-busy="true"] .actions {
+  opacity: 0.6;
+}
+
+.time {
+  display: grid;
+  align-self: start;
+  padding-top: 3px;
+  line-height: 1.2;
+}
+
+.start {
+  font-weight: 800;
+  font-size: var(--t-time);
+  letter-spacing: -0.02em;
+}
+
+.end {
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+.day {
+  font-size: var(--t-caption);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.main {
+  grid-column: 2;
+  min-width: 0;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px var(--s2);
+  font-weight: 700;
+}
+
+.name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.name a:hover {
+  text-decoration: underline;
+}
+
+.meta {
+  font-size: var(--t-small);
+  color: var(--ink-2);
+}
+
+.memo {
+  font-size: var(--t-small);
+  color: var(--ink-3);
+  margin-top: 2px;
+}
+
+.actions {
+  grid-column: 3;
+  display: flex;
+  gap: var(--s2);
+}
+
+.seal {
+  grid-column: 4;
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 56px;
+  border-left: 1px solid var(--rule);
+}
+
+.cancelled .name,
+.cancelled .meta {
+  text-decoration: line-through;
+  text-decoration-color: var(--seal);
+  text-decoration-thickness: 1.5px;
+  color: var(--ink-3);
+}
+
+.cancelled .name a {
+  color: var(--ink-3);
+}
+
+.past:not(.cancelled) .start {
+  color: var(--ink-3);
+  font-weight: 600;
+}
+
+.past:not(.cancelled) .main {
+  opacity: 0.72;
+}
+
+/* Ghost lines: free time is drawn, not left blank. */
+.ghost {
+  min-height: 30px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.ghost,
+.ghostButton {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  gap: var(--s3);
+  align-items: center;
+}
+
+.ghost:has(.ghostButton) {
+  display: block;
+  padding: 0;
+}
+
+.ghostButton {
+  width: 100%;
+  min-height: 30px;
+  padding: 3px 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  color: inherit;
+}
+
+.run,
+.run .ghostButton {
+  min-height: 40px;
+}
+
+.ghostTime {
+  font-size: var(--t-small);
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+.ghostLine {
+  height: 1px;
+  border-top: 1px dashed var(--rule);
+}
+
+.ghostSpan {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+
+.ghostSpan::after {
+  content: "";
+  flex: 1;
+  border-top: 1px dashed var(--rule);
+}
+
+.ghostAdd {
+  font-size: var(--t-caption);
+  font-weight: 700;
+  color: var(--ink-2);
+  padding-right: var(--s2);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.ghostButton:hover,
+.ghostButton:focus-visible {
+  background: var(--field);
+}
+
+.ghostButton:hover .ghostAdd,
+.ghostButton:focus-visible .ghostAdd {
+  opacity: 1;
+}
+
+.ghostButton:hover .ghostLine,
+.ghostButton:hover .ghostSpan::after {
+  border-top-color: var(--rule-strong);
+}
+
+/* Compact book (narrow column): actions drop under the name. */
+.compact .row {
+  grid-template-columns: 64px minmax(0, 1fr) 64px;
+  row-gap: var(--s2);
+}
+
+.compact .main {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.compact .actions {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.compact .seal {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  width: 64px;
+}
+
+@media (max-width: 560px) {
+  .legend {
+    grid-template-columns: 52px minmax(0, 1fr) 64px;
+  }
+
+  .row {
+    grid-template-columns: 52px minmax(0, 1fr) 64px;
+    row-gap: var(--s2);
+  }
+
+  .main {
+    grid-row: 1;
+  }
+
+  .actions {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .seal {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    width: 64px;
+  }
+
+  .time {
+    grid-row: 1;
+  }
+
+  .start {
+    font-size: var(--t-input);
+  }
+
+  .ghost,
+  .ghostButton {
+    grid-template-columns: 52px minmax(0, 1fr) auto;
+  }
+
+  .compact .row {
+    grid-template-columns: 52px minmax(0, 1fr) 64px;
+  }
+}
+
+@media (hover: none) {
+  .ghostAdd {
+    opacity: 0.8;
+  }
+}

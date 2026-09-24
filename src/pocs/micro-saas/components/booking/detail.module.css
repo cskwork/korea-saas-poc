@@ -1,0 +1,153 @@
+.page {
+  display: grid;
+  gap: var(--s8);
+  max-width: 880px;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  justify-self: start;
+  min-height: 36px;
+  font-size: var(--t-small);
+  font-weight: 700;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+.back svg {
+  width: 16px;
+  height: 16px;
+}
+
+.slipBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 150px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.slipBody dl {
+  margin: 0;
+}
+
+.slipBody dl > div:last-child {
+  border-bottom: 0;
+}
+
+.muted {
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+/* The 결재란: a boxed approval cell at the slip's right edge. */
+.approval {
+  display: grid;
+  align-content: start;
+  justify-items: stretch;
+  gap: var(--s2);
+  padding: 0 0 var(--s4) var(--s4);
+  border-left: 1px solid var(--rule-strong);
+}
+
+.approvalHead {
+  font-size: var(--t-caption);
+  font-weight: 700;
+  color: var(--ink-3);
+  text-align: center;
+  padding: var(--s2) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.approvalBox {
+  display: grid;
+  place-items: center;
+  height: 88px;
+  border: 1.5px solid var(--ink);
+  background: var(--field);
+}
+
+.approvalBox > span {
+  transform-origin: center;
+  scale: 1.4;
+}
+
+.approvalNote {
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+  text-align: center;
+}
+
+.approvalActions {
+  display: grid;
+  gap: var(--s2);
+}
+
+.links {
+  padding: var(--s3) 0;
+  font-size: var(--t-small);
+  border-bottom: 1px solid var(--rule);
+}
+
+.links a {
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
+.editBody {
+  padding-top: var(--s4);
+}
+
+.form {
+  display: grid;
+  gap: var(--s3);
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+@media (max-width: 560px) {
+  .slipBody {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .approval {
+    grid-template-columns: 110px minmax(0, 1fr);
+    grid-template-areas:
+      "head head"
+      "box actions"
+      "note actions";
+    padding: var(--s3) 0;
+    border-left: 0;
+    border-top: 1px solid var(--rule-strong);
+    column-gap: var(--s3);
+  }
+
+  .approvalHead {
+    grid-area: head;
+    text-align: left;
+  }
+
+  .approvalBox {
+    grid-area: box;
+  }
+
+  .approvalNote {
+    grid-area: note;
+  }
+
+  .approvalActions {
+    grid-area: actions;
+    align-content: start;
+  }
+}

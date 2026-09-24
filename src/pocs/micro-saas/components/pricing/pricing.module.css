@@ -1,0 +1,217 @@
+.intro {
+  max-width: 36rem;
+  padding-bottom: var(--s5);
+}
+
+.intro h2 {
+  font-size: var(--t-display);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.intro p {
+  margin-top: var(--s2);
+  color: var(--ink-2);
+}
+
+.usage {
+  padding: var(--s3) 0;
+  margin-bottom: var(--s5);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--t-small);
+  color: var(--ink-2);
+}
+
+.usage strong {
+  color: var(--ink);
+}
+
+.plans {
+  display: grid;
+  border: 1.5px solid var(--ink);
+}
+
+@media (min-width: 820px) {
+  .plans {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding: var(--s6) var(--s5);
+  border-top: 1px solid var(--rule-strong);
+}
+
+.plan:first-child {
+  border-top: 0;
+}
+
+@media (min-width: 820px) {
+  .plan {
+    border-top: 0;
+    border-left: 1px solid var(--rule-strong);
+  }
+
+  .plan:first-child {
+    border-left: 0;
+  }
+}
+
+.featured {
+  background: var(--field);
+}
+
+.name {
+  font-size: var(--t-plan);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.desc {
+  font-size: var(--t-small);
+  color: var(--ink-3);
+  margin-top: -8px;
+}
+
+.price {
+  padding: var(--s3) 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.num {
+  font-size: var(--t-price);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.per {
+  font-size: var(--t-small);
+  color: var(--ink-3);
+  margin-left: 2px;
+}
+
+.features {
+  display: grid;
+  gap: var(--s2);
+  flex: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 var(--s3);
+}
+
+.features li {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.features svg {
+  width: 18px;
+  height: 18px;
+}
+
+.yes {
+  color: var(--ok);
+  stroke-width: 2.2;
+}
+
+.no {
+  color: var(--ink-3);
+}
+
+.fit {
+  display: grid;
+  gap: 2px;
+  padding: var(--s2) 0;
+  border-top: 1px dashed var(--rule-strong);
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+
+.over {
+  color: var(--seal);
+  font-weight: 700;
+}
+
+.seal {
+  position: absolute;
+  top: var(--s4);
+  right: var(--s4);
+  width: 64px;
+  height: 64px;
+}
+
+.seal > span:first-child {
+  width: 64px;
+  height: 64px;
+}
+
+.demoNote {
+  padding-top: var(--s2);
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+
+.compare {
+  margin-top: var(--s10);
+}
+
+.tableScroll {
+  overflow-x: auto;
+}
+
+.tableScroll:focus-visible {
+  outline-offset: -2px;
+}
+
+.tableScroll table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--t-small);
+}
+
+@media (max-width: 480px) {
+  .tableScroll th,
+  .tableScroll td {
+    padding: var(--s2) var(--s1);
+    font-size: var(--t-caption);
+  }
+}
+
+.tableScroll th,
+.tableScroll td {
+  padding: var(--s3);
+  border-bottom: 1px solid var(--rule);
+  text-align: center;
+}
+
+.tableScroll thead th {
+  font-weight: 800;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.tableScroll tbody th {
+  text-align: left;
+  font-weight: 600;
+}
+
+.tableScroll thead th:first-child {
+  text-align: left;
+}
+
+.hl {
+  background: var(--field);
+  font-weight: 700;
+}
+
+.off {
+  color: var(--ink-3);
+  font-weight: 500;
+}

@@ -1,0 +1,406 @@
+.frame {
+  min-height: 100dvh;
+  padding: 0 0 var(--s12);
+}
+
+.demoStrip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s1) var(--s3);
+  padding: var(--s2) var(--s4);
+  background: var(--paper-deep);
+  border-bottom: 1px solid var(--rule-strong);
+  font-size: var(--t-small);
+  color: var(--ink-2);
+  text-align: center;
+}
+
+.demoStrip a {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.booking {
+  max-width: 640px;
+  margin: var(--s6) auto 0;
+  padding: 0 var(--s4);
+}
+
+/* Shop plate: the illustration is printed on the same paper */
+.shop {
+  border: 1.5px solid var(--ink);
+}
+
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.shopBody {
+  display: grid;
+  gap: 6px;
+  padding: var(--s5);
+  justify-items: start;
+}
+
+.shopName {
+  font-size: var(--t-count-sm);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--t-small);
+  color: var(--ink-2);
+}
+
+.line svg {
+  width: 16px;
+  height: 16px;
+  color: var(--ink-3);
+}
+
+.line a {
+  color: inherit;
+}
+
+.shopBody > button {
+  margin-top: var(--s2);
+}
+
+/* The booking slip */
+.slip {
+  border: 1.5px solid var(--ink);
+  border-top: 0;
+  padding: var(--s5);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--rule-strong);
+  margin: 0 0 var(--s6);
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s2) var(--s3);
+  border-left: 1px solid var(--rule-strong);
+  color: var(--ink-3);
+  font-size: var(--t-small);
+  font-weight: 600;
+  min-width: 0;
+}
+
+.step:first-child {
+  border-left: 0;
+}
+
+.stepNo {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  border: 1.5px solid currentColor;
+  font-weight: 800;
+  font-size: var(--t-caption);
+}
+
+.stepNo svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.2;
+}
+
+.stepName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.current {
+  color: var(--ink);
+  background: var(--field);
+}
+
+.current .stepNo {
+  background: var(--ink);
+  color: var(--on-ink);
+  border-color: var(--ink);
+}
+
+.done {
+  color: var(--ok);
+}
+
+.done .stepNo {
+  border-radius: 50%;
+}
+
+@media (max-width: 420px) {
+  .step {
+    flex-direction: column;
+    gap: 4px;
+    padding: var(--s2) 4px;
+    font-size: var(--t-caption);
+  }
+}
+
+.panel {
+  display: grid;
+  gap: var(--s3);
+}
+
+.stepTitle {
+  font-size: var(--t-head);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Focus moves to the step heading for screen readers; it is not a control, so no ring. */
+.panel .stepTitle:focus,
+.panel .stepTitle:focus-visible {
+  outline: none;
+}
+
+.summary {
+  font-size: var(--t-small);
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
+.summary a {
+  margin-left: var(--s2);
+  color: var(--ink);
+}
+
+/* Step 1: services as ruled rows */
+.services {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.service {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  column-gap: var(--s4);
+  min-height: 64px;
+  padding: var(--s3);
+  border-bottom: 1px solid var(--rule);
+  color: inherit;
+  text-decoration: none;
+}
+
+.service:hover {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.service:hover .serviceDur {
+  color: var(--on-ink);
+}
+
+.serviceName {
+  font-weight: 700;
+  font-size: var(--t-input);
+}
+
+.serviceDur {
+  grid-row: 2;
+  font-size: var(--t-small);
+  color: var(--ink-3);
+}
+
+.servicePrice {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  align-self: center;
+  font-weight: 800;
+}
+
+/* Step 2: a strip of the next two weeks, then the day's slots */
+.dates {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 64px;
+  gap: 0;
+  overflow-x: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 var(--s2);
+  border-left: 1px solid var(--rule-strong);
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+}
+
+.dates li {
+  scroll-snap-align: start;
+}
+
+.date {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: var(--s2) 0;
+  border: 1px solid var(--rule-strong);
+  border-left: 0;
+  background: var(--field);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.date:hover {
+  background: var(--paper-deep);
+}
+
+.dateDow {
+  font-size: var(--t-caption);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.sun .dateDow {
+  color: var(--sun);
+}
+
+.sat .dateDow {
+  color: var(--sat);
+}
+
+.dateNo {
+  font-size: var(--t-head);
+  font-weight: 800;
+}
+
+.dateLeft {
+  font-size: var(--t-micro);
+  color: var(--ink-3);
+}
+
+.dateOff {
+  background: transparent;
+}
+
+.dateOff .dateNo {
+  color: var(--ink-3);
+  text-decoration: line-through;
+  text-decoration-color: var(--rule-strong);
+}
+
+.dateOn,
+.dateOn:hover {
+  background: var(--ink);
+}
+
+.dateOn .dateDow,
+.dateOn .dateNo,
+.dateOn .dateLeft {
+  color: var(--on-ink);
+}
+
+.otherDate {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--s2);
+}
+
+.dateField {
+  grid-template-columns: 88px minmax(0, 1fr);
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: var(--s2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.slot {
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  border: 1.5px solid var(--ink);
+  background: var(--field);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+a.slot:hover {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.slotOff {
+  border: 1px dashed var(--rule-strong);
+  background: transparent;
+  color: var(--ink-3);
+  text-decoration: line-through;
+  font-weight: 500;
+}
+
+/* Step 3 */
+.summaryBox {
+  border-top: 1px solid var(--rule);
+}
+
+.guest {
+  display: grid;
+  gap: var(--s3);
+}
+
+.lost {
+  display: grid;
+  gap: var(--s2);
+}
+
+/* Receipt */
+.receipt {
+  justify-items: stretch;
+  text-align: center;
+}
+
+.receiptSeal {
+  justify-self: center;
+  width: 120px;
+  height: 120px;
+}
+
+.receiptRows {
+  text-align: left;
+  border-top: 1px solid var(--rule);
+  margin: var(--s2) 0;
+}
+
+/* Fallbacks outside the slip (loading errors, unknown receipts) */
+.notice {
+  display: grid;
+  gap: var(--s3);
+  max-width: 640px;
+  margin: var(--s10) auto 0;
+  padding: 0 var(--s4);
+}
+
+.notice h1 {
+  font-size: var(--t-head);
+  font-weight: 800;
+}
