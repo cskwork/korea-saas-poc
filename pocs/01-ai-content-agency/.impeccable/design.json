@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T19:22:23.152552+00:00",
+  "title": "Design System: AI 콘텐츠 대행",
+  "extensions": {
+    "colorMeta": {
+      "cutting-mat": {
+        "role": "primary",
+        "displayName": "Cutting Mat Green",
+        "canonical": "#22524a",
+        "tonalRamp": [
+          "#0d2320",
+          "#143530",
+          "#1b453f",
+          "#22524a",
+          "#3c6d64",
+          "#62918a",
+          "#9dbfb8",
+          "#dcebe7"
+        ]
+      },
+      "process-magenta": {
+        "role": "primary",
+        "displayName": "Process Magenta",
+        "canonical": "#d8006b",
+        "tonalRamp": [
+          "#4a0024",
+          "#7a003c",
+          "#b0005a",
+          "#d8006b",
+          "#e8438e",
+          "#f07cb0",
+          "#f7b3d2",
+          "#fce3ef"
+        ]
+      },
+      "process-cyan": {
+        "role": "secondary",
+        "displayName": "Process Cyan",
+        "canonical": "#00a0e3"
+      },
+      "process-yellow": {
+        "role": "secondary",
+        "displayName": "Process Yellow",
+        "canonical": "#ffe100"
+      },
+      "spot-orange": {
+        "role": "tertiary",
+        "displayName": "Spot Orange",
+        "canonical": "#ff6b1a"
+      },
+      "proof-paper": {
+        "role": "neutral",
+        "displayName": "Proof Paper",
+        "canonical": "#fbfcfc"
+      },
+      "key-ink": {
+        "role": "neutral",
+        "displayName": "Key Ink",
+        "canonical": "#15191b"
+      },
+      "light-table": {
+        "role": "neutral",
+        "displayName": "Light Table",
+        "canonical": "#e5ebe9"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles."
+      },
+      "body-reading": {
+        "displayName": "Reading",
+        "purpose": "Generated blog drafts on the proof sheet."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Slug lines, meta, counters, table heads."
+      }
+    },
+    "shadows": [
+      {
+        "name": "paper-on-mat",
+        "value": "0 1px 1px rgb(0 0 0 / 0.14), 0 14px 30px -14px rgb(6 26 22 / 0.55)",
+        "purpose": "Every sheet, case and plan."
+      },
+      {
+        "name": "lifted-sheet",
+        "value": "0 1px 1px rgb(0 0 0 / 0.14), 0 22px 40px -16px rgb(6 26 22 / 0.6)",
+        "purpose": "Recommended plan."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All transitions and the proof printing sequence."
+      },
+      {
+        "name": "proof-print",
+        "value": "title 900ms register, lines 420ms at 40ms stagger from 300ms, stamp at 1.3s",
+        "purpose": "Signature: a generated proof prints then gets stamped."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "560px"
+      },
+      {
+        "name": "table-stack",
+        "value": "640px"
+      },
+      {
+        "name": "nav",
+        "value": "900px"
+      },
+      {
+        "name": "generator",
+        "value": "960px"
+      },
+      {
+        "name": "hero",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Action Button",
+      "kind": "button",
+      "refersTo": "button-action",
+      "description": "The only magenta: primary actions.",
+      "html": "<button class=\"ds-btn-action\">콘텐츠 생성하기</button>",
+      "css": ".ds-btn-action{background:#d8006b;color:#fff;border:0;border-radius:4px;min-height:44px;padding:0 18px;font-weight:700;font-size:15px;font-family:'Pretendard Variable',sans-serif;transition:background-color .16s cubic-bezier(.16,1,.3,1)}.ds-btn-action:hover{background:#b0005a}.ds-btn-action:focus-visible{outline:3px solid #d8006b;outline-offset:2px}.ds-btn-action:active{transform:translateY(1px)}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary actions on paper.",
+      "html": "<button class=\"ds-btn-ghost\">다른 시안</button>",
+      "css": ".ds-btn-ghost{background:transparent;color:#15191b;border:1.5px solid #15191b;border-radius:4px;min-height:44px;padding:0 18px;font-weight:700;font-size:15px}.ds-btn-ghost:hover{background:rgb(21 25 27/.06)}.ds-btn-ghost:focus-visible{outline:3px solid #d8006b;outline-offset:2px}"
+    },
+    {
+      "name": "Topic Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Order-ticket text field.",
+      "html": "<input class=\"ds-input\" placeholder=\"블로그 주제를 입력하세요\">",
+      "css": ".ds-input{height:52px;padding:0 14px;border:1.5px solid #8e999d;border-radius:4px;background:#fff;font-size:16px;color:#15191b}.ds-input:focus-visible{border-color:#15191b;outline:3px solid #d8006b;outline-offset:1px}"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "chip-filter",
+      "description": "Portfolio filters on the mat.",
+      "html": "<div style=\"background:#22524a;padding:16px\"><button class=\"ds-chip\" aria-pressed=\"true\">전체</button> <button class=\"ds-chip\">블로그</button></div>",
+      "css": ".ds-chip{min-height:44px;padding:0 18px;border:1.5px solid #bcd6cc;border-radius:999px;background:transparent;color:#eef7f3;font-weight:700}.ds-chip[aria-pressed=true]{background:#fbfcfc;border-color:#fbfcfc;color:#15191b}.ds-chip:focus-visible{outline:3px solid #ffe100;outline-offset:2px}"
+    },
+    {
+      "name": "Proof Sheet",
+      "kind": "card",
+      "refersTo": "proof-sheet",
+      "description": "Signature container: paper with crop marks and a stamp.",
+      "html": "<article class=\"ds-sheet\"><span class=\"ds-stamp\">1차 시안</span><h3>동네 베이커리 신메뉴 완벽 가이드</h3><p>본문이 이 자리에 인쇄됩니다.</p></article>",
+      "css": ".ds-sheet{position:relative;background:#fbfcfc;color:#15191b;border-radius:2px;padding:40px;box-shadow:0 1px 1px rgb(0 0 0/.14),0 14px 30px -14px rgb(6 26 22/.55)}.ds-sheet::before{content:'';position:absolute;inset:10px;pointer-events:none;background:linear-gradient(#15191b,#15191b) top left/14px 1px no-repeat,linear-gradient(#15191b,#15191b) top left/1px 14px no-repeat,linear-gradient(#15191b,#15191b) bottom right/14px 1px no-repeat,linear-gradient(#15191b,#15191b) bottom right/1px 14px no-repeat}.ds-sheet h3{font-family:Hahmlet,serif;font-weight:800;font-size:26px;margin:12px 0}.ds-stamp{display:inline-block;padding:3px 10px 2px;border:2px solid #d8006b;border-radius:4px;color:#d8006b;font-weight:800;transform:rotate(-6deg)}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "Mat-deep bar once scrolled.",
+      "html": "<nav class=\"ds-nav\"><strong>AI 콘텐츠</strong><a href=\"#\">콘텐츠 생성</a><a href=\"#\">요금제</a></nav>",
+      "css": ".ds-nav{display:flex;gap:16px;align-items:center;background:#183d37;color:#eef7f3;padding:16px 24px}.ds-nav strong{font-family:Hahmlet,serif;font-weight:800;margin-right:auto}.ds-nav a{color:#bcd6cc;text-decoration:none;font-weight:600}.ds-nav a:hover{color:#fff}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Proof Table (시안 테이블)",
+    "overview": "Everything the agency hands over is a 시안, the press proof every Korean shop owner has signed off at a print shop. Work lies as trimmed white sheets on a green self-healing cutting mat: crop marks inside the trim, a CMYK colour bar, a slug line with job details, and magenta proofreading marks where a person would circle something.",
+    "keyCharacteristics": [
+      "Green cutting-mat field with a 24px / 120px ruled grid; plain pale light-table sections between.",
+      "Cool white proof sheets with inset crop marks, 2px corners and a real paper shadow; hero and portfolio sheets sit slightly rotated.",
+      "Myeongjo display (Hahmlet) set heavy; Pretendard for every control and label.",
+      "Process magenta is the only action colour; cyan, yellow and spot orange label the three content types.",
+      "One authored motion: a proof prints plate by plate and gets stamped."
+    ],
+    "rules": [
+      {
+        "name": "The One Ink Rule",
+        "body": "Process magenta appears only on things you can press or on proofreading marks. A magenta element that does nothing is a bug.",
+        "section": "colors"
+      },
+      {
+        "name": "The Plate Rule",
+        "body": "Content type is always identified by its plate colour (cyan = 블로그, yellow = 상품 설명, spot orange = 광고 카피), as a square chip, never as a tinted card background.",
+        "section": "colors"
+      },
+      {
+        "name": "The Printed vs Operated Rule",
+        "body": "If it would be printed on the proof, it is Hahmlet; if you click or read it as interface, it is Pretendard.",
+        "section": "typography"
+      },
+      {
+        "name": "The Voice-per-Plate Rule",
+        "body": "Blog drafts read in Myeongjo; product copy uses Pretendard with yellow-highlighted subheads; ad copy uses Pretendard with heavier, spot-underlined subheads.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper Rule",
+        "body": "Only paper casts a shadow. Buttons, chips, inputs and tallies never do.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do put any new reading content on a proof sheet with crop marks, never directly on the mat.",
+      "Do mark content type with its plate chip (cyan, yellow, spot orange) and its label text.",
+      "Do keep demo figures and generated drafts labelled as POC/demo content.",
+      "Do use tabular figures for order numbers, dates, prices and counts."
+    ],
+    "donts": [
+      "Don't use process magenta for decoration, headings or non-interactive fills (The One Ink Rule).",
+      "Don't give buttons, chips or inputs shadows (The Paper Rule).",
+      "Don't add emoji or glyphs as UI icons; icons are the inline SVG set in index.html (1.9–2.2 stroke).",
+      "Don't add a label line above section headings; the heading stands alone."
+    ]
+  }
+}
