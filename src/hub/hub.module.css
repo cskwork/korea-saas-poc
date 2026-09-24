@@ -1,0 +1,683 @@
+/*
+ * Hub — a market arcade's guide map (시장 안내도).
+ * Concrete ground, blue-black plan ink, an enamel entrance board, and shop signs
+ * painted in each product's own colour, facing a central aisle. See src/hub/DESIGN.md.
+ */
+
+.root {
+  --concrete: #dde2de;
+  --concrete-deep: #cbd2cd;
+  --plaster: #f2f4f1;
+  --window: #ffffff;
+  --ink: #16202b;
+  --ink-2: #34404c;
+  --ink-3: #4f5a66;
+  --enamel: #0d5a44;
+  --enamel-ink: #ffffff;
+  --safety: #e3a400;
+  --you-are-here: #a8261f;
+  --wall: 2px solid var(--ink);
+  --housing: 12px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --sign-face: var(--font-sign), "Pretendard Variable", sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  min-height: 100dvh;
+  background: var(--concrete);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+:global(html):has(.root) {
+  background: #dde2de;
+  color-scheme: light;
+  scrollbar-color: #34404c #dde2de;
+}
+
+.root ::selection {
+  background: var(--enamel);
+  color: var(--enamel-ink);
+}
+
+.root a:focus-visible {
+  /* Ink ring for the concrete and plaster; the amber halo carries it on the enamel board. */
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--safety);
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── Entrance board ─────────────────────────────────────────────── */
+
+.entrance {
+  padding: clamp(12px, 2vw, 16px) var(--gutter) 0;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 24px 40px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(24px, 3.4vw, 32px) clamp(22px, 3.4vw, 40px);
+  background: var(--enamel);
+  color: var(--enamel-ink);
+  /* Enamel sign: a white keyline inset from the edge. */
+  box-shadow:
+    inset 0 0 0 6px var(--enamel),
+    inset 0 0 0 8px rgb(255 255 255 / 0.85);
+}
+
+.title {
+  font-family: var(--sign-face);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 1.1rem + 3.4vw, 4.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.promise {
+  margin-top: 12px;
+  max-width: 44ch;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.92);
+  text-wrap: pretty;
+}
+
+.directory {
+  padding: 12px 16px 10px;
+  border: 1.5px solid rgb(255 255 255 / 0.7);
+}
+
+.directoryTitle {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.lamp {
+  flex: none;
+  margin-right: 10px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--safety);
+}
+
+.directoryList {
+  columns: 2;
+  column-gap: 24px;
+  margin: 8px 0 0;
+  padding: 8px 0 0;
+  border-top: 1px solid rgb(255 255 255 / 0.45);
+  list-style: none;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.directoryList li {
+  break-inside: avoid;
+}
+
+.directoryList a {
+  display: flex;
+  gap: 10px;
+  padding: 2px 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.directoryList a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.directoryList span {
+  color: rgb(255 255 255 / 0.75);
+}
+
+/* ── Plan ───────────────────────────────────────────────────────── */
+
+.plan {
+  position: relative;
+  width: min(1320px, 100% - 2 * var(--gutter));
+  margin: clamp(12px, 2vw, 16px) auto 0;
+}
+
+.arcade {
+  position: relative;
+  display: grid;
+  /* Shop units, plus the vacant unit that caps the end of the aisle. */
+  grid-template-columns: repeat(var(--units), minmax(0, 1fr)) minmax(128px, 0.5fr);
+  grid-template-rows: auto 52px auto;
+  border: 1px solid var(--ink);
+}
+
+.row {
+  display: contents;
+}
+
+.aisle {
+  position: relative;
+  grid-column: 1 / -2;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--concrete-deep);
+}
+
+.aisle::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  border-top: 3px dashed var(--safety);
+}
+
+.aisleLabel {
+  position: relative;
+  padding: 2px 12px;
+  background: var(--concrete-deep);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+}
+
+.youAreHere {
+  position: absolute;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 8px 2px 2px;
+  background: var(--concrete-deep);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--you-are-here);
+}
+
+.youAreHereDot {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--you-are-here);
+  box-shadow:
+    0 0 0 3px var(--concrete-deep),
+    0 0 0 5px var(--you-are-here);
+}
+
+.titleBlock {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-top: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.titleBlock span {
+  padding: 4px 10px;
+  border: 1px solid var(--ink-3);
+}
+
+.titleBlock span + span {
+  border-left: 0;
+}
+
+/* ── Stall ──────────────────────────────────────────────────────── */
+
+.stall {
+  display: flex;
+  background: var(--plaster);
+  /* Neighbouring units share a 2px wall: 1px drawn by each side. */
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.stallLink {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 320ms var(--ease-out),
+    box-shadow 320ms var(--ease-out);
+}
+
+/* The sign board: name, trade and unit plate, painted in the shop's colour. */
+.sign {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px 12px;
+  background: var(--paint);
+  color: var(--paint-ink);
+  border-bottom: var(--wall);
+}
+
+.signName {
+  padding-right: 46px;
+  font-family: var(--sign-face);
+  font-size: clamp(1.4rem, 1.05rem + 0.7vw, 1.8rem);
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.signTrade {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.signArrow {
+  flex: none;
+  transition: transform 320ms var(--ease-out);
+}
+
+.plate {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 1px 6px;
+  background: var(--ink);
+  color: var(--plaster);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.front {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px 12px;
+}
+
+.tagline {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+/* The shop window, with the shutter housing along its top edge. */
+.window {
+  position: relative;
+  flex: 1;
+  padding: calc(var(--housing) + 10px) 10px 10px;
+  border: 1.5px solid var(--ink);
+  background: var(--window);
+  overflow: hidden;
+}
+
+.window::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--housing);
+  background: var(--ink-2);
+  z-index: 2;
+}
+
+.description {
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+/*
+ * The roll shutter: steel slats with a heavy bottom rail. On load the arcade opens —
+ * each shutter rolls up into its housing in turn, bottom rail leading.
+ */
+.shutter {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(to top, var(--ink-2) 0 7px, transparent 7px),
+    repeating-linear-gradient(to bottom, #aeb6b1 0 9px, #8f9994 9px 11px);
+  transform: translateY(-100%);
+  animation: open-shop 760ms var(--ease-out) both;
+  animation-delay: calc(160ms + var(--i, 0) * 55ms);
+}
+
+@keyframes open-shop {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shutter {
+    animation: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stallLink:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 24px -14px rgb(22 32 43 / 0.55);
+    z-index: 3;
+  }
+
+  .stallLink:hover .signArrow {
+    transform: translateX(4px);
+  }
+}
+
+/* ── Vacant units ───────────────────────────────────────────────── */
+
+.vacant {
+  background: var(--concrete);
+}
+
+.vacant .sign {
+  background: transparent;
+  color: var(--ink-3);
+  border-bottom-style: dashed;
+}
+
+.vacant .plate {
+  background: var(--ink-3);
+}
+
+.vacantNote {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: auto;
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.vacantNote svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+/* ── Notice plaque ──────────────────────────────────────────────── */
+
+.notice {
+  width: min(760px, 100% - 2 * var(--gutter));
+  margin: clamp(40px, 6vw, 72px) auto 0;
+  border: var(--wall);
+  background: var(--plaster);
+}
+
+.noticeTitle {
+  padding: 10px 20px;
+  background: var(--ink);
+  color: var(--plaster);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.noticeList {
+  margin: 0;
+  padding: 4px 20px;
+}
+
+.noticeList > div {
+  padding: 16px 0;
+}
+
+.noticeList > div + div {
+  border-top: 1px solid var(--ink-3);
+}
+
+.noticeList dt {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.noticeList dd {
+  margin: 6px 0 0;
+  max-width: 62ch;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  width: min(1320px, 100% - 2 * var(--gutter));
+  margin: clamp(40px, 6vw, 64px) auto 0;
+  padding: 20px 0 40px;
+  border-top: 1px solid var(--ink-3);
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.footer a {
+  font-weight: 700;
+  color: var(--ink);
+  text-underline-offset: 4px;
+}
+
+/* ── Desktop: two rows of shops face each other across the aisle ─ */
+
+@media (min-width: 1100px) {
+  .upper .stallLink,
+  .upper .front {
+    flex-direction: column-reverse;
+  }
+
+  .upper .sign {
+    border-bottom: 0;
+    border-top: var(--wall);
+  }
+
+  .endCap {
+    grid-column: -2 / -1;
+    grid-row: 1 / -1;
+  }
+}
+
+/* ── Tablet and phone: the aisle runs down the page ─────────────── */
+
+@media (max-width: 1099px) {
+  .board {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .directory {
+    justify-self: start;
+    padding: 8px 14px;
+  }
+
+  .directoryList,
+  .directoryLabel {
+    display: none;
+  }
+
+  .plan {
+    /* Room on the left for the aisle strip, and above for the entrance marker. */
+    padding: 34px 0 0 40px;
+  }
+
+  .arcade {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+  }
+
+  .aisle {
+    position: absolute;
+    top: -34px;
+    bottom: 0;
+    right: 100%;
+    width: 40px;
+    grid-column: auto;
+    grid-row: auto;
+    background: transparent;
+  }
+
+  .aisle::before {
+    inset: 0 auto 0 50%;
+    border-top: 0;
+    border-left: 3px dashed var(--safety);
+    transform: translateX(-50%);
+  }
+
+  .aisleLabel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 12px 2px;
+    background: var(--concrete);
+    writing-mode: vertical-rl;
+    transform: translate(-50%, -50%);
+  }
+
+  .youAreHere {
+    top: 0;
+    left: 13px;
+    background: var(--concrete);
+    white-space: nowrap;
+  }
+
+  .youAreHereDot {
+    box-shadow:
+      0 0 0 3px var(--concrete),
+      0 0 0 5px var(--you-are-here);
+  }
+
+  .endCap {
+    grid-column: 1 / -1;
+  }
+
+  .description {
+    font-size: 0.875rem;
+  }
+
+  .notice {
+    margin-top: 48px;
+  }
+}
+
+@media (max-width: 719px) {
+  .arcade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sign {
+    padding: 12px 14px 10px;
+  }
+
+  .titleBlock {
+    justify-content: flex-start;
+  }
+}
+
+/* ── 404: a vacant unit ─────────────────────────────────────────── */
+
+.lost {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: min(640px, 100% - 32px);
+  margin: clamp(48px, 12vh, 120px) auto;
+  padding: clamp(28px, 5vw, 48px);
+  border: 2px dashed var(--ink);
+  background: var(--plaster);
+}
+
+.lostPlate {
+  padding: 2px 10px;
+  background: var(--ink);
+  color: var(--plaster);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.lostTitle {
+  font-family: var(--sign-face);
+  font-weight: 400;
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  line-height: 1.1;
+}
+
+.lostBody {
+  max-width: 40ch;
+  color: var(--ink-2);
+  line-height: 1.65;
+}
+
+.lostLink {
+  margin-top: 8px;
+  padding: 12px 18px;
+  background: var(--enamel);
+  color: var(--enamel-ink);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+/* The end-cap unit is narrow: its plate sits in the flow above the name. */
+.endCap .plate {
+  position: static;
+  align-self: flex-start;
+  order: -1;
+}
+
+.endCap .signName {
+  padding-right: 0;
+}
+
+/* ── A shop under renovation: shutter stays down, the old demo is still open ── */
+
+.preparing .shutter {
+  animation: none;
+  transform: none;
+}
+
+.shutterNotice {
+  position: absolute;
+  inset: auto 10px 16px;
+  z-index: 3;
+  padding: 6px 10px;
+  background: var(--safety);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.directoryPending {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 0.75rem;
+  color: rgb(255 255 255 / 0.75);
+}
