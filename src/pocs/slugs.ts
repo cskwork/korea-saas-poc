@@ -30,6 +30,7 @@ export const OPEN_MODULE_SLUGS: readonly ModuleSlug[] = [
   "smart-store",
   "micro-saas",
   "affiliate-marketing",
+  "automation-agency",
   "ai-design-video",
 ];
 

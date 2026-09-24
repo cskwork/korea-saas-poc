@@ -1,0 +1,181 @@
+.filters {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--aa-rule);
+}
+
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.filterLabel {
+  width: 40px;
+  color: var(--aa-ink-2);
+  font-size: var(--aa-text-sm);
+  font-weight: 700;
+}
+
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.search input[type="search"] {
+  flex: 1 1 260px;
+  max-width: 420px;
+}
+
+.search select {
+  width: auto;
+  flex: 0 0 auto;
+}
+
+.archivedToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--aa-ink-2);
+  font-size: var(--aa-text-sm);
+  font-weight: 600;
+}
+
+.archivedToggle input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--aa-line-build);
+}
+
+.table td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.nameCell {
+  min-width: 260px;
+}
+
+.summary {
+  display: block;
+  max-width: 52ch;
+  margin-top: 4px;
+  color: var(--aa-ink-2);
+  font-size: 0.875rem;
+}
+
+.meta {
+  display: block;
+  margin-top: 4px;
+  color: var(--aa-ink-3);
+  font-size: var(--aa-text-xs);
+  font-weight: 600;
+}
+
+.tool {
+  color: var(--aa-ink-2);
+  font-size: var(--aa-text-sm);
+  white-space: nowrap;
+}
+
+.archived {
+  background: var(--aa-canvas);
+}
+
+.archived td {
+  color: var(--aa-ink-3);
+}
+
+.archivedTag {
+  margin-left: 8px;
+}
+
+@media (max-width: 760px) {
+  .nameCell {
+    min-width: 0;
+  }
+
+  .filterLabel {
+    width: 100%;
+  }
+}
+
+/* --- Detail ------------------------------------------------------------------ */
+
+.detail {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .detail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.prose {
+  max-width: 68ch;
+  color: var(--aa-ink);
+  line-height: 1.7;
+}
+
+.detailBlock + .detailBlock {
+  margin-top: 28px;
+}
+
+.blockTitle {
+  margin-bottom: 10px;
+  color: var(--aa-ink-2);
+  font-size: var(--aa-text-sm);
+  font-weight: 700;
+}
+
+.fare {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+
+.fareRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--aa-rule);
+  font-variant-numeric: tabular-nums;
+}
+
+.fareRow dt {
+  color: var(--aa-ink-2);
+}
+
+.fareRow dd {
+  font-weight: 700;
+}
+
+.fareTotal dd {
+  font-size: var(--aa-text-lg);
+  font-weight: 800;
+}
+
+.estimateNote {
+  margin-top: 10px;
+  color: var(--aa-ink-3);
+  font-size: var(--aa-text-xs);
+}
+
+.sideActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}

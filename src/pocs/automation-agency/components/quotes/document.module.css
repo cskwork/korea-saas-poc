@@ -1,0 +1,281 @@
+/* The printable quote: an A4 sheet on screen, the page itself in print. */
+
+.sheet {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 52px 44px;
+  border: 1px solid var(--aa-rule);
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: var(--aa-shadow);
+  color: #111418;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 720px) {
+  .sheet {
+    padding: 24px 16px;
+    box-shadow: none;
+  }
+}
+
+.head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 3px solid #111418;
+}
+
+@media (max-width: 720px) {
+  .head {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+}
+
+.mark {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--aa-rule);
+  border-radius: 7px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.4em;
+  margin-right: -0.4em;
+  text-align: center;
+}
+
+.meta {
+  display: grid;
+  gap: 2px;
+  justify-self: end;
+  margin: 0;
+  font-size: var(--aa-text-sm);
+}
+
+@media (max-width: 720px) {
+  .meta {
+    justify-self: start;
+  }
+}
+
+.meta div {
+  display: flex;
+  gap: 10px;
+}
+
+.meta dt {
+  width: 56px;
+  color: #4a4f57;
+}
+
+.meta dd {
+  font-weight: 700;
+}
+
+.parties {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+  margin-top: 24px;
+}
+
+@media (max-width: 720px) {
+  .parties {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.recipient {
+  display: grid;
+  align-content: center;
+  gap: 4px;
+}
+
+.to {
+  font-size: var(--aa-text-xl);
+}
+
+.to strong {
+  font-weight: 800;
+}
+
+.contact {
+  color: #4a4f57;
+}
+
+.lead {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.supplier {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--aa-text-sm);
+}
+
+.supplier caption {
+  padding: 4px 0;
+  border-top: 2px solid #111418;
+  font-weight: 800;
+  text-align: left;
+}
+
+.supplier th,
+.supplier td {
+  padding: 6px 8px;
+  border: 1px solid #c9ced6;
+  text-align: left;
+}
+
+.supplier th {
+  width: 116px;
+  background: #f3f4f6;
+  font-weight: 700;
+}
+
+.sample {
+  color: #666c76;
+  font-weight: 600;
+}
+
+.amounts {
+  display: grid;
+  gap: 6px;
+  margin-top: 24px;
+  padding: 14px 18px;
+  border: 2px solid #111418;
+}
+
+.amounts p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+}
+
+.amountLabel {
+  width: 104px;
+  color: #4a4f57;
+  font-size: var(--aa-text-sm);
+  font-weight: 700;
+}
+
+.amountWords {
+  font-size: var(--aa-text-lg);
+  font-weight: 800;
+}
+
+.amountFigure {
+  color: #2d3138;
+  font-weight: 600;
+}
+
+.tableWrap {
+  margin-top: 24px;
+  overflow-x: auto;
+}
+
+.items,
+.sums {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--aa-text-sm);
+}
+
+.items th,
+.sums thead th {
+  padding: 8px;
+  border-top: 2px solid #111418;
+  border-bottom: 1px solid #111418;
+  background: #f3f4f6;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.items td,
+.sums td,
+.sums tbody th {
+  padding: 8px;
+  border-bottom: 1px solid #c9ced6;
+  text-align: left;
+}
+
+.itemName {
+  min-width: 180px;
+  font-weight: 600;
+}
+
+.num {
+  text-align: right !important;
+  white-space: nowrap;
+}
+
+.sums {
+  margin-top: 20px;
+}
+
+.sums tbody th {
+  font-weight: 700;
+}
+
+.sums tfoot th,
+.sums tfoot td {
+  padding: 10px 8px;
+  border-top: 2px solid #111418;
+  border-bottom: 2px solid #111418;
+  font-size: var(--aa-text-md);
+  font-weight: 800;
+  text-align: left;
+}
+
+.foot {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+  font-size: var(--aa-text-sm);
+}
+
+.notes h2 {
+  margin-bottom: 4px;
+  font-size: var(--aa-text-sm);
+  font-weight: 800;
+}
+
+.notes p {
+  white-space: pre-line;
+}
+
+.terms {
+  margin: 0;
+  padding-left: 18px;
+  color: #4a4f57;
+}
+
+@media print {
+  .sheet {
+    max-width: none;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .items tr,
+  .sums tr {
+    break-inside: avoid;
+  }
+}
