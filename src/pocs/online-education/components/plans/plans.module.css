@@ -1,0 +1,199 @@
+.meters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.meter {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-panel);
+  background: var(--paper);
+}
+
+.meterLabel {
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+  font-weight: 650;
+}
+
+.meterValue {
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+}
+
+.meterValue strong {
+  color: var(--ink);
+  font-size: var(--text-xl);
+  font-weight: 800;
+}
+
+.meterFill {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--ink);
+}
+
+.meter[data-over] .meterFill {
+  background: var(--danger);
+}
+
+.meterWarn {
+  color: var(--danger);
+  font-size: var(--text-xs);
+  font-weight: 650;
+}
+
+.note {
+  margin: -4px 0 14px;
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+}
+
+.picker {
+  display: grid;
+  gap: 14px;
+}
+
+.billing {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.matrix {
+  min-width: 620px;
+  table-layout: fixed;
+}
+
+.featureHead {
+  width: 28%;
+  vertical-align: bottom;
+}
+
+.planHead {
+  padding: 16px 14px !important;
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  font-size: var(--text-sm) !important;
+  vertical-align: top;
+  white-space: normal !important;
+}
+
+.planHead > * {
+  display: block;
+}
+
+.planHead[data-current],
+.cell[data-current] {
+  background: var(--lemon-wash) !important;
+}
+
+.planName {
+  font-size: var(--text-lg);
+  font-weight: 800;
+}
+
+.planPrice {
+  margin: 4px 0 2px;
+}
+
+.planPrice strong {
+  font-size: var(--text-2xl);
+  font-weight: 850;
+  letter-spacing: -0.02em;
+}
+
+.planPrice span {
+  margin-left: 2px;
+  color: var(--ink-mute);
+  font-weight: 600;
+}
+
+.planNote {
+  min-height: 2.6em;
+  margin-bottom: 10px;
+  color: var(--ink-soft);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.currentBadge {
+  display: inline-flex !important;
+  height: 32px;
+  padding: 0 12px;
+}
+
+.featureName {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--rule);
+  background: transparent !important;
+  color: var(--ink) !important;
+  font-size: var(--text-sm) !important;
+  font-weight: 650 !important;
+  white-space: normal !important;
+}
+
+.cell {
+  font-weight: 600;
+}
+
+.yes {
+  color: var(--ok);
+}
+
+.no {
+  color: var(--rule-strong);
+}
+
+.faq {
+  display: grid;
+  gap: 8px;
+  max-width: 760px;
+}
+
+.faqItem {
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--paper);
+}
+
+.faqItem summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faqItem summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqIcon {
+  flex: none;
+  color: var(--ink-mute);
+  transition: transform 200ms var(--ease-out);
+}
+
+.faqItem[open] .faqIcon {
+  transform: rotate(180deg);
+}
+
+.faqItem p {
+  padding: 0 16px 14px;
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 760px) {
+  .meters {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

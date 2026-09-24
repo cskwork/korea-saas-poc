@@ -1,0 +1,258 @@
+.ledger {
+  display: grid;
+  gap: 8px;
+  max-width: 78ch;
+  margin-bottom: 32px;
+  padding: 16px 0 18px;
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule);
+}
+
+.ledgerLead {
+  font-size: var(--text-lg);
+  line-height: 1.6;
+}
+
+.ledgerLead strong {
+  font-size: var(--text-xl);
+  font-weight: 850;
+  letter-spacing: -0.02em;
+}
+
+.ledgerDetail {
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+
+.ledgerDetail strong {
+  color: var(--ink);
+  font-weight: 750;
+}
+
+.growth {
+  color: var(--ink-soft);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.growth {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 750;
+}
+
+.growth svg {
+  align-self: center;
+}
+
+.growth[data-trend="up"] {
+  color: var(--ok);
+}
+
+.growth[data-trend="down"] {
+  color: var(--danger);
+}
+
+.chartSection {
+  margin-bottom: 36px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-bottom: 12px;
+  color: var(--ink-soft);
+  font-size: var(--text-xs);
+  font-weight: 650;
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.productSwatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1.5px var(--ink-mute);
+}
+
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 12px 8px 4px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-panel);
+  background: var(--paper);
+  font-family: inherit;
+}
+
+.tick line {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+.tick text,
+.month,
+.monthCurrent,
+.value {
+  fill: var(--ink-mute);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.monthCurrent {
+  fill: var(--ink);
+  font-weight: 800;
+}
+
+.value {
+  fill: var(--ink-soft);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.courseBlock {
+  fill: var(--block, var(--ink-mute));
+  stroke: var(--block-edge, var(--ink-mute));
+  stroke-width: 1;
+}
+
+.productBlock {
+  fill: var(--paper);
+  stroke: var(--ink-mute);
+  stroke-width: 1.5;
+}
+
+.column {
+  transition: opacity 180ms var(--ease-out);
+}
+
+.chart:hover .column {
+  opacity: 0.5;
+}
+
+.chart:hover .column:hover {
+  opacity: 1;
+}
+
+.tables {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  margin-bottom: 36px;
+}
+
+.items {
+  display: grid;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-panel);
+  background: var(--paper);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 12px;
+  padding: 12px 16px;
+}
+
+.item + .item {
+  border-top: 1px solid var(--rule);
+}
+
+.itemName {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.itemIcon {
+  flex: none;
+  color: var(--ink-mute);
+}
+
+.deleted {
+  color: var(--ink-mute);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.itemAmount {
+  font-weight: 750;
+}
+
+.itemBar {
+  grid-column: 1 / -1;
+  height: 8px;
+  border-radius: 3px;
+  background: var(--paper-deep);
+}
+
+.itemBar span {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+
+.itemBar span[data-kind="course"] {
+  background: var(--block);
+  box-shadow: inset 0 0 0 1px var(--block-edge);
+}
+
+.itemBar span[data-kind="product"] {
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1.5px var(--ink-mute);
+}
+
+.itemMeta {
+  grid-column: 1 / -1;
+  color: var(--ink-mute);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.monthly {
+  margin-bottom: 16px;
+}
+
+.rowHead {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--rule);
+  background: transparent !important;
+  color: var(--ink) !important;
+  font-size: var(--text-sm) !important;
+  font-weight: 650 !important;
+}
+
+tfoot .rowHead {
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 0;
+}
+
+.strong {
+  font-weight: 750;
+}
+
+@media (max-width: 1100px) {
+  .tables {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .chart {
+    padding: 4px 0 0;
+  }
+}
