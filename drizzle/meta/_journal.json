@@ -57,6 +57,13 @@
       "when": 1790271243426,
       "tag": "0007_niche-community",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1790271262368,
+      "tag": "0008_dev-freelancing",
+      "breakpoints": true
     }
   ]
 }

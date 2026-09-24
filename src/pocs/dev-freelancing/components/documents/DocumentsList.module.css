@@ -1,0 +1,18 @@
+.page {
+  display: grid;
+  gap: var(--s6);
+  min-width: 0;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+}
+
+.late {
+  margin-top: 2px;
+  color: var(--rose);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}

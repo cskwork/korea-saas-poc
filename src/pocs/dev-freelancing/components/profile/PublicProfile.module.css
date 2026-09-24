@@ -1,0 +1,420 @@
+/* The client-facing register: white paper, graphite ink, the ramp read light → deep copper. */
+
+.page {
+  --wrap: min(1160px, 100% - 2 * var(--s5));
+  min-height: 100dvh;
+  font-size: var(--text-md);
+}
+
+.page a {
+  color: inherit;
+}
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  width: 100%;
+  padding: var(--s3) max(var(--s5), (100% - 1160px) / 2);
+  border-bottom: 1px solid var(--line);
+  background: var(--ground);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.mark {
+  display: grid;
+  grid-template-columns: 7px 7px;
+  gap: 2px;
+}
+
+.mark span {
+  width: 7px;
+  height: 7px;
+  border-radius: 1px;
+}
+
+.mark span:nth-child(1) {
+  background: var(--c1);
+}
+
+.mark span:nth-child(2) {
+  background: var(--c3);
+}
+
+.mark span:nth-child(3) {
+  background: var(--c2);
+}
+
+.mark span:nth-child(4) {
+  background: var(--c4);
+}
+
+.sample {
+  padding: 1px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-cell);
+  color: var(--ink-3);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.barNav {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  margin-left: auto;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.barNav > a:not([class]) {
+  text-decoration: none;
+  color: var(--ink-2);
+}
+
+.barNav > a:not([class]):hover {
+  color: var(--ink);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: var(--s10);
+  align-items: center;
+  width: var(--wrap);
+  margin: 0 auto;
+  padding: clamp(40px, 8vh, 88px) 0 clamp(48px, 9vh, 96px);
+}
+
+.heroText {
+  display: grid;
+  gap: var(--s4);
+  justify-items: start;
+}
+
+.name {
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.headline {
+  max-width: 24ch;
+  font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.bio {
+  max-width: 52ch;
+  color: var(--ink-2);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-top: var(--s2);
+}
+
+.proof {
+  display: grid;
+  gap: var(--s4);
+  margin: 0;
+  padding: var(--s6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  min-width: 0;
+}
+
+.proofCaption {
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
+
+.proofCaption strong {
+  color: var(--ink);
+}
+
+.section {
+  display: grid;
+  gap: var(--s5);
+  width: var(--wrap);
+  margin: 0 auto;
+  padding: var(--s12) 0;
+  border-top: 1px solid var(--line-strong);
+}
+
+.sectionTitle {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.sectionNote,
+.muted {
+  color: var(--ink-3);
+}
+
+/* Work: editorial rows, not cards. */
+.works {
+  display: grid;
+}
+
+.work {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.3fr) minmax(0, 1fr);
+  gap: var(--s6);
+  padding: var(--s6) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.workSide {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+}
+
+.workPeriod {
+  font-family: var(--font-measure);
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.workRole {
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+}
+
+.workMain {
+  display: grid;
+  justify-items: start;
+  gap: var(--s2);
+  max-width: 72ch;
+  color: var(--ink-2);
+}
+
+.workTitle {
+  color: var(--ink);
+  font-size: var(--text-xl);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.outcome {
+  color: var(--ink);
+}
+
+.outcome strong {
+  margin-right: 4px;
+  color: var(--accent);
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.stack li {
+  padding: 1px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-cell);
+  color: var(--ink-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+/* Price sheet: one row per category, tiers as ruled columns. */
+.priceSheet {
+  display: grid;
+  border-top: 2px solid var(--ink);
+}
+
+.priceRow {
+  display: grid;
+  grid-template-columns: minmax(140px, 0.25fr) minmax(0, 1fr);
+  gap: var(--s5);
+  padding: var(--s5) 0;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.priceCategory {
+  font-size: var(--text-lg);
+  font-weight: 750;
+}
+
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tier {
+  display: grid;
+  align-content: start;
+  gap: var(--s2);
+  padding: 0 var(--s5);
+  border-left: 1px solid var(--line);
+}
+
+.tier[data-featured] .tierPrice {
+  color: var(--accent);
+}
+
+.tierName {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.featured {
+  padding: 0 6px;
+  border-radius: var(--radius-cell);
+  background: var(--c1);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.tierPrice {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.tierPrice span {
+  margin-left: 6px;
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.tierFeatures {
+  display: grid;
+  gap: 3px;
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
+
+.tierFeatures li {
+  display: flex;
+  gap: 8px;
+}
+
+.tierFeatures li::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-top: 8px;
+  border-radius: 1px;
+  background: var(--c2);
+}
+
+/* Contact */
+.contact {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: var(--s8);
+  align-items: start;
+}
+
+.contactText {
+  display: grid;
+  gap: var(--s3);
+  color: var(--ink-2);
+}
+
+.form {
+  display: grid;
+  gap: var(--s4);
+  padding: var(--s6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.thanks {
+  display: grid;
+  gap: var(--s2);
+  padding: var(--s6);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--ink-2);
+}
+
+.thanksTitle {
+  color: var(--ink);
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.thanks a {
+  font-weight: 650;
+}
+
+.footer {
+  display: grid;
+  gap: 4px;
+  width: var(--wrap);
+  margin: 0 auto;
+  padding: var(--s8) 0 var(--s12);
+  border-top: 1px solid var(--line);
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+@media (max-width: 960px) {
+  .hero,
+  .contact {
+    grid-template-columns: 1fr;
+  }
+
+  .priceRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .barNav > a:not([class]) {
+    display: none;
+  }
+
+  .work {
+    grid-template-columns: 1fr;
+    gap: var(--s2);
+  }
+
+  .tiers {
+    grid-template-columns: 1fr;
+    gap: var(--s4);
+  }
+
+  .tier {
+    padding: 0 0 0 var(--s4);
+  }
+
+  .proof,
+  .form {
+    padding: var(--s4);
+  }
+}

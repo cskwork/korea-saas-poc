@@ -1,0 +1,270 @@
+.page {
+  display: grid;
+  gap: var(--s10);
+  min-width: 0;
+}
+
+.strong {
+  color: var(--ink);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s8);
+  align-items: start;
+}
+
+/* Month stacks */
+.chart {
+  display: grid;
+  gap: var(--s3);
+  margin: 0;
+  min-width: 0;
+}
+
+.chartBody {
+  --cell-size: 18px;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: end;
+  gap: var(--s2);
+  padding-top: var(--s6);
+  min-height: calc(var(--rows) * (var(--cell-size) + 3px) + 60px);
+}
+
+.column {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.columnValue {
+  color: var(--ink-3);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.current .columnValue {
+  color: var(--c4);
+  font-weight: 700;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 3px;
+}
+
+.stack > span {
+  --size: var(--cell-size);
+}
+
+.columnLabel {
+  color: var(--ink-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.goalLine {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: calc(var(--at) * (var(--cell-size) + 3px) + 27px);
+  border-top: 1px dashed var(--ink-3);
+  pointer-events: none;
+}
+
+.goalLine span {
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  padding: 0 4px;
+  background: var(--ground);
+  color: var(--ink-3);
+  font-size: 11px;
+}
+
+.chartCaption {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+.tableToggle summary {
+  width: fit-content;
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tableToggle[open] summary {
+  margin-bottom: var(--s3);
+}
+
+/* Receivables */
+.buckets {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.buckets > div {
+  display: grid;
+  gap: 2px;
+  padding: var(--s3);
+}
+
+.buckets > div + div {
+  border-left: 1px solid var(--line);
+}
+
+.buckets dt {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+.buckets dd {
+  margin: 0;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.buckets [data-late] dd {
+  color: var(--rose);
+}
+
+.openList {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.openList li {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--s3);
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-sm);
+}
+
+.late {
+  color: var(--rose);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+/* Tax wallet */
+.wallet {
+  display: grid;
+  gap: var(--s5);
+  padding: var(--s5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.walletRow {
+  display: grid;
+  gap: var(--s2);
+}
+
+.walletLabel {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.walletValue {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Client shares */
+.shares {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.shares li {
+  display: grid;
+  grid-template-columns: minmax(110px, 1fr) auto minmax(120px, auto);
+  align-items: center;
+  gap: var(--s3);
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-sm);
+}
+
+.shareName a {
+  color: var(--ink);
+}
+
+.shareCells {
+  display: flex;
+  gap: 2px;
+}
+
+.shareCells > span {
+  --size: 8px;
+}
+
+.above {
+  color: var(--c4);
+  font-weight: 650;
+}
+
+.below {
+  color: var(--rose);
+  font-weight: 650;
+}
+
+@media (max-width: 1080px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .chartBody {
+    --cell-size: 10px;
+    gap: 3px;
+  }
+
+  .columnValue {
+    font-size: 9px;
+  }
+
+  .buckets {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .buckets > div:nth-child(3) {
+    border-left: 0;
+  }
+
+  .buckets > div:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+
+  .shares li {
+    grid-template-columns: 1fr auto;
+  }
+
+  .shareCells {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .openList li {
+    grid-template-columns: 10px minmax(0, 1fr) auto;
+  }
+
+  .openList li > span:last-child {
+    grid-column: 2 / -1;
+  }
+}

@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s3) var(--s6);
+  padding-bottom: var(--s5);
+  border-bottom: 1px solid var(--line);
+}
+
+.text {
+  display: grid;
+  gap: var(--s1);
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.description {
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  max-width: 70ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2);
+}
