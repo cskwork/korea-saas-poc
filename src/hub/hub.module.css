@@ -1,0 +1,513 @@
+/*
+ * Hub — a market arcade's guide map (시장 안내도).
+ * Concrete ground, blue-black plan ink, an enamel entrance board, and shop signs
+ * painted in each product's own colour. See src/hub/DESIGN.md.
+ */
+
+.root {
+  --concrete: #dde2de;
+  --concrete-deep: #cbd2cd;
+  --plaster: #f2f4f1;
+  --ink: #16202b;
+  --ink-2: #34404c;
+  --ink-3: #4f5a66;
+  --enamel: #0d5a44;
+  --enamel-deep: #0a4535;
+  --enamel-ink: #ffffff;
+  --safety: #e3a400;
+  --you-are-here: #a8261f;
+  --wall: 2px solid var(--ink);
+  --sign-face: var(--font-sign), "Pretendard Variable", sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  min-height: 100dvh;
+  background: var(--concrete);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+:global(html):has(.root) {
+  background: #dde2de;
+  color-scheme: light;
+  scrollbar-color: #34404c #dde2de;
+}
+
+.root ::selection {
+  background: var(--enamel);
+  color: var(--enamel-ink);
+}
+
+.root a:focus-visible {
+  outline: 3px solid var(--safety);
+  outline-offset: 3px;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── Entrance board ─────────────────────────────────────────────── */
+
+.entrance {
+  padding: clamp(16px, 3vw, 32px) clamp(16px, 4vw, 48px) 0;
+}
+
+.board {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 56px) clamp(22px, 4vw, 48px) clamp(24px, 4vw, 40px);
+  background: var(--enamel);
+  color: var(--enamel-ink);
+  /* Enamel sign: a white inner keyline inset from the edge. */
+  box-shadow: inset 0 0 0 6px var(--enamel), inset 0 0 0 8px rgb(255 255 255 / 0.85);
+}
+
+.title {
+  font-family: var(--sign-face);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 1.4rem + 4.6vw, 5.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.promise {
+  margin-top: clamp(14px, 2vw, 20px);
+  max-width: 44ch;
+  font-size: clamp(1rem, 0.95rem + 0.35vw, 1.1875rem);
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.92);
+  text-wrap: pretty;
+}
+
+.openPlate {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  padding: 8px 14px;
+  background: var(--enamel-deep);
+  border: 1.5px solid rgb(255 255 255 / 0.7);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.lamp {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--safety);
+}
+
+/* ── Plan ───────────────────────────────────────────────────────── */
+
+.plan {
+  position: relative;
+  max-width: 1320px;
+  margin: clamp(20px, 3vw, 32px) auto 0;
+  padding: 0 clamp(16px, 4vw, 48px);
+  box-sizing: content-box;
+}
+
+.row {
+  display: grid;
+  /* Both rows share the column count, so units line up across the aisle even when a row holds fewer shops. */
+  grid-template-columns: repeat(var(--units), minmax(0, 1fr));
+  border: 1px solid var(--ink);
+}
+
+.aisle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 72px;
+  background: var(--concrete-deep);
+  border-inline: var(--wall);
+}
+
+.aisle::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  border-top: 3px dashed var(--safety);
+}
+
+.aisleLabel {
+  position: relative;
+  padding: 2px 12px;
+  background: var(--concrete-deep);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+}
+
+.youAreHere {
+  position: absolute;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 8px 2px 2px;
+  background: var(--concrete-deep);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--you-are-here);
+}
+
+.youAreHereDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--you-are-here);
+  box-shadow: 0 0 0 3px var(--concrete-deep), 0 0 0 5px var(--you-are-here);
+}
+
+.titleBlock {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-top: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.titleBlock span {
+  padding: 4px 10px;
+  border: 1px solid var(--ink-3);
+}
+
+.titleBlock span + span {
+  border-left: 0;
+}
+
+/* ── Stall ──────────────────────────────────────────────────────── */
+
+.stall {
+  display: flex;
+  background: var(--plaster);
+  /* Neighbouring units share a 2px wall: 1px drawn by each side. */
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.stallLink {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
+}
+
+.sign {
+  display: flex;
+  align-items: center;
+  min-height: 76px;
+  padding: 14px 16px 12px;
+  background: var(--paint);
+  color: var(--paint-ink);
+  border-bottom: var(--wall);
+  font-family: var(--sign-face);
+  font-size: clamp(1.5rem, 1.1rem + 0.9vw, 2rem);
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.front {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px 16px;
+}
+
+.stallMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+
+.plate {
+  padding: 1px 7px;
+  background: var(--ink);
+  color: var(--plaster);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.category {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.tagline {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.interior {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 12px 12px 14px;
+  border: 1.5px solid var(--ink);
+  background: #fff;
+  overflow: hidden;
+}
+
+.description {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+.audience {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 0.9375rem;
+  font-weight: 800;
+}
+
+/*
+ * The roll shutter, rolled up into its box above the window while the shop is open.
+ * On load the arcade opens: every shutter rolls up in turn (one orchestrated moment).
+ */
+.shutter {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, var(--ink-2) 0 7px, transparent 7px),
+    repeating-linear-gradient(to bottom, #aeb6b1 0 9px, #8f9994 9px 11px);
+  clip-path: inset(0 0 calc(100% - 12px) 0);
+  animation: open-shop 720ms var(--ease-out) both;
+  animation-delay: calc(160ms + var(--i, 0) * 55ms);
+}
+
+@keyframes open-shop {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 calc(100% - 12px) 0);
+  }
+}
+
+.enter svg {
+  transition: transform 320ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stallLink:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 24px -14px rgb(22 32 43 / 0.55);
+    z-index: 1;
+  }
+
+  .stallLink:hover .enter svg {
+    transform: translateX(4px);
+  }
+}
+
+/* ── Vacant unit ────────────────────────────────────────────────── */
+
+.vacant {
+  background: var(--concrete);
+}
+
+.vacant .sign {
+  background: transparent;
+  color: var(--ink-3);
+  border-bottom-style: dashed;
+}
+
+.vacantNote {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ── Notice & footer ────────────────────────────────────────────── */
+
+.notice {
+  max-width: 1320px;
+  margin: clamp(40px, 6vw, 72px) auto 0;
+  padding: 0 clamp(16px, 4vw, 48px);
+  box-sizing: content-box;
+}
+
+.noticeTitle {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--ink);
+  color: var(--plaster);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.noticeList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border-top: var(--wall);
+}
+
+.noticeList > div {
+  padding: 18px 20px 20px 0;
+}
+
+.noticeList > div + div {
+  padding-left: 20px;
+  border-left: 1px solid var(--ink-3);
+}
+
+.noticeList dt {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.noticeList dd {
+  margin: 8px 0 0;
+  max-width: 42ch;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  width: min(1320px, 100% - 2 * clamp(16px, 4vw, 48px));
+  margin: clamp(40px, 6vw, 64px) auto 0;
+  padding: 20px 0 40px;
+  border-top: 1px solid var(--ink-3);
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.footer a {
+  font-weight: 700;
+  color: var(--ink);
+  text-underline-offset: 4px;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+
+@media (max-width: 1099px) {
+  .row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 719px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sign {
+    min-height: 64px;
+  }
+
+  .audience {
+    display: none;
+  }
+
+  .aisle {
+    min-height: 60px;
+  }
+
+  .noticeList {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .noticeList > div,
+  .noticeList > div + div {
+    padding: 16px 0;
+    border-left: 0;
+  }
+
+  .noticeList > div + div {
+    border-top: 1px solid var(--ink-3);
+  }
+
+  .titleBlock {
+    justify-content: flex-start;
+  }
+}
+
+/* ── 404: a vacant unit ─────────────────────────────────────────── */
+
+.lost {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: min(640px, 100% - 32px);
+  margin: clamp(48px, 12vh, 120px) auto;
+  padding: clamp(28px, 5vw, 48px);
+  border: 2px dashed var(--ink);
+  background: var(--plaster);
+}
+
+.lostPlate {
+  padding: 2px 10px;
+  background: var(--ink);
+  color: var(--plaster);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.lostTitle {
+  font-family: var(--sign-face);
+  font-weight: 400;
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  line-height: 1.1;
+}
+
+.lostBody {
+  max-width: 40ch;
+  color: var(--ink-2);
+  line-height: 1.65;
+}
+
+.lostLink {
+  margin-top: 8px;
+  padding: 12px 18px;
+  background: var(--enamel);
+  color: var(--enamel-ink);
+  font-weight: 800;
+  text-decoration: none;
+}
