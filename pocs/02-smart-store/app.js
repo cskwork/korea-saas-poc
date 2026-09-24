@@ -1,1085 +1,1265 @@
 // ============================================================
 // 스마트셀러 - 네이버 스마트스토어 위탁판매 관리 도구 POC
+// Rendering and interaction. Business rules live in core.js.
 // ============================================================
 
-(function () {
-    'use strict';
+import {
+    CATEGORY_FEES, CATEGORY_LABELS, MOCK_PRODUCTS, MOCK_CUSTOMER_NAMES, MOCK_ADDRESSES, KEYWORD_DATA,
+    ORDER_FLOW, TABS, escapeHtml as esc, formatCurrency, formatNumber, toInt, productEconomics, calcProfit,
+    validateCalcInput, screenProducts, nextStatus, canAdvance, canCancel, countByStatus, filterOrders,
+    keywordReport, analyticsReport, generateTitle, generateKeywords, generateHashtags, resolveTab,
+} from './core.js';
 
-    // ─── Constants & Mock Data ───────────────────────────────
+const $ = id => document.getElementById(id);
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    const CATEGORY_FEES = {
-        '패션': 5.5, '뷰티': 4.0, '생활': 6.0, '전자기기': 3.5, '식품': 7.0, '기타': 5.0
-    };
+// ─── State ────────────────────────────────────────────────
 
-    const CATEGORY_EMOJI = {
-        '패션': '👗', '뷰티': '💄', '생활': '🏠', '전자기기': '📱', '식품': '🍜'
-    };
+const STATE_KEY = 'smartseller_state';
+const PREFS_KEY = 'smartseller_prefs';
+const THEME_KEY = 'smartseller_theme';
 
-    const MOCK_PRODUCTS = [
-        { id: 'P001', name: '여성 플리스 후리스 자켓 겨울 아우터', category: '패션', wholesalePrice: 12000, retailPrice: 29900, supplier: '도매매', emoji: '🧥' },
-        { id: 'P002', name: '남성 기능성 스포츠 반팔 티셔츠', category: '패션', wholesalePrice: 5500, retailPrice: 15900, supplier: '도매꾹', emoji: '👕' },
-        { id: 'P003', name: '비타민C 세럼 30ml 피부관리', category: '뷰티', wholesalePrice: 3200, retailPrice: 12900, supplier: '도매매', emoji: '💧' },
-        { id: 'P004', name: '히알루론산 수분크림 50ml', category: '뷰티', wholesalePrice: 4500, retailPrice: 18900, supplier: '도매꾹', emoji: '🧴' },
-        { id: 'P005', name: '무선 블루투스 이어폰 5.3', category: '전자기기', wholesalePrice: 8000, retailPrice: 24900, supplier: '도매매', emoji: '🎧' },
-        { id: 'P006', name: '스테인리스 텀블러 500ml 보온보냉', category: '생활', wholesalePrice: 4000, retailPrice: 15900, supplier: '도매꾹', emoji: '🥤' },
-        { id: 'P007', name: '실리콘 주방 조리도구 5종 세트', category: '생활', wholesalePrice: 6500, retailPrice: 19900, supplier: '도매매', emoji: '🍳' },
-        { id: 'P008', name: '프리미엄 견과류 믹스넛 1kg', category: '식품', wholesalePrice: 9000, retailPrice: 22900, supplier: '도매꾹', emoji: '🥜' },
-        { id: 'P009', name: 'LED 무드등 조명 인테리어 램프', category: '전자기기', wholesalePrice: 5000, retailPrice: 16900, supplier: '도매매', emoji: '💡' },
-        { id: 'P010', name: '접이식 경량 우산 자동 3단', category: '생활', wholesalePrice: 3500, retailPrice: 12900, supplier: '도매꾹', emoji: '☂️' },
-        { id: 'P011', name: '유기농 그래놀라 시리얼 500g', category: '식품', wholesalePrice: 4800, retailPrice: 13900, supplier: '도매매', emoji: '🥣' },
-        { id: 'P012', name: '여성 크로스백 미니 숄더백', category: '패션', wholesalePrice: 7000, retailPrice: 23900, supplier: '도매꾹', emoji: '👜' },
-        { id: 'P013', name: '폼클렌징 약산성 150ml', category: '뷰티', wholesalePrice: 2800, retailPrice: 11900, supplier: '도매매', emoji: '🧼' },
-        { id: 'P014', name: 'C타입 고속 충전 케이블 2m', category: '전자기기', wholesalePrice: 1500, retailPrice: 7900, supplier: '도매꾹', emoji: '🔌' },
-        { id: 'P015', name: '다용도 수납 정리함 3단', category: '생활', wholesalePrice: 5500, retailPrice: 17900, supplier: '도매매', emoji: '📦' },
-        { id: 'P016', name: '남성 슬림핏 청바지 데님', category: '패션', wholesalePrice: 11000, retailPrice: 32900, supplier: '도매꾹', emoji: '👖' },
-        { id: 'P017', name: '선크림 SPF50+ PA++++ 50ml', category: '뷰티', wholesalePrice: 3800, retailPrice: 15900, supplier: '도매매', emoji: '☀️' },
-        { id: 'P018', name: '저칼로리 곤약젤리 10개입', category: '식품', wholesalePrice: 3000, retailPrice: 9900, supplier: '도매꾹', emoji: '🍬' },
-    ];
+function readJson(key, fallback) {
+    try {
+        const saved = localStorage.getItem(key);
+        if (saved) return { ...fallback, ...JSON.parse(saved) };
+    } catch (e) {
+        console.warn('State load error', e);
+    }
+    return { ...fallback };
+}
 
-    const MOCK_CUSTOMER_NAMES = ['김민수', '이지은', '박서준', '최유리', '정도현', '한소희', '오준혁', '신민아', '강태호', '윤서영', '임채원', '조하나'];
-    const MOCK_ADDRESSES = ['서울시 강남구', '부산시 해운대구', '인천시 남동구', '대구시 수성구', '광주시 서구', '대전시 유성구', '울산시 남구', '경기도 성남시'];
+function writeJson(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+    } catch (e) {
+        console.warn('State save error', e);
+        return false;
+    }
+}
 
-    const KEYWORD_DATA = {
-        '여성 원피스': { monthly: 145000, competition: '높음', trend: '상승', related: ['여름 원피스', '데이트 원피스', '롱 원피스', '플라워 원피스', '하객룩 원피스', '니트 원피스', '셔츠 원피스'] },
-        '무선 이어폰': { monthly: 220000, competition: '높음', trend: '유지', related: ['블루투스 이어폰', '노이즈캔슬링 이어폰', '가성비 이어폰', '운동용 이어폰', '오픈형 이어폰', '에어팟 대안', '이어폰 추천'] },
-        '텀블러': { monthly: 89000, competition: '중간', trend: '상승', related: ['보온 텀블러', '스텐 텀블러', '대용량 텀블러', '빨대 텀블러', '예쁜 텀블러', '등산 텀블러', '사무실 텀블러'] },
-        '비타민C 세럼': { monthly: 67000, competition: '중간', trend: '상승', related: ['세럼 추천', '미백 세럼', '피부결 세럼', '모공 세럼', '저자극 세럼', '수분 세럼', '안티에이징 세럼'] },
-        '수납 정리함': { monthly: 52000, competition: '낮음', trend: '유지', related: ['옷 수납함', '서랍 정리함', '화장품 정리함', '냉장고 정리함', '책상 정리함', '신발 정리함', '주방 정리함'] },
-        '남성 반팔': { monthly: 178000, competition: '높음', trend: '계절성', related: ['오버핏 반팔', '무지 반팔', '쿨링 반팔', '기능성 반팔', '브랜드 반팔', '반팔 티셔츠', '린넨 반팔'] },
-        '그래놀라': { monthly: 31000, competition: '낮음', trend: '상승', related: ['유기농 그래놀라', '다이어트 시리얼', '오트밀', '아사이볼', '단백질 시리얼', '저칼로리 간식', '아침대용'] },
-    };
+const EMPTY_STATE = { orders: [], listings: [], savedKeywords: [], calcHistory: [] };
+let state = readJson(STATE_KEY, EMPTY_STATE);
+['orders', 'listings', 'savedKeywords', 'calcHistory'].forEach(k => { if (!Array.isArray(state[k])) state[k] = []; });
 
-    // ─── State Management ────────────────────────────────────
+const DEFAULT_PREFS = { supplier: 'all', category: 'all', minMargin: 10, sort: 'margin', query: '', orderFilter: 'all', period: '30' };
+const prefs = readJson(PREFS_KEY, DEFAULT_PREFS);
 
-    const STATE_KEY = 'smartseller_state';
+let storageWarned = false;
+function saveState() {
+    if (!writeJson(STATE_KEY, state) && !storageWarned) {
+        storageWarned = true;
+        showToast('브라우저 저장소를 쓸 수 없어 새로고침하면 변경 내용이 사라집니다');
+    }
+}
+const savePrefs = () => writeJson(PREFS_KEY, prefs);
 
-    function loadState() {
-        try {
-            const saved = localStorage.getItem(STATE_KEY);
-            if (saved) return JSON.parse(saved);
-        } catch (e) {
-            console.warn('State load error', e);
+// ─── Utilities ────────────────────────────────────────────
+
+let seq = 0;
+function generateId() {
+    seq += 1;
+    return Date.now().toString(36) + seq.toString(36) + Math.random().toString(36).slice(2, 6);
+}
+const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const randomChoice = arr => arr[Math.floor(Math.random() * arr.length)];
+const icon = (name, cls = 'icon') => `<svg class="${cls}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+
+function signed(value, digits = 1, unit = '%') {
+    const v = Number(value) || 0;
+    const dir = v > 0.05 ? 'up' : v < -0.05 ? 'down' : 'flat';
+    const word = dir === 'up' ? '상승 ' : dir === 'down' ? '하락 ' : '';
+    return `<span class="chg ${dir}">${icon(dir, 'tri')}<span class="visually-hidden">${word}</span>${Math.abs(v).toFixed(digits)}${unit}</span>`;
+}
+
+function marginCell(margin) {
+    const dir = margin > 0 ? 'up' : margin < 0 ? 'down' : 'flat';
+    const width = Math.max(0, Math.min(100, margin * (100 / 70)));
+    return `<span class="margin ${dir}"><span class="margin-num">${icon(dir, 'tri')}${margin.toFixed(1)}%</span><span class="meter" aria-hidden="true"><span style="width:${width.toFixed(1)}%"></span></span></span>`;
+}
+
+function productByName(name) {
+    return MOCK_PRODUCTS.find(p => p.name === name || (name && name.includes(p.name)));
+}
+
+function thumb(product, size = 'sm') {
+    if (!product) return `<span class="thumb thumb-${size} thumb-blank" aria-hidden="true"></span>`;
+    return `<img class="thumb thumb-${size}" src="assets/products/${product.id}.webp" alt="${esc(product.alt)}" width="96" height="96" loading="lazy" decoding="async">`;
+}
+
+// Price tick: red when the changed value went up, blue when it went down.
+function flash(el, dir = 'up') {
+    if (!el || reduceMotion.matches) return;
+    el.classList.remove('tick', 'tick-down');
+    void el.offsetWidth;
+    el.classList.add(dir === 'down' ? 'tick-down' : 'tick');
+}
+
+// ─── Toast with optional undo ─────────────────────────────
+
+let toastTimer;
+let toastHandler = null;
+function showToast(msg, action) {
+    const toast = $('toast');
+    const btn = $('toastAction');
+    $('toastMsg').textContent = msg;
+    toastHandler = action ? action.run : null;
+    btn.hidden = !action;
+    if (action) btn.innerHTML = `${icon('undo')}${esc(action.label)}`;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), action ? 6000 : 2800);
+}
+$('toastAction').addEventListener('click', () => {
+    const run = toastHandler;
+    toastHandler = null;
+    $('toast').classList.remove('show');
+    if (run) run();
+});
+
+// ─── Theme ────────────────────────────────────────────────
+
+function currentTheme() {
+    const set = document.documentElement.dataset.theme;
+    if (set) return set;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+function syncThemeButton() {
+    const dark = currentTheme() === 'dark';
+    const btn = $('themeBtn');
+    btn.setAttribute('aria-label', dark ? '라이트 모드로 전환' : '다크 모드로 전환');
+    btn.innerHTML = icon(dark ? 'sun' : 'moon');
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', dark ? '#0d1119' : '#1b2536');
+}
+$('themeBtn').addEventListener('click', () => {
+    const next = currentTheme() === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* not persisted */ }
+    syncThemeButton();
+    if (activeTab === 'analytics') renderAnalytics();
+});
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    syncThemeButton();
+    if (activeTab === 'analytics') renderAnalytics();
+});
+
+// ─── Clock ────────────────────────────────────────────────
+
+const clockFmt = new Intl.DateTimeFormat('ko-KR', { timeZone: 'Asia/Seoul', month: 'numeric', day: 'numeric', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
+function tickClock() {
+    const now = new Date();
+    $('clock').textContent = clockFmt.format(now);
+    $('clock').dateTime = now.toISOString();
+}
+
+// ─── Tabs (hash routed, ARIA tabs) ────────────────────────
+
+let activeTab = 'sourcing';
+const tabButtons = [...document.querySelectorAll('.screen-tab')];
+
+function showTab(id, { focus = false, updateHash = true } = {}) {
+    if (!TABS.some(t => t.id === id)) id = 'sourcing';
+    activeTab = id;
+    if (id !== 'sourcing' && modal.open) closeModal();
+    tabButtons.forEach(btn => {
+        const on = btn.dataset.tab === id;
+        btn.setAttribute('aria-selected', String(on));
+        btn.tabIndex = on ? 0 : -1;
+        if (on && focus) btn.focus();
+    });
+    document.querySelectorAll('.screen').forEach(panel => { panel.hidden = panel.id !== 'tab-' + id; });
+    if (updateHash && location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+    const tab = TABS.find(t => t.id === id);
+    document.title = `${tab.label} · 스마트셀러`;
+    $('jumpInput').placeholder = tab.code;
+
+    if (id === 'analytics') renderAnalytics();
+    if (id === 'orders') renderOrders();
+    if (id === 'listing') renderListings();
+    if (id === 'keywords') renderSavedKeywords();
+}
+
+tabButtons.forEach((btn, i) => {
+    btn.addEventListener('click', () => showTab(btn.dataset.tab));
+    btn.addEventListener('keydown', e => {
+        let next = null;
+        if (e.key === 'ArrowRight') next = (i + 1) % tabButtons.length;
+        if (e.key === 'ArrowLeft') next = (i - 1 + tabButtons.length) % tabButtons.length;
+        if (e.key === 'Home') next = 0;
+        if (e.key === 'End') next = tabButtons.length - 1;
+        if (next !== null) {
+            e.preventDefault();
+            showTab(tabButtons[next].dataset.tab, { focus: true });
         }
-        return { orders: [], listings: [], savedKeywords: [], calcHistory: [] };
+    });
+});
+
+window.addEventListener('popstate', () => showTab(resolveTab(location.hash) || 'sourcing', { updateHash: false }));
+document.querySelector('.brand').addEventListener('click', e => { e.preventDefault(); showTab('sourcing'); });
+
+$('jumpForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const input = $('jumpInput');
+    const id = resolveTab(input.value);
+    if (!id) {
+        showToast(`화면번호 ${input.value || ''}을(를) 찾을 수 없습니다 (1001, 1002, 2001, 3001, 4001, 5001)`);
+        input.select();
+        return;
     }
+    input.value = '';
+    showTab(id, { focus: true });
+});
 
-    function saveState() {
-        try {
-            localStorage.setItem(STATE_KEY, JSON.stringify(state));
-        } catch (e) {
-            console.warn('State save error', e);
-        }
-    }
+// ─── Quote tape ───────────────────────────────────────────
 
-    let state = loadState();
+function renderTape() {
+    const items = screenProducts(MOCK_PRODUCTS, { sort: 'margin' }).map(p =>
+        `<span class="tape-item"><span class="tape-name">${esc(p.name.split(' ').slice(0, 3).join(' '))}</span><span class="chg up">${icon('up', 'tri')}${p.margin.toFixed(1)}%</span><span class="tape-profit">${formatCurrency(p.profit)}</span></span>`
+    ).join('');
+    $('tapeTrack').innerHTML = items;
+}
 
-    // ─── Utility Functions ───────────────────────────────────
+// ─── 1001 Product sourcing ────────────────────────────────
 
-    function formatCurrency(num) {
-        return '₩' + Math.round(num).toLocaleString('ko-KR');
-    }
+function listedNames() {
+    return new Set(state.listings.map(l => l.originalName));
+}
 
-    function formatNumber(num) {
-        return Math.round(num).toLocaleString('ko-KR');
-    }
+function renderSourcingGrid() {
+    $('marginFilterValue').textContent = prefs.minMargin + '%';
+    const rows = screenProducts(MOCK_PRODUCTS, prefs);
+    $('productCount').textContent = rows.length === MOCK_PRODUCTS.length
+        ? `${rows.length}개 상품`
+        : `${MOCK_PRODUCTS.length}개 중 ${rows.length}개 상품`;
 
-    function calcMargin(wholesale, retail, category) {
-        const feeRate = CATEGORY_FEES[category] || 5.0;
-        const fee = retail * (feeRate / 100);
-        const profit = retail - wholesale - fee;
-        return ((profit / retail) * 100);
-    }
-
-    function getMarginColor(margin) {
-        if (margin >= 30) return '#22c55e';
-        if (margin >= 20) return '#eab308';
-        if (margin >= 10) return '#f97316';
-        return '#ef4444';
-    }
-
-    function showToast(msg) {
-        const toast = document.getElementById('toast');
-        toast.textContent = msg;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2500);
-    }
-
-    function generateId() {
-        return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
-    }
-
-    function randomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    function randomChoice(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    function getStatusBadgeClass(status) {
-        switch (status) {
-            case '신규주문': return 'badge-new';
-            case '처리중': return 'badge-processing';
-            case '배송중': return 'badge-shipping';
-            case '배송완료': return 'badge-complete';
-            case '취소': return 'badge-cancel';
-            default: return '';
-        }
-    }
-
-    function nextStatus(current) {
-        const flow = ['신규주문', '처리중', '배송중', '배송완료'];
-        const idx = flow.indexOf(current);
-        return idx < flow.length - 1 ? flow[idx + 1] : current;
-    }
-
-    // ─── Tab Navigation ──────────────────────────────────────
-
-    document.querySelectorAll('.nav-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => { c.classList.add('hidden'); c.classList.remove('active'); });
-            tab.classList.add('active');
-            const target = document.getElementById('tab-' + tab.dataset.tab);
-            target.classList.remove('hidden');
-            target.classList.add('active');
-
-            if (tab.dataset.tab === 'analytics') renderAnalytics();
-            if (tab.dataset.tab === 'orders') renderOrders();
-            if (tab.dataset.tab === 'listing') renderListings();
-            if (tab.dataset.tab === 'keywords') renderSavedKeywords();
-        });
+    const sortCol = { margin: 'col-margin', profit: 'col-profit', cost: 'col-cost', price: 'col-price' }[prefs.sort];
+    document.querySelectorAll('.screener thead th').forEach(th => {
+        if (sortCol && th.classList.contains(sortCol)) th.setAttribute('aria-sort', prefs.sort === 'cost' || prefs.sort === 'price' ? 'ascending' : 'descending');
+        else th.removeAttribute('aria-sort');
     });
 
-    // ─── 1. Product Sourcing ─────────────────────────────────
-
-    function renderSourcingGrid() {
-        const supplier = document.getElementById('sourcingSupplier').value;
-        const category = document.getElementById('sourcingCategory').value;
-        const minMargin = parseInt(document.getElementById('marginFilter').value);
-        document.getElementById('marginFilterValue').textContent = minMargin + '%';
-
-        let filtered = MOCK_PRODUCTS.filter(p => {
-            if (supplier !== 'all' && p.supplier !== supplier) return false;
-            if (category !== 'all' && p.category !== category) return false;
-            const margin = calcMargin(p.wholesalePrice, p.retailPrice, p.category);
-            return margin >= minMargin;
-        });
-
-        document.getElementById('productCount').textContent = filtered.length + '개 상품';
-
-        const grid = document.getElementById('sourcingGrid');
-        if (filtered.length === 0) {
-            grid.innerHTML = '<div class="col-span-full text-center text-gray-400 py-10">조건에 맞는 상품이 없습니다</div>';
-            return;
-        }
-
-        grid.innerHTML = filtered.map(p => {
-            const margin = calcMargin(p.wholesalePrice, p.retailPrice, p.category);
-            const marginColor = getMarginColor(margin);
-            const profit = p.retailPrice - p.wholesalePrice - (p.retailPrice * (CATEGORY_FEES[p.category] || 5) / 100);
-            return `
-                <div class="product-card">
-                    <div class="product-img">
-                        <span>${p.emoji}</span>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">${p.supplier}</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">${p.category}</span>
-                        </div>
-                        <h4 class="font-medium text-sm text-gray-900 mb-2 line-clamp-2" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${p.name}</h4>
-                        <div class="flex justify-between items-end mb-2">
-                            <div>
-                                <div class="text-xs text-gray-400">매입가</div>
-                                <div class="text-sm font-semibold">${formatCurrency(p.wholesalePrice)}</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-xs text-gray-400">판매가</div>
-                                <div class="text-sm font-semibold text-naver">${formatCurrency(p.retailPrice)}</div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="flex justify-between text-xs mb-1">
-                                <span class="text-gray-500">예상 마진율</span>
-                                <span class="font-bold" style="color:${marginColor}">${margin.toFixed(1)}%</span>
-                            </div>
-                            <div class="margin-bar">
-                                <div class="margin-bar-fill" style="width:${Math.min(margin, 50) * 2}%;background:${marginColor}"></div>
-                            </div>
-                            <div class="text-xs text-gray-400 mt-1">예상 순수익: ${formatCurrency(profit)}</div>
-                        </div>
-                        <div class="flex gap-2">
-                            <button onclick="selectForListing('${p.id}')" class="flex-1 bg-naver hover:bg-naver-dark text-white text-xs font-medium py-2 rounded-lg transition-colors">
-                                ✨ AI 등록
-                            </button>
-                            <button onclick="showProductDetail('${p.id}')" class="px-3 py-2 border border-gray-200 rounded-lg text-xs hover:bg-gray-50 transition-colors">
-                                상세
-                            </button>
-                        </div>
+    const grid = $('sourcingGrid');
+    if (rows.length === 0) {
+        grid.innerHTML = `<tr class="empty-row"><td colspan="7"><div class="empty"><p>조건에 맞는 상품이 없습니다</p><p class="muted">최소 마진율을 낮추거나 검색어를 지워 보세요.</p><button type="button" class="btn btn-ghost btn-sm" data-action="reset-filters">조건 초기화</button></div></td></tr>`;
+        return;
+    }
+    const listed = listedNames();
+    grid.innerHTML = rows.map(p => `
+        <tr data-id="${p.id}">
+            <td class="col-name">
+                <div class="prod">
+                    ${thumb(p)}
+                    <div class="prod-text">
+                        <span class="prod-name">${esc(p.name)}</span>
+                        <span class="prod-meta"><span class="code-tag">${p.id}</span>${esc(p.supplier)} · ${esc(CATEGORY_LABELS[p.category])}${listed.has(p.name) ? ' · <span class="listed-tag">등록됨</span>' : ''}</span>
                     </div>
                 </div>
-            `;
-        }).join('');
+            </td>
+            <td class="num col-cost" data-label="매입가">${formatCurrency(p.wholesalePrice)}</td>
+            <td class="num col-price" data-label="판매가">${formatCurrency(p.retailPrice)}</td>
+            <td class="num col-fee" data-label="수수료">${formatCurrency(p.fee)}<span class="sub">${p.feeRate.toFixed(1)}%</span></td>
+            <td class="num col-profit" data-label="순수익"><span class="up-text">${formatCurrency(p.profit)}</span></td>
+            <td class="num col-margin" data-label="마진율">${marginCell(p.margin)}</td>
+            <td class="col-act">
+                <div class="row-actions">
+                    <button type="button" class="btn btn-line btn-sm" data-action="list" data-id="${p.id}">${icon('sparkles')}AI 등록</button>
+                    <button type="button" class="btn btn-ghost btn-sm" data-action="detail" data-id="${p.id}" aria-label="${esc(p.name)} 상세">상세</button>
+                </div>
+            </td>
+        </tr>`).join('');
+    if (modal.open && modal.dataset.id) markSelectedRow(modal.dataset.id);
+}
+
+function syncFilterControls() {
+    $('sourcingSupplier').value = prefs.supplier;
+    $('sourcingCategory').value = prefs.category;
+    $('marginFilter').value = prefs.minMargin;
+    $('sourcingSort').value = prefs.sort;
+    $('sourcingQuery').value = prefs.query;
+}
+
+function onFilterChange() {
+    const before = screenProducts(MOCK_PRODUCTS, prefs).length;
+    prefs.supplier = $('sourcingSupplier').value;
+    prefs.category = $('sourcingCategory').value;
+    prefs.minMargin = toInt($('marginFilter').value);
+    prefs.sort = $('sourcingSort').value;
+    prefs.query = $('sourcingQuery').value;
+    savePrefs();
+    renderSourcingGrid();
+    const after = screenProducts(MOCK_PRODUCTS, prefs).length;
+    if (after !== before) flash($('productCount'), after < before ? 'down' : 'up');
+}
+
+function resetFilters() {
+    Object.assign(prefs, { supplier: 'all', category: 'all', minMargin: 0, sort: 'margin', query: '' });
+    savePrefs();
+    syncFilterControls();
+    renderSourcingGrid();
+}
+
+['sourcingSupplier', 'sourcingCategory', 'sourcingSort'].forEach(id => $(id).addEventListener('change', onFilterChange));
+$('marginFilter').addEventListener('input', onFilterChange);
+$('sourcingQuery').addEventListener('input', onFilterChange);
+$('sourcingFilters').addEventListener('submit', e => e.preventDefault());
+$('resetFilters').addEventListener('click', resetFilters);
+
+$('sourcingGrid').addEventListener('click', e => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    if (btn.dataset.action === 'list') selectForListing(btn.dataset.id);
+    if (btn.dataset.action === 'detail') showProductDetail(btn.dataset.id, btn);
+    if (btn.dataset.action === 'reset-filters') resetFilters();
+});
+// Clicking anywhere else on a row opens its quote (the 상세 button is the keyboard path).
+$('sourcingGrid').addEventListener('click', e => {
+    if (e.target.closest('button, a, input')) return;
+    const row = e.target.closest('tr[data-id]');
+    if (row) showProductDetail(row.dataset.id, row.querySelector('[data-action="detail"]'));
+});
+
+// Quote panel (product detail)
+const modal = $('productModal');
+let modalReturnFocus = null;
+
+function showProductDetail(id, opener) {
+    const p = MOCK_PRODUCTS.find(x => x.id === id);
+    if (!p) return;
+    const { fee, profit, margin, feeRate } = productEconomics(p.wholesalePrice, p.retailPrice, p.category);
+    modalReturnFocus = opener || document.activeElement;
+    modal.dataset.id = p.id;
+    $('modalTitle').textContent = p.name;
+    $('modalContent').innerHTML = `
+        <div class="quote-figure">
+            <img src="assets/products/${p.id}.webp" alt="${esc(p.alt)}" width="192" height="192">
+            <div class="quote-big">
+                <span class="muted small">예상 순수익 (1개)</span>
+                <strong class="up-text">${formatCurrency(profit)}</strong>
+                ${marginCell(margin)}
+            </div>
+        </div>
+        <dl class="ladder">
+            <div><dt>도매처</dt><dd>${esc(p.supplier)}</dd></div>
+            <div><dt>카테고리</dt><dd>${esc(CATEGORY_LABELS[p.category])}</dd></div>
+            <div class="rung"><dt>권장 판매가</dt><dd>${formatCurrency(p.retailPrice)}</dd></div>
+            <div class="rung minus"><dt>네이버 수수료 (${feeRate.toFixed(1)}%)</dt><dd>−${formatCurrency(fee)}</dd></div>
+            <div class="rung minus"><dt>매입가</dt><dd>−${formatCurrency(p.wholesalePrice)}</dd></div>
+            <div class="rung total"><dt>예상 순수익</dt><dd class="up-text">${formatCurrency(profit)}</dd></div>
+        </dl>
+        <p class="muted small">배송비는 포함되지 않았습니다. 배송비까지 넣어 보려면 수익 계산기로 보내세요.</p>
+        <div class="quote-actions">
+            <button type="button" class="btn btn-buy btn-block" data-action="list" data-id="${p.id}">${icon('sparkles')}AI 등록하기</button>
+            <button type="button" class="btn btn-ghost btn-block" data-action="calc" data-id="${p.id}">${icon('calc')}수익 계산기로</button>
+        </div>`;
+    markSelectedRow(p.id);
+    if (dockQuery.matches && activeTab === 'sourcing') {
+        // Desktop: a docked, non-modal pane beside the screener, which stays usable.
+        dock.classList.add('is-docked');
+        if (!modal.open) modal.show();
+        $('modalTitle').focus();
+    } else if (!modal.open) {
+        if (typeof modal.showModal === 'function') modal.showModal();
+        else modal.setAttribute('open', '');
+    }
+}
+
+const dock = $('screenerDock');
+const dockQuery = window.matchMedia('(min-width: 1024px)');
+
+function markSelectedRow(id) {
+    document.querySelectorAll('#sourcingGrid tr[data-id]').forEach(tr => {
+        const on = tr.dataset.id === id;
+        tr.classList.toggle('is-selected', on);
+        if (on) tr.setAttribute('aria-current', 'true'); else tr.removeAttribute('aria-current');
+    });
+}
+
+function closeModal() {
+    if (modal.open) modal.close();
+}
+modal.addEventListener('close', () => {
+    dock.classList.remove('is-docked');
+    markSelectedRow(null);
+    if (modalReturnFocus && document.contains(modalReturnFocus)) modalReturnFocus.focus();
+    modalReturnFocus = null;
+});
+// The docked (non-modal) panel does not close on Escape by itself. Escape inside a filled
+// field is left to the field (it clears a search box).
+document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape' || !modal.open || modal.matches(':modal')) return;
+    if (e.target.matches('input, select, textarea') && e.target.value && !modal.contains(e.target)) return;
+    e.preventDefault();
+    closeModal();
+});
+dockQuery.addEventListener('change', closeModal);
+$('closeModal').addEventListener('click', closeModal);
+modal.addEventListener('click', e => {
+    if (e.target === modal) { closeModal(); return; }
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    modalReturnFocus = null;
+    closeModal();
+    if (btn.dataset.action === 'list') selectForListing(btn.dataset.id);
+    if (btn.dataset.action === 'calc') sendToCalculator(btn.dataset.id);
+});
+
+function sendToCalculator(id) {
+    const p = MOCK_PRODUCTS.find(x => x.id === id);
+    if (!p) return;
+    showTab('calculator');
+    $('calcName').value = p.name;
+    $('calcCategory').value = CATEGORY_FEES[p.category].toFixed(1);
+    $('calcCost').value = p.wholesalePrice;
+    $('calcPrice').value = p.retailPrice;
+    renderCalcResult();
+    $('calcShipping').focus();
+    showToast('상품 가격을 불러왔습니다. 배송비와 판매수량을 확인하세요.');
+}
+
+// ─── 1002 AI listing creator ──────────────────────────────
+
+const SOURCE_HINT = '<p class="hint">상품 소싱 탭에서 상품을 선택해주세요<br><span class="muted">또는 아래에서 직접 입력하세요</span></p>';
+
+function selectForListing(id) {
+    const p = MOCK_PRODUCTS.find(x => x.id === id);
+    if (!p) return;
+    closeModal();
+    showTab('listing');
+    $('listingOriginalName').value = p.name;
+    $('listingCategory').value = p.category;
+    $('listingCost').value = p.wholesalePrice;
+    $('listingPrice').value = p.retailPrice;
+    $('listingSourceProduct').innerHTML = `
+        <div class="source-card">
+            ${thumb(p, 'md')}
+            <div>
+                <p class="prod-name">${esc(p.name)}</p>
+                <p class="prod-meta"><span class="code-tag">${p.id}</span>${esc(p.supplier)} · 매입 ${formatCurrency(p.wholesalePrice)}</p>
+            </div>
+        </div>`;
+    clearFieldError('listingOriginalName', 'listingNameError');
+    renderListingQuote();
+    resetAiResult();
+    $('generateListingBtn').focus();
+    showToast('상품이 선택되었습니다. AI 생성 버튼을 눌러주세요!');
+}
+
+function renderListingQuote() {
+    const cost = toInt($('listingCost').value);
+    const price = toInt($('listingPrice').value);
+    const category = $('listingCategory').value;
+    const out = $('listingQuote');
+    if (!(price > 0) || !(cost > 0)) { out.innerHTML = '<span class="muted">매입가와 판매가를 넣으면 수수료를 뺀 예상 순수익이 보입니다.</span>'; return; }
+    const { profit, margin, feeRate } = productEconomics(cost, price, category);
+    out.innerHTML = `<span>예상 순수익</span> <strong class="${profit >= 0 ? 'up-text' : 'down-text'}">${formatCurrency(profit)}</strong> ${marginCell(margin)} <span class="muted small">수수료 ${feeRate.toFixed(1)}% 반영</span>`;
+}
+['listingCost', 'listingPrice'].forEach(id => $(id).addEventListener('input', renderListingQuote));
+$('listingCategory').addEventListener('change', renderListingQuote);
+$('listingOriginalName').addEventListener('input', () => clearFieldError('listingOriginalName', 'listingNameError'));
+
+function setFieldError(inputId, errorId, message) {
+    const err = $(errorId);
+    err.textContent = message;
+    err.hidden = false;
+    $(inputId).setAttribute('aria-invalid', 'true');
+}
+function clearFieldError(inputId, errorId) {
+    $(errorId).hidden = true;
+    $(inputId).removeAttribute('aria-invalid');
+}
+
+function resetAiResult() {
+    $('aiResult').hidden = true;
+    $('aiSkeleton').hidden = true;
+    $('aiResultPlaceholder').hidden = false;
+}
+
+let generating = false;
+$('listingForm').addEventListener('submit', e => {
+    e.preventDefault();
+    if (generating) return;
+    const name = $('listingOriginalName').value.trim();
+    const category = $('listingCategory').value;
+    if (!name) {
+        setFieldError('listingOriginalName', 'listingNameError', '상품명을 입력해주세요');
+        $('listingOriginalName').focus();
+        return;
     }
 
-    document.getElementById('sourcingSupplier').addEventListener('change', renderSourcingGrid);
-    document.getElementById('sourcingCategory').addEventListener('change', renderSourcingGrid);
-    document.getElementById('marginFilter').addEventListener('input', renderSourcingGrid);
+    generating = true;
+    const btn = $('generateListingBtn');
+    btn.disabled = true;
+    btn.querySelector('.btn-label').textContent = 'AI 생성 중…';
+    $('aiPane').setAttribute('aria-busy', 'true');
+    $('aiResultPlaceholder').hidden = true;
+    $('aiResult').hidden = true;
+    $('aiSkeleton').hidden = false;
 
-    window.showProductDetail = function (id) {
-        const p = MOCK_PRODUCTS.find(x => x.id === id);
-        if (!p) return;
-        const margin = calcMargin(p.wholesalePrice, p.retailPrice, p.category);
-        const fee = p.retailPrice * (CATEGORY_FEES[p.category] || 5) / 100;
-        const profit = p.retailPrice - p.wholesalePrice - fee;
+    // Simulated generation delay (demo: template based)
+    setTimeout(() => {
+        const title = generateTitle(name, category, randomChoice);
+        $('aiTitle').textContent = title;
+        $('aiTitleLen').textContent = `${[...title].length}자`;
+        $('aiDescription').textContent = generateAIDescription(name, category);
+        $('aiKeywords').innerHTML = generateKeywords(name, category).map(k => `<span class="chip">${esc(k)}</span>`).join('');
+        $('aiHashtags').textContent = generateHashtags(name, category).join(' ');
 
-        document.getElementById('modalTitle').textContent = p.name;
-        document.getElementById('modalContent').innerHTML = `
-            <div class="text-center text-6xl mb-4">${p.emoji}</div>
-            <div class="space-y-3 text-sm">
-                <div class="flex justify-between"><span class="text-gray-500">도매처</span><span class="font-medium">${p.supplier}</span></div>
-                <div class="flex justify-between"><span class="text-gray-500">카테고리</span><span class="font-medium">${p.category}</span></div>
-                <div class="flex justify-between"><span class="text-gray-500">매입가</span><span class="font-medium">${formatCurrency(p.wholesalePrice)}</span></div>
-                <div class="flex justify-between"><span class="text-gray-500">권장 판매가</span><span class="font-bold text-naver">${formatCurrency(p.retailPrice)}</span></div>
-                <hr>
-                <div class="flex justify-between"><span class="text-gray-500">네이버 수수료 (${CATEGORY_FEES[p.category] || 5}%)</span><span class="text-red-500">-${formatCurrency(fee)}</span></div>
-                <div class="flex justify-between"><span class="text-gray-500">예상 순수익</span><span class="font-bold text-naver">${formatCurrency(profit)}</span></div>
-                <div class="flex justify-between"><span class="text-gray-500">마진율</span><span class="font-bold" style="color:${getMarginColor(margin)}">${margin.toFixed(1)}%</span></div>
-            </div>
-            <button onclick="selectForListing('${p.id}')" class="w-full mt-4 bg-naver hover:bg-naver-dark text-white font-semibold py-3 rounded-lg transition-colors">
-                ✨ AI 등록하기
-            </button>
-        `;
-        document.getElementById('productModal').classList.add('show');
-    };
+        $('aiSkeleton').hidden = true;
+        $('aiResult').hidden = false;
+        $('aiPane').setAttribute('aria-busy', 'false');
+        btn.disabled = false;
+        btn.querySelector('.btn-label').textContent = 'AI 상품 설명 생성';
+        generating = false;
+        showToast('AI 상품 설명이 생성되었습니다!');
+    }, 1200);
+});
 
-    document.getElementById('closeModal').addEventListener('click', () => {
-        document.getElementById('productModal').classList.remove('show');
-    });
-    document.getElementById('productModal').addEventListener('click', (e) => {
-        if (e.target === e.currentTarget) e.currentTarget.classList.remove('show');
-    });
-
-    // ─── 2. AI Listing Creator ───────────────────────────────
-
-    window.selectForListing = function (id) {
-        const p = MOCK_PRODUCTS.find(x => x.id === id);
-        if (!p) return;
-
-        // Switch to listing tab
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => { c.classList.add('hidden'); c.classList.remove('active'); });
-        document.querySelector('[data-tab="listing"]').classList.add('active');
-        document.getElementById('tab-listing').classList.remove('hidden');
-        document.getElementById('tab-listing').classList.add('active');
-
-        // Fill form
-        document.getElementById('listingOriginalName').value = p.name;
-        document.getElementById('listingCategory').value = p.category;
-        document.getElementById('listingCost').value = p.wholesalePrice;
-        document.getElementById('listingPrice').value = p.retailPrice;
-
-        document.getElementById('listingSourceProduct').innerHTML = `
-            <div class="text-center">
-                <span class="text-5xl">${p.emoji}</span>
-                <p class="font-medium mt-2">${p.name}</p>
-                <p class="text-sm text-gray-500 mt-1">${p.supplier} | ${formatCurrency(p.wholesalePrice)}</p>
-            </div>
-        `;
-
-        document.getElementById('productModal').classList.remove('show');
-        showToast('상품이 선택되었습니다. AI 생성 버튼을 눌러주세요!');
-    };
-
-    document.getElementById('generateListingBtn').addEventListener('click', () => {
-        const name = document.getElementById('listingOriginalName').value.trim();
-        const category = document.getElementById('listingCategory').value;
-        if (!name) { showToast('상품명을 입력해주세요'); return; }
-
-        const btn = document.getElementById('generateListingBtn');
-        btn.disabled = true;
-        btn.innerHTML = '<span class="loading-dots">AI 생성 중</span>';
-
-        // Simulate AI generation delay
-        setTimeout(() => {
-            const aiTitle = generateAITitle(name, category);
-            const aiDesc = generateAIDescription(name, category);
-            const aiKws = generateAIKeywords(name, category);
-            const aiTags = generateAIHashtags(name, category);
-
-            document.getElementById('aiTitle').textContent = aiTitle;
-            document.getElementById('aiDescription').textContent = aiDesc;
-            document.getElementById('aiKeywords').innerHTML = aiKws.map(k =>
-                `<span class="px-2 py-1 bg-naver-light text-naver text-xs rounded-full font-medium">${k}</span>`
-            ).join('');
-            document.getElementById('aiHashtags').textContent = aiTags.join(' ');
-
-            document.getElementById('aiResultPlaceholder').classList.add('hidden');
-            document.getElementById('aiResult').classList.remove('hidden');
-
-            btn.disabled = false;
-            btn.innerHTML = '<span>✨</span> AI 상품 설명 생성';
-            showToast('AI 상품 설명이 생성되었습니다!');
-        }, 1500);
-    });
-
-    function generateAITitle(name, category) {
-        const prefixes = {
-            '패션': ['[오늘출발]', '[베스트셀러]', '[시즌특가]'],
-            '뷰티': ['[피부과추천]', '[1+1특가]', '[인기급상승]'],
-            '생활': ['[만족도1위]', '[실용적]', '[가성비갑]'],
-            '전자기기': ['[최신형]', '[정품보장]', '[당일배송]'],
-            '식품': ['[유기농]', '[맛보장]', '[건강한선택]'],
-        };
-        const suffixes = ['무료배송', '당일출고', '국내발송', '사은품증정', '한정특가'];
-        const prefix = randomChoice(prefixes[category] || ['[추천]']);
-        const suffix = randomChoice(suffixes);
-        return `${prefix} ${name} ${suffix}`;
+document.querySelectorAll('[data-copy]').forEach(btn => btn.addEventListener('click', async () => {
+    const text = $(btn.dataset.copy).textContent;
+    try {
+        await navigator.clipboard.writeText(text);
+        showToast('클립보드에 복사했습니다');
+    } catch (err) {
+        showToast('복사하지 못했습니다. 텍스트를 직접 선택해 복사해 주세요.');
     }
+}));
 
-    function generateAIDescription(name, category) {
-        const templates = {
-            '패션': `✨ ${name} ✨
+function generateAIDescription(name, category) {
+    const templates = {
+        '패션': `✨ ${name} ✨
 
 🎯 이런 분께 추천드려요!
-• 트렌디한 스타일을 원하시는 분
-• 편안하면서도 세련된 룩을 찾으시는 분
-• 다양한 코디에 활용하고 싶으신 분
+• 가볍게 입기 좋은 데일리 아이템을 찾는 분
+• 여러 코디에 맞춰 입고 싶은 분
 
 📋 상품 특징
-• 부드러운 촉감의 프리미엄 원단 사용
-• 체형 커버에 탁월한 실루엣
-• 사계절 착용 가능한 베이직 디자인
-• 세탁 후에도 변형 없는 뛰어난 내구성
+• 소재: [원단 혼용률 확인 필요]
+• 핏: [도매처 착용 정보 입력]
+• 계절감: [착용 계절 입력]
+• 세탁 방법: [케어 라벨 확인 필요]
 
 📐 사이즈 가이드
-FREE 사이즈 (55~77)
+[도매처 실측 사이즈 입력]
 
 🚚 배송 안내
-• 결제 확인 후 1~2일 이내 출고
-• 무료 배송 (도서산간 추가 3,000원)
+• 출고: [도매처 출고 기준 입력]
+• 배송비: [배송비 정책 입력]
 
 💬 교환/반품
 • 수령 후 7일 이내 가능
 • 단순 변심 시 반품 배송비 고객 부담`,
-            '뷰티': `💎 ${name} 💎
+        '뷰티': `💎 ${name} 💎
 
 ✅ 주요 성분 & 효능
-• 고농축 유효 성분 함유
-• 피부 장벽 강화 및 수분 공급
-• 민감한 피부에도 안심 사용
-• 무향료, 무색소, 무파라벤
+• 주요 성분: [전성분표 확인 필요]
+• 효능 문구: [기능성 화장품 심사 여부 확인 필요]
+• 피부 자극 테스트: [시험 성적서 확인 필요]
 
-📌 이런 피부 고민에 추천!
-• 건조하고 당기는 피부
-• 칙칙하고 톤이 고르지 않은 피부
-• 모공 및 피부결 고민
+📌 추천 피부 타입
+• [제조사 표기 기준으로 입력]
 
 🧪 사용 방법
-1. 세안 후 토너로 피부결 정돈
-2. 적당량을 손에 덜어 얼굴에 도포
-3. 가볍게 두드려 흡수시키기
+• [제조사 표기 사용 방법 입력]
 
 📦 제품 정보
-• 용량: 50ml
-• 사용 기한: 제조일로부터 24개월
+• 용량: [용량 입력]
+• 사용 기한: [제조일·사용기한 입력]
 
-🚚 당일 출고 (평일 오후 2시 이전 주문 기준)`,
-            '생활': `🏠 ${name} 🏠
+🚚 출고: [도매처 출고 기준 입력]`,
+        '생활': `🏠 ${name} 🏠
 
 💡 이 제품이 특별한 이유!
-• 실용성과 디자인을 모두 잡았습니다
-• 인체에 안전한 소재 사용
-• 간편한 사용법과 쉬운 관리
-• 어떤 인테리어에도 자연스러운 디자인
+• 일상에서 쓰기 편한 구성
+• 소재 안전 인증: [KC 인증 여부 확인 필요]
+• 관리 방법: [세척·관리 방법 입력]
 
 📋 상세 스펙
-• 소재: 프리미엄 등급 소재 사용
-• 크기: 실용적인 적정 사이즈
-• 무게: 가벼워서 이동이 편리
+• 소재: [소재 입력]
+• 크기: [실측 크기 입력]
+• 무게: [무게 입력]
 
 🎯 이렇게 활용하세요!
-• 가정에서 일상적으로 사용
-• 사무실이나 캠핑에서도 활용
-• 선물용으로도 적합
+• [사용 장소·용도 입력]
 
-⭐ 고객 리뷰 평점 4.8/5.0
-🚚 무료배송 | 당일출고`,
-            '전자기기': `📱 ${name} 📱
+🚚 배송: [배송비·출고 기준 입력]`,
+        '전자기기': `📱 ${name} 📱
 
 🔋 핵심 스펙
-• 최신 기술 적용
-• 뛰어난 성능과 안정성
-• 호환성 우수 (다양한 기기 지원)
-• 긴 배터리 수명 / 내구성
+• 규격: [모델명·규격 입력]
+• 호환 기기: [호환 목록 확인 필요]
+• 배터리: [용량·사용 시간 입력]
+• 전파 인증: [KC 인증번호 확인 필요]
 
 📦 패키지 구성
-• 본품 1개
-• 충전 케이블
-• 사용 설명서
-• 보증서
+• [구성품 입력]
 
 ⚡ 주요 기능
-• 빠른 연결 및 안정적인 통신
-• 직관적인 사용법
-• 스마트한 전력 관리
-• 컴팩트한 휴대성
+• [주요 기능 입력]
 
 🛡️ 품질 보증
-• 정품 인증 제품
-• 1년 무상 A/S
-• 불량 시 무료 교환
+• A/S: [도매처 A/S 정책 확인 필요]
+• 불량 교환: [교환 기준 입력]
 
-🚚 오늘 주문하면 내일 도착!`,
-            '식품': `🍽️ ${name} 🍽️
+🚚 배송: [도매처 출고 기준 입력]`,
+        '식품': `🍽️ ${name} 🍽️
 
 🌿 이 제품의 특별함
-• 엄선된 원재료만 사용
-• 건강을 생각하는 레시피
-• 맛과 영양을 동시에
-• 간편하게 즐기는 프리미엄 식품
+• 원재료: [원재료명·원산지 입력]
+• 간편하게 즐기는 한 끼·간식
 
 📋 영양 정보 (1회 제공량 기준)
-• 칼로리: 적정 수준
-• 단백질, 식이섬유 풍부
-• 인공첨가물 무첨가
+• [제조사 영양성분표 그대로 입력]
 
 🍴 이렇게 드세요!
 • 그대로 간식으로
-• 요리 재료로 활용
-• 아이들 간식으로도 안심
+• 알레르기 유발 성분: [표시사항 확인 필요]
 
 📦 보관 방법
-• 직사광선을 피해 서늘한 곳에 보관
-• 개봉 후 밀봉하여 냉장 보관
+• [보관 방법 표시사항 입력]
 
-⭐ 재구매율 92%!
-🚚 신선하게 당일 발송`
-        };
-        return templates[category] || templates['생활'];
+🚚 배송: [도매처 출고 기준 입력]`
+    };
+    return templates[category] || templates['생활'];
+}
+
+$('saveListingBtn').addEventListener('click', () => {
+    const listing = {
+        id: generateId(),
+        name: $('aiTitle').textContent,
+        originalName: $('listingOriginalName').value.trim(),
+        category: $('listingCategory').value,
+        cost: toInt($('listingCost').value),
+        price: toInt($('listingPrice').value),
+        description: $('aiDescription').textContent,
+        keywords: [...$('aiKeywords').children].map(c => c.textContent).join(', '),
+        hashtags: $('aiHashtags').textContent,
+        status: '등록완료',
+        createdAt: new Date().toISOString()
+    };
+
+    state.listings.push(listing);
+    saveState();
+    renderListings();
+    renderSourcingGrid();
+    showToast('상품이 등록되었습니다!');
+
+    resetAiResult();
+    $('listingOriginalName').value = '';
+    $('listingCost').value = '';
+    $('listingPrice').value = '';
+    $('listingSourceProduct').innerHTML = SOURCE_HINT;
+    renderListingQuote();
+    flash($('listingsTable').lastElementChild);
+});
+
+function renderListings() {
+    const table = $('listingsTable');
+    $('listingCount').textContent = state.listings.length ? `${state.listings.length}개` : '';
+    if (state.listings.length === 0) {
+        table.innerHTML = '<tr class="empty-row"><td colspan="7"><div class="empty empty-art"><img src="assets/empty-box-320.webp" alt="" width="160" height="160"><p>등록된 상품이 없습니다</p><p class="muted">상품 소싱에서 AI 등록을 눌러 첫 상품을 등록해 보세요.</p></div></td></tr>';
+        return;
     }
+    table.innerHTML = state.listings.map(l => {
+        const { margin } = productEconomics(l.cost, l.price, l.category);
+        const p = productByName(l.originalName);
+        return `
+        <tr data-id="${esc(l.id)}">
+            <td><div class="prod">${thumb(p)}<div class="prod-text"><span class="prod-name">${esc(l.name)}</span><span class="prod-meta">원본: ${esc(l.originalName)}</span></div></div></td>
+            <td class="col-cat" data-label="카테고리">${esc(CATEGORY_LABELS[l.category] || l.category)}</td>
+            <td class="num col-cost" data-label="매입가">${formatCurrency(l.cost)}</td>
+            <td class="num" data-label="판매가">${formatCurrency(l.price)}</td>
+            <td class="num col-margin" data-label="마진율">${l.price > 0 ? marginCell(margin) : '—'}</td>
+            <td class="center col-status"><span class="status status-done">${esc(l.status)}</span></td>
+            <td class="col-act"><button type="button" class="icon-btn" data-action="remove-listing" data-id="${esc(l.id)}" aria-label="${esc(l.name)} 등록 삭제">${icon('trash')}</button></td>
+        </tr>`;
+    }).join('');
+}
 
-    function generateAIKeywords(name, category) {
-        const words = name.split(' ').filter(w => w.length > 1);
-        const categoryKws = {
-            '패션': ['패션', '코디', 'OOTD', '데일리룩', '스타일'],
-            '뷰티': ['뷰티', '스킨케어', '피부관리', '화장품', '더마'],
-            '생활': ['생활용품', '인테리어', '리빙', '수납', '정리'],
-            '전자기기': ['가전', '전자기기', 'IT', '가성비', '최신'],
-            '식품': ['건강식품', '간식', '맛집', '유기농', '홈쿠킹']
-        };
-        const extras = categoryKws[category] || [];
-        return [...words.slice(0, 4), ...extras.slice(0, 3)];
-    }
-
-    function generateAIHashtags(name, category) {
-        const words = name.split(' ').filter(w => w.length > 1);
-        const tags = words.map(w => '#' + w);
-        const extras = {
-            '패션': ['#패션스타그램', '#오오티디', '#데일리룩', '#코디추천'],
-            '뷰티': ['#뷰티스타그램', '#스킨케어', '#화장품추천', '#피부관리'],
-            '생활': ['#리빙템', '#집꾸미기', '#생활꿀템', '#가성비'],
-            '전자기기': ['#테크', '#IT기기', '#가성비템', '#전자기기'],
-            '식품': ['#먹스타그램', '#건강식', '#홈쿠킹', '#맛있는거']
-        };
-        return [...tags, ...(extras[category] || []).slice(0, 3)];
-    }
-
-    document.getElementById('saveListingBtn').addEventListener('click', () => {
-        const listing = {
-            id: generateId(),
-            name: document.getElementById('aiTitle').textContent,
-            originalName: document.getElementById('listingOriginalName').value,
-            category: document.getElementById('listingCategory').value,
-            cost: parseInt(document.getElementById('listingCost').value) || 0,
-            price: parseInt(document.getElementById('listingPrice').value) || 0,
-            description: document.getElementById('aiDescription').textContent,
-            keywords: document.getElementById('aiKeywords').textContent,
-            hashtags: document.getElementById('aiHashtags').textContent,
-            status: '등록완료',
-            createdAt: new Date().toISOString()
-        };
-
-        state.listings.push(listing);
-        saveState();
-        renderListings();
-        showToast('상품이 등록되었습니다! 🎉');
-
-        // Reset AI result
-        document.getElementById('aiResult').classList.add('hidden');
-        document.getElementById('aiResultPlaceholder').classList.remove('hidden');
-        document.getElementById('listingOriginalName').value = '';
-        document.getElementById('listingCost').value = '';
-        document.getElementById('listingPrice').value = '';
+$('listingsTable').addEventListener('click', e => {
+    const btn = e.target.closest('[data-action="remove-listing"]');
+    if (!btn) return;
+    const idx = state.listings.findIndex(l => l.id === btn.dataset.id);
+    if (idx < 0) return;
+    const [removed] = state.listings.splice(idx, 1);
+    saveState();
+    renderListings();
+    renderSourcingGrid();
+    showToast('등록 상품을 삭제했습니다', {
+        label: '되돌리기',
+        run: () => {
+            state.listings.splice(idx, 0, removed);
+            saveState();
+            renderListings();
+            renderSourcingGrid();
+        }
     });
+});
 
-    function renderListings() {
-        const table = document.getElementById('listingsTable');
-        if (state.listings.length === 0) {
-            table.innerHTML = '<tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">등록된 상품이 없습니다</td></tr>';
-            return;
-        }
-        table.innerHTML = state.listings.map(l => `
-            <tr class="border-b border-gray-100 hover:bg-gray-50">
-                <td class="px-4 py-3 text-sm font-medium max-w-xs truncate">${l.name}</td>
-                <td class="px-4 py-3 text-sm text-gray-500 hidden sm:table-cell">${l.category}</td>
-                <td class="px-4 py-3 text-sm text-right">${formatCurrency(l.cost)}</td>
-                <td class="px-4 py-3 text-sm text-right font-medium text-naver">${formatCurrency(l.price)}</td>
-                <td class="px-4 py-3 text-center"><span class="badge badge-complete">${l.status}</span></td>
-            </tr>
-        `).join('');
+// ─── 2001 Order management ────────────────────────────────
+
+function addMockOrder() {
+    const pool = state.listings.length > 0 ? state.listings : MOCK_PRODUCTS.slice(0, 5);
+    const product = randomChoice(pool);
+    const qty = randomInt(1, 3);
+    const price = product.price || product.retailPrice;
+
+    const order = {
+        id: 'ORD-' + Date.now().toString().slice(-8),
+        productName: product.originalName || product.name,
+        customerName: randomChoice(MOCK_CUSTOMER_NAMES),
+        address: randomChoice(MOCK_ADDRESSES),
+        quantity: qty,
+        unitPrice: price,
+        totalPrice: price * qty,
+        status: '신규주문',
+        orderDate: new Date().toISOString(),
+        trackingNumber: ''
+    };
+
+    state.orders.unshift(order);
+    saveState();
+    renderOrders();
+    flash(document.querySelector(`#orderList tr[data-id="${order.id}"]`));
+    showToast('새 주문이 접수되었습니다!');
+}
+$('addMockOrderBtn').addEventListener('click', addMockOrder);
+
+const orderDateFmt = new Intl.DateTimeFormat('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false });
+
+function stageMeter(status) {
+    if (status === '취소') return '<span class="stage-meter void" aria-hidden="true"><i></i><i></i><i></i><i></i></span>';
+    const step = ORDER_FLOW.indexOf(status) + 1;
+    return `<span class="stage-meter" aria-hidden="true">${ORDER_FLOW.map((_, i) => `<i class="${i < step ? 'on' : ''}"></i>`).join('')}</span>`;
+}
+
+function renderOrders() {
+    const counts = countByStatus(state.orders);
+    $('orderAllCount').textContent = state.orders.length;
+    $('orderNewCount').textContent = counts['신규주문'];
+    $('orderProcessingCount').textContent = counts['처리중'];
+    $('orderShippingCount').textContent = counts['배송중'];
+    $('orderCompleteCount').textContent = counts['배송완료'];
+    $('orderCancelCount').textContent = counts['취소'];
+    const badge = $('tabNewCount');
+    badge.hidden = counts['신규주문'] === 0;
+    badge.textContent = counts['신규주문'];
+    badge.setAttribute('aria-label', `신규주문 ${counts['신규주문']}건`);
+
+    document.querySelectorAll('.tally-cell').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.filter === prefs.orderFilter)));
+
+    const query = $('orderQuery').value;
+    const filtered = filterOrders(state.orders, { status: prefs.orderFilter, query });
+    $('orderResultCount').textContent = `${filtered.length}건`;
+
+    const list = $('orderList');
+    if (filtered.length === 0) {
+        const searching = query.trim() || prefs.orderFilter !== 'all';
+        list.innerHTML = `<tr class="empty-row"><td colspan="5"><div class="empty empty-art"><img src="assets/empty-box-320.webp" alt="" width="160" height="160"><p>주문이 없습니다</p><p class="muted">${searching ? '다른 상태를 고르거나 검색어를 지워 보세요.' : '테스트 주문 추가로 주문 흐름을 확인해 보세요.'}</p></div></td></tr>`;
+        return;
     }
 
-    // ─── 3. Order Management ─────────────────────────────────
-
-    function addMockOrder() {
-        const products = state.listings.length > 0 ? state.listings : MOCK_PRODUCTS.slice(0, 5);
-        const product = randomChoice(products);
-        const qty = randomInt(1, 3);
-        const price = product.price || product.retailPrice;
-
-        const order = {
-            id: 'ORD-' + Date.now().toString().slice(-8),
-            productName: product.name || product.originalName,
-            customerName: randomChoice(MOCK_CUSTOMER_NAMES),
-            address: randomChoice(MOCK_ADDRESSES),
-            quantity: qty,
-            unitPrice: price,
-            totalPrice: price * qty,
-            status: '신규주문',
-            orderDate: new Date().toISOString(),
-            trackingNumber: ''
-        };
-
-        state.orders.unshift(order);
-        saveState();
-        renderOrders();
-        showToast('새 주문이 접수되었습니다! 🛒');
-    }
-
-    document.getElementById('addMockOrderBtn').addEventListener('click', addMockOrder);
-
-    function renderOrders() {
-        // Update counts
-        const counts = { '신규주문': 0, '처리중': 0, '배송중': 0, '배송완료': 0 };
-        state.orders.forEach(o => { if (counts[o.status] !== undefined) counts[o.status]++; });
-        document.getElementById('orderNewCount').textContent = counts['신규주문'];
-        document.getElementById('orderProcessingCount').textContent = counts['처리중'];
-        document.getElementById('orderShippingCount').textContent = counts['배송중'];
-        document.getElementById('orderCompleteCount').textContent = counts['배송완료'];
-
-        // Filter
-        const activeFilter = document.querySelector('.order-filter-tab.active')?.dataset.filter || 'all';
-        let filtered = state.orders;
-        if (activeFilter !== 'all') {
-            filtered = state.orders.filter(o => o.status === activeFilter);
-        }
-
-        const list = document.getElementById('orderList');
-        if (filtered.length === 0) {
-            list.innerHTML = '<div class="text-center text-gray-400 py-10">주문이 없습니다</div>';
-            return;
-        }
-
-        list.innerHTML = filtered.map(o => {
-            const date = new Date(o.orderDate);
-            const dateStr = `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
-            const canAdvance = o.status !== '배송완료' && o.status !== '취소';
-            return `
-                <div class="order-card">
-                    <div class="flex items-start justify-between gap-3">
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="badge ${getStatusBadgeClass(o.status)}">${o.status}</span>
-                                <span class="text-xs text-gray-400">${o.id}</span>
-                            </div>
-                            <h4 class="text-sm font-medium truncate">${o.productName}</h4>
-                            <div class="text-xs text-gray-500 mt-1">
-                                ${o.customerName} · ${o.address} · ${o.quantity}개
-                            </div>
-                            <div class="text-xs text-gray-400 mt-1">${dateStr}</div>
-                        </div>
-                        <div class="text-right flex-shrink-0">
-                            <div class="text-sm font-bold text-naver">${formatCurrency(o.totalPrice)}</div>
-                            ${canAdvance ? `<button onclick="advanceOrder('${o.id}')" class="mt-2 text-xs bg-blue-50 text-blue-600 px-3 py-1 rounded-full hover:bg-blue-100 transition-colors">${nextStatus(o.status)}으로</button>` : ''}
-                        </div>
-                    </div>
+    list.innerHTML = filtered.map(o => {
+        const p = productByName(o.productName);
+        const cancelled = o.status === '취소';
+        return `
+        <tr data-id="${esc(o.id)}" class="${cancelled ? 'is-void' : ''}">
+            <td class="col-when"><span class="mono">${esc(o.id)}</span><span class="sub">${orderDateFmt.format(new Date(o.orderDate))}</span></td>
+            <td class="col-item">
+                <div class="prod">${thumb(p)}<div class="prod-text">
+                    <span class="prod-name">${esc(o.productName)}</span>
+                    <span class="prod-meta">${esc(o.customerName)} · ${esc(o.address)} · ${esc(o.quantity)}개</span>
+                    ${o.trackingNumber ? `<span class="prod-meta">송장 <span class="mono">${esc(o.trackingNumber)}</span></span>` : ''}
+                </div></div>
+            </td>
+            <td class="num col-amt" data-label="금액"><strong>${formatCurrency(o.totalPrice)}</strong></td>
+            <td class="col-stage"><span class="stage-cell">${stageMeter(o.status)}<span class="status-text">${esc(o.status)}</span></span></td>
+            <td class="col-act">
+                <div class="row-actions">
+                    ${canAdvance(o) ? `<button type="button" class="btn btn-primary btn-sm" data-action="advance" data-id="${esc(o.id)}">${esc(nextStatus(o.status))}으로</button>` : ''}
+                    ${canCancel(o) ? `<button type="button" class="btn btn-sell btn-sm" data-action="cancel" data-id="${esc(o.id)}" aria-label="${esc(o.id)} 주문 취소">취소</button>` : ''}
                 </div>
-            `;
-        }).join('');
-    }
+            </td>
+        </tr>`;
+    }).join('');
+}
 
-    window.advanceOrder = function (orderId) {
-        const order = state.orders.find(o => o.id === orderId);
-        if (!order) return;
-        const newStatus = nextStatus(order.status);
-        order.status = newStatus;
-        if (newStatus === '배송중') {
+function restoreOrder(snapshot) {
+    const order = state.orders.find(o => o.id === snapshot.id);
+    if (!order) return;
+    order.status = snapshot.status;
+    order.trackingNumber = snapshot.trackingNumber;
+    saveState();
+    renderOrders();
+    flash(document.querySelector(`#orderList tr[data-id="${snapshot.id}"]`), 'down');
+    showToast(`${snapshot.id} 주문을 ${snapshot.status} 상태로 되돌렸습니다`);
+}
+
+$('orderList').addEventListener('click', e => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const order = state.orders.find(o => o.id === btn.dataset.id);
+    if (!order) return;
+    const snapshot = { id: order.id, status: order.status, trackingNumber: order.trackingNumber };
+
+    if (btn.dataset.action === 'advance' && canAdvance(order)) {
+        order.status = nextStatus(order.status);
+        if (order.status === '배송중' && !order.trackingNumber) {
             order.trackingNumber = '6' + Math.random().toString().slice(2, 14);
         }
         saveState();
         renderOrders();
-        showToast(`주문 상태: ${newStatus}`);
-    };
-
-    document.querySelectorAll('.order-filter-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            document.querySelectorAll('.order-filter-tab').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            renderOrders();
-        });
-    });
-
-    // ─── 4. Profit Calculator ────────────────────────────────
-
-    document.getElementById('calculateBtn').addEventListener('click', () => {
-        const category = document.getElementById('calcCategory').value;
-        const cost = parseInt(document.getElementById('calcCost').value) || 0;
-        const price = parseInt(document.getElementById('calcPrice').value) || 0;
-        const shipping = parseInt(document.getElementById('calcShipping').value) || 0;
-        const quantity = parseInt(document.getElementById('calcQuantity').value) || 1;
-
-        if (cost <= 0 || price <= 0) { showToast('매입가와 판매가를 입력해주세요'); return; }
-
-        const feeRate = parseFloat(category);
-        const fee = price * (feeRate / 100);
-        const unitProfit = price - cost - fee - shipping;
-        const marginRate = (unitProfit / price * 100);
-        const monthlyProfit = unitProfit * quantity;
-        const monthlyRevenue = price * quantity;
-        const totalFee = fee * quantity;
-        const totalShipping = shipping * quantity;
-
-        const isProfit = unitProfit > 0;
-
-        document.getElementById('calcResult').innerHTML = `
-            <!-- Summary -->
-            <div class="p-4 rounded-xl ${isProfit ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'} text-center mb-4">
-                <div class="text-sm ${isProfit ? 'text-green-600' : 'text-red-600'}">개당 순수익</div>
-                <div class="text-3xl font-bold ${isProfit ? 'text-green-600' : 'text-red-600'}">${formatCurrency(unitProfit)}</div>
-                <div class="text-sm ${isProfit ? 'text-green-500' : 'text-red-500'}">마진율 ${marginRate.toFixed(1)}%</div>
-            </div>
-
-            <!-- Breakdown -->
-            <div class="space-y-2 text-sm">
-                <div class="flex justify-between">
-                    <span class="text-gray-500">판매가</span>
-                    <span class="font-medium">${formatCurrency(price)}</span>
-                </div>
-                <div class="flex justify-between text-red-500">
-                    <span>- 매입가</span>
-                    <span>${formatCurrency(cost)}</span>
-                </div>
-                <div class="flex justify-between text-red-500">
-                    <span>- 네이버 수수료 (${feeRate}%)</span>
-                    <span>${formatCurrency(fee)}</span>
-                </div>
-                <div class="flex justify-between text-red-500">
-                    <span>- 배송비</span>
-                    <span>${formatCurrency(shipping)}</span>
-                </div>
-                <hr>
-                <div class="flex justify-between font-bold">
-                    <span>= 개당 순수익</span>
-                    <span class="${isProfit ? 'text-naver' : 'text-red-500'}">${formatCurrency(unitProfit)}</span>
-                </div>
-            </div>
-
-            <!-- Monthly Projection -->
-            <div class="mt-4 p-4 bg-gray-50 rounded-xl">
-                <h4 class="font-semibold text-sm mb-3">📅 월간 예상 (${quantity}개 판매 기준)</h4>
-                <div class="space-y-2 text-sm">
-                    <div class="flex justify-between">
-                        <span class="text-gray-500">월 매출</span>
-                        <span class="font-medium">${formatCurrency(monthlyRevenue)}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-500">월 수수료 합계</span>
-                        <span class="text-red-500">-${formatCurrency(totalFee)}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-500">월 배송비 합계</span>
-                        <span class="text-red-500">-${formatCurrency(totalShipping)}</span>
-                    </div>
-                    <hr>
-                    <div class="flex justify-between font-bold text-base">
-                        <span>월 순수익</span>
-                        <span class="${isProfit ? 'text-naver' : 'text-red-500'}">${formatCurrency(monthlyProfit)}</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Visual bar -->
-            <div class="mt-4">
-                <div class="text-xs text-gray-500 mb-2">비용 구조</div>
-                <div class="flex rounded-lg overflow-hidden h-8 text-xs font-medium">
-                    <div class="bg-red-400 flex items-center justify-center text-white" style="width:${(cost / price * 100).toFixed(0)}%">${(cost / price * 100).toFixed(0)}%</div>
-                    <div class="bg-orange-400 flex items-center justify-center text-white" style="width:${(fee / price * 100).toFixed(0)}%">${(fee / price * 100).toFixed(0)}%</div>
-                    <div class="bg-yellow-400 flex items-center justify-center text-white" style="width:${(shipping / price * 100).toFixed(0)}%">${(shipping / price * 100).toFixed(0)}%</div>
-                    <div class="${isProfit ? 'bg-green-500' : 'bg-gray-400'} flex items-center justify-center text-white" style="width:${Math.max(0, marginRate).toFixed(0)}%">${marginRate.toFixed(0)}%</div>
-                </div>
-                <div class="flex text-xs mt-1 gap-3">
-                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-400"></span>매입</span>
-                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-orange-400"></span>수수료</span>
-                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-yellow-400"></span>배송</span>
-                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-500"></span>수익</span>
-                </div>
-            </div>
-        `;
-
-        // Add to history
-        const categoryName = document.getElementById('calcCategory').selectedOptions[0].text.split('(')[0].trim();
-        state.calcHistory.unshift({
-            name: categoryName + ' 상품',
-            cost, price, fee: fee.toFixed(0), profit: unitProfit.toFixed(0),
-            margin: marginRate.toFixed(1)
-        });
-        if (state.calcHistory.length > 10) state.calcHistory = state.calcHistory.slice(0, 10);
+        flash(document.querySelector(`#orderList tr[data-id="${order.id}"]`));
+        showToast(`주문 상태: ${order.status}`, { label: '되돌리기', run: () => restoreOrder(snapshot) });
+    }
+    if (btn.dataset.action === 'cancel' && canCancel(order)) {
+        order.status = '취소';
         saveState();
-        renderCalcHistory();
+        renderOrders();
+        showToast(`${order.id} 주문을 취소했습니다`, { label: '되돌리기', run: () => restoreOrder(snapshot) });
+    }
+});
+
+document.querySelectorAll('.tally-cell').forEach(cell => cell.addEventListener('click', () => {
+    prefs.orderFilter = cell.dataset.filter;
+    savePrefs();
+    renderOrders();
+}));
+$('orderQuery').addEventListener('input', renderOrders);
+
+// ─── 3001 Profit calculator ───────────────────────────────
+
+function readCalc() {
+    return {
+        feeRate: parseFloat($('calcCategory').value),
+        cost: toInt($('calcCost').value),
+        price: toInt($('calcPrice').value),
+        shipping: Math.max(0, toInt($('calcShipping').value)),
+        quantity: Math.max(1, toInt($('calcQuantity').value) || 1),
+    };
+}
+
+function renderCalcResult({ showErrors = false } = {}) {
+    const input = readCalc();
+    const errors = validateCalcInput(input);
+    [['calcCost', 'calcCostError', 'cost'], ['calcPrice', 'calcPriceError', 'price']].forEach(([inputId, errId, key]) => {
+        if (errors[key] && showErrors) setFieldError(inputId, errId, errors[key]);
+        else if (!errors[key]) clearFieldError(inputId, errId);
     });
-
-    function renderCalcHistory() {
-        const table = document.getElementById('calcHistoryTable');
-        if (state.calcHistory.length === 0) {
-            table.innerHTML = '<tr><td colspan="6" class="px-3 py-6 text-center text-gray-400">계산 내역이 없습니다</td></tr>';
-            return;
-        }
-        table.innerHTML = state.calcHistory.map(h => {
-            const profitColor = parseFloat(h.profit) > 0 ? 'text-naver' : 'text-red-500';
-            return `
-                <tr class="border-b border-gray-100 hover:bg-gray-50">
-                    <td class="px-3 py-2">${h.name}</td>
-                    <td class="px-3 py-2 text-right">${formatCurrency(h.cost)}</td>
-                    <td class="px-3 py-2 text-right">${formatCurrency(h.price)}</td>
-                    <td class="px-3 py-2 text-right text-red-500">${formatCurrency(h.fee)}</td>
-                    <td class="px-3 py-2 text-right font-medium ${profitColor}">${formatCurrency(h.profit)}</td>
-                    <td class="px-3 py-2 text-right font-medium ${profitColor}">${h.margin}%</td>
-                </tr>
-            `;
-        }).join('');
+    if (Object.keys(errors).length) {
+        $('calcResult').innerHTML = '<div class="empty"><p>비용을 입력하고 계산 버튼을 눌러주세요</p><p class="muted">매입가와 판매가는 1원 이상이어야 합니다.</p></div>';
+        return null;
     }
+    const r = calcProfit(input);
+    const dirText = r.isProfit ? 'up-text' : 'down-text';
+    const pct = v => v.toFixed(1);
+    $('calcResult').innerHTML = `
+        <div class="headline ${r.isProfit ? 'is-up' : 'is-down'}">
+            <span class="headline-label">개당 순수익</span>
+            <strong class="headline-num ${dirText}">${formatCurrency(r.unitProfit)}</strong>
+            <span class="headline-sub">${signed(r.marginRate)} <span class="muted">마진율</span>${r.isProfit ? '' : ' <span class="loss-tag">손실</span>'}</span>
+        </div>
+        <dl class="ladder">
+            <div class="rung"><dt>판매가</dt><dd>${formatCurrency(input.price)}</dd></div>
+            <div class="rung minus"><dt>매입가</dt><dd>−${formatCurrency(input.cost)}</dd></div>
+            <div class="rung minus"><dt>네이버 수수료 (${input.feeRate.toFixed(1)}%)</dt><dd>−${formatCurrency(r.fee)}</dd></div>
+            <div class="rung minus"><dt>배송비</dt><dd>−${formatCurrency(input.shipping)}</dd></div>
+            <div class="rung total"><dt>개당 순수익</dt><dd class="${dirText}">${formatCurrency(r.unitProfit)}</dd></div>
+        </dl>
+        <div class="projection">
+            <h4>월간 예상 <span class="muted">(${formatNumber(r.quantity)}개 판매 기준)</span></h4>
+            <dl class="ladder compact">
+                <div><dt>월 매출</dt><dd>${formatCurrency(r.monthlyRevenue)}</dd></div>
+                <div class="minus"><dt>월 수수료 합계</dt><dd>−${formatCurrency(r.monthlyFee)}</dd></div>
+                <div class="minus"><dt>월 배송비 합계</dt><dd>−${formatCurrency(r.monthlyShipping)}</dd></div>
+                <div class="total"><dt>월 순수익</dt><dd class="${dirText}">${formatCurrency(r.monthlyProfit)}</dd></div>
+            </dl>
+        </div>
+        <div class="structure">
+            <span class="muted small">비용 구조 (판매가 대비)</span>
+            <div class="stack" role="img" aria-label="매입 ${pct(r.shares.cost)}%, 수수료 ${pct(r.shares.fee)}%, 배송 ${pct(r.shares.shipping)}%, 수익 ${pct(r.shares.profit)}%">
+                <span class="seg seg-cost" style="flex-basis:${r.shares.cost}%"></span>
+                <span class="seg seg-fee" style="flex-basis:${r.shares.fee}%"></span>
+                <span class="seg seg-ship" style="flex-basis:${r.shares.shipping}%"></span>
+                <span class="seg seg-profit" style="flex-basis:${r.shares.profit}%"></span>
+            </div>
+            <ul class="stack-key">
+                <li><i class="seg-cost"></i>매입 ${pct(r.shares.cost)}%</li>
+                <li><i class="seg-fee"></i>수수료 ${pct(r.shares.fee)}%</li>
+                <li><i class="seg-ship"></i>배송 ${pct(r.shares.shipping)}%</li>
+                <li><i class="seg-profit"></i>수익 ${pct(r.shares.profit)}%</li>
+            </ul>
+        </div>`;
+    return { input, r };
+}
 
-    // ─── 5. Keyword Research ─────────────────────────────────
+['calcCost', 'calcPrice', 'calcShipping', 'calcQuantity'].forEach(id => $(id).addEventListener('input', () => renderCalcResult()));
+$('calcCategory').addEventListener('change', () => renderCalcResult());
 
-    document.getElementById('keywordSearchBtn').addEventListener('click', performKeywordSearch);
-    document.getElementById('keywordInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') performKeywordSearch();
+$('calcForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const result = renderCalcResult({ showErrors: true });
+    if (!result) {
+        showToast('매입가와 판매가를 입력해주세요');
+        (readCalc().cost > 0 ? $('calcPrice') : $('calcCost')).focus();
+        return;
+    }
+    const { input, r } = result;
+    const categoryName = $('calcCategory').selectedOptions[0].text.split('(')[0].trim();
+    state.calcHistory.unshift({
+        name: $('calcName').value.trim() || categoryName + ' 상품',
+        cost: input.cost, price: input.price, fee: r.fee.toFixed(0), profit: r.unitProfit.toFixed(0),
+        margin: r.marginRate.toFixed(1)
     });
+    if (state.calcHistory.length > 10) state.calcHistory = state.calcHistory.slice(0, 10);
+    saveState();
+    renderCalcHistory();
+    flash($('calcHistoryTable').firstElementChild);
+    showToast('계산 내역에 기록했습니다');
+});
 
-    function performKeywordSearch() {
-        const input = document.getElementById('keywordInput').value.trim();
-        if (!input) { showToast('키워드를 입력해주세요'); return; }
-
-        // Try exact match or generate mock data
-        const data = KEYWORD_DATA[input] || generateMockKeywordData(input);
-
-        const compColor = { '낮음': 'comp-low', '중간': 'comp-medium', '높음': 'comp-high' };
-        const trendEmoji = { '상승': '📈', '유지': '➡️', '하락': '📉', '계절성': '🔄' };
-
-        // Stats cards
-        document.getElementById('keywordStats').innerHTML = `
-            <div class="text-center p-3 bg-gray-50 rounded-lg">
-                <div class="text-xs text-gray-500 mb-1">월간 검색량</div>
-                <div class="text-lg font-bold text-gray-900">${formatNumber(data.monthly)}</div>
-            </div>
-            <div class="text-center p-3 bg-gray-50 rounded-lg">
-                <div class="text-xs text-gray-500 mb-1">경쟁도</div>
-                <div class="text-lg font-bold"><span class="badge ${compColor[data.competition]}">${data.competition}</span></div>
-            </div>
-            <div class="text-center p-3 bg-gray-50 rounded-lg">
-                <div class="text-xs text-gray-500 mb-1">트렌드</div>
-                <div class="text-lg font-bold">${trendEmoji[data.trend] || '➡️'} ${data.trend}</div>
-            </div>
-            <div class="text-center p-3 bg-gray-50 rounded-lg">
-                <div class="text-xs text-gray-500 mb-1">추천 점수</div>
-                <div class="text-lg font-bold text-naver">${data.competition === '낮음' ? '⭐⭐⭐' : data.competition === '중간' ? '⭐⭐' : '⭐'}</div>
-            </div>
-        `;
-
-        // Related keywords
-        const relatedTable = document.getElementById('relatedKeywordsTable');
-        relatedTable.innerHTML = data.related.map(kw => {
-            const searches = randomInt(5000, data.monthly);
-            const comp = randomChoice(['낮음', '중간', '높음']);
-            const score = comp === '낮음' ? randomInt(80, 95) : comp === '중간' ? randomInt(50, 79) : randomInt(20, 49);
-            return `
-                <tr class="border-b border-gray-100 hover:bg-gray-50">
-                    <td class="px-4 py-2 font-medium">${kw}</td>
-                    <td class="px-4 py-2 text-right">${formatNumber(searches)}</td>
-                    <td class="px-4 py-2 text-center"><span class="badge ${compColor[comp]}">${comp}</span></td>
-                    <td class="px-4 py-2 text-center">
-                        <span class="text-sm font-bold ${score >= 70 ? 'text-green-500' : score >= 40 ? 'text-yellow-500' : 'text-red-500'}">${score}점</span>
-                    </td>
-                    <td class="px-4 py-2 text-center">
-                        <button onclick="saveKeyword('${kw}')" class="text-naver hover:text-naver-dark text-lg">⭐</button>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-
-        document.getElementById('keywordResults').classList.remove('hidden');
-        showToast(`"${input}" 키워드 분석 완료!`);
+function renderCalcHistory() {
+    const table = $('calcHistoryTable');
+    $('clearCalcHistory').hidden = state.calcHistory.length === 0;
+    if (state.calcHistory.length === 0) {
+        table.innerHTML = '<tr class="empty-row"><td colspan="6"><div class="empty"><p>계산 내역이 없습니다</p><p class="muted">계산하기를 누르면 최근 10건까지 여기에 쌓입니다.</p></div></td></tr>';
+        return;
     }
+    table.innerHTML = state.calcHistory.map(h => {
+        const up = parseFloat(h.profit) > 0;
+        return `
+        <tr>
+            <td class="col-hname">${esc(h.name)}</td>
+            <td class="num col-cost" data-label="매입가">${formatCurrency(h.cost)}</td>
+            <td class="num" data-label="판매가">${formatCurrency(h.price)}</td>
+            <td class="num col-fee" data-label="수수료">${formatCurrency(h.fee)}</td>
+            <td class="num" data-label="순수익"><span class="${up ? 'up-text' : 'down-text'}">${formatCurrency(h.profit)}</span></td>
+            <td class="num" data-label="마진율">${signed(parseFloat(h.margin))}</td>
+        </tr>`;
+    }).join('');
+}
 
-    function generateMockKeywordData(keyword) {
-        const monthlyBase = randomInt(10000, 200000);
-        const competitions = ['낮음', '중간', '높음'];
-        const trends = ['상승', '유지', '하락'];
-        const words = keyword.split(' ');
+$('clearCalcHistory').addEventListener('click', () => {
+    const previous = state.calcHistory;
+    state.calcHistory = [];
+    saveState();
+    renderCalcHistory();
+    showToast('계산 내역을 비웠습니다', { label: '되돌리기', run: () => { state.calcHistory = previous; saveState(); renderCalcHistory(); } });
+});
 
-        const related = [];
-        const prefixes = ['가성비', '프리미엄', '추천', '인기', '베스트', '신상', '할인'];
-        const suffixes = ['추천', '순위', '비교', '리뷰', '가격', '할인', '후기'];
+// ─── 4001 Keyword research ────────────────────────────────
 
-        for (let i = 0; i < 7; i++) {
-            if (i < 3) related.push(randomChoice(prefixes) + ' ' + keyword);
-            else if (i < 5) related.push(keyword + ' ' + randomChoice(suffixes));
-            else related.push(words[0] + ' ' + randomChoice(suffixes));
-        }
+const COMP_CLASS = { '낮음': 'comp-low', '중간': 'comp-mid', '높음': 'comp-high' };
+const TREND_ICON = { '상승': 'up', '하락': 'down', '유지': 'flat', '계절성': 'flat' };
 
-        return {
-            monthly: monthlyBase,
-            competition: randomChoice(competitions),
-            trend: randomChoice(trends),
-            related
-        };
+function renderKeywordSuggest() {
+    $('keywordSuggest').innerHTML = '<span class="muted small">예시</span>' +
+        Object.keys(KEYWORD_DATA).map(k => `<button type="button" class="chip chip-btn" data-kw="${esc(k)}">${esc(k)}</button>`).join('');
+}
+
+function performKeywordSearch(value) {
+    const input = $('keywordInput');
+    if (typeof value === 'string') input.value = value;
+    const kw = input.value.trim();
+    if (!kw) {
+        const err = $('keywordError');
+        err.textContent = '키워드를 입력해주세요';
+        err.hidden = false;
+        input.setAttribute('aria-invalid', 'true');
+        input.focus();
+        return;
     }
+    $('keywordError').hidden = true;
+    input.removeAttribute('aria-invalid');
 
-    window.saveKeyword = function (kw) {
+    const data = keywordReport(kw);
+    $('keywordTitle').textContent = `“${data.keyword}”`;
+    $('keywordStats').innerHTML = `
+        <div><dt>월간 검색량</dt><dd class="big">${formatNumber(data.monthly)}</dd></div>
+        <div><dt>경쟁도</dt><dd><span class="comp ${COMP_CLASS[data.competition]}">${esc(data.competition)}</span></dd></div>
+        <div><dt>트렌드</dt><dd><span class="chg ${TREND_ICON[data.trend] || 'flat'}">${icon(TREND_ICON[data.trend] || 'flat', 'tri')}${esc(data.trend)}</span></dd></div>
+        <div><dt>추천 점수</dt><dd><span class="pips" role="img" aria-label="3점 만점에 ${data.stars}점">${[1, 2, 3].map(i => `<i class="${i <= data.stars ? 'on' : ''}"></i>`).join('')}</span></dd></div>`;
+
+    const saved = new Set(state.savedKeywords);
+    $('relatedKeywordsTable').innerHTML = data.related.map(r => `
+        <tr>
+            <td class="col-kw"><button type="button" class="link-btn kw-link" data-kw="${esc(r.term)}">${esc(r.term)}</button></td>
+            <td class="num" data-label="월간 검색량">${formatNumber(r.monthly)}</td>
+            <td class="center" data-label="경쟁도"><span class="comp ${COMP_CLASS[r.competition]}">${esc(r.competition)}</span></td>
+            <td class="num" data-label="추천도"><span class="score ${r.score >= 70 ? 'up-text' : r.score < 40 ? 'down-text' : ''}">${r.score}점</span></td>
+            <td class="center col-save"><button type="button" class="icon-btn star-btn" data-save="${esc(r.term)}" aria-pressed="${saved.has(r.term)}" aria-label="${esc(r.term)} 저장">${icon('star')}</button></td>
+        </tr>`).join('');
+
+    $('keywordResults').hidden = false;
+    flash($('keywordStats'));
+    showToast(`"${data.keyword}" 키워드 분석 완료!`);
+}
+
+$('keywordForm').addEventListener('submit', e => { e.preventDefault(); performKeywordSearch(); });
+$('keywordInput').addEventListener('input', () => { $('keywordError').hidden = true; $('keywordInput').removeAttribute('aria-invalid'); });
+$('keywordSuggest').addEventListener('click', e => {
+    const btn = e.target.closest('[data-kw]');
+    if (btn) performKeywordSearch(btn.dataset.kw);
+});
+
+$('relatedKeywordsTable').addEventListener('click', e => {
+    const star = e.target.closest('[data-save]');
+    if (star) {
+        const kw = star.dataset.save;
         if (state.savedKeywords.includes(kw)) {
-            showToast('이미 저장된 키워드입니다');
-            return;
+            state.savedKeywords = state.savedKeywords.filter(k => k !== kw);
+            star.setAttribute('aria-pressed', 'false');
+            showToast('키워드가 삭제되었습니다');
+        } else {
+            state.savedKeywords.push(kw);
+            star.setAttribute('aria-pressed', 'true');
+            showToast(`"${kw}" 키워드 저장 완료!`);
         }
-        state.savedKeywords.push(kw);
         saveState();
         renderSavedKeywords();
-        showToast(`"${kw}" 키워드 저장 완료!`);
-    };
-
-    function renderSavedKeywords() {
-        const container = document.getElementById('savedKeywordsList');
-        if (state.savedKeywords.length === 0) {
-            container.innerHTML = '<span class="text-gray-400 text-sm">저장된 키워드가 없습니다</span>';
-            return;
-        }
-        container.innerHTML = state.savedKeywords.map(kw => `
-            <span class="inline-flex items-center gap-1 px-3 py-1.5 bg-naver-light text-naver rounded-full text-sm font-medium">
-                ⭐ ${kw}
-                <button onclick="removeKeyword('${kw}')" class="ml-1 hover:text-red-500 text-xs">✕</button>
-            </span>
-        `).join('');
+        return;
     }
+    const link = e.target.closest('[data-kw]');
+    if (link) performKeywordSearch(link.dataset.kw);
+});
 
-    window.removeKeyword = function (kw) {
+function renderSavedKeywords() {
+    const container = $('savedKeywordsList');
+    if (state.savedKeywords.length === 0) {
+        container.innerHTML = '<p class="muted">저장된 키워드가 없습니다. 연관 키워드 표에서 별을 눌러 저장하세요.</p>';
+        return;
+    }
+    container.innerHTML = state.savedKeywords.map(kw => `
+        <span class="chip chip-saved">
+            <button type="button" class="chip-main" data-kw="${esc(kw)}">${icon('star', 'icon icon-xs')}${esc(kw)}</button>
+            <button type="button" class="chip-x" data-remove="${esc(kw)}" aria-label="${esc(kw)} 삭제">${icon('x', 'icon icon-xs')}</button>
+        </span>`).join('');
+}
+
+$('savedKeywordsList').addEventListener('click', e => {
+    const rm = e.target.closest('[data-remove]');
+    if (rm) {
+        const kw = rm.dataset.remove;
+        const idx = state.savedKeywords.indexOf(kw);
         state.savedKeywords = state.savedKeywords.filter(k => k !== kw);
         saveState();
         renderSavedKeywords();
-        showToast('키워드가 삭제되었습니다');
+        document.querySelectorAll('#relatedKeywordsTable [data-save]').forEach(b => { if (b.dataset.save === kw) b.setAttribute('aria-pressed', 'false'); });
+        showToast('키워드가 삭제되었습니다', {
+            label: '되돌리기',
+            run: () => { state.savedKeywords.splice(idx, 0, kw); saveState(); renderSavedKeywords(); }
+        });
+        return;
+    }
+    const chip = e.target.closest('[data-kw]');
+    if (chip) performKeywordSearch(chip.dataset.kw);
+});
+
+// ─── 5001 Sales analytics (SVG chart, no chart library) ───
+
+function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+function renderAnalytics() {
+    const period = parseInt(prefs.period, 10) || 30;
+    document.querySelectorAll('input[name="analyticsPeriod"]').forEach(r => { r.checked = r.value === String(period); });
+    const report = analyticsReport(period);
+    const t = report.totals;
+
+    $('kpiRevenue').textContent = formatCurrency(t.revenue);
+    $('kpiOrders').textContent = formatNumber(t.orders) + '건';
+    $('kpiProfit').textContent = formatCurrency(t.profit);
+    $('kpiMargin').textContent = t.margin.toFixed(1) + '%';
+    $('kpiRevenueChange').innerHTML = signed(report.change.revenue);
+    $('kpiOrdersChange').innerHTML = signed(report.change.orders);
+    $('kpiProfitChange').innerHTML = signed(report.change.profit);
+    $('kpiMarginChange').innerHTML = signed(report.change.margin, 1, '%p');
+
+    drawSalesChart(report.days);
+
+    const max = Math.max(...report.categoryShare.map(c => c.share), 1);
+    $('categoryShare').innerHTML = report.categoryShare.map(c => `
+        <div class="share">
+            <span class="share-name">${esc(CATEGORY_LABELS[c.category])}</span>
+            <span class="share-bar" aria-hidden="true"><span style="width:${(c.share / max * 100).toFixed(1)}%"></span></span>
+            <span class="share-pct">${c.share.toFixed(1)}%</span>
+            <span class="share-amt">${formatCurrency(c.revenue)}</span>
+        </div>`).join('');
+
+    $('bestsellerList').innerHTML = report.bestsellers.map((p, i) => `
+        <li class="rank">
+            <span class="rank-no">${i + 1}</span>
+            ${thumb(p)}
+            <span class="prod-text"><span class="prod-name">${esc(p.name)}</span><span class="prod-meta">${p.sales}건 판매</span></span>
+            <strong class="rank-amt">${formatCurrency(p.revenue)}</strong>
+        </li>`).join('');
+}
+
+function drawSalesChart(days) {
+    const host = $('salesChart');
+    const W = Math.max(300, Math.round(host.clientWidth || 800));
+    const narrow = W < 560;
+    const H = narrow ? 260 : 320;
+    const pad = { l: narrow ? 38 : 52, r: 12, t: 12, b: 26 };
+    const volH = narrow ? 56 : 72;
+    const gap = 14;
+    const priceH = H - pad.t - pad.b - volH - gap;
+    const innerW = W - pad.l - pad.r;
+    const n = days.length;
+    const step = innerW / n;
+    const x = i => pad.l + step * i + step / 2;
+
+    const maxRev = Math.max(...days.map(d => d.revenue)) * 1.1;
+    const y = v => pad.t + priceH - (v / maxRev) * priceH;
+    const maxVol = Math.max(...days.map(d => d.orders));
+    const volTop = pad.t + priceH + gap;
+    const vy = v => volTop + volH - (v / maxVol) * volH;
+
+    const up = cssVar('--up');
+    const ink = cssVar('--ink');
+    const rule = cssVar('--rule');
+    const ink3 = cssVar('--ink-3');
+    const vol = cssVar('--vol');
+
+    const ticks = 4;
+    let grid = '';
+    for (let i = 0; i <= ticks; i++) {
+        const v = (maxRev / ticks) * i;
+        const yy = y(v).toFixed(1);
+        grid += `<line x1="${pad.l}" x2="${W - pad.r}" y1="${yy}" y2="${yy}" stroke="${rule}" stroke-width="1"/>`;
+        grid += `<text x="${pad.l - 6}" y="${yy}" dy="0.32em" text-anchor="end" class="axis">${v === 0 ? '0' : (v / 10000).toFixed(0) + '만'}</text>`;
+    }
+    grid += `<line x1="${pad.l}" x2="${W - pad.r}" y1="${volTop + volH}" y2="${volTop + volH}" stroke="${rule}"/>`;
+
+    const labelEvery = Math.ceil(n / (narrow ? 5 : 10));
+    const xLabels = days.map((d, i) => (i % labelEvery === 0 || i === n - 1) ? `<text x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle" class="axis">${d.date}</text>` : '').join('');
+
+    const line = key => days.map((d, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(d[key]).toFixed(1)}`).join('');
+    const area = `${line('revenue')}L${x(n - 1).toFixed(1)},${(pad.t + priceH).toFixed(1)}L${x(0).toFixed(1)},${(pad.t + priceH).toFixed(1)}Z`;
+    const bw = Math.max(2, step * 0.62);
+    const bars = days.map((d, i) => `<rect x="${(x(i) - bw / 2).toFixed(1)}" y="${vy(d.orders).toFixed(1)}" width="${bw.toFixed(1)}" height="${(volTop + volH - vy(d.orders)).toFixed(1)}" fill="${i === n - 1 ? up : vol}"/>`).join('');
+
+    host.innerHTML = `
+        <svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-labelledby="chartDesc" class="chart-svg">
+            <desc id="chartDesc">최근 ${n}일 일별 매출, 순수익 선 그래프와 주문 수 막대 그래프. 같은 수치를 표로도 제공합니다.</desc>
+            ${grid}
+            <path d="${area}" fill="${ink}" opacity="0.06"/>
+            <path d="${line('revenue')}" fill="none" stroke="${ink}" stroke-width="1.75" stroke-linejoin="round"/>
+            <path d="${line('profit')}" fill="none" stroke="${up}" stroke-width="1.75" stroke-linejoin="round"/>
+            ${bars}
+            ${xLabels}
+            <line class="cross" data-cross="x" y1="${pad.t}" y2="${volTop + volH}" stroke="${ink3}" stroke-dasharray="3 3" visibility="hidden"/>
+            <circle class="cross" data-cross="rev" r="3.5" fill="${ink}" visibility="hidden"/>
+            <circle class="cross" data-cross="profit" r="3.5" fill="${up}" visibility="hidden"/>
+        </svg>
+        <table class="visually-hidden"><caption>일별 매출 데이터</caption><thead><tr><th>날짜</th><th>매출</th><th>순수익</th><th>주문 수</th></tr></thead>
+        <tbody>${days.map(d => `<tr><td>${d.date}</td><td>${formatCurrency(d.revenue)}</td><td>${formatCurrency(d.profit)}</td><td>${d.orders}</td></tr>`).join('')}</tbody></table>`;
+
+    const readout = i => {
+        const d = days[i];
+        $('chartReadout').innerHTML = `<span class="mono">${d.date}</span> 매출 <strong>${formatCurrency(d.revenue)}</strong> 순수익 <strong class="up-text">${formatCurrency(d.profit)}</strong> 주문 <strong>${d.orders}건</strong>`;
     };
+    readout(n - 1);
 
-    // ─── 6. Sales Analytics ──────────────────────────────────
+    const svg = host.querySelector('svg');
+    const cross = key => svg.querySelector(`[data-cross="${key}"]`);
+    const show = i => {
+        const cx = x(i).toFixed(1);
+        cross('x').setAttribute('x1', cx);
+        cross('x').setAttribute('x2', cx);
+        cross('rev').setAttribute('cx', cx);
+        cross('rev').setAttribute('cy', y(days[i].revenue).toFixed(1));
+        cross('profit').setAttribute('cx', cx);
+        cross('profit').setAttribute('cy', y(days[i].profit).toFixed(1));
+        svg.querySelectorAll('.cross').forEach(el => el.setAttribute('visibility', 'visible'));
+        readout(i);
+    };
+    svg.addEventListener('pointermove', e => {
+        const rect = svg.getBoundingClientRect();
+        const px = (e.clientX - rect.left) * (W / rect.width);
+        show(Math.min(n - 1, Math.max(0, Math.floor((px - pad.l) / step))));
+    });
+    svg.addEventListener('pointerleave', () => {
+        svg.querySelectorAll('.cross').forEach(el => el.setAttribute('visibility', 'hidden'));
+        readout(n - 1);
+    });
+}
 
-    let revenueChart, ordersChart, categoryChart;
+document.querySelectorAll('input[name="analyticsPeriod"]').forEach(r => r.addEventListener('change', () => {
+    prefs.period = r.value;
+    savePrefs();
+    renderAnalytics();
+}));
 
-    function renderAnalytics() {
-        const days = parseInt(document.getElementById('analyticsPeriod').value);
-        const salesData = generateMockSalesData(days);
+let resizeTimer;
+let lastWidth = window.innerWidth;
+window.addEventListener('resize', () => {
+    if (window.innerWidth === lastWidth) return;
+    lastWidth = window.innerWidth;
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (activeTab === 'analytics') renderAnalytics(); }, 150);
+});
 
-        // KPI Cards
-        const totalRevenue = salesData.reduce((s, d) => s + d.revenue, 0);
-        const totalOrders = salesData.reduce((s, d) => s + d.orders, 0);
-        const totalProfit = salesData.reduce((s, d) => s + d.profit, 0);
-        const avgMargin = totalRevenue > 0 ? (totalProfit / totalRevenue * 100) : 0;
+// ─── Demo reset ───────────────────────────────────────────
 
-        document.getElementById('kpiRevenue').textContent = formatCurrency(totalRevenue);
-        document.getElementById('kpiOrders').textContent = totalOrders + '건';
-        document.getElementById('kpiProfit').textContent = formatCurrency(totalProfit);
-        document.getElementById('kpiMargin').textContent = avgMargin.toFixed(1) + '%';
+$('resetDemo').addEventListener('click', () => {
+    if (!window.confirm('등록 상품, 주문, 계산 내역, 저장 키워드를 모두 지우고 처음 데모 상태로 되돌릴까요?')) return;
+    state = { orders: [], listings: [], savedKeywords: [], calcHistory: [] };
+    seedOrders();
+    saveState();
+    renderAll();
+    showToast('데모 데이터를 초기화했습니다');
+});
 
-        document.getElementById('kpiRevenueChange').textContent = '+' + randomInt(5, 25) + '%';
-        document.getElementById('kpiOrdersChange').textContent = '+' + randomInt(3, 18) + '%';
-        document.getElementById('kpiProfitChange').textContent = '+' + randomInt(7, 30) + '%';
-        document.getElementById('kpiMarginChange').textContent = '+' + randomInt(1, 5) + '%p';
+// ─── Initialization ───────────────────────────────────────
 
-        const labels = salesData.map(d => d.date);
-
-        // Revenue Chart
-        if (revenueChart) revenueChart.destroy();
-        revenueChart = new Chart(document.getElementById('revenueChart'), {
-            type: 'line',
-            data: {
-                labels,
-                datasets: [{
-                    label: '매출',
-                    data: salesData.map(d => d.revenue),
-                    borderColor: '#03C75A',
-                    backgroundColor: 'rgba(3, 199, 90, 0.1)',
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 2
-                }, {
-                    label: '순수익',
-                    data: salesData.map(d => d.profit),
-                    borderColor: '#3b82f6',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { position: 'top', labels: { font: { size: 11 } } } },
-                scales: {
-                    y: { ticks: { callback: v => (v / 10000).toFixed(0) + '만' } }
-                }
-            }
+function seedOrders() {
+    const statuses = ['신규주문', '처리중', '배송중', '배송완료'];
+    for (let i = 0; i < 8; i++) {
+        const product = randomChoice(MOCK_PRODUCTS);
+        const qty = randomInt(1, 3);
+        const orderDate = new Date();
+        orderDate.setDate(orderDate.getDate() - randomInt(0, 14));
+        state.orders.push({
+            id: 'ORD-' + (10000000 + i),
+            productName: product.name,
+            customerName: randomChoice(MOCK_CUSTOMER_NAMES),
+            address: randomChoice(MOCK_ADDRESSES),
+            quantity: qty,
+            unitPrice: product.retailPrice,
+            totalPrice: product.retailPrice * qty,
+            status: statuses[Math.min(i, statuses.length - 1)],
+            orderDate: orderDate.toISOString(),
+            trackingNumber: i >= 2 ? '6' + Math.random().toString().slice(2, 14) : ''
         });
-
-        // Orders Chart
-        if (ordersChart) ordersChart.destroy();
-        ordersChart = new Chart(document.getElementById('ordersChart'), {
-            type: 'bar',
-            data: {
-                labels,
-                datasets: [{
-                    label: '주문수',
-                    data: salesData.map(d => d.orders),
-                    backgroundColor: 'rgba(3, 199, 90, 0.6)',
-                    borderRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { beginAtZero: true, ticks: { stepSize: 1 } }
-                }
-            }
-        });
-
-        // Category Chart
-        const categoryData = {};
-        salesData.forEach(d => {
-            if (!categoryData[d.category]) categoryData[d.category] = 0;
-            categoryData[d.category] += d.revenue;
-        });
-
-        if (categoryChart) categoryChart.destroy();
-        const catLabels = Object.keys(categoryData);
-        const catValues = Object.values(categoryData);
-        categoryChart = new Chart(document.getElementById('categoryChart'), {
-            type: 'doughnut',
-            data: {
-                labels: catLabels,
-                datasets: [{
-                    data: catValues,
-                    backgroundColor: ['#03C75A', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'],
-                    borderWidth: 2,
-                    borderColor: '#fff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } }
-                }
-            }
-        });
-
-        // Bestseller
-        const bestProducts = [...MOCK_PRODUCTS]
-            .sort(() => Math.random() - 0.5)
-            .slice(0, 5)
-            .map((p, i) => ({
-                ...p,
-                sales: randomInt(20, 100),
-                revenue: p.retailPrice * randomInt(20, 100)
-            }))
-            .sort((a, b) => b.revenue - a.revenue);
-
-        document.getElementById('bestsellerList').innerHTML = bestProducts.map((p, i) => `
-            <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50">
-                <span class="text-lg font-bold ${i === 0 ? 'text-yellow-500' : i === 1 ? 'text-gray-400' : i === 2 ? 'text-orange-400' : 'text-gray-300'}">${i + 1}</span>
-                <span class="text-2xl">${p.emoji}</span>
-                <div class="flex-1 min-w-0">
-                    <div class="text-sm font-medium truncate">${p.name}</div>
-                    <div class="text-xs text-gray-500">${p.sales}건 판매</div>
-                </div>
-                <div class="text-sm font-bold text-naver">${formatCurrency(p.revenue)}</div>
-            </div>
-        `).join('');
     }
+}
 
-    function generateMockSalesData(days) {
-        const data = [];
-        const categories = ['패션', '뷰티', '생활', '전자기기', '식품'];
-        const now = new Date();
+function renderAll() {
+    renderSourcingGrid();
+    renderListings();
+    renderOrders();
+    renderCalcHistory();
+    renderSavedKeywords();
+    renderCalcResult();
+    renderListingQuote();
+    if (activeTab === 'analytics') renderAnalytics();
+}
 
-        for (let i = days - 1; i >= 0; i--) {
-            const date = new Date(now);
-            date.setDate(date.getDate() - i);
-            const dateStr = `${date.getMonth() + 1}/${date.getDate()}`;
-
-            const baseOrders = randomInt(3, 15);
-            const baseRevenue = baseOrders * randomInt(15000, 35000);
-            const profit = baseRevenue * (randomInt(15, 35) / 100);
-
-            data.push({
-                date: dateStr,
-                orders: baseOrders,
-                revenue: baseRevenue,
-                profit: Math.round(profit),
-                category: randomChoice(categories)
-            });
-        }
-        return data;
+function init() {
+    if (state.orders.length === 0) {
+        seedOrders();
+        saveState();
     }
+    syncFilterControls();
+    syncThemeButton();
+    renderTape();
+    renderKeywordSuggest();
+    tickClock();
+    setInterval(tickClock, 30000);
+    renderAll();
+    showTab(resolveTab(location.hash) || 'sourcing', { updateHash: false });
+}
 
-    document.getElementById('analyticsPeriod').addEventListener('change', renderAnalytics);
-
-    // ─── Initialization ──────────────────────────────────────
-
-    function init() {
-        renderSourcingGrid();
-        renderListings();
-        renderOrders();
-        renderCalcHistory();
-        renderSavedKeywords();
-
-        // Generate initial mock orders if none exist
-        if (state.orders.length === 0) {
-            const statuses = ['신규주문', '처리중', '배송중', '배송완료'];
-            for (let i = 0; i < 8; i++) {
-                const product = randomChoice(MOCK_PRODUCTS);
-                const qty = randomInt(1, 3);
-                const daysAgo = randomInt(0, 14);
-                const orderDate = new Date();
-                orderDate.setDate(orderDate.getDate() - daysAgo);
-
-                state.orders.push({
-                    id: 'ORD-' + (10000000 + i),
-                    productName: product.name,
-                    customerName: randomChoice(MOCK_CUSTOMER_NAMES),
-                    address: randomChoice(MOCK_ADDRESSES),
-                    quantity: qty,
-                    unitPrice: product.retailPrice,
-                    totalPrice: product.retailPrice * qty,
-                    status: statuses[Math.min(i, statuses.length - 1) % statuses.length],
-                    orderDate: orderDate.toISOString(),
-                    trackingNumber: i >= 3 ? '6' + Math.random().toString().slice(2, 14) : ''
-                });
-            }
-            saveState();
-            renderOrders();
-        }
-    }
-
-    init();
-
-})();
+init();
