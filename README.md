@@ -5,18 +5,18 @@ AI 시대에 혼자 운영할 수 있는 열 가지 한국형 SaaS 비즈니스 
 디자인 시스템([impeccable](https://impeccable.style)로 설계)과 데이터 스키마를 가진 독립 모듈입니다.
 
 <!-- MODULE_TABLE:START -->
-| # | 제품 | 비즈니스 모델 | 경로 |
-|---|---|---|---|
-| 1 | AI 콘텐츠 대행 | AI 콘텐츠 에이전시 | `/ai-content-agency` |
-| 2 | 스마트셀러 | 스마트스토어 위탁판매 | `/smart-store` |
-| 3 | 예약잇다 | 마이크로 SaaS | `/micro-saas` |
-| 4 | 에듀마켓 | 온라인 교육 | `/online-education` |
-| 5 | 링크잇 | 제휴 마케팅 | `/affiliate-marketing` |
-| 6 | AutoMate Pro | 업무 자동화 대행 | `/automation-agency` |
-| 7 | 레터하우스 | 유료 뉴스레터 & 커뮤니티 | `/newsletter-community` |
-| 8 | 크리에이트잇 | AI 디자인 & 영상 제작 | `/ai-design-video` |
-| 9 | DevFlow | 개발 프리랜싱 | `/dev-freelancing` |
-| 10 | 커뮤니티허브 | 니치 커뮤니티 | `/niche-community` |
+| # | 제품 | 비즈니스 모델 | 핵심 기능 | 경로 |
+|---|---|---|---|---|
+| 1 | 글품 | AI 콘텐츠 에이전시 | AI가 시안을 쓰고 에디터가 검수해 마감일에 납품 | `/ai-content-agency` |
+| 2 | 스마트셀러 | 스마트스토어 위탁판매 | 도매 소싱부터 발주·마진까지 남는 돈이 보이는 가판대 | `/smart-store` |
+| 3 | 예약잇다 | 마이크로 SaaS | 종이 예약장을 옮긴 소상공인 예약 관리 + 고객 예약 페이지 | `/micro-saas` |
+| 4 | 에듀마켓 | 온라인 교육 | 시간표형 커리큘럼 빌더와 공개 강의 판매 페이지 | `/online-education` |
+| 5 | 링크잇 | 제휴 마케팅 | 클릭 추적 리다이렉트, 전환·수수료 분석, AI 콘텐츠 | `/affiliate-marketing` |
+| 6 | AutoMate Pro | 업무 자동화 대행 | ROI 진단, 워크플로 빌더, 견적서, 유지보수 구독 | `/automation-agency` |
+| 7 | 펴냄 | 유료 뉴스레터 & 커뮤니티 | 발행·유료 구독·구독자 관리·독자 게시판 | `/newsletter-community` |
+| 8 | 크리에이트잇 | AI 디자인 & 영상 제작 | 주문·수정 라운드·납품, AI 콘티 초안 | `/ai-design-video` |
+| 9 | DevFlow | 개발 프리랜싱 | 견적→청구→입금(3.3%/부가세), 타이머, 칸반 | `/dev-freelancing` |
+| 10 | 스타트업 빌더스 | 니치 커뮤니티 | 유료 멤버십 창업가 커뮤니티, 모임 RSVP, 운영 대시보드 | `/niche-community` |
 <!-- MODULE_TABLE:END -->
 
 방문자마다 쿠키로 **개인 데모 워크스페이스**가 만들어지고, 각 제품에 처음 들어가는 순간 샘플 데이터가 채워집니다.
