@@ -1,0 +1,293 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.target {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 12px;
+  align-items: end;
+  padding: 12px;
+  background: var(--slip-alt);
+  border-radius: var(--radius);
+}
+
+.targetField {
+  min-width: 0;
+}
+
+.targetResult {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  min-height: 42px;
+  font-size: var(--step--1);
+}
+
+.result {
+  position: sticky;
+  top: 24px;
+}
+
+.resultBody {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.resultTag {
+  width: 240px;
+}
+
+.resultTag > * {
+  width: 100%;
+}
+
+.resultText {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.monthly {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.35fr);
+  gap: 0;
+  margin: 0;
+  border-top: 1.5px dashed var(--rule-strong);
+  font-variant-numeric: tabular-nums;
+}
+
+.monthly > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 20px 16px;
+}
+
+.monthly .monthlyHead {
+  grid-column: 1 / -1;
+  padding-bottom: 0;
+}
+
+.monthlyHead dt {
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.monthly dt {
+  font-size: var(--step--2);
+  color: var(--ink-2);
+}
+
+.monthly dd {
+  margin: 0;
+  font-weight: 700;
+  font-size: var(--step--1);
+  white-space: nowrap;
+}
+
+.monthlyTotal dd {
+  font-size: var(--step-0);
+  font-weight: 800;
+}
+
+.liveSummary {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .liveSummary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--step--1);
+    font-weight: 700;
+  }
+}
+
+.lossText,
+.lossText dd,
+.lossText dt {
+  color: var(--loss);
+}
+
+/* ── Cost structure (emphasis form: costs in ink tones, what is left in POP) ── */
+
+.costFigure {
+  margin: 0;
+}
+
+.costCaption {
+  margin-bottom: 8px;
+  font-size: var(--step--2);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.costBar {
+  position: relative;
+  height: 30px;
+}
+
+.costTrack {
+  display: flex;
+  gap: 2px;
+  height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.costSeg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 0;
+  min-width: 2px;
+  font-size: var(--step--2);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.seg_cost {
+  background: #2b2f3a;
+}
+
+.seg_fee {
+  background: #5f6571;
+}
+
+.seg_shipping {
+  background: #979da8;
+  color: var(--ink);
+}
+
+.seg_profit {
+  background: var(--pop);
+  color: var(--ink);
+}
+
+.priceLine {
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  width: 2.5px;
+  margin-left: -1px;
+  background: var(--loss);
+}
+
+.costLegend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 10px 0 0;
+  padding: 0;
+  font-size: var(--step--2);
+  color: var(--ink-2);
+}
+
+.costLegend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.costLegend strong {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.lossNote {
+  margin-top: 8px;
+  font-size: var(--step--1);
+  font-weight: 700;
+  color: var(--loss);
+}
+
+/* ── History ── */
+
+.history {
+  margin-top: 24px;
+}
+
+.historyTable {
+  min-width: 760px;
+}
+
+.historyLabel span {
+  display: block;
+  font-size: var(--step--2);
+  font-weight: 500;
+}
+
+.historyProfit {
+  font-weight: 800;
+}
+
+.historyActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+@media (max-width: 1200px) {
+  .resultBody {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .resultTag {
+    width: min(260px, 100%);
+  }
+
+  .monthly {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .result {
+    position: static;
+  }
+}
+
+@media (max-width: 520px) {
+  .pair,
+  .target {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .monthly > div {
+    padding: 10px 16px 12px;
+  }
+}

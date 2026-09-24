@@ -1,0 +1,355 @@
+.daily {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 0;
+  padding: 0;
+  font-size: var(--step--2);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.key {
+  display: inline-block;
+  width: 16px;
+  height: 0;
+  border-top: 2px solid;
+  vertical-align: middle;
+}
+
+.keyProfit {
+  border-color: var(--ink);
+  box-shadow: 0 3px 0 var(--pop);
+}
+
+.keyRevenue {
+  border-color: #979da8;
+}
+
+.keyOrders {
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-radius: 2px 2px 0 0;
+  background: #5f6571;
+}
+
+.interactive {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-bottom: 22px;
+  touch-action: pan-y;
+  cursor: crosshair;
+  border-radius: var(--radius);
+}
+
+.interactive:focus-visible {
+  outline-offset: 6px;
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 8px;
+}
+
+.yAxis {
+  position: relative;
+}
+
+.yAxis span {
+  position: absolute;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: var(--step--2);
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.plot {
+  position: relative;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.grid {
+  stroke: var(--rule);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.profitArea {
+  fill: var(--pop);
+  opacity: 0.4;
+}
+
+.revenueLine,
+.profitLine {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.revenueLine {
+  stroke: #979da8;
+}
+
+.profitLine {
+  stroke: var(--ink);
+}
+
+.crosshair {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--ink-2);
+  pointer-events: none;
+}
+
+.dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--slip);
+  pointer-events: none;
+}
+
+.dotRevenue {
+  background: #979da8;
+}
+
+.dotProfit {
+  background: var(--ink);
+}
+
+.endLabel {
+  position: absolute;
+  right: 0;
+  transform: translate(0, -130%);
+  padding: 0 4px;
+  background: var(--slip);
+  font-size: var(--step--2);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+.bar {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  background: #5f6571;
+  border-radius: 4px 4px 0 0;
+  pointer-events: none;
+}
+
+.barActive {
+  background: var(--ink);
+}
+
+.barPanel .plot {
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.xAxis {
+  position: absolute;
+  left: 52px;
+  right: 0;
+  bottom: 0;
+  height: 18px;
+}
+
+.xAxis span {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: var(--step--2);
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 5;
+  inset: 0 0 0 52px;
+  pointer-events: none;
+}
+
+.tooltip {
+  position: absolute;
+  top: 6px;
+  min-width: 170px;
+  padding: 10px 12px;
+  transform: translateX(14px);
+  background: var(--slip);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lift);
+  font-size: var(--step--1);
+  pointer-events: none;
+}
+
+.tooltipLeft {
+  transform: translateX(calc(-100% - 14px));
+}
+
+.tooltip p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.tooltip strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.tooltipDate {
+  margin-bottom: 4px;
+  font-weight: 800;
+}
+
+/* ── Ranked bars (category share, top sellers) ── */
+
+.ranked {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rankRow {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+
+.rankNo {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  line-height: 1;
+}
+
+.rankName {
+  min-width: 0;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rankValue {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.rankMeta {
+  grid-column: 2 / -1;
+  font-size: var(--step--2);
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.rankTrack {
+  grid-column: 2 / -1;
+  display: block;
+  height: 8px;
+  background: var(--slip-alt);
+  border-radius: 0 4px 4px 0;
+}
+
+.rankBar {
+  display: block;
+  height: 100%;
+  background: #5f6571;
+  border-radius: 0 4px 4px 0;
+}
+
+.rankRow:first-child .rankBar {
+  background: var(--ink);
+}
+
+.tableToggle {
+  margin-top: 14px;
+  font-size: var(--step--1);
+}
+
+.tableToggle summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.tableToggle[open] summary {
+  margin-bottom: 8px;
+}
+
+@media (max-width: 720px) {
+  .panel {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .xAxis {
+    left: 44px;
+  }
+
+  .overlay {
+    left: 44px;
+  }
+}
+
+.rankRow a.rankName {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.rankRow a.rankName:hover {
+  text-decoration: underline;
+}
+
+.visuallyHiddenInline {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.shareRow {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.shareRow .full {
+  grid-column: 1 / -1;
+}
