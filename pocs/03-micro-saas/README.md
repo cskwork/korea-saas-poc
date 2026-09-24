@@ -57,8 +57,8 @@ python3 -m http.server 8080
 
 ## 🛠 기술 스택
 
-- HTML5 / CSS3 / Vanilla JavaScript
-- TailwindCSS (CDN)
+- HTML5 / CSS3 / Vanilla JavaScript (빌드 단계 없음)
+- Pretendard, Black Han Sans (웹폰트 CDN)
 - localStorage (데이터 저장)
 
 ## 📂 파일 구조
@@ -68,6 +68,9 @@ python3 -m http.server 8080
 ├── index.html    # 메인 HTML (전체 페이지 구조)
 ├── style.css     # 커스텀 스타일
 ├── app.js        # 앱 로직 (데이터, 렌더링, 이벤트)
+├── assets/       # 일러스트, OG 이미지, 파비콘 (출처: docs/asset-register.md)
+├── PRODUCT.md    # 제품 맥락
+├── DESIGN.md     # 디자인 시스템 ("The Signed Ledger")
 └── README.md     # 이 파일
 ```
 
@@ -79,13 +82,19 @@ python3 -m http.server 8080
 
 ## 🎨 디자인 특징
 
-- 모바일 퍼스트 반응형 (320px ~ 1440px)
+- "서명된 예약장" 콘셉트: 서식 용지, 괘선, 결재란과 도장으로 예약 상태 표시
+- 모바일 퍼스트 반응형 (모바일 하단 탭, 데스크톱 좌측 메뉴), 다크 모드 지원
 - 한국어 UI 전체 적용
-- 카카오 스타일 알림톡 미리보기
-- 상태별 색상 코드 (확정=초록, 대기=노랑, 취소=빨강)
+- 카카오 스타일 알림톡 미리보기 (다음 실제 예약으로 내용 채움)
+- 상태별 도장 모양과 색 (확정=초록 원형, 대기=노랑 점선, 취소=빨강 사각)
+
+## 🔗 주소로 바로 열기
+
+- `#/dashboard`, `#/calendar`, `#/customers`, `#/notifications`, `#/booking`, `#/pricing`
+- 고객 예약 페이지는 `#/booking` 링크로 공유할 수 있습니다 (페이지의 "예약 링크 복사")
 
 ## 📝 참고
 
 - POC 단계로 모든 데이터는 localStorage에 저장됩니다
 - 첫 실행 시 샘플 데이터가 자동 생성됩니다
-- 데이터 초기화: 브라우저 개발자 도구 → Application → Local Storage → 삭제
+- 데이터 초기화: 좌측 메뉴 하단의 초기화 버튼 (또는 개발자 도구 → Application → Local Storage → 삭제)

@@ -22,22 +22,67 @@ const defaultBusiness = {
   operatingHours: { open: '10:00', close: '20:00' },
 };
 
+const STATUS = {
+  confirmed: { label: '확정' },
+  pending: { label: '대기' },
+  cancelled: { label: '취소' },
+};
+
+const PAGE_TITLES = {
+  dashboard: '대시보드',
+  calendar: '예약 관리',
+  customers: '고객 관리',
+  notifications: '알림톡 미리보기',
+  booking: '고객 예약 페이지',
+  pricing: '요금제',
+};
+
+const DAY_NAMES = ['일', '월', '화', '수', '목', '금', '토'];
+
 function generateId() {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 11);
 }
 
-function loadData() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (raw) return JSON.parse(raw);
-  // Initialize with sample data
+function isValidData(data) {
+  return data && Array.isArray(data.reservations) && Array.isArray(data.customers);
+}
+
+function createSampleData() {
   const data = { reservations: [], customers: [], business: defaultBusiness };
   generateSampleData(data);
   saveData(data);
   return data;
 }
 
+function loadData() {
+  let raw = null;
+  try {
+    raw = localStorage.getItem(STORAGE_KEY);
+  } catch (e) {
+    raw = null;
+  }
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (isValidData(parsed)) return parsed;
+    } catch (e) {
+      // Corrupted storage: fall through and rebuild sample data.
+    }
+  }
+  return createSampleData();
+}
+
+let storageWarned = false;
 function saveData(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    if (!storageWarned) {
+      storageWarned = true;
+      // Toast may not be ready during first load; defer.
+      setTimeout(() => showToast('브라우저 저장소에 저장하지 못했습니다. 새로고침하면 변경 내용이 사라질 수 있습니다.'), 0);
+    }
+  }
 }
 
 function generateSampleData(data) {
@@ -47,7 +92,6 @@ function generateSampleData(data) {
   const statuses = ['confirmed', 'confirmed', 'confirmed', 'pending', 'cancelled'];
   const today = new Date();
 
-  // Create customers
   names.forEach((name, i) => {
     data.customers.push({
       id: generateId(),
@@ -60,7 +104,6 @@ function generateSampleData(data) {
     });
   });
 
-  // Create reservations for the past week and next week
   for (let d = -7; d <= 7; d++) {
     const date = new Date(today);
     date.setDate(date.getDate() + d);
@@ -85,14 +128,64 @@ function generateSampleData(data) {
   }
 }
 
+// --- Formatting helpers ---
 function formatDate(date) {
   return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
 }
 
+// Parse YYYY-MM-DD as a local date (new Date('YYYY-MM-DD') is UTC and can shift the day).
+function parseDate(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
 function formatDateKR(dateStr) {
-  const d = new Date(dateStr);
-  const days = ['일', '월', '화', '수', '목', '금', '토'];
-  return `${d.getMonth() + 1}월 ${d.getDate()}일 (${days[d.getDay()]})`;
+  const d = parseDate(dateStr);
+  return `${d.getMonth() + 1}월 ${d.getDate()}일 (${DAY_NAMES[d.getDay()]})`;
+}
+
+function formatDateLongKR(dateStr) {
+  const d = parseDate(dateStr);
+  return `${d.getFullYear()}년 ${formatDateKR(dateStr)}`;
+}
+
+function nowTimeStr() {
+  const n = new Date();
+  return `${String(n.getHours()).padStart(2, '0')}:${String(n.getMinutes()).padStart(2, '0')}`;
+}
+
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+}
+
+// Normalise Korean phone numbers to 010-1234-5678 style.
+function formatPhone(value) {
+  const digits = String(value).replace(/\D/g, '').slice(0, 11);
+  if (digits.startsWith('02')) {
+    if (digits.length <= 2) return digits;
+    if (digits.length <= 5) return `${digits.slice(0, 2)}-${digits.slice(2)}`;
+    if (digits.length <= 9) return `${digits.slice(0, 2)}-${digits.slice(2, 5)}-${digits.slice(5)}`;
+    return `${digits.slice(0, 2)}-${digits.slice(2, 6)}-${digits.slice(6, 10)}`;
+  }
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+  if (digits.length <= 10) return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+  return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
+}
+
+function isValidPhone(value) {
+  const digits = String(value).replace(/\D/g, '');
+  return digits.length >= 9 && digits.length <= 11 && digits.startsWith('0');
+}
+
+function hashAngle(id, range) {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
+  return ((Math.abs(h) % (range * 2 + 1)) - range);
+}
+
+function prefersReducedMotion() {
+  return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
 // --- State ---
@@ -103,111 +196,190 @@ let selectedCalendarDate = null;
 let bookingStep = 1;
 let selectedService = null;
 let selectedTime = null;
+let freshStampId = null;
+let currentNotifType = 'confirm';
 
-// --- Navigation ---
-function showPage(page) {
-  currentPage = page;
-  document.querySelectorAll('.page-content').forEach(el => el.classList.add('hidden'));
-  document.getElementById('page-' + page).classList.remove('hidden');
-  document.querySelectorAll('.nav-item').forEach(el => {
-    el.classList.toggle('active', el.dataset.page === page);
-  });
-  const titles = {
-    dashboard: '대시보드',
-    calendar: '예약 관리',
-    customers: '고객 관리',
-    notifications: '알림톡 미리보기',
-    booking: '고객 예약 페이지',
-    pricing: '요금제',
-  };
-  document.getElementById('pageTitle').textContent = titles[page] || '';
-  toggleMobileNav(true);
-
-  // Initialize page-specific content
-  if (page === 'dashboard') renderDashboard();
-  if (page === 'calendar') renderCalendar();
-  if (page === 'customers') renderCustomers();
-  if (page === 'notifications') showNotificationType('confirm');
-  if (page === 'booking') initBookingPage();
+// --- Stamps (결재란) ---
+function stampSVG(r) {
+  const tilt = hashAngle(r.id, 9);
+  const fresh = r.id === freshStampId ? ' is-fresh' : '';
+  if (r.status === 'confirmed') {
+    return `<span class="stamp stamp-confirmed${fresh}" style="--tilt:${tilt}deg" role="img" aria-label="확정">
+      <svg viewBox="0 0 60 60" aria-hidden="true"><g filter="url(#ink)"><circle cx="30" cy="30" r="26" class="st-ring"/><circle cx="30" cy="30" r="21.5" class="st-ring thin"/><text x="30" y="36.5" text-anchor="middle" class="st-text">확정</text></g></svg></span>`;
+  }
+  if (r.status === 'cancelled') {
+    return `<span class="stamp stamp-cancelled${fresh}" style="--tilt:${tilt - 4}deg" role="img" aria-label="취소">
+      <svg viewBox="0 0 72 40" aria-hidden="true"><g filter="url(#ink)"><rect x="3" y="3" width="66" height="34" class="st-ring"/><rect x="7" y="7" width="58" height="26" class="st-ring thin"/><text x="36" y="27.5" text-anchor="middle" class="st-text">취소</text></g></svg></span>`;
+  }
+  return `<span class="stamp stamp-pending" role="img" aria-label="대기"><span>대기</span></span>`;
 }
 
-function toggleMobileNav(forceClose) {
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('mobileNavOverlay');
-  if (forceClose === true || !sidebar.classList.contains('-translate-x-full')) {
-    sidebar.classList.add('-translate-x-full');
-    overlay.classList.add('hidden');
-  } else {
-    sidebar.classList.remove('-translate-x-full');
-    overlay.classList.remove('hidden');
+function renderReservationItem(r, opts = {}) {
+  const today = formatDate(new Date());
+  const isPast = r.date < today || (r.date === today && r.time < nowTimeStr());
+  const classes = ['row', `is-${r.status}`];
+  if (isPast && opts.dimPast) classes.push('is-past');
+  const actions = r.status === 'pending'
+    ? `<div class="row-actions">
+        <button type="button" class="btn btn-confirm btn-small" data-action="status" data-id="${escapeHTML(r.id)}" data-status="confirmed">확정</button>
+        <button type="button" class="btn btn-cancel btn-small" data-action="status" data-id="${escapeHTML(r.id)}" data-status="cancelled">취소</button>
+      </div>`
+    : r.status === 'confirmed' && !isPast
+      ? `<div class="row-actions quiet"><button type="button" class="btn btn-text btn-small" data-action="status" data-id="${escapeHTML(r.id)}" data-status="cancelled" aria-label="${escapeHTML(r.customerName)} ${escapeHTML(r.time)} 예약 취소">취소</button></div>`
+      : '';
+  const memo = r.memo ? `<p class="row-memo">${escapeHTML(r.memo)}</p>` : '';
+  return `
+    <li class="${classes.join(' ')}">
+      <span class="row-time">${escapeHTML(r.time)}</span>
+      <div class="row-main">
+        <p class="row-name">${escapeHTML(r.customerName)}</p>
+        <p class="row-meta">${escapeHTML(r.service)} · ${escapeHTML(r.customerPhone)}</p>
+        ${memo}
+      </div>
+      ${actions}
+      <div class="row-seal">${stampSVG(r)}</div>
+    </li>`;
+}
+
+function slotTimes() {
+  const { open, close } = defaultBusiness.operatingHours;
+  const openHour = parseInt(open.split(':')[0], 10);
+  const closeHour = parseInt(close.split(':')[0], 10);
+  const times = [];
+  for (let h = openHour; h < closeHour; h++) {
+    for (const m of ['00', '30']) times.push(`${String(h).padStart(2, '0')}:${m}`);
   }
+  return times;
+}
+
+// Day-book: every 30-minute slot is a ruled line; free slots stay visible as ghost lines.
+function renderDaybook(dayRes, opts = {}) {
+  const sorted = [...dayRes].sort((a, b) => a.time.localeCompare(b.time));
+  const slots = slotTimes();
+  const byTime = new Map();
+  sorted.forEach(r => {
+    if (!byTime.has(r.time)) byTime.set(r.time, []);
+    byTime.get(r.time).push(r);
+  });
+  const allTimes = [...new Set([...slots, ...sorted.map(r => r.time)])].sort();
+  let html = '';
+  let run = [];
+  // Consecutive free slots collapse into one ruled line so the book stays short.
+  const flush = () => {
+    if (!run.length) return;
+    if (run.length < 3) {
+      html += run.map(t => `<li class="row ghost" aria-hidden="true"><span class="row-time">${t}</span><span class="ghost-line"></span></li>`).join('');
+    } else {
+      const last = run[run.length - 1];
+      html += `<li class="row ghost is-run"><span class="row-time">${run[0]}</span><span class="ghost-span">~ ${last} · 빈 시간 ${run.length}칸</span></li>`;
+    }
+    run = [];
+  };
+  allTimes.forEach(t => {
+    const list = byTime.get(t);
+    if (list) {
+      flush();
+      html += list.map(r => renderReservationItem(r, opts)).join('');
+    } else if (opts.ghosts) {
+      run.push(t);
+    }
+  });
+  flush();
+  return html;
+}
+
+// --- Navigation (hash routing: #/dashboard, #/booking, ...) ---
+function pageFromHash() {
+  const page = (location.hash || '').replace(/^#\/?/, '');
+  return PAGE_TITLES[page] ? page : 'dashboard';
+}
+
+function showPage(page, { focus = false } = {}) {
+  if (!PAGE_TITLES[page]) page = 'dashboard';
+  currentPage = page;
+  document.querySelectorAll('.page').forEach(el => { el.hidden = el.id !== 'page-' + page; });
+  document.querySelectorAll('.nav-item').forEach(el => {
+    if (el.dataset.page === page) el.setAttribute('aria-current', 'page');
+    else el.removeAttribute('aria-current');
+  });
+  document.getElementById('pageTitle').textContent = PAGE_TITLES[page];
+  document.title = `${PAGE_TITLES[page]} · 예약잇다`;
+  document.body.dataset.page = page;
+
+  if (page === 'dashboard') renderDashboard();
+  if (page === 'calendar') { renderCalendar(); if (selectedCalendarDate) showDateReservations(selectedCalendarDate); }
+  if (page === 'customers') renderCustomers();
+  if (page === 'notifications') showNotificationType(currentNotifType);
+  if (page === 'booking') initBookingPage();
+
+  if (focus) {
+    window.scrollTo(0, 0);
+    document.getElementById('main').focus({ preventScroll: true });
+  }
+}
+
+function navigate(page) {
+  const target = '#/' + page;
+  if (location.hash === target) showPage(page, { focus: true });
+  else location.hash = target;
+}
+
+function rerenderCurrent() {
+  if (currentPage === 'dashboard') renderDashboard();
+  if (currentPage === 'calendar') {
+    renderCalendar();
+    if (selectedCalendarDate) showDateReservations(selectedCalendarDate);
+  }
+  if (currentPage === 'customers') renderCustomers();
+  if (currentPage === 'notifications') showNotificationType(currentNotifType);
 }
 
 // --- Dashboard ---
 function renderDashboard() {
-  const today = formatDate(new Date());
+  const todayDate = new Date();
+  const today = formatDate(todayDate);
   const todayRes = appData.reservations.filter(r => r.date === today);
 
   document.getElementById('statTotal').textContent = todayRes.length;
   document.getElementById('statConfirmed').textContent = todayRes.filter(r => r.status === 'confirmed').length;
   document.getElementById('statPending').textContent = todayRes.filter(r => r.status === 'pending').length;
   document.getElementById('statCancelled').textContent = todayRes.filter(r => r.status === 'cancelled').length;
+  document.getElementById('todayYear').textContent = `${todayDate.getFullYear()}년`;
   document.getElementById('todayDate').textContent = formatDateKR(today);
 
-  // Today's reservations list
-  const sorted = [...todayRes].sort((a, b) => a.time.localeCompare(b.time));
+  const now = nowTimeStr();
+  const next = todayRes
+    .filter(r => r.status !== 'cancelled' && r.time >= now)
+    .sort((a, b) => a.time.localeCompare(b.time))[0];
+  const pendingCount = todayRes.filter(r => r.status === 'pending').length;
+  const nextEl = document.getElementById('nextCustomer');
+  const parts = [];
+  if (next) parts.push(`다음 손님 <strong>${escapeHTML(next.time)} ${escapeHTML(next.customerName)}</strong> · ${escapeHTML(next.service)}`);
+  else parts.push('남은 예약이 없습니다');
+  if (pendingCount) parts.push(`확정 대기 <strong>${pendingCount}건</strong>`);
+  nextEl.innerHTML = parts.join('<span class="sep" aria-hidden="true">/</span>');
+
   const container = document.getElementById('todayReservations');
-  if (sorted.length === 0) {
-    container.innerHTML = '<p class="p-6 text-sm text-gray-400 text-center">오늘 예약이 없습니다</p>';
+  if (todayRes.length === 0) {
+    container.innerHTML = emptyState('오늘 예약이 없습니다', '새 예약을 추가하거나 고객 예약 페이지 링크를 공유해 보세요.');
   } else {
-    container.innerHTML = sorted.map(r => renderReservationItem(r)).join('');
+    container.innerHTML = renderDaybook(todayRes, { ghosts: true, dimPast: true });
   }
 
-  // Weekly chart
   renderWeeklyChart();
 }
 
-function renderReservationItem(r) {
-  const statusMap = {
-    confirmed: { label: '확정', class: 'status-confirmed' },
-    pending: { label: '대기', class: 'status-pending' },
-    cancelled: { label: '취소', class: 'status-cancelled' },
-  };
-  const s = statusMap[r.status];
-  return `
-    <div class="flex items-center gap-4 px-4 py-3 hover:bg-gray-50">
-      <div class="text-sm font-mono font-bold text-gray-700 w-12">${r.time}</div>
-      <div class="flex-1 min-w-0">
-        <p class="text-sm font-medium truncate">${r.customerName}</p>
-        <p class="text-xs text-gray-500">${r.service} · ${r.customerPhone}</p>
-      </div>
-      <span class="text-xs px-2 py-1 rounded-full font-medium ${s.class}">${s.label}</span>
-      ${r.status === 'pending' ? `
-        <div class="flex gap-1">
-          <button onclick="changeReservationStatus('${r.id}', 'confirmed')" class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200">확정</button>
-          <button onclick="changeReservationStatus('${r.id}', 'cancelled')" class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">취소</button>
-        </div>
-      ` : ''}
-    </div>`;
-}
-
-function changeReservationStatus(id, status) {
-  const res = appData.reservations.find(r => r.id === id);
-  if (res) {
-    res.status = status;
-    saveData(appData);
-    if (currentPage === 'dashboard') renderDashboard();
-    if (currentPage === 'calendar') {
-      renderCalendar();
-      if (selectedCalendarDate) showDateReservations(selectedCalendarDate);
-    }
-  }
+function emptyState(title, body) {
+  return `<li class="empty">
+    <img src="assets/empty-book-480.webp" width="240" height="240" alt="" loading="lazy" decoding="async">
+    <p class="empty-title">${escapeHTML(title)}</p>
+    <p class="empty-body">${escapeHTML(body)}</p>
+  </li>`;
 }
 
 function renderWeeklyChart() {
   const today = new Date();
   const days = [];
-  const dayLabels = ['일', '월', '화', '수', '목', '금', '토'];
   for (let i = 6; i >= 0; i--) {
     const d = new Date(today);
     d.setDate(d.getDate() - i);
@@ -215,24 +387,40 @@ function renderWeeklyChart() {
   }
   const counts = days.map(d => appData.reservations.filter(r => r.date === d && r.status !== 'cancelled').length);
   const max = Math.max(...counts, 1);
+  const todayStr = formatDate(today);
 
-  const chartContainer = document.getElementById('weeklyChart');
-  const labelsContainer = document.getElementById('weeklyLabels');
+  document.getElementById('weeklyChart').innerHTML = `<ol class="bars" aria-label="최근 7일 예약 건수">${counts.map((c, i) => {
+    const height = Math.max((c / max) * 100, 3);
+    const isToday = days[i] === todayStr;
+    const date = parseDate(days[i]);
+    return `<li class="bar${isToday ? ' is-today' : ''}">
+      <span class="bar-count">${c}</span>
+      <span class="bar-col"><span class="bar-fill" style="height:${height}%"></span></span>
+      <span class="bar-label">${DAY_NAMES[date.getDay()]}<span class="visually-hidden"> ${date.getMonth() + 1}월 ${date.getDate()}일 ${c}건${isToday ? ' (오늘)' : ''}</span></span>
+    </li>`;
+  }).join('')}</ol>`;
+}
 
-  chartContainer.innerHTML = counts.map((c, i) => {
-    const height = Math.max((c / max) * 100, 4);
-    const isToday = days[i] === formatDate(today);
-    return `<div class="flex-1 flex flex-col items-center justify-end h-full">
-      <span class="text-xs font-bold mb-1 ${isToday ? 'text-primary' : 'text-gray-500'}">${c}</span>
-      <div class="chart-bar w-full ${isToday ? 'bg-primary' : 'bg-indigo-200'}" style="height:${height}%"></div>
-    </div>`;
-  }).join('');
-
-  labelsContainer.innerHTML = days.map((d, i) => {
-    const date = new Date(d);
-    const isToday = d === formatDate(today);
-    return `<div class="flex-1 text-center text-xs ${isToday ? 'text-primary font-bold' : 'text-gray-400'}">${dayLabels[date.getDay()]}</div>`;
-  }).join('');
+// --- Status changes with undo ---
+function changeReservationStatus(id, status) {
+  const res = appData.reservations.find(r => r.id === id);
+  if (!res || res.status === status) return;
+  const previous = res.status;
+  res.status = status;
+  saveData(appData);
+  freshStampId = prefersReducedMotion() ? null : id;
+  rerenderCurrent();
+  freshStampId = null;
+  const verb = status === 'confirmed' ? '확정했습니다' : status === 'cancelled' ? '취소했습니다' : '대기로 돌렸습니다';
+  showToast(`${res.time} ${res.customerName}님 예약을 ${verb}`, {
+    actionLabel: '되돌리기',
+    onAction: () => {
+      res.status = previous;
+      saveData(appData);
+      rerenderCurrent();
+      showToast('되돌렸습니다');
+    },
+  });
 }
 
 // --- Calendar ---
@@ -249,38 +437,38 @@ function renderCalendar() {
   const lastDay = new Date(calendarYear, calendarMonth + 1, 0);
   const startDow = firstDay.getDay();
   const totalDays = lastDay.getDate();
-
   const today = formatDate(now);
-  const grid = document.getElementById('calendarGrid');
   let html = '';
 
-  // Prev month padding
   const prevLast = new Date(calendarYear, calendarMonth, 0).getDate();
   for (let i = startDow - 1; i >= 0; i--) {
-    html += `<div class="calendar-day other-month">${prevLast - i}</div>`;
+    html += `<span class="day other" aria-hidden="true">${prevLast - i}</span>`;
   }
 
-  // Current month days
   for (let d = 1; d <= totalDays; d++) {
     const dateStr = `${calendarYear}-${String(calendarMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-    const isToday = dateStr === today;
-    const isSelected = dateStr === selectedCalendarDate;
-    const dayReservations = appData.reservations.filter(r => r.date === dateStr && r.status !== 'cancelled');
-    const dotHtml = dayReservations.length > 0 ? `<div class="calendar-dot"></div>` : '';
-    const classes = ['calendar-day'];
-    if (isToday) classes.push('today');
-    if (isSelected) classes.push('selected');
-
-    html += `<div class="${classes.join(' ')}" onclick="selectCalendarDate('${dateStr}')">${d}${dotHtml}</div>`;
+    const dayRes = appData.reservations.filter(r => r.date === dateStr && r.status !== 'cancelled');
+    const pending = dayRes.filter(r => r.status === 'pending').length;
+    const dow = (startDow + d - 1) % 7;
+    const classes = ['day'];
+    if (dateStr === today) classes.push('is-today');
+    if (dateStr === selectedCalendarDate) classes.push('is-selected');
+    if (dow === 0) classes.push('sun');
+    if (dow === 6) classes.push('sat');
+    const label = `${calendarMonth + 1}월 ${d}일 ${DAY_NAMES[dow]}요일, 예약 ${dayRes.length}건${pending ? `, 대기 ${pending}건` : ''}${dateStr === today ? ', 오늘' : ''}`;
+    html += `<button type="button" class="${classes.join(' ')}" data-date="${dateStr}" aria-label="${label}" aria-pressed="${dateStr === selectedCalendarDate}">
+      <span class="day-no">${d}</span>
+      ${dayRes.length ? `<span class="day-count">${dayRes.length}건</span>` : ''}
+      ${pending ? `<span class="day-pending" aria-hidden="true"></span>` : ''}
+    </button>`;
   }
 
-  // Next month padding
   const endDow = lastDay.getDay();
   for (let i = 1; i <= 6 - endDow; i++) {
-    html += `<div class="calendar-day other-month">${i}</div>`;
+    html += `<span class="day other" aria-hidden="true">${i}</span>`;
   }
 
-  grid.innerHTML = html;
+  document.getElementById('calendarGrid').innerHTML = html;
 }
 
 function changeMonth(delta) {
@@ -294,47 +482,82 @@ function selectCalendarDate(dateStr) {
   selectedCalendarDate = dateStr;
   renderCalendar();
   showDateReservations(dateStr);
+  const btn = document.querySelector(`.day[data-date="${dateStr}"]`);
+  if (btn) btn.focus();
 }
 
 function showDateReservations(dateStr) {
   document.getElementById('selectedDateTitle').textContent = formatDateKR(dateStr) + ' 예약';
-  const dayRes = appData.reservations.filter(r => r.date === dateStr).sort((a, b) => a.time.localeCompare(b.time));
+  const dayRes = appData.reservations.filter(r => r.date === dateStr);
   const container = document.getElementById('selectedDateReservations');
+  container.innerHTML = dayRes.length === 0
+    ? '<li class="empty-line">예약이 없습니다</li>'
+    : renderDaybook(dayRes, { ghosts: false, dimPast: true });
+}
 
-  if (dayRes.length === 0) {
-    container.innerHTML = '<p class="p-4 text-sm text-gray-400 text-center">예약이 없습니다</p>';
-  } else {
-    container.innerHTML = dayRes.map(r => renderReservationItem(r)).join('');
+// --- Reservation dialog ---
+function setFieldError(id, message) {
+  const el = document.getElementById(id + 'Error');
+  const input = document.getElementById(id);
+  if (el) { el.textContent = message || ''; el.hidden = !message; }
+  if (input) {
+    if (message) { input.setAttribute('aria-invalid', 'true'); input.setAttribute('aria-describedby', id + 'Error'); }
+    else { input.removeAttribute('aria-invalid'); input.removeAttribute('aria-describedby'); }
   }
 }
 
-// --- Reservation Modal ---
 function showNewReservationModal() {
-  document.getElementById('reservationModal').classList.remove('hidden');
+  const dialog = document.getElementById('reservationModal');
   document.getElementById('resDate').value = selectedCalendarDate || formatDate(new Date());
-  document.getElementById('resTime').value = '';
-  document.getElementById('resCustomerName').value = '';
-  document.getElementById('resCustomerPhone').value = '';
-  document.getElementById('resService').value = '';
+  ['resTime', 'resCustomerName', 'resCustomerPhone', 'resService', 'resMemo'].forEach(id => { document.getElementById(id).value = ''; });
   document.getElementById('resStatus').value = 'confirmed';
-  document.getElementById('resMemo').value = '';
+  ['resCustomerName', 'resCustomerPhone', 'resDateTime', 'resService'].forEach(id => setFieldError(id, ''));
+  document.getElementById('resConflict').hidden = true;
+  if (typeof dialog.showModal === 'function') dialog.showModal();
+  else dialog.setAttribute('open', '');
+  document.getElementById('resCustomerName').focus();
 }
 
 function closeReservationModal() {
-  document.getElementById('reservationModal').classList.add('hidden');
+  const dialog = document.getElementById('reservationModal');
+  if (typeof dialog.close === 'function') dialog.close();
+  else dialog.removeAttribute('open');
+}
+
+function checkReservationConflict() {
+  const date = document.getElementById('resDate').value;
+  const time = document.getElementById('resTime').value;
+  const el = document.getElementById('resConflict');
+  if (!date || !time) { el.hidden = true; return; }
+  const same = appData.reservations.filter(r => r.date === date && r.time === time && r.status !== 'cancelled');
+  if (same.length) {
+    el.textContent = `같은 시간에 이미 예약 ${same.length}건이 있습니다 (${same.map(r => r.customerName).join(', ')}). 그래도 저장할 수 있습니다.`;
+    el.hidden = false;
+  } else {
+    el.hidden = true;
+  }
 }
 
 function saveReservation() {
   const name = document.getElementById('resCustomerName').value.trim();
-  const phone = document.getElementById('resCustomerPhone').value.trim();
+  const phone = formatPhone(document.getElementById('resCustomerPhone').value.trim());
   const date = document.getElementById('resDate').value;
   const time = document.getElementById('resTime').value;
   const service = document.getElementById('resService').value;
   const status = document.getElementById('resStatus').value;
   const memo = document.getElementById('resMemo').value.trim();
 
-  if (!name || !phone || !date || !time || !service) {
-    alert('필수 항목을 모두 입력해주세요.');
+  setFieldError('resCustomerName', name ? '' : '고객명을 입력해주세요.');
+  setFieldError('resCustomerPhone', !phone ? '연락처를 입력해주세요.' : isValidPhone(phone) ? '' : '연락처 형식을 확인해주세요. 예: 010-1234-5678');
+  setFieldError('resDateTime', date && time ? '' : '날짜와 시간을 모두 선택해주세요.');
+  ['resDate', 'resTime'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el.value) el.removeAttribute('aria-invalid'); else el.setAttribute('aria-invalid', 'true');
+  });
+  setFieldError('resService', service ? '' : '서비스를 선택해주세요.');
+  const firstInvalid = document.querySelector('#reservationForm [aria-invalid="true"]');
+  if (!name || !phone || !isValidPhone(phone) || !date || !time || !service) {
+    if (firstInvalid) firstInvalid.focus();
     return;
   }
 
@@ -346,13 +569,29 @@ function saveReservation() {
     createdAt: new Date().toISOString(),
   };
   appData.reservations.push(reservation);
+  upsertCustomer(name, phone, date, true);
+  saveData(appData);
+  closeReservationModal();
+  freshStampId = prefersReducedMotion() ? null : reservation.id;
+  rerenderCurrent();
+  freshStampId = null;
+  showToast(`${formatDateKR(date)} ${time} ${name}님 예약을 저장했습니다`, {
+    actionLabel: '되돌리기',
+    onAction: () => {
+      appData.reservations = appData.reservations.filter(r => r.id !== reservation.id);
+      saveData(appData);
+      rerenderCurrent();
+      showToast('예약 추가를 되돌렸습니다');
+    },
+  });
+}
 
-  // Update or create customer
-  let customer = appData.customers.find(c => c.phone === phone);
+function upsertCustomer(name, phone, date, updateName) {
+  const customer = appData.customers.find(c => c.phone === phone);
   if (customer) {
     customer.visitCount++;
-    customer.lastVisit = date;
-    customer.name = name;
+    if (!customer.lastVisit || date > customer.lastVisit) customer.lastVisit = date;
+    if (updateName) customer.name = name;
   } else {
     appData.customers.push({
       id: generateId(),
@@ -363,47 +602,43 @@ function saveReservation() {
       createdAt: new Date().toISOString(),
     });
   }
-
-  saveData(appData);
-  closeReservationModal();
-
-  if (currentPage === 'dashboard') renderDashboard();
-  if (currentPage === 'calendar') {
-    renderCalendar();
-    if (selectedCalendarDate) showDateReservations(selectedCalendarDate);
-  }
-  if (currentPage === 'customers') renderCustomers();
 }
 
 // --- Customer Management ---
 function renderCustomers() {
   const query = document.getElementById('customerSearch').value.trim().toLowerCase();
-  let filtered = appData.customers;
+  const queryDigits = query.replace(/\D/g, '');
+  let filtered = [...appData.customers];
   if (query) {
-    filtered = filtered.filter(c => c.name.toLowerCase().includes(query) || c.phone.includes(query));
+    filtered = filtered.filter(c => c.name.toLowerCase().includes(query)
+      || c.phone.includes(query)
+      || (queryDigits && c.phone.replace(/\D/g, '').includes(queryDigits)));
   }
   filtered.sort((a, b) => b.visitCount - a.visitCount);
 
+  document.getElementById('customerCount').textContent = query ? `${filtered.length}명` : `전체 ${filtered.length}명`;
   const container = document.getElementById('customerList');
   if (filtered.length === 0) {
-    container.innerHTML = '<p class="p-6 text-sm text-gray-400 text-center">고객이 없습니다</p>';
+    container.innerHTML = query
+      ? `<li class="empty-line">"${escapeHTML(query)}"에 맞는 고객이 없습니다</li>`
+      : emptyState('고객이 없습니다', '예약을 추가하면 고객이 자동으로 등록됩니다.');
     return;
   }
 
   container.innerHTML = filtered.map(c => `
-    <div class="flex items-center gap-4 px-4 py-3 hover:bg-gray-50 cursor-pointer" onclick="showCustomerDetail('${c.id}')">
-      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
-        ${c.name.charAt(0)}
-      </div>
-      <div class="flex-1 min-w-0">
-        <p class="text-sm font-medium">${c.name}</p>
-        <p class="text-xs text-gray-500">${c.phone}</p>
-      </div>
-      <div class="text-right flex-shrink-0">
-        <p class="text-xs font-medium">${c.visitCount}회 방문</p>
-        <p class="text-xs text-gray-400">${c.lastVisit ? formatDateKR(c.lastVisit) : '-'}</p>
-      </div>
-    </div>
+    <li>
+      <button type="button" class="cust" data-customer="${escapeHTML(c.id)}">
+        <span class="cust-mark" aria-hidden="true">${escapeHTML(c.name.charAt(0))}</span>
+        <span class="cust-main">
+          <span class="cust-name">${escapeHTML(c.name)}</span>
+          <span class="cust-phone">${escapeHTML(c.phone)}</span>
+        </span>
+        <span class="cust-side">
+          <span class="cust-visits">${c.visitCount}회 방문</span>
+          <span class="cust-last">${c.lastVisit ? formatDateKR(c.lastVisit) : '-'}</span>
+        </span>
+      </button>
+    </li>
   `).join('');
 }
 
@@ -416,103 +651,116 @@ function showCustomerDetail(customerId) {
   if (!customer) return;
 
   const panel = document.getElementById('customerDetailPanel');
-  panel.classList.remove('hidden');
+  panel.hidden = false;
+  document.querySelectorAll('.cust').forEach(b => b.classList.toggle('is-active', b.dataset.customer === customerId));
 
   document.getElementById('customerDetailName').textContent = customer.name;
   document.getElementById('customerDetailPhone').textContent = customer.phone;
   document.getElementById('customerDetailVisits').textContent = customer.visitCount + '회';
   document.getElementById('customerDetailLastVisit').textContent = customer.lastVisit ? formatDateKR(customer.lastVisit) : '-';
 
-  // Visit history from reservations
   const visits = appData.reservations
     .filter(r => r.customerPhone === customer.phone && r.status !== 'cancelled')
     .sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time))
     .slice(0, 10);
 
-  const historyContainer = document.getElementById('customerVisitHistory');
-  if (visits.length === 0) {
-    historyContainer.innerHTML = '<p class="text-xs text-gray-400">방문 이력이 없습니다</p>';
-  } else {
-    historyContainer.innerHTML = visits.map(v => `
-      <div class="flex justify-between items-center text-sm bg-gray-50 rounded-lg px-3 py-2">
-        <div>
-          <span class="font-medium">${v.service}</span>
-          <span class="text-xs text-gray-400 ml-2">${v.time}</span>
-        </div>
-        <span class="text-xs text-gray-500">${formatDateKR(v.date)}</span>
-      </div>
-    `).join('');
-  }
+  document.getElementById('customerVisitHistory').innerHTML = visits.length === 0
+    ? '<li class="empty-line">방문 이력이 없습니다</li>'
+    : visits.map(v => `
+      <li>
+        <span class="h-service">${escapeHTML(v.service)}</span>
+        <span class="h-time">${escapeHTML(v.time)}</span>
+        <span class="h-date">${formatDateKR(v.date)}</span>
+        <span class="h-status is-${v.status}">${STATUS[v.status].label}</span>
+      </li>`).join('');
 
-  // Scroll to detail on mobile
-  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (window.matchMedia('(max-width: 1023px)').matches) {
+    panel.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
+  }
+  panel.focus({ preventScroll: true });
 }
 
 // --- Kakao Notification Preview ---
-function showNotificationType(type) {
-  document.querySelectorAll('.notif-tab').forEach(t => {
-    t.classList.remove('active');
-    t.classList.add('bg-gray-100', 'text-gray-600');
-    t.classList.remove('bg-kakao', 'text-kakaoBrown');
-  });
-  event.target.classList.add('active');
-  event.target.classList.remove('bg-gray-100', 'text-gray-600');
+// Fills the templates from the next real upcoming booking; falls back to a sample.
+function notificationSample(type) {
+  const today = formatDate(new Date());
+  const now = nowTimeStr();
+  const upcoming = appData.reservations
+    .filter(r => (r.date > today || (r.date === today && r.time >= now)))
+    .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  const wanted = type === 'cancel' ? 'cancelled' : 'confirmed';
+  const pick = upcoming.find(r => r.status === wanted) || upcoming.find(r => r.status !== 'cancelled');
+  if (pick) return { r: pick, sample: false };
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return { r: { customerName: '김미영', date: formatDate(tomorrow), time: '14:00', service: '커트' }, sample: true };
+}
 
-  const now = new Date();
-  const timeStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
-  document.getElementById('kakaoTime').textContent = timeStr;
+function showNotificationType(type) {
+  if (!['confirm', 'reminder', 'cancel'].includes(type)) type = 'confirm';
+  currentNotifType = type;
+  document.querySelectorAll('.notif-tab').forEach(t => {
+    t.setAttribute('aria-selected', String(t.dataset.type === type));
+    t.tabIndex = t.dataset.type === type ? 0 : -1;
+  });
+
+  document.getElementById('kakaoTime').textContent = nowTimeStr();
+
+  const { r, sample } = notificationSample(type);
+  const name = escapeHTML(r.customerName);
+  const date = escapeHTML(formatDateLongKR(r.date));
+  const time = escapeHTML(r.time);
+  const service = escapeHTML(r.service);
+  const shop = escapeHTML(defaultBusiness.name);
+
+  document.getElementById('notifSource').innerHTML = sample
+    ? '예정된 예약이 없어 샘플 내용으로 보여줍니다.'
+    : `<strong>${escapeHTML(formatDateKR(r.date))} ${time} ${name}</strong>님 예약으로 채운 미리보기`;
 
   const templates = {
     confirm: `
-      <p class="text-sm font-bold mb-2">📅 예약 확인 안내</p>
-      <div class="text-sm space-y-1 text-gray-700">
-        <p>안녕하세요, <strong>김미영</strong>님!</p>
-        <p><strong>뷰티헤어살롱</strong> 예약이 확정되었습니다.</p>
-        <div class="bg-gray-50 rounded-lg p-3 mt-2 space-y-1">
-          <p>📆 날짜: <strong>2026년 4월 10일 (금)</strong></p>
-          <p>🕐 시간: <strong>14:00</strong></p>
-          <p>💇 서비스: <strong>커트</strong></p>
+      <p class="k-title">📅 예약 확인 안내</p>
+      <div class="k-body">
+        <p>안녕하세요, <strong>${name}</strong>님!</p>
+        <p><strong>${shop}</strong> 예약이 확정되었습니다.</p>
+        <div class="k-box">
+          <p>📆 날짜: <strong>${date}</strong></p>
+          <p>🕐 시간: <strong>${time}</strong></p>
+          <p>💇 서비스: <strong>${service}</strong></p>
         </div>
-        <p class="mt-2 text-xs text-gray-500">변경/취소는 1시간 전까지 가능합니다.</p>
+        <p class="k-note">변경/취소는 1시간 전까지 가능합니다.</p>
       </div>
-      <div class="mt-3 flex gap-2">
-        <button class="flex-1 py-2 text-xs bg-kakao text-kakaoBrown rounded-lg font-bold">예약 확인</button>
-        <button class="flex-1 py-2 text-xs border rounded-lg text-gray-500">변경/취소</button>
-      </div>
-    `,
+      <div class="k-actions">
+        <span class="k-btn k-btn-main">예약 확인</span>
+        <span class="k-btn">변경/취소</span>
+      </div>`,
     reminder: `
-      <p class="text-sm font-bold mb-2">⏰ 예약 리마인더</p>
-      <div class="text-sm space-y-1 text-gray-700">
-        <p>안녕하세요, <strong>김미영</strong>님!</p>
+      <p class="k-title">⏰ 예약 리마인더</p>
+      <div class="k-body">
+        <p>안녕하세요, <strong>${name}</strong>님!</p>
         <p>내일 예약이 있습니다. 잊지 마세요! 😊</p>
-        <div class="bg-gray-50 rounded-lg p-3 mt-2 space-y-1">
-          <p>📆 날짜: <strong>2026년 4월 10일 (금)</strong></p>
-          <p>🕐 시간: <strong>14:00</strong></p>
-          <p>💇 서비스: <strong>커트</strong></p>
-          <p>📍 위치: <strong>뷰티헤어살롱</strong></p>
+        <div class="k-box">
+          <p>📆 날짜: <strong>${date}</strong></p>
+          <p>🕐 시간: <strong>${time}</strong></p>
+          <p>💇 서비스: <strong>${service}</strong></p>
+          <p>📍 위치: <strong>${shop}</strong></p>
         </div>
-        <p class="mt-2 text-xs text-gray-500">방문이 어려우시면 미리 연락 부탁드립니다.</p>
+        <p class="k-note">방문이 어려우시면 미리 연락 부탁드립니다.</p>
       </div>
-      <div class="mt-3">
-        <button class="w-full py-2 text-xs bg-kakao text-kakaoBrown rounded-lg font-bold">길찾기</button>
-      </div>
-    `,
+      <div class="k-actions"><span class="k-btn k-btn-main">길찾기</span></div>`,
     cancel: `
-      <p class="text-sm font-bold mb-2">❌ 예약 취소 안내</p>
-      <div class="text-sm space-y-1 text-gray-700">
-        <p>안녕하세요, <strong>김미영</strong>님.</p>
+      <p class="k-title">❌ 예약 취소 안내</p>
+      <div class="k-body">
+        <p>안녕하세요, <strong>${name}</strong>님.</p>
         <p>아래 예약이 취소되었습니다.</p>
-        <div class="bg-red-50 rounded-lg p-3 mt-2 space-y-1">
-          <p>📆 날짜: <strong><s>2026년 4월 10일 (금)</s></strong></p>
-          <p>🕐 시간: <strong><s>14:00</s></strong></p>
-          <p>💇 서비스: <strong><s>커트</s></strong></p>
+        <div class="k-box k-box-void">
+          <p>📆 날짜: <strong><s>${date}</s></strong></p>
+          <p>🕐 시간: <strong><s>${time}</s></strong></p>
+          <p>💇 서비스: <strong><s>${service}</s></strong></p>
         </div>
-        <p class="mt-2 text-xs text-gray-500">다시 예약을 원하시면 아래 버튼을 눌러주세요.</p>
+        <p class="k-note">다시 예약을 원하시면 아래 버튼을 눌러주세요.</p>
       </div>
-      <div class="mt-3">
-        <button class="w-full py-2 text-xs bg-kakao text-kakaoBrown rounded-lg font-bold">다시 예약하기</button>
-      </div>
-    `,
+      <div class="k-actions"><span class="k-btn k-btn-main">다시 예약하기</span></div>`,
   };
 
   document.getElementById('kakaoMessage').innerHTML = templates[type];
@@ -523,92 +771,92 @@ function initBookingPage() {
   bookingStep = 1;
   selectedService = null;
   selectedTime = null;
-  updateBookingSteps();
   renderServiceList();
 
-  // Set min date to today
   const dateInput = document.getElementById('bookingDate');
   dateInput.value = '';
   dateInput.min = formatDate(new Date());
+  document.getElementById('timeSlots').innerHTML = '';
+  document.getElementById('timeHint').textContent = '날짜를 고르면 예약 가능한 시간이 표시됩니다.';
 
-  // Reset fields
   document.getElementById('bookingName').value = '';
   document.getElementById('bookingPhone').value = '';
   document.getElementById('bookingMemo').value = '';
-  document.getElementById('bookingComplete').classList.add('hidden');
-  document.getElementById('bookingStep1').classList.remove('hidden');
+  setFieldError('bookingName', '');
+  setFieldError('bookingPhone', '');
+  document.getElementById('bookingComplete').hidden = true;
+  updateBookingSteps();
 }
 
 function renderServiceList() {
-  const container = document.getElementById('serviceList');
-  container.innerHTML = defaultServices.map(s => `
-    <div class="service-card rounded-xl p-4 bg-white ${selectedService?.id === s.id ? 'selected' : ''}" 
-         onclick="selectService('${s.id}')">
-      <div class="flex justify-between items-center">
-        <div>
-          <p class="font-medium text-sm">${s.name}</p>
-          <p class="text-xs text-gray-500">${s.duration}분 소요</p>
-        </div>
-        <p class="font-bold text-sm">₩${s.price.toLocaleString()}</p>
-      </div>
-    </div>
-  `).join('');
+  document.getElementById('serviceList').innerHTML = defaultServices.map(s => {
+    const checked = selectedService?.id === s.id;
+    return `<button type="button" role="radio" aria-checked="${checked}" class="service${checked ? ' is-selected' : ''}" data-service="${s.id}">
+      <span class="service-name">${escapeHTML(s.name)}</span>
+      <span class="service-dur">${s.duration}분 소요</span>
+      <span class="service-price">₩${s.price.toLocaleString()}</span>
+    </button>`;
+  }).join('');
 }
 
 function selectService(serviceId) {
   selectedService = defaultServices.find(s => s.id === serviceId);
   renderServiceList();
-  setTimeout(() => goBookingStep(2), 200);
+  document.getElementById('step2Summary').textContent = `${selectedService.name} · ${selectedService.duration}분 · ₩${selectedService.price.toLocaleString()}`;
+  setTimeout(() => {
+    goBookingStep(2);
+    document.getElementById('bookingDate').focus();
+  }, prefersReducedMotion() ? 0 : 180);
 }
 
 function goBookingStep(step) {
   bookingStep = step;
   updateBookingSteps();
+  const panel = document.getElementById('bookingStep' + step);
+  const title = panel && panel.querySelector('.step-title');
+  if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); }
 }
 
 function updateBookingSteps() {
-  document.getElementById('bookingStep1').classList.toggle('hidden', bookingStep !== 1);
-  document.getElementById('bookingStep2').classList.toggle('hidden', bookingStep !== 2);
-  document.getElementById('bookingStep3').classList.toggle('hidden', bookingStep !== 3);
-
-  ['step1dot', 'step2dot', 'step3dot'].forEach((id, i) => {
-    const el = document.getElementById(id);
-    if (i < bookingStep) {
-      el.classList.add('bg-primary', 'text-white');
-      el.classList.remove('bg-gray-200', 'text-gray-500');
-    } else {
-      el.classList.remove('bg-primary', 'text-white');
-      el.classList.add('bg-gray-200', 'text-gray-500');
-    }
+  [1, 2, 3].forEach(n => {
+    document.getElementById('bookingStep' + n).hidden = bookingStep !== n;
+    const dot = document.getElementById(`step${n}dot`);
+    dot.classList.toggle('is-done', n < bookingStep);
+    dot.classList.toggle('is-current', n === bookingStep);
+    if (n === bookingStep) dot.setAttribute('aria-current', 'step');
+    else dot.removeAttribute('aria-current');
   });
 }
 
 function loadAvailableTimes() {
   const dateStr = document.getElementById('bookingDate').value;
-  if (!dateStr) return;
-
   const container = document.getElementById('timeSlots');
-  const existingRes = appData.reservations.filter(r => r.date === dateStr && r.status !== 'cancelled');
-  const bookedTimes = existingRes.map(r => r.time);
-  const { open, close } = defaultBusiness.operatingHours;
-  const openHour = parseInt(open.split(':')[0]);
-  const closeHour = parseInt(close.split(':')[0]);
-
-  let html = '';
-  for (let h = openHour; h < closeHour; h++) {
-    for (const m of ['00', '30']) {
-      const timeStr = `${String(h).padStart(2, '0')}:${m}`;
-      const isBooked = bookedTimes.includes(timeStr);
-      const isSelected = selectedTime === timeStr;
-
-      if (isBooked) {
-        html += `<div class="time-slot unavailable">${timeStr}</div>`;
-      } else {
-        html += `<div class="time-slot ${isSelected ? 'selected' : ''}" onclick="selectTimeSlot('${timeStr}')">${timeStr}</div>`;
-      }
-    }
+  const hint = document.getElementById('timeHint');
+  if (!dateStr) { container.innerHTML = ''; return; }
+  const today = formatDate(new Date());
+  if (dateStr < today) {
+    container.innerHTML = '';
+    hint.textContent = '지난 날짜는 예약할 수 없습니다. 오늘 이후 날짜를 골라주세요.';
+    return;
   }
+
+  const bookedTimes = appData.reservations.filter(r => r.date === dateStr && r.status !== 'cancelled').map(r => r.time);
+  const now = nowTimeStr();
+  let open = 0;
+  const html = slotTimes().map(t => {
+    const booked = bookedTimes.includes(t);
+    const past = dateStr === today && t <= now;
+    if (booked || past) {
+      return `<button type="button" class="slot is-off" disabled aria-label="${t} ${booked ? '예약 마감' : '지난 시간'}">${t}</button>`;
+    }
+    open++;
+    const sel = selectedTime === t;
+    return `<button type="button" class="slot${sel ? ' is-selected' : ''}" data-time="${t}" aria-pressed="${sel}">${t}</button>`;
+  }).join('');
   container.innerHTML = html;
+  hint.textContent = open
+    ? `${formatDateKR(dateStr)} · 예약 가능 ${open}개 시간`
+    : `${formatDateKR(dateStr)}은 예약 가능한 시간이 없습니다. 다른 날짜를 골라주세요.`;
 }
 
 function selectTimeSlot(time) {
@@ -618,21 +866,34 @@ function selectTimeSlot(time) {
     document.getElementById('bookingSummaryService').textContent = `서비스: ${selectedService.name} (₩${selectedService.price.toLocaleString()})`;
     document.getElementById('bookingSummaryDateTime').textContent = `일시: ${formatDateKR(document.getElementById('bookingDate').value)} ${selectedTime}`;
     goBookingStep(3);
-  }, 200);
+  }, prefersReducedMotion() ? 0 : 180);
 }
 
 function submitBooking() {
   const name = document.getElementById('bookingName').value.trim();
-  const phone = document.getElementById('bookingPhone').value.trim();
+  const phoneInput = document.getElementById('bookingPhone');
+  const phone = formatPhone(phoneInput.value.trim());
   const memo = document.getElementById('bookingMemo').value.trim();
   const date = document.getElementById('bookingDate').value;
 
-  if (!name || !phone) {
-    alert('이름과 연락처를 입력해주세요.');
+  setFieldError('bookingName', name ? '' : '이름을 입력해주세요.');
+  setFieldError('bookingPhone', !phone ? '연락처를 입력해주세요.' : isValidPhone(phone) ? '' : '연락처 형식을 확인해주세요. 예: 010-1234-5678');
+  if (!name || !isValidPhone(phone)) {
+    document.getElementById(!name ? 'bookingName' : 'bookingPhone').focus();
     return;
   }
 
-  const reservation = {
+  // Guard against a slot that was taken since it was shown.
+  const taken = appData.reservations.some(r => r.date === date && r.time === selectedTime && r.status !== 'cancelled');
+  if (taken) {
+    selectedTime = null;
+    goBookingStep(2);
+    loadAvailableTimes();
+    document.getElementById('timeHint').textContent = '방금 그 시간이 마감되었습니다. 다른 시간을 골라주세요.';
+    return;
+  }
+
+  appData.reservations.push({
     id: generateId(),
     customerName: name,
     customerPhone: phone,
@@ -642,40 +903,146 @@ function submitBooking() {
     status: 'pending',
     memo,
     createdAt: new Date().toISOString(),
-  };
-  appData.reservations.push(reservation);
-
-  // Update or create customer
-  let customer = appData.customers.find(c => c.phone === phone);
-  if (customer) {
-    customer.visitCount++;
-    customer.lastVisit = date;
-  } else {
-    appData.customers.push({
-      id: generateId(),
-      name, phone,
-      visitCount: 1,
-      lastVisit: date,
-      memo: '',
-      createdAt: new Date().toISOString(),
-    });
-  }
-
+  });
+  upsertCustomer(name, phone, date, false);
   saveData(appData);
 
-  // Show completion
-  document.getElementById('bookingStep3').classList.add('hidden');
-  document.getElementById('bookingComplete').classList.remove('hidden');
-  document.getElementById('completeService').textContent = `서비스: ${selectedService.name}`;
-  document.getElementById('completeDateTime').textContent = `일시: ${formatDateKR(date)} ${selectedTime}`;
-  document.getElementById('completeName').textContent = `예약자: ${name}`;
+  document.getElementById('bookingStep3').hidden = true;
+  const done = document.getElementById('bookingComplete');
+  done.hidden = false;
+  done.classList.toggle('animate', !prefersReducedMotion());
+  document.getElementById('completeService').textContent = selectedService.name;
+  document.getElementById('completeDateTime').textContent = `${formatDateKR(date)} ${selectedTime}`;
+  document.getElementById('completeName').textContent = name;
+  [1, 2, 3].forEach(n => { const d = document.getElementById(`step${n}dot`); d.classList.add('is-done'); d.classList.remove('is-current'); d.removeAttribute('aria-current'); });
+  done.focus();
 }
 
 function resetBooking() {
   initBookingPage();
 }
 
+async function copyBookingLink() {
+  const url = `${location.origin}${location.pathname}#/booking`;
+  try {
+    await navigator.clipboard.writeText(url);
+    showToast('예약 링크를 복사했습니다');
+  } catch (e) {
+    showToast(`복사하지 못했습니다. 주소: ${url}`);
+  }
+}
+
+// --- Toast ---
+let toastTimer = null;
+function showToast(message, { actionLabel, onAction } = {}) {
+  const toast = document.getElementById('toast');
+  const action = document.getElementById('toastAction');
+  document.getElementById('toastText').textContent = message;
+  if (actionLabel && onAction) {
+    action.textContent = actionLabel;
+    action.hidden = false;
+    action.onclick = () => { hideToast(); onAction(); };
+  } else {
+    action.hidden = true;
+    action.onclick = null;
+  }
+  toast.hidden = false;
+  requestAnimationFrame(() => toast.classList.add('is-on'));
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(hideToast, actionLabel ? 6000 : 3200);
+}
+
+function hideToast() {
+  const toast = document.getElementById('toast');
+  toast.classList.remove('is-on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { toast.hidden = true; }, 200);
+}
+
+function resetSampleData() {
+  if (!window.confirm('샘플 데이터를 새로 만들까요? 지금까지 추가한 예약과 고객 정보가 지워집니다.')) return;
+  appData = createSampleData();
+  selectedCalendarDate = null;
+  document.getElementById('customerDetailPanel').hidden = true;
+  rerenderCurrent();
+  if (currentPage === 'booking') initBookingPage();
+  showToast('샘플 데이터를 새로 만들었습니다');
+}
+
+// --- Event wiring ---
+function wireEvents() {
+  window.addEventListener('hashchange', () => showPage(pageFromHash(), { focus: true }));
+
+  document.getElementById('newReservationBtn').addEventListener('click', showNewReservationModal);
+  document.getElementById('closeReservationModal').addEventListener('click', closeReservationModal);
+  document.getElementById('reservationForm').addEventListener('submit', e => { e.preventDefault(); saveReservation(); });
+  document.getElementById('reservationModal').addEventListener('click', e => {
+    if (e.target.id === 'reservationModal') closeReservationModal();
+  });
+  ['resDate', 'resTime'].forEach(id => document.getElementById(id).addEventListener('change', checkReservationConflict));
+  ['resCustomerPhone', 'bookingPhone'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('blur', () => { if (el.value) el.value = formatPhone(el.value); });
+  });
+
+  document.getElementById('resetDataBtn').addEventListener('click', resetSampleData);
+
+  // Reservation status buttons (dashboard + calendar lists)
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-action="status"]');
+    if (btn) changeReservationStatus(btn.dataset.id, btn.dataset.status);
+  });
+
+  document.getElementById('prevMonthBtn').addEventListener('click', () => changeMonth(-1));
+  document.getElementById('nextMonthBtn').addEventListener('click', () => changeMonth(1));
+  document.getElementById('calendarGrid').addEventListener('click', e => {
+    const day = e.target.closest('.day[data-date]');
+    if (day) selectCalendarDate(day.dataset.date);
+  });
+
+  document.getElementById('customerSearch').addEventListener('input', filterCustomers);
+  document.getElementById('customerList').addEventListener('click', e => {
+    const b = e.target.closest('[data-customer]');
+    if (b) showCustomerDetail(b.dataset.customer);
+  });
+  document.getElementById('closeCustomerDetail').addEventListener('click', () => {
+    document.getElementById('customerDetailPanel').hidden = true;
+    const active = document.querySelector('.cust.is-active');
+    if (active) { active.classList.remove('is-active'); active.focus(); }
+  });
+
+  const tabs = [...document.querySelectorAll('.notif-tab')];
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => showNotificationType(t.dataset.type));
+    t.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      next.focus();
+      showNotificationType(next.dataset.type);
+    });
+  });
+
+  document.getElementById('serviceList').addEventListener('click', e => {
+    const b = e.target.closest('[data-service]');
+    if (b) selectService(b.dataset.service);
+  });
+  document.getElementById('bookingDate').addEventListener('change', () => { selectedTime = null; loadAvailableTimes(); });
+  document.getElementById('timeSlots').addEventListener('click', e => {
+    const b = e.target.closest('[data-time]');
+    if (b) selectTimeSlot(b.dataset.time);
+  });
+  document.querySelectorAll('[data-goto-step]').forEach(b => b.addEventListener('click', () => goBookingStep(Number(b.dataset.gotoStep))));
+  document.getElementById('bookingStep3').addEventListener('submit', e => { e.preventDefault(); submitBooking(); });
+  document.getElementById('resetBookingBtn').addEventListener('click', resetBooking);
+  document.getElementById('copyBookingLink').addEventListener('click', copyBookingLink);
+
+  document.querySelectorAll('.plan-cta').forEach(b => b.addEventListener('click', () => {
+    showToast('데모 버전이라 요금제 가입은 아직 제공되지 않습니다');
+  }));
+}
+
 // --- Init ---
 document.addEventListener('DOMContentLoaded', () => {
-  showPage('dashboard');
+  wireEvents();
+  showPage(pageFromHash());
 });
