@@ -1,0 +1,449 @@
+/*
+ * Network map. Geometry (desktop): stations sit on a 26px disc whose centre is 13px
+ * from the top; the 8px delivery line runs through them, bends down in the spacer
+ * column and meets the circle line's top edge 100px from the right, at the interchange.
+ */
+
+.network {
+  position: relative;
+  --disc: 26px;
+  --bend-right: 96px;
+}
+
+.build {
+  position: relative;
+}
+
+.build::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--disc) / 2 - 4px);
+  left: calc(var(--disc) / 2);
+  right: calc(var(--bend-right) + 32px);
+  height: 8px;
+  border-radius: 4px 0 0 4px;
+  background: var(--aa-line-build);
+}
+
+/* The bend: a quarter arc, then the drop into the circle line's top edge. */
+.bend {
+  position: absolute;
+  top: calc(var(--disc) / 2 - 4px);
+  right: var(--bend-right);
+  width: 32px;
+  height: 32px;
+  overflow: visible;
+}
+
+.bend path {
+  fill: none;
+  stroke: var(--aa-line-build);
+  stroke-width: 8;
+}
+
+.drop {
+  position: absolute;
+  top: calc(var(--disc) / 2 + 28px);
+  right: var(--bend-right);
+  bottom: -44px;
+  width: 8px;
+  background: var(--aa-line-build);
+}
+
+.buildStations {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) 120px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.station {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding-right: 14px;
+}
+
+.disc {
+  flex: none;
+  width: var(--disc);
+  height: var(--disc);
+  border-radius: 50%;
+  background: var(--aa-ground);
+  border: 6px solid var(--aa-line-build);
+}
+
+.stationBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.stationName {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 1.0625rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.stationName a {
+  color: var(--aa-ink);
+  text-decoration: none;
+}
+
+.stationName a:hover {
+  color: var(--aa-line-build);
+  text-decoration: underline;
+}
+
+.code {
+  font-family: var(--aa-sign-face);
+  font-size: var(--aa-text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--aa-ink-3);
+}
+
+.count {
+  color: var(--aa-ink-2);
+  font-size: var(--aa-text-sm);
+  font-weight: 600;
+}
+
+.stationEmpty .count {
+  color: var(--aa-ink-3);
+  font-weight: 500;
+}
+
+.names {
+  display: grid;
+  gap: 4px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.names li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 6px;
+  font-size: 0.875rem;
+}
+
+.nameLink {
+  color: var(--aa-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nameLink:hover {
+  color: var(--aa-line-build);
+  text-decoration: underline;
+}
+
+.progress {
+  color: var(--aa-ink-3);
+  font-size: var(--aa-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.late {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--aa-danger);
+  font-size: var(--aa-text-xs);
+  font-weight: 700;
+}
+
+.more {
+  color: var(--aa-line-build);
+  font-size: var(--aa-text-sm);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.more:hover {
+  text-decoration: underline;
+}
+
+/* --- Circle line ------------------------------------------------------------ */
+
+.loop {
+  position: relative;
+  display: grid;
+  grid-template-areas: "top" "center" "bottom";
+  grid-template-rows: auto 1fr auto;
+  min-height: 300px;
+  margin-top: 40px;
+  padding: 0 88px;
+  border: 8px solid var(--aa-line-loop);
+  border-radius: 72px;
+}
+
+.interchange {
+  position: absolute;
+  z-index: 2;
+  top: -16px;
+  right: 72px;
+  width: 40px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--aa-ground);
+  border: 4px solid var(--aa-sign);
+}
+
+.interchangeLabel {
+  position: absolute;
+  top: 18px;
+  right: 44px;
+  color: var(--aa-ink-2);
+  font-size: var(--aa-text-xs);
+  font-weight: 700;
+}
+
+.loopCenter {
+  grid-area: center;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 2px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.mrrLabel {
+  color: var(--aa-ink-2);
+  font-size: var(--aa-text-sm);
+  font-weight: 700;
+}
+
+.mrr {
+  font-size: var(--aa-text-3xl);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.loopMeta {
+  color: var(--aa-ink-2);
+  font-size: 0.875rem;
+}
+
+.delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  color: var(--aa-ink-2);
+  font-size: var(--aa-text-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.deltaUp {
+  color: var(--aa-ok);
+}
+
+.deltaDown {
+  color: var(--aa-danger);
+}
+
+.loopRow {
+  display: flex;
+  justify-content: space-around;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.loopTop {
+  grid-area: top;
+  margin-top: -17px;
+  padding-right: 140px;
+}
+
+.loopBottom {
+  grid-area: bottom;
+  margin-bottom: -17px;
+}
+
+.rider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  text-align: center;
+}
+
+.loopBottom .rider {
+  flex-direction: column-reverse;
+}
+
+.riderDisc {
+  flex: none;
+  width: var(--disc);
+  height: var(--disc);
+  border-radius: 50%;
+  background: var(--aa-ground);
+  border: 6px solid var(--aa-line-loop);
+}
+
+.riderPaused .riderDisc {
+  border-color: var(--aa-rule-strong);
+}
+
+.riderLabel {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.riderName {
+  color: var(--aa-ink);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.riderName:hover {
+  color: var(--aa-loop-ink);
+  text-decoration: underline;
+}
+
+.riderFee {
+  color: var(--aa-ink-2);
+  font-size: var(--aa-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.riderPaused .riderFee {
+  color: var(--aa-warn);
+  font-weight: 700;
+}
+
+.loopEmpty {
+  grid-area: bottom;
+  max-width: 40ch;
+  justify-self: center;
+  padding-bottom: 24px;
+  color: var(--aa-ink-2);
+  text-align: center;
+}
+
+.loopMore {
+  position: absolute;
+  right: 28px;
+  bottom: 18px;
+  color: var(--aa-loop-ink);
+  font-size: var(--aa-text-sm);
+  font-weight: 700;
+}
+
+/* --- Narrow: the line runs down the page ----------------------------------------- */
+
+@media (max-width: 899px) {
+  .build::before {
+    top: calc(var(--disc) / 2);
+    left: 56px;
+    right: auto;
+    bottom: -44px;
+    width: 8px;
+    height: auto;
+    border-radius: 4px 4px 0 0;
+  }
+
+  .bend,
+  .drop {
+    display: none;
+  }
+
+  .buildStations {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .station {
+    flex-direction: row;
+    gap: 14px;
+    padding: 0 0 0 47px;
+  }
+
+  .stationBody {
+    padding-top: 1px;
+  }
+
+  .loop {
+    grid-template-areas: "center" "top" "bottom";
+    grid-template-rows: auto;
+    min-height: 0;
+    padding: 20px 20px 24px;
+    border-radius: 36px;
+  }
+
+  .interchange {
+    right: auto;
+    left: 32px;
+  }
+
+  .interchangeLabel {
+    display: none;
+  }
+
+  .loopCenter {
+    padding: 12px 0 16px;
+  }
+
+  .loopRow {
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .loopTop {
+    padding-top: 16px;
+    border-top: 1px solid var(--aa-rule);
+  }
+
+  .loopBottom {
+    margin-top: 12px;
+  }
+
+  .rider,
+  .loopBottom .rider {
+    flex-direction: row;
+    gap: 12px;
+    text-align: left;
+  }
+
+  .riderDisc {
+    width: 18px;
+    height: 18px;
+    border-width: 5px;
+  }
+
+  .riderLabel {
+    flex: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 12px;
+  }
+
+  .loopMore {
+    position: static;
+    margin-top: 12px;
+    justify-self: start;
+  }
+}
