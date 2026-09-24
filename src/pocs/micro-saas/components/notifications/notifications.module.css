@@ -1,0 +1,212 @@
+.wrap {
+  display: grid;
+  gap: var(--s6);
+}
+
+@media (min-width: 900px) {
+  .wrap {
+    grid-template-columns: 320px minmax(0, 400px);
+    gap: var(--s10);
+    align-items: start;
+  }
+}
+
+.side {
+  display: grid;
+  gap: var(--s4);
+  max-width: 420px;
+  width: 100%;
+}
+
+.picker {
+  display: grid;
+  gap: var(--s2);
+}
+
+.picker select {
+  font-size: var(--t-small);
+}
+
+.source {
+  font-size: var(--t-small);
+  color: var(--ink-2);
+}
+
+.source strong {
+  color: var(--ink);
+}
+
+.source a,
+.disclaimer a {
+  color: inherit;
+  font-weight: 700;
+}
+
+.disclaimer {
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+  border-top: 1px solid var(--rule);
+  padding-top: var(--s3);
+}
+
+/* ===== KakaoTalk keeps KakaoTalk's own look ===== */
+/* Kakao's own palette and radii, scoped to the preview (see DESIGN.md: the one deliberate exception). */
+.kakao {
+  --kakao-ground: #b2c7d9;
+  --kakao-text: #1b1b1b;
+  --kakao-sub: var(--kakao-sub);
+  --kakao-muted: var(--kakao-muted);
+  --kakao-bubble: #ffffff;
+  --kakao-box: var(--kakao-box);
+  --kakao-void: var(--kakao-void);
+  --kakao-line: var(--kakao-line);
+  --kakao-button-text: var(--kakao-button-text);
+  --kakao-yellow: var(--kakao-yellow);
+  --kakao-yellow-ink: var(--kakao-yellow-ink);
+  --kakao-font: 0.875rem;
+  --kakao-small: 0.75rem;
+  --kakao-tiny: 0.6875rem;
+
+  width: 100%;
+  max-width: 400px;
+  min-height: 480px;
+  padding: var(--s4);
+  background: var(--kakao-ground);
+  color: var(--kakao-text);
+  border-radius: 18px;
+  font-feature-settings: normal;
+}
+
+.kakaoHead {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin-bottom: var(--s4);
+}
+
+.kakaoTitle {
+  font-weight: 700;
+  font-size: var(--kakao-font);
+}
+
+.kakaoSub {
+  font-size: var(--kakao-small);
+  color: var(--kakao-sub);
+}
+
+.avatar {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  overflow: hidden;
+  flex: none;
+  --seal: #c23a2c;
+  --paper: var(--kakao-bubble);
+}
+
+.avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.small {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+}
+
+.kakaoRow {
+  display: flex;
+  gap: var(--s2);
+  align-items: flex-start;
+}
+
+.bubble {
+  background: var(--kakao-bubble);
+  border-radius: 4px 14px 14px 14px;
+  padding: var(--s4);
+  max-width: 280px;
+  font-size: var(--kakao-font);
+  line-height: 1.55;
+}
+
+.time {
+  font-size: var(--kakao-tiny);
+  color: var(--kakao-sub);
+  margin-top: 4px;
+}
+
+.kTitle {
+  font-weight: 800;
+  margin-bottom: var(--s2);
+}
+
+.kBody p + p {
+  margin-top: 2px;
+}
+
+.kBox {
+  display: grid;
+  gap: 2px;
+  background: var(--kakao-box);
+  border-radius: 8px;
+  padding: var(--s3);
+  margin: var(--s2) 0 0;
+}
+
+.kBox > div {
+  display: grid;
+  grid-template-columns: 3.5em minmax(0, 1fr);
+  gap: var(--s2);
+}
+
+.kBox dt {
+  color: var(--kakao-muted);
+}
+
+.kBox dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.kVoid {
+  background: var(--kakao-void);
+}
+
+.kBody .kNote {
+  margin-top: var(--s2);
+  font-size: var(--kakao-small);
+  color: var(--kakao-muted);
+}
+
+.kActions {
+  display: flex;
+  gap: var(--s2);
+  margin-top: var(--s3);
+}
+
+.kBtn {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  min-height: 36px;
+  border-radius: 6px;
+  border: 1px solid var(--kakao-line);
+  font-size: var(--kakao-small);
+  color: var(--kakao-button-text);
+}
+
+.kMain {
+  background: var(--kakao-yellow);
+  border-color: var(--kakao-yellow);
+  color: var(--kakao-yellow-ink);
+  font-weight: 800;
+}
+
+.kEmpty {
+  font-size: var(--kakao-font);
+  color: var(--kakao-sub);
+  text-align: center;
+  padding: var(--s10) var(--s4);
+}
