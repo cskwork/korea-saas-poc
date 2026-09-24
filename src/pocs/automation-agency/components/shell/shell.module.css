@@ -1,0 +1,267 @@
+/*
+ * AutoMate Pro — the module's visual world lives on .root:
+ * a white map ground, charcoal station-sign bands, and line colours as data.
+ */
+.root {
+  /* Ground and ink */
+  --aa-ground: #ffffff;
+  --aa-canvas: #f3f4f6;
+  --aa-canvas-2: #e9ebee;
+  --aa-ink: #1c1f24;
+  --aa-ink-2: #474c55;
+  --aa-ink-3: #666c76;
+  --aa-rule: #dcdfe4;
+  --aa-rule-strong: #aeb4bd;
+
+  /* Station signage */
+  --aa-sign: #25282d;
+  --aa-sign-2: #34383f;
+  --aa-sign-line: #545a63;
+  --aa-sign-ink: #ffffff;
+  --aa-sign-ink-2: #c3c8d0;
+  --aa-exit: #ffcd00;
+
+  /* Lines */
+  --aa-line-build: #0052a4;
+  --aa-line-build-tint: #e5eef8;
+  --aa-line-loop: #00a84d;
+  --aa-loop-ink: #00753a;
+  --aa-loop-tint: #e4f5ea;
+  --aa-line-make: #8e5fb5;
+  --aa-line-zapier: #d9660f;
+  --aa-line-n8n: #e0156a;
+  --aa-line-apps_script: #0090c4;
+
+  /* States */
+  --aa-danger: #c0182f;
+  --aa-danger-tint: #fdebed;
+  --aa-warn: #8a5300;
+  --aa-warn-tint: #fff3d1;
+  --aa-ok: var(--aa-loop-ink);
+  --aa-ok-tint: var(--aa-loop-tint);
+
+  /* Geometry */
+  --aa-line-w: 8px;
+  --aa-radius: 6px;
+  --aa-radius-lg: 12px;
+  --aa-gutter: 32px;
+  --aa-max: 1240px;
+  --aa-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --aa-shadow: 0 1px 2px rgb(28 31 36 / 0.06), 0 8px 24px -8px rgb(28 31 36 / 0.16);
+
+  /* Type */
+  --aa-font:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
+  --aa-sign-face: var(--aa-font-sign), "Arial Narrow", var(--aa-font);
+  --aa-text-xs: 0.75rem;
+  --aa-text-sm: 0.8125rem;
+  --aa-text-md: 0.9375rem;
+  --aa-text-lg: 1.125rem;
+  --aa-text-xl: 1.375rem;
+  --aa-text-2xl: 1.75rem;
+  --aa-text-3xl: 2.5rem;
+
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--aa-ground);
+  color: var(--aa-ink);
+  font-family: var(--aa-font);
+  font-size: var(--aa-text-md);
+  line-height: 1.55;
+  caret-color: var(--aa-line-build);
+}
+
+:global(html):has(.root) {
+  background: #ffffff;
+  color-scheme: light;
+  scrollbar-color: #aeb4bd #f3f4f6;
+  scroll-padding-top: 88px;
+}
+
+.root ::selection {
+  background: #ffcd00;
+  color: #1c1f24;
+}
+
+.root :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--aa-line-build);
+  outline-offset: 2px;
+}
+
+.root :where(a) {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+@media (max-width: 720px) {
+  .root {
+    --aa-gutter: 16px;
+    --aa-line-w: 6px;
+  }
+}
+
+/* --- Skip link ---------------------------------------------------------- */
+
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  z-index: 50;
+  padding: 8px 14px;
+  border-radius: var(--aa-radius);
+  background: var(--aa-exit);
+  color: var(--aa-ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip:focus {
+  top: 12px;
+}
+
+/* --- Station-sign band ---------------------------------------------------- */
+
+.band {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--aa-sign);
+  color: var(--aa-sign-ink);
+}
+
+@media (max-width: 1079px) {
+  .band {
+    position: static;
+  }
+}
+
+.band :where(a, button):focus-visible {
+  outline-color: var(--aa-exit);
+}
+
+.bandInner {
+  max-width: calc(var(--aa-max) + var(--aa-gutter) * 2);
+  margin: 0 auto;
+  padding: 0 var(--aa-gutter);
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  color: var(--aa-sign-ink);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: var(--aa-text-lg);
+  letter-spacing: -0.01em;
+}
+
+.brandMark {
+  width: 30px;
+  height: 30px;
+  flex: none;
+}
+
+/* --- Announcement strip ----------------------------------------------------- */
+
+.announce {
+  background: var(--aa-canvas);
+  border-bottom: 1px solid var(--aa-rule);
+  color: var(--aa-ink-2);
+  font-size: var(--aa-text-sm);
+}
+
+.announceInner {
+  max-width: calc(var(--aa-max) + var(--aa-gutter) * 2);
+  margin: 0 auto;
+  padding: 6px var(--aa-gutter);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+}
+
+.announceText {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: auto;
+}
+
+.sampleTag {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 8px;
+  border-radius: 4px;
+  background: var(--aa-sign);
+  color: var(--aa-exit);
+  font-size: var(--aa-text-xs);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.hubLink {
+  color: var(--aa-ink-2);
+  font-weight: 600;
+}
+
+.hubLink:hover {
+  color: var(--aa-ink);
+}
+
+/* --- Main --------------------------------------------------------------------- */
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: calc(var(--aa-max) + var(--aa-gutter) * 2);
+  margin: 0 auto;
+  padding: 32px var(--aa-gutter) 72px;
+}
+
+.footer {
+  border-top: 1px solid var(--aa-rule);
+  color: var(--aa-ink-3);
+  font-size: var(--aa-text-sm);
+}
+
+.footerInner {
+  max-width: calc(var(--aa-max) + var(--aa-gutter) * 2);
+  margin: 0 auto;
+  padding: 20px var(--aa-gutter) 28px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+
+@media (max-width: 720px) {
+  .main {
+    padding-top: 20px;
+  }
+}
+
+@media print {
+  :global(html):has(.root) {
+    background: #ffffff;
+  }
+
+  .band,
+  .announce,
+  .footer,
+  .skip {
+    display: none;
+  }
+
+  .main {
+    padding: 0;
+    max-width: none;
+  }
+}

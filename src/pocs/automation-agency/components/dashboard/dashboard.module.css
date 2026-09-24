@@ -1,0 +1,222 @@
+.mapSection {
+  margin-top: 8px;
+}
+
+.mapActions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 40px;
+}
+
+@media (max-width: 960px) {
+  .mapActions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.twoCol {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}
+
+.twoCol > section {
+  min-width: 0;
+}
+
+.summary {
+  margin: -4px 0 16px;
+  color: var(--aa-ink-2);
+  font-size: 0.875rem;
+}
+
+.summary strong {
+  color: var(--aa-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- D-day tags ------------------------------------------------------------ */
+
+.dday {
+  display: inline-block;
+  min-width: 58px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--aa-canvas);
+  color: var(--aa-ink-2);
+  font-family: var(--aa-sign-face);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.ddaySoon {
+  background: var(--aa-warn-tint);
+  color: var(--aa-warn);
+}
+
+.ddayLate {
+  background: var(--aa-danger-tint);
+  color: var(--aa-danger);
+}
+
+/* --- MRR chart ---------------------------------------------------------------- */
+
+.chart {
+  margin: 0;
+}
+
+.chartSvg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.chartCompact {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .chartWide {
+    display: none;
+  }
+
+  .chartCompact {
+    display: block;
+  }
+}
+
+.grid {
+  stroke: var(--aa-rule);
+  stroke-width: 1;
+}
+
+.tick {
+  fill: var(--aa-ink-3);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.mrrLine {
+  fill: none;
+  stroke: var(--aa-line-loop);
+  stroke-width: 4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.hit {
+  fill: transparent;
+}
+
+.pointDisc,
+.pointNow {
+  fill: var(--aa-ground);
+  stroke: var(--aa-line-loop);
+  stroke-width: 3.5;
+}
+
+.pointNow {
+  stroke: var(--aa-sign);
+}
+
+.point {
+  outline: none;
+}
+
+.point:focus-visible .pointDisc,
+.point:focus-visible .pointNow {
+  stroke: var(--aa-line-build);
+  stroke-width: 5;
+}
+
+.valueLabel,
+.valueHover {
+  fill: var(--aa-ink);
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.valueHover {
+  opacity: 0;
+  transition: opacity 120ms var(--aa-ease);
+}
+
+.point:hover .valueHover,
+.point:focus-visible .valueHover {
+  opacity: 1;
+}
+
+.tableToggle {
+  margin-top: 8px;
+  font-size: var(--aa-text-sm);
+}
+
+.tableToggle summary {
+  width: fit-content;
+  color: var(--aa-ink-2);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tableToggle table {
+  margin-top: 8px;
+}
+
+/* --- Ranking ------------------------------------------------------------------ */
+
+.ranking {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rank {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--aa-rule);
+}
+
+.rankNo {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--aa-sign);
+  font-family: var(--aa-sign-face);
+  font-weight: 700;
+}
+
+.rank:first-child .rankNo {
+  background: var(--aa-sign);
+  color: var(--aa-sign-ink);
+}
+
+.rankBody {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.leads {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-top: 16px;
+}

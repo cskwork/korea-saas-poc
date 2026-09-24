@@ -43,6 +43,13 @@
       "when": 1790254667927,
       "tag": "0005_ai-design-video",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1790255995334,
+      "tag": "0006_automation-agency",
+      "breakpoints": true
     }
   ]
 }

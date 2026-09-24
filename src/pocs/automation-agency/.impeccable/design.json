@@ -1,0 +1,458 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T12:56:33.893652+00:00",
+  "title": "Design System: AutoMate Pro",
+  "extensions": {
+    "colorMeta": {
+      "map-white": {
+        "role": "neutral",
+        "displayName": "Map White",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9)",
+          "oklch(25% 0.000 89.9)",
+          "oklch(35% 0.000 89.9)",
+          "oklch(45% 0.000 89.9)",
+          "oklch(55% 0.000 89.9)",
+          "oklch(65% 0.000 89.9)",
+          "oklch(80% 0.000 89.9)",
+          "oklch(95% 0.000 89.9)"
+        ]
+      },
+      "platform-grey": {
+        "role": "neutral",
+        "displayName": "Platform Grey",
+        "canonical": "#f3f4f6",
+        "oklch": "oklch(96.7% 0.003 264.5)",
+        "tonalRamp": [
+          "oklch(15% 0.003 264.5)",
+          "oklch(25% 0.003 264.5)",
+          "oklch(35% 0.003 264.5)",
+          "oklch(45% 0.003 264.5)",
+          "oklch(55% 0.003 264.5)",
+          "oklch(65% 0.003 264.5)",
+          "oklch(80% 0.003 264.5)",
+          "oklch(95% 0.003 264.5)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Signboard Ink",
+        "canonical": "#1c1f24",
+        "oklch": "oklch(23.8% 0.011 260.7)",
+        "tonalRamp": [
+          "oklch(15% 0.011 260.7)",
+          "oklch(25% 0.011 260.7)",
+          "oklch(35% 0.011 260.7)",
+          "oklch(45% 0.011 260.7)",
+          "oklch(55% 0.011 260.7)",
+          "oklch(65% 0.011 260.7)",
+          "oklch(80% 0.011 260.7)",
+          "oklch(95% 0.011 260.7)"
+        ]
+      },
+      "ink-secondary": {
+        "role": "neutral",
+        "displayName": "Timetable Grey",
+        "canonical": "#474c55",
+        "oklch": "oklch(41.5% 0.016 262.3)",
+        "tonalRamp": [
+          "oklch(15% 0.016 262.3)",
+          "oklch(25% 0.016 262.3)",
+          "oklch(35% 0.016 262.3)",
+          "oklch(45% 0.016 262.3)",
+          "oklch(55% 0.016 262.3)",
+          "oklch(65% 0.016 262.3)",
+          "oklch(80% 0.016 262.3)",
+          "oklch(95% 0.016 262.3)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rail Rule",
+        "canonical": "#dcdfe4",
+        "oklch": "oklch(90.3% 0.008 260.7)",
+        "tonalRamp": [
+          "oklch(15% 0.008 260.7)",
+          "oklch(25% 0.008 260.7)",
+          "oklch(35% 0.008 260.7)",
+          "oklch(45% 0.008 260.7)",
+          "oklch(55% 0.008 260.7)",
+          "oklch(65% 0.008 260.7)",
+          "oklch(80% 0.008 260.7)",
+          "oklch(95% 0.008 260.7)"
+        ]
+      },
+      "sign-charcoal": {
+        "role": "primary",
+        "displayName": "Station-Sign Charcoal",
+        "canonical": "#25282d",
+        "oklch": "oklch(27.6% 0.010 260.7)",
+        "tonalRamp": [
+          "oklch(15% 0.010 260.7)",
+          "oklch(25% 0.010 260.7)",
+          "oklch(35% 0.010 260.7)",
+          "oklch(45% 0.010 260.7)",
+          "oklch(55% 0.010 260.7)",
+          "oklch(65% 0.010 260.7)",
+          "oklch(80% 0.010 260.7)",
+          "oklch(95% 0.010 260.7)"
+        ]
+      },
+      "exit-yellow": {
+        "role": "tertiary",
+        "displayName": "Exit Yellow",
+        "canonical": "#ffcd00",
+        "oklch": "oklch(86.7% 0.177 90.8)",
+        "tonalRamp": [
+          "oklch(15% 0.177 90.8)",
+          "oklch(25% 0.177 90.8)",
+          "oklch(35% 0.177 90.8)",
+          "oklch(45% 0.177 90.8)",
+          "oklch(55% 0.177 90.8)",
+          "oklch(65% 0.177 90.8)",
+          "oklch(80% 0.177 90.8)",
+          "oklch(95% 0.177 90.8)"
+        ]
+      },
+      "build-line-navy": {
+        "role": "primary",
+        "displayName": "Build Line Navy",
+        "canonical": "#0052a4",
+        "oklch": "oklch(44.7% 0.149 255.4)",
+        "tonalRamp": [
+          "oklch(15% 0.149 255.4)",
+          "oklch(25% 0.149 255.4)",
+          "oklch(35% 0.149 255.4)",
+          "oklch(45% 0.149 255.4)",
+          "oklch(55% 0.149 255.4)",
+          "oklch(65% 0.149 255.4)",
+          "oklch(80% 0.149 255.4)",
+          "oklch(95% 0.149 255.4)"
+        ]
+      },
+      "loop-line-green": {
+        "role": "secondary",
+        "displayName": "Circle Line Green",
+        "canonical": "#00a84d",
+        "oklch": "oklch(63.9% 0.176 150.0)",
+        "tonalRamp": [
+          "oklch(15% 0.176 150.0)",
+          "oklch(25% 0.176 150.0)",
+          "oklch(35% 0.176 150.0)",
+          "oklch(45% 0.176 150.0)",
+          "oklch(55% 0.176 150.0)",
+          "oklch(65% 0.176 150.0)",
+          "oklch(80% 0.176 150.0)",
+          "oklch(95% 0.176 150.0)"
+        ]
+      },
+      "loop-ink-green": {
+        "role": "secondary",
+        "displayName": "Circle Line Ink",
+        "canonical": "#00753a",
+        "oklch": "oklch(49.3% 0.129 152.2)",
+        "tonalRamp": [
+          "oklch(15% 0.129 152.2)",
+          "oklch(25% 0.129 152.2)",
+          "oklch(35% 0.129 152.2)",
+          "oklch(45% 0.129 152.2)",
+          "oklch(55% 0.129 152.2)",
+          "oklch(65% 0.129 152.2)",
+          "oklch(80% 0.129 152.2)",
+          "oklch(95% 0.129 152.2)"
+        ]
+      },
+      "line-make": {
+        "role": "tertiary",
+        "displayName": "Make Line Purple",
+        "canonical": "#8e5fb5",
+        "oklch": "oklch(57.2% 0.136 307.9)",
+        "tonalRamp": [
+          "oklch(15% 0.136 307.9)",
+          "oklch(25% 0.136 307.9)",
+          "oklch(35% 0.136 307.9)",
+          "oklch(45% 0.136 307.9)",
+          "oklch(55% 0.136 307.9)",
+          "oklch(65% 0.136 307.9)",
+          "oklch(80% 0.136 307.9)",
+          "oklch(95% 0.136 307.9)"
+        ]
+      },
+      "line-zapier": {
+        "role": "tertiary",
+        "displayName": "Zapier Line Orange",
+        "canonical": "#d9660f",
+        "oklch": "oklch(63.9% 0.167 49.1)",
+        "tonalRamp": [
+          "oklch(15% 0.167 49.1)",
+          "oklch(25% 0.167 49.1)",
+          "oklch(35% 0.167 49.1)",
+          "oklch(45% 0.167 49.1)",
+          "oklch(55% 0.167 49.1)",
+          "oklch(65% 0.167 49.1)",
+          "oklch(80% 0.167 49.1)",
+          "oklch(95% 0.167 49.1)"
+        ]
+      },
+      "line-n8n": {
+        "role": "tertiary",
+        "displayName": "n8n Line Pink",
+        "canonical": "#e0156a",
+        "oklch": "oklch(58.8% 0.229 5.2)",
+        "tonalRamp": [
+          "oklch(15% 0.200 5.2)",
+          "oklch(25% 0.200 5.2)",
+          "oklch(35% 0.200 5.2)",
+          "oklch(45% 0.200 5.2)",
+          "oklch(55% 0.200 5.2)",
+          "oklch(65% 0.200 5.2)",
+          "oklch(80% 0.200 5.2)",
+          "oklch(95% 0.200 5.2)"
+        ]
+      },
+      "line-apps-script": {
+        "role": "tertiary",
+        "displayName": "Apps Script Line Sky",
+        "canonical": "#0090c4",
+        "oklch": "oklch(61.5% 0.127 233.0)",
+        "tonalRamp": [
+          "oklch(15% 0.127 233.0)",
+          "oklch(25% 0.127 233.0)",
+          "oklch(35% 0.127 233.0)",
+          "oklch(45% 0.127 233.0)",
+          "oklch(55% 0.127 233.0)",
+          "oklch(65% 0.127 233.0)",
+          "oklch(80% 0.127 233.0)",
+          "oklch(95% 0.127 233.0)"
+        ]
+      },
+      "danger": {
+        "role": "state",
+        "displayName": "Overdue Red",
+        "canonical": "#c0182f",
+        "oklch": "oklch(51.9% 0.197 22.2)",
+        "tonalRamp": [
+          "oklch(15% 0.197 22.2)",
+          "oklch(25% 0.197 22.2)",
+          "oklch(35% 0.197 22.2)",
+          "oklch(45% 0.197 22.2)",
+          "oklch(55% 0.197 22.2)",
+          "oklch(65% 0.197 22.2)",
+          "oklch(80% 0.197 22.2)",
+          "oklch(95% 0.197 22.2)"
+        ]
+      },
+      "warn": {
+        "role": "state",
+        "displayName": "Caution Amber",
+        "canonical": "#8a5300",
+        "oklch": "oklch(49.4% 0.109 66.9)",
+        "tonalRamp": [
+          "oklch(15% 0.109 66.9)",
+          "oklch(25% 0.109 66.9)",
+          "oklch(35% 0.109 66.9)",
+          "oklch(45% 0.109 66.9)",
+          "oklch(55% 0.109 66.9)",
+          "oklch(65% 0.109 66.9)",
+          "oklch(80% 0.109 66.9)",
+          "oklch(95% 0.109 66.9)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Page Title",
+        "purpose": "Page titles; Pretendard 800."
+      },
+      "figure": {
+        "displayName": "Loop Figure",
+        "purpose": "MRR inside the circle line and plan prices only."
+      },
+      "title": {
+        "displayName": "Section / Station Name",
+        "purpose": "Section heads over the 2px charcoal rule; station names on the map."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Text and table cells; tabular numerals for amounts."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form labels, buttons, chips."
+      },
+      "station-code": {
+        "displayName": "Station Code",
+        "purpose": "Barlow Semi Condensed for codes (B3, M02, D-3) and English sub-labels only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "sheet-lift",
+        "value": "0 1px 2px rgb(28 31 36 / 0.06), 0 8px 24px -8px rgb(28 31 36 / 0.16)",
+        "purpose": "Printable quote sheet on screen only; removed in print."
+      },
+      {
+        "name": "selected-station-halo",
+        "value": "0 0 0 3px #ffffff, 0 0 0 7px #ffcd00, 0 0 0 9px #25282d",
+        "purpose": "Selected station in the builder and current stop on a route."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-signal",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All state transitions."
+      },
+      {
+        "name": "line-draw",
+        "value": "stroke-dashoffset 1 → 0, 280ms ease-signal",
+        "purpose": "노선 잇기: a new workflow segment draws on."
+      },
+      {
+        "name": "marker-slide",
+        "value": "left / transform 260ms ease-signal",
+        "purpose": "Route marker moves to the next station on 다음 역으로."
+      },
+      {
+        "name": "control-state",
+        "value": "160ms ease-signal",
+        "purpose": "Hover/focus colour changes on controls."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "stack-table",
+        "value": "760px"
+      },
+      {
+        "name": "map-vertical",
+        "value": "899px"
+      },
+      {
+        "name": "two-col-collapse",
+        "value": "960px–1060px"
+      },
+      {
+        "name": "nav-compact",
+        "value": "1079px"
+      },
+      {
+        "name": "gutter-mobile",
+        "value": "720px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action on a screen: charcoal sign plate, navy on hover.",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M12 5v14M5 12h14\"/></svg>새 프로젝트</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 16px;border:1.5px solid transparent;border-radius:6px;background:#25282d;color:#fff;font:700 13px/1.2 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', system-ui, sans-serif;cursor:pointer;transition:background-color 160ms cubic-bezier(0.16,1,0.3,1)}.ds-btn-primary:hover{background:#0052a4}.ds-btn-primary:focus-visible{outline:3px solid #0052a4;outline-offset:2px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Companion action: white plate with a strong rule border.",
+      "html": "<button class=\"ds-btn-secondary\">견적에 담기</button>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 16px;border:1.5px solid #aeb4bd;border-radius:6px;background:#fff;color:#1c1f24;font:700 13px/1.2 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', system-ui, sans-serif;cursor:pointer;transition:border-color 160ms cubic-bezier(0.16,1,0.3,1)}.ds-btn-secondary:hover{border-color:#1c1f24}.ds-btn-secondary:focus-visible{outline:3px solid #0052a4;outline-offset:2px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Form input with label; navy focus, danger on error.",
+      "html": "<label class=\"ds-field\"><span>고객명</span><input class=\"ds-input\" placeholder=\"예: (주)한국기업\"></label>",
+      "css": ".ds-field{display:grid;gap:6px;font:700 13px/1.4 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', system-ui, sans-serif;color:#474c55}.ds-input{min-height:42px;padding:8px 12px;border:1.5px solid #aeb4bd;border-radius:6px;background:#fff;color:#1c1f24;font:400 15px/1.5 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', system-ui, sans-serif}.ds-input::placeholder{color:#666c76}.ds-input:focus-visible{border-color:#0052a4;outline:3px solid rgba(0,82,164,.28);outline-offset:0}"
+    },
+    {
+      "name": "Station Navigation",
+      "kind": "nav",
+      "refersTo": "station-plate-current",
+      "description": "Pages as stations on a rail; the current one is the white station-name plate.",
+      "html": "<nav class=\"ds-nav\"><a>● 운행 현황</a><a class=\"ds-now\"><b>프로젝트</b><small>PROJECTS</small></a><a>● 견적</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:28px;padding:12px 20px;background:#25282d;font:600 13px/1.2 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', system-ui, sans-serif}.ds-nav a{color:#c3c8d0;text-decoration:none}.ds-nav a:hover{color:#fff}.ds-nav .ds-now{display:flex;flex-direction:column;padding:4px 12px 5px;border-radius:6px;background:#fff;color:#1c1f24}.ds-now b{font-weight:800;font-size:15px}.ds-now small{font:600 11px 'Barlow Semi Condensed',sans-serif;letter-spacing:.06em;color:#666c76}"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "chip-filter",
+      "description": "Station/status filter; the current filter is a charcoal pill.",
+      "html": "<span class=\"ds-chips\"><a class=\"ds-chip\" aria-current=\"true\">전체 13</a><a class=\"ds-chip\"><i></i>개발 2</a></span>",
+      "css": ".ds-chips{display:flex;gap:6px}.ds-chip{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 12px;border:1.5px solid #dcdfe4;border-radius:999px;background:#fff;color:#474c55;font:600 13px 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', system-ui, sans-serif;text-decoration:none}.ds-chip i{width:12px;height:12px;border-radius:50%;border:3px solid #0052a4;box-sizing:border-box}.ds-chip:hover{border-color:#666c76;color:#1c1f24}.ds-chip[aria-current=true]{background:#25282d;border-color:#25282d;color:#fff}"
+    },
+    {
+      "name": "Line Badge",
+      "kind": "custom",
+      "refersTo": "line-badge",
+      "description": "Automation platform as a metro line: coloured disc with its letter, plus the name.",
+      "html": "<span class=\"ds-line\"><i style=\"background:#e0156a\">N</i>n8n</span> <span class=\"ds-line\"><i style=\"background:#8e5fb5\">M</i>Make</span>",
+      "css": ".ds-line{display:inline-flex;align-items:center;gap:6px;font:600 13px 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', system-ui, sans-serif;color:#1c1f24}.ds-line i{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;color:#fff;font:700 13px/1 'Barlow Semi Condensed',sans-serif;font-style:normal}"
+    },
+    {
+      "name": "Station Stop",
+      "kind": "custom",
+      "description": "A station on a line: white disc with an 8px line-coloured ring, label plate below; selected gets the yellow halo.",
+      "html": "<div class=\"ds-stops\"><span class=\"ds-rail\"></span><button class=\"ds-stop\"><i></i><b>M01</b>매일 오전 9시</button><button class=\"ds-stop ds-sel\"><i></i><b>M02</b>전일 실적 수집</button></div>",
+      "css": ".ds-stops{position:relative;display:flex;gap:60px;padding:8px 20px}.ds-rail{position:absolute;left:60px;right:60px;top:25px;height:8px;background:#8e5fb5}.ds-stop{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;border:0;background:none;font:700 13px 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', system-ui, sans-serif;color:#1c1f24;cursor:pointer}.ds-stop i{width:34px;height:34px;border-radius:50%;border:8px solid #8e5fb5;background:#fff;box-sizing:border-box}.ds-stop b{font:700 11px 'Barlow Semi Condensed',sans-serif;letter-spacing:.06em;color:#666c76}.ds-sel i{box-shadow:0 0 0 3px #fff,0 0 0 7px #ffcd00,0 0 0 9px #25282d}.ds-stop:focus-visible i{outline:3px solid #0052a4;outline-offset:5px}"
+    },
+    {
+      "name": "Timetable Row",
+      "kind": "custom",
+      "description": "Ruled list of records with tabular amounts; the default container for data.",
+      "html": "<table class=\"ds-tt\"><thead><tr><th>고객</th><th>구축비</th></tr></thead><tbody><tr><td>스마트유통</td><td>₩4,500,000</td></tr><tr><td>넥스트IT</td><td>₩3,000,000</td></tr></tbody></table>",
+      "css": ".ds-tt{width:100%;border-collapse:collapse;font:400 15px 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', system-ui, sans-serif;font-variant-numeric:tabular-nums}.ds-tt th{padding:10px 12px;background:#f3f4f6;border-bottom:2px solid #25282d;color:#474c55;font-size:12px;font-weight:700;text-align:left}.ds-tt td{padding:12px;border-bottom:1px solid #dcdfe4}.ds-tt td:last-child,.ds-tt th:last-child{text-align:right}.ds-tt tbody tr:hover{background:#fafbfc}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Network Map",
+    "overview": "AutoMate Pro draws a one-person automation agency as a Seoul-style metro network. Client work travels a navy delivery line station by station (대기 → 분석 → 개발 → 테스트 → 배포) and interchanges onto a green circle line, the maintenance subscriptions that keep running every month; the monthly recurring revenue sits inside that loop. It is an Operate tool first: white map ground, dense ruled timetables instead of cards, one workhorse Korean sans, colour only where it encodes something. The printable quote deliberately steps out of the map into plain black-and-white Korean business paperwork.",
+    "keyCharacteristics": [
+      "White map ground; charcoal sign band with white Hangul and one yellow marker for \"here\".",
+      "Line colours are data: navy = delivery, green = maintenance loop, one colour per platform.",
+      "Stations are white discs with a line-coloured ring; conditions/interchanges are white capsules with a charcoal ring; triggers are filled termini.",
+      "Ruled timetables (2px charcoal head rule, 1px row rules, tabular numerals) instead of card grids.",
+      "Pretendard for everything readable; Barlow Semi Condensed only for station codes, D-day tags and English sub-labels."
+    ],
+    "rules": [
+      {
+        "name": "The Line Means Something Rule",
+        "body": "A line colour appears only where it encodes a line: delivery, maintenance or a platform. No decorative colour fields.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Yellow Rule",
+        "body": "Exit yellow marks the single current/selected thing in view (plus focus on dark and text selection). Two yellow markers on one screen is a bug.",
+        "section": "colors"
+      },
+      {
+        "name": "The Signage Numerals Rule",
+        "body": "The condensed face is for codes painted on the map, never for body copy, amounts or headings.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Map Rule",
+        "body": "Nothing on the map floats. Selection is shown with a yellow-and-charcoal halo ring or by turning a label into a charcoal plate, never with elevation.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** encode meaning with line colour and keep every colour paired with a letter, word or icon.",
+      "**Do** draw connectors octilinear (horizontal, vertical, 45°) at one line weight with rounded bends.",
+      "**Do** use ruled timetables with tabular numerals for lists of records.",
+      "**Do** keep motion to state changes: 160–280ms, `cubic-bezier(0.16, 1, 0.3, 1)`, instant under reduced motion.",
+      "**Do** label demo content as 샘플 데이터 wherever it could read as real."
+    ],
+    "donts": [
+      "**Don't** bring back the legacy gradient/glass/stat-card look.",
+      "**Don't** use exit yellow for anything but the single current/selected marker, focus on dark and selection.",
+      "**Don't** set amounts, body or headings in the condensed signage face.",
+      "**Don't** build card grids of icon + heading + text; lists of records are timetables.",
+      "**Don't** open modals for confirmations; confirm inline next to the action."
+    ]
+  }
+}
