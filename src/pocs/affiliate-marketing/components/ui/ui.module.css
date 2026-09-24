@@ -1,0 +1,466 @@
+/* Shared primitives: page bands, prices, chips, stickers, buttons, sections, empty states. */
+
+.page {
+  width: 100%;
+  max-width: var(--am-page);
+  margin: 0 auto;
+  padding: var(--am-s6) var(--am-gutter) var(--am-s8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--am-s7);
+}
+
+/* ---------- Flyer band (page header) ---------- */
+.band {
+  background: var(--am-yellow);
+  color: var(--am-ink);
+  border-bottom: 3px solid var(--am-ink);
+}
+
+.bandInner {
+  max-width: var(--am-page);
+  margin: 0 auto;
+  padding: var(--am-s6) var(--am-gutter) var(--am-s5);
+  display: grid;
+  gap: var(--am-s3);
+}
+
+.bandTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--am-s4);
+}
+
+.bandTitle {
+  font-family: var(--am-display);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.bandLead {
+  max-width: 62ch;
+  color: var(--am-ink);
+  font-size: var(--am-fs-md);
+}
+
+.bandActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--am-s2);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--am-s1);
+  width: fit-content;
+  color: var(--am-ink);
+  font-weight: 700;
+  font-size: var(--am-fs-sm);
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+.back svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------- Price ---------- */
+.won {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.08em;
+  font-family: var(--am-figure);
+  font-weight: 800;
+  font-stretch: 72%;
+  font-variation-settings: "wdth" 72;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+  white-space: nowrap;
+}
+
+.wonUnit {
+  font-family: var(--am-text);
+  font-weight: 800;
+  font-size: 0.42em;
+  letter-spacing: 0;
+}
+
+.wonSm {
+  font-size: 1.25rem;
+}
+
+.wonMd {
+  font-size: 1.75rem;
+}
+
+.wonLg {
+  font-size: 2.75rem;
+}
+
+.wonXl {
+  font-size: clamp(3.25rem, 2rem + 4.6vw, 6rem);
+}
+
+.wonRed {
+  color: var(--am-red);
+}
+
+.wonInk {
+  color: var(--am-ink);
+}
+
+/* ---------- Delta ---------- */
+.delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 700;
+  font-size: var(--am-fs-sm);
+  white-space: nowrap;
+}
+
+.delta svg {
+  width: 10px;
+  height: 10px;
+}
+
+.deltaUp {
+  color: var(--am-up);
+}
+
+.deltaDown {
+  color: var(--am-down);
+}
+
+.deltaFlat {
+  color: var(--am-ink-3);
+}
+
+/* ---------- Chips and stickers ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 7px;
+  border: 1.5px solid currentColor;
+  border-radius: var(--am-radius-sm);
+  font-size: var(--am-fs-xs);
+  font-weight: 700;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.chipInk {
+  color: var(--am-ink);
+}
+
+.chipMuted {
+  color: var(--am-ink-3);
+}
+
+.chipRed {
+  color: var(--am-red-deep);
+  background: var(--am-red-soft);
+}
+
+.chipBlue {
+  color: var(--am-down);
+  background: var(--am-down-soft);
+}
+
+.chipOk {
+  color: var(--am-ok);
+  background: var(--am-ok-soft);
+}
+
+.chipSolid {
+  color: var(--am-ink);
+  background: var(--am-yellow);
+  border-color: var(--am-ink);
+}
+
+.sticker {
+  display: inline-grid;
+  place-items: center;
+  width: 3.4em;
+  height: 3.4em;
+  border-radius: 50%;
+  background: var(--am-red);
+  color: var(--am-on-red);
+  font-weight: 800;
+  font-size: 0.75rem;
+  line-height: 1.05;
+  text-align: center;
+  transform: rotate(-10deg);
+  flex-shrink: 0;
+}
+
+.stickerYellow {
+  background: var(--am-yellow);
+  color: var(--am-ink);
+}
+
+/* ---------- Buttons ---------- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--am-s2);
+  min-height: 42px;
+  padding: 0 var(--am-s4);
+  border: 2px solid var(--am-ink);
+  border-radius: var(--am-radius);
+  background: var(--am-paper);
+  color: var(--am-ink);
+  font-weight: 700;
+  font-size: var(--am-fs-md);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 150ms var(--am-ease),
+    color 150ms var(--am-ease),
+    transform 120ms var(--am-ease);
+}
+
+.button svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+
+.button:hover {
+  background: var(--am-yellow-soft);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.primary {
+  background: var(--am-red);
+  border-color: var(--am-red-deep);
+  color: var(--am-on-red);
+}
+
+.primary:hover {
+  background: var(--am-red-deep);
+}
+
+.danger {
+  color: var(--am-red-deep);
+  border-color: var(--am-red);
+}
+
+.danger:hover {
+  background: var(--am-red-soft);
+}
+
+.quiet {
+  border-color: transparent;
+  background: transparent;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+  padding: 0 var(--am-s2);
+}
+
+.quiet:hover {
+  background: transparent;
+  color: var(--am-red-deep);
+}
+
+.small {
+  min-height: 34px;
+  padding: 0 var(--am-s3);
+  font-size: var(--am-fs-sm);
+}
+
+.small svg {
+  width: 15px;
+  height: 15px;
+}
+
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Sections ---------- */
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--am-s4);
+  min-width: 0;
+}
+
+.sectionHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--am-s2) var(--am-s4);
+}
+
+.sectionTitle {
+  font-family: var(--am-display);
+  font-weight: 400;
+  font-size: var(--am-fs-xl);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+}
+
+.sectionNote {
+  color: var(--am-ink-2);
+  font-size: var(--am-fs-sm);
+}
+
+.sectionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--am-ink);
+  font-weight: 700;
+  font-size: var(--am-fs-sm);
+}
+
+.sectionLink svg {
+  width: 15px;
+  height: 15px;
+}
+
+.panel {
+  background: var(--am-paper);
+  border: 1.5px solid var(--am-ink);
+  border-radius: var(--am-radius);
+  min-width: 0;
+}
+
+.panelPad {
+  padding: var(--am-s5);
+}
+
+/* ---------- Empty ---------- */
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--am-s3);
+  padding: var(--am-s6) var(--am-s5);
+  border: 2px dashed var(--am-rail-lip);
+  border-radius: var(--am-radius);
+  background: var(--am-paper);
+}
+
+.emptyTitle {
+  font-weight: 800;
+  font-size: var(--am-fs-lg);
+}
+
+.emptyBody {
+  color: var(--am-ink-2);
+  max-width: 56ch;
+}
+
+/* ---------- Notices ---------- */
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--am-s2);
+  padding: var(--am-s3) var(--am-s4);
+  border-radius: var(--am-radius);
+  font-weight: 600;
+  font-size: var(--am-fs-sm);
+}
+
+.notice svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.noticeOk {
+  background: var(--am-ok-soft);
+  color: var(--am-ok);
+  border: 1.5px solid currentColor;
+}
+
+.noticeError {
+  background: var(--am-red-soft);
+  color: var(--am-red-deep);
+  border: 1.5px solid currentColor;
+}
+
+.noticeInfo {
+  background: var(--am-yellow-soft);
+  color: var(--am-ink);
+  border: 1.5px solid var(--am-yellow-deep);
+}
+
+/* Stamp: success feedback slapped on like a price-gun sticker. */
+.stamp {
+  animation: stamp 180ms var(--am-ease) both;
+}
+
+@keyframes stamp {
+  from {
+    transform: scale(1.12) rotate(-3deg);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 560px) {
+  .page {
+    padding-top: var(--am-s5);
+    gap: var(--am-s6);
+  }
+
+  .bandInner {
+    padding-top: var(--am-s5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stamp {
+    animation: none;
+  }
+}
