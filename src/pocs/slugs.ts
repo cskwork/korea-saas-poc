@@ -30,6 +30,7 @@ export const OPEN_MODULE_SLUGS: readonly ModuleSlug[] = [
   "smart-store",
   "micro-saas",
   "affiliate-marketing",
+  "ai-design-video",
 ];
 
 export function isModuleOpen(slug: ModuleSlug): boolean {

@@ -1,0 +1,453 @@
+.section {
+  padding: 24px;
+  min-width: 0;
+}
+
+.section + .section {
+  border-top: 1px solid var(--rule);
+}
+
+.sectionHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 14px;
+}
+
+.sectionTitle {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.subTitle {
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.spaced {
+  margin-top: 28px;
+}
+
+.key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  font-size: 13px;
+  color: var(--graphite);
+}
+
+.keyInk,
+.keyBlue {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 6px;
+  border-radius: 2px;
+}
+
+.keyInk {
+  background: oklch(0.36 0.014 255);
+}
+
+.keyBlue {
+  background: oklch(0.58 0.12 238);
+}
+
+.keyGoal {
+  display: inline-block;
+  width: 16px;
+  height: 0;
+  margin-left: 6px;
+  border-top: 2px solid var(--red);
+}
+
+/* ── Chart ─────────────────────────────────────────────────────────────── */
+
+.chart {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.chart svg {
+  display: block;
+  max-width: none;
+}
+
+.grid line {
+  stroke: var(--rule-soft);
+  stroke-width: 1;
+}
+
+.grid text,
+.axisLabel {
+  fill: var(--graphite);
+  font-family: var(--font-num);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.bar,
+.barCurrent {
+  transition: opacity 160ms var(--ease-out);
+}
+
+.bar {
+  fill: oklch(0.36 0.014 255);
+}
+
+.barCurrent {
+  fill: oklch(0.58 0.12 238);
+}
+
+.bar[data-active],
+.barCurrent[data-active] {
+  opacity: 0.78;
+}
+
+.barLabel {
+  fill: var(--ink);
+  font-family: var(--font-num);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.goalLine {
+  stroke: var(--red);
+  stroke-width: 1.5;
+}
+
+.goalLabel {
+  fill: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hit {
+  fill: transparent;
+  outline: none;
+}
+
+.hit:focus-visible {
+  stroke: var(--blue-ink);
+  stroke-width: 2;
+}
+
+.tooltip {
+  position: absolute;
+  display: grid;
+  gap: 1px;
+  min-width: 150px;
+  padding: 8px 10px;
+  transform: translate(-50%, -100%);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 13px;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: var(--shadow-float);
+}
+
+.tooltip strong {
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+.tooltip span {
+  color: oklch(0.85 0.01 250);
+}
+
+.table {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.table summary {
+  cursor: pointer;
+  color: var(--graphite);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+}
+
+.table table {
+  width: 100%;
+  max-width: 560px;
+  margin-top: 8px;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--rule);
+  text-align: right;
+}
+
+.table th:first-child {
+  text-align: left;
+  font-weight: 500;
+}
+
+.goalForm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+
+.goalForm > :first-child {
+  width: 220px;
+}
+
+.goalStatus {
+  flex-basis: 100%;
+}
+
+.goalStatus:empty {
+  display: none;
+}
+
+/* ── Split ─────────────────────────────────────────────────────────────── */
+
+.periods {
+  display: flex;
+  border: 1px solid var(--ink);
+}
+
+.period {
+  padding: 6px 12px;
+  font-size: 14px;
+  color: var(--graphite);
+  text-decoration: none;
+}
+
+.period + .period {
+  border-left: 1px solid var(--rule);
+}
+
+.period:hover {
+  background: var(--wash);
+  color: var(--ink);
+}
+
+.period[aria-current="true"] {
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 600;
+}
+
+.splitGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 40px;
+}
+
+.bars {
+  display: grid;
+  gap: 2px;
+  border-top: 1px solid var(--ink);
+}
+
+.barRow:first-child {
+  margin-top: 8px;
+}
+
+.barRow {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) 118px;
+  align-items: center;
+  gap: 12px;
+  min-height: 34px;
+}
+
+.barName {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.barTrack {
+  display: block;
+  height: 14px;
+}
+
+.barFill {
+  display: block;
+  height: 100%;
+  min-width: 2px;
+  border-radius: 0 4px 4px 0;
+  background: oklch(0.36 0.014 255);
+}
+
+.barValue {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.barShare {
+  font-weight: 400;
+  color: var(--graphite);
+}
+
+.stack {
+  display: flex;
+  gap: 2px;
+  height: 18px;
+  margin-top: 16px;
+}
+
+.stackSingle,
+.stackSub {
+  display: block;
+  flex-basis: 0;
+}
+
+.stackSingle {
+  background: oklch(0.36 0.014 255);
+  border-radius: 4px 0 0 4px;
+}
+
+.stackSub {
+  background: oklch(0.58 0.12 238);
+  border-radius: 0 4px 4px 0;
+}
+
+.stackSingle:only-child,
+.stackSub:only-child {
+  border-radius: 4px;
+}
+
+.planLegend {
+  display: grid;
+  margin: 12px 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.planLegend > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 14px;
+}
+
+.planLegend dt {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.planLegend dt > span {
+  margin-left: 0;
+}
+
+.planLegend dd {
+  margin: 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.ledgerWrap {
+  display: grid;
+  gap: 8px;
+}
+
+.ledger {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.ledger th,
+.ledger td {
+  padding: 9px 8px;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: baseline;
+}
+
+.ledger thead th {
+  border-top: 1px solid var(--ink);
+  border-bottom-color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--graphite);
+}
+
+.ledger a {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.ledgerType {
+  margin-left: 8px;
+  font-size: 13px;
+  color: var(--graphite);
+}
+
+.date {
+  font-family: var(--font-num);
+  font-size: 14px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.ledger .right {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+  .splitGrid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding: 20px 16px;
+  }
+
+  .barRow {
+    grid-template-columns: 64px minmax(0, 1fr) 96px;
+    gap: 8px;
+  }
+
+  .ledger th:nth-child(2),
+  .ledger td:nth-child(2) {
+    display: none;
+  }
+
+  .ledgerType {
+    display: block;
+    margin-left: 0;
+  }
+
+  .goalForm > :first-child {
+    width: 100%;
+  }
+}

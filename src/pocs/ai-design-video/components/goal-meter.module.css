@@ -1,0 +1,25 @@
+.meter {
+  padding-top: 8px;
+}
+
+.track {
+  position: relative;
+  height: 8px;
+  background: var(--rule-soft);
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+
+.fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--ink);
+}
+
+.pace {
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--blue-ink);
+}
