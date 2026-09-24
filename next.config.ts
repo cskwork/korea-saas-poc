@@ -16,8 +16,14 @@ const nextConfig: NextConfig = {
   distDir: process.env.NEXT_DIST_DIR || ".next",
   // PGlite ships WASM + data files that must stay on disk next to the package.
   serverExternalPackages: ["@electric-sql/pglite"],
-  // SQL migrations are read at runtime when the app migrates its PGlite database.
-  outputFileTracingIncludes: { "/**": ["./drizzle/**/*"] },
+  // Read from disk at runtime: SQL migrations (PGlite boots by migrating) and the OG image fonts.
+  outputFileTracingIncludes: {
+    "/**": [
+      "./drizzle/**/*",
+      "./node_modules/pretendard/dist/public/static/Pretendard-Bold.otf",
+      "./node_modules/pretendard/dist/public/static/Pretendard-ExtraBold.otf",
+    ],
+  },
   images: { formats: ["image/avif", "image/webp"] },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];

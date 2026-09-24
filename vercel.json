@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build:vercel",
+  "regions": ["icn1"],
+  "crons": [{ "path": "/api/cron/purge-workspaces", "schedule": "0 18 * * *" }]
+}
