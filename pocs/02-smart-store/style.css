@@ -336,7 +336,7 @@ output { color: var(--up); font-weight: 700; }
 .prod-meta { font-size: var(--fs-xs); color: var(--ink-3); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .code-tag { font-size: 0.6875rem; letter-spacing: 0.04em; color: var(--ink-2); border: 1px solid var(--rule); padding: 0 4px; line-height: 1.5; }
 .listed-tag { color: var(--down); font-weight: 600; }
-.thumb { flex: none; object-fit: cover; background: oklch(94% 0.006 255); border: 1px solid var(--rule); border-radius: var(--r); }
+.thumb { flex: none; object-fit: cover; background: var(--pane-3); border: 1px solid var(--rule); border-radius: var(--r); }
 .thumb-sm { width: 44px; height: 44px; }
 .thumb-md { width: 64px; height: 64px; }
 .thumb-blank { background: var(--pane-3); }
@@ -406,7 +406,7 @@ output { color: var(--up); font-weight: 700; }
 .quote-head .icon-btn:hover { background: var(--bar-2); color: var(--bar-ink); }
 #modalContent { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
 .quote-figure { display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: center; }
-.quote-figure img { width: 140px; height: 140px; object-fit: cover; border: 1px solid var(--rule); background: oklch(94% 0.006 255); }
+.quote-figure img { width: 140px; height: 140px; object-fit: cover; border: 1px solid var(--rule); background: var(--pane-3); }
 .quote-big { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
 .quote-big strong { font-size: var(--fs-xl); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
 .quote-big .margin { align-items: flex-start; font-size: var(--fs-md); }
@@ -476,7 +476,7 @@ output { color: var(--up); font-weight: 700; }
 tr.is-void .prod-name, tr.is-void .col-amt strong { text-decoration: line-through; text-decoration-color: var(--ink-3); color: var(--ink-3); }
 tr.is-void .status-text { color: var(--ink-3); }
 .status { display: inline-block; font-size: var(--fs-xs); font-weight: 700; padding: 1px 8px; border: 1px solid currentColor; }
-.status-done { color: var(--down); }
+.status-done { color: var(--ink-2); }
 
 /* ===== Keywords ===== */
 .quote-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--rule); }
