@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>예약잇다 - 소상공인 예약 관리 시스템</title>
+  <meta name="description" content="수기 예약장을 디지털로. 미용실, 네일샵, 병원, 카페를 위한 예약 관리 POC: 오늘의 예약장, 캘린더, 고객 관리, 알림톡 미리보기, 고객 예약 페이지.">
+  <meta name="theme-color" content="#eef3ef" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161b24" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="예약잇다 - 소상공인 예약 관리">
+  <meta property="og:description" content="수기 예약장을 디지털로. 오늘의 예약을 한눈에, 확정은 도장 한 번으로.">
+  <meta property="og:image" content="https://03-micro-saas.vercel.app/assets/og.png">
+  <meta property="og:url" content="https://03-micro-saas.vercel.app/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <!-- Shared SVG defs: ink grain filter + icon sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="ink" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="1" seed="7" result="noise"/>
+        <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.9 0 0 0 1.3" result="grain"/>
+        <feComposite in="SourceGraphic" in2="grain" operator="in" result="grained"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="1" seed="2" result="warp"/>
+        <feDisplacementMap in="grained" in2="warp" scale="1.2" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4.5h11a3 3 0 0 1 3 3V20H7a3 3 0 0 1-3-3z"/><path d="M4 17a3 3 0 0 1 3-3h11"/><path d="M8 8h6M8 11h4"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14h2M14 14h2M8 17.5h2"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.5"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M15.5 5.3a3.3 3.3 0 0 1 0 6.4M17.5 14.8c2 .6 3.5 2.4 3.5 5.2"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M12 4.5c4.7 0 8.5 2.9 8.5 6.5s-3.8 6.5-8.5 6.5c-.8 0-1.6-.1-2.3-.2L5.5 20l.8-3.8C4.8 15 3.5 13.1 3.5 11c0-3.6 3.8-6.5 8.5-6.5z"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+    <symbol id="i-won" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13"/><path d="M7 9l1.8 6L10.5 10h3l1.7 5L17 9M6.5 12.2h11"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M14.5 6l-6 6 6 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.3-5.4"/><path d="M4.5 4.5v4h4"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11"/><path d="M15.5 8.5v-4h-11v11h4"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4-2 1.3a10 10 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+  </svg>
+
+  <div class="app">
+    <!-- Spine (desktop) / bottom tabs (mobile) -->
+    <nav class="spine" aria-label="주 메뉴">
+      <div class="spine-brand">
+        <svg class="seal-logo" viewBox="0 0 64 64" role="img" aria-label="예약잇다">
+          <rect x="3" y="3" width="58" height="58" rx="3" class="seal-logo-bg" filter="url(#ink)"/>
+          <text x="32" y="29" text-anchor="middle" class="seal-logo-text">예약</text>
+          <text x="32" y="53" text-anchor="middle" class="seal-logo-text">잇다</text>
+        </svg>
+        <div>
+          <p class="spine-name">예약잇다</p>
+          <p class="spine-sub">소상공인 예약 관리</p>
+        </div>
+      </div>
+      <ul class="spine-list">
+        <li><a href="#/dashboard" class="nav-item" data-page="dashboard"><svg class="icon"><use href="#i-book"/></svg><span>대시보드</span></a></li>
+        <li><a href="#/calendar" class="nav-item" data-page="calendar"><svg class="icon"><use href="#i-calendar"/></svg><span>예약 관리</span></a></li>
+        <li><a href="#/customers" class="nav-item" data-page="customers"><svg class="icon"><use href="#i-users"/></svg><span>고객 관리</span></a></li>
+        <li><a href="#/notifications" class="nav-item" data-page="notifications"><svg class="icon"><use href="#i-chat"/></svg><span><span class="long">알림톡 미리보기</span><span class="short">알림톡</span></span></a></li>
+        <li><a href="#/booking" class="nav-item" data-page="booking"><svg class="icon"><use href="#i-link"/></svg><span><span class="long">고객 예약 페이지</span><span class="short">예약페이지</span></span></a></li>
+        <li><a href="#/pricing" class="nav-item" data-page="pricing"><svg class="icon"><use href="#i-won"/></svg><span>요금제</span></a></li>
+      </ul>
+      <div class="spine-owner">
+        <div class="owner-mark" aria-hidden="true">김</div>
+        <div class="owner-text">
+          <p class="owner-name">김사장님</p>
+          <p class="owner-shop">뷰티헤어살롱 <span class="tag">샘플</span></p>
+        </div>
+        <button type="button" class="icon-btn" id="resetDataBtn" title="샘플 데이터 초기화" aria-label="샘플 데이터 초기화"><svg class="icon"><use href="#i-reset"/></svg></button>
+      </div>
+    </nav>
+
+    <main id="main" class="main" tabindex="-1">
+      <header class="topbar">
+        <div class="topbar-title">
+          <svg class="seal-mini" viewBox="0 0 64 64" aria-hidden="true">
+            <rect x="3" y="3" width="58" height="58" rx="3" class="seal-logo-bg"/>
+            <text x="32" y="29" text-anchor="middle" class="seal-logo-text">예약</text>
+            <text x="32" y="53" text-anchor="middle" class="seal-logo-text">잇다</text>
+          </svg>
+          <h1 id="pageTitle">대시보드</h1>
+        </div>
+        <button type="button" class="btn btn-ink" id="newReservationBtn"><svg class="icon"><use href="#i-plus"/></svg><span>새 예약</span></button>
+      </header>
+
+      <!-- Page: Dashboard -->
+      <section id="page-dashboard" class="page" aria-labelledby="pageTitle">
+        <div class="ledger-head">
+          <div class="ledger-date">
+            <p class="ledger-day"><span class="ledger-year" id="todayYear"></span> <span id="todayDate"></span></p>
+          </div>
+          <dl class="tally" aria-label="오늘 예약 현황">
+            <div class="tally-cell"><dt>오늘 전체 예약</dt><dd id="statTotal">0</dd></div>
+            <div class="tally-cell is-confirmed"><dt><span class="mark mark-round" aria-hidden="true"></span>확정</dt><dd id="statConfirmed">0</dd></div>
+            <div class="tally-cell is-pending"><dt><span class="mark mark-dashed" aria-hidden="true"></span>대기</dt><dd id="statPending">0</dd></div>
+            <div class="tally-cell is-cancelled"><dt><span class="mark mark-rect" aria-hidden="true"></span>취소</dt><dd id="statCancelled">0</dd></div>
+          </dl>
+        </div>
+
+        <div class="dash-grid">
+          <div class="sheet">
+            <div class="sheet-head">
+              <h2>오늘의 예약</h2>
+              <p class="sheet-note" id="nextCustomer"></p>
+            </div>
+            <div class="daybook-legend" aria-hidden="true">
+              <span>시간</span><span>손님 · 서비스</span><span>결재</span>
+            </div>
+            <ol id="todayReservations" class="daybook"></ol>
+          </div>
+
+          <aside class="sheet">
+            <div class="sheet-head"><h2>주간 예약 통계</h2><p class="sheet-note">취소 제외 · 최근 7일</p></div>
+            <div id="weeklyChart" class="week-chart"></div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Page: Calendar -->
+      <section id="page-calendar" class="page" hidden>
+        <div class="cal-grid">
+          <div class="sheet">
+            <div class="sheet-head cal-head">
+              <button type="button" class="icon-btn" id="prevMonthBtn" aria-label="이전 달"><svg class="icon"><use href="#i-left"/></svg></button>
+              <h2 id="calendarTitle" aria-live="polite"></h2>
+              <button type="button" class="icon-btn" id="nextMonthBtn" aria-label="다음 달"><svg class="icon"><use href="#i-right"/></svg></button>
+            </div>
+            <div class="cal-dow" aria-hidden="true">
+              <span class="sun">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span class="sat">토</span>
+            </div>
+            <div id="calendarGrid" class="cal-days"></div>
+          </div>
+
+          <div class="sheet">
+            <div class="sheet-head"><h2 id="selectedDateTitle">날짜를 선택하세요</h2></div>
+            <ol id="selectedDateReservations" class="daybook">
+              <li class="empty-line">캘린더에서 날짜를 선택해주세요</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Page: Customers -->
+      <section id="page-customers" class="page" hidden>
+        <div class="cust-grid">
+          <div class="sheet">
+            <div class="field-search">
+              <label for="customerSearch" class="visually-hidden">고객 검색</label>
+              <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+              <input id="customerSearch" type="search" placeholder="고객 이름 또는 연락처 검색" autocomplete="off">
+              <span class="count" id="customerCount" aria-live="polite"></span>
+            </div>
+            <ul id="customerList" class="cust-list"></ul>
+          </div>
+
+          <div id="customerDetailPanel" class="sheet cust-detail" hidden tabindex="-1">
+            <div class="sheet-head">
+              <h2 id="customerDetailName">고객 상세</h2>
+              <button type="button" class="icon-btn" id="closeCustomerDetail" aria-label="고객 상세 닫기"><svg class="icon"><use href="#i-x"/></svg></button>
+            </div>
+            <dl class="form-rows">
+              <div><dt>연락처</dt><dd id="customerDetailPhone"></dd></div>
+              <div><dt>총 방문</dt><dd id="customerDetailVisits"></dd></div>
+              <div><dt>마지막 방문</dt><dd id="customerDetailLastVisit"></dd></div>
+            </dl>
+            <h3 class="sub-head">방문 이력</h3>
+            <ol id="customerVisitHistory" class="history"></ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Page: Notifications -->
+      <section id="page-notifications" class="page" hidden>
+        <div class="notif-wrap">
+          <div class="notif-side">
+            <div class="segmented" role="tablist" aria-label="알림 종류">
+              <button type="button" role="tab" class="notif-tab" data-type="confirm" aria-selected="true">예약 확인</button>
+              <button type="button" role="tab" class="notif-tab" data-type="reminder" aria-selected="false">리마인더</button>
+              <button type="button" role="tab" class="notif-tab" data-type="cancel" aria-selected="false">예약 취소</button>
+            </div>
+            <p class="notif-source" id="notifSource"></p>
+            <p class="notif-disclaimer">미리보기 화면입니다. 이 데모에서는 알림톡이 실제로 발송되지 않습니다.</p>
+          </div>
+
+          <div class="kakao" role="tabpanel" aria-live="polite">
+            <div class="kakao-head">
+              <div class="kakao-avatar" aria-hidden="true">
+                <svg viewBox="0 0 64 64"><rect x="3" y="3" width="58" height="58" rx="3" class="seal-logo-bg"/><text x="32" y="29" text-anchor="middle" class="seal-logo-text">예약</text><text x="32" y="53" text-anchor="middle" class="seal-logo-text">잇다</text></svg>
+              </div>
+              <div>
+                <p class="kakao-title">예약잇다 알림</p>
+                <p class="kakao-sub">뷰티헤어살롱</p>
+              </div>
+            </div>
+            <div class="kakao-row">
+              <div class="kakao-avatar small" aria-hidden="true">
+                <svg viewBox="0 0 64 64"><rect x="3" y="3" width="58" height="58" rx="3" class="seal-logo-bg"/><text x="32" y="29" text-anchor="middle" class="seal-logo-text">예약</text><text x="32" y="53" text-anchor="middle" class="seal-logo-text">잇다</text></svg>
+              </div>
+              <div>
+                <div id="kakaoMessage" class="kakao-bubble"></div>
+                <p class="kakao-time" id="kakaoTime"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Page: Public Booking -->
+      <section id="page-booking" class="page page-booking" hidden>
+        <div class="booking">
+          <header class="shop">
+            <img class="shop-art" src="assets/salon-800.webp" srcset="assets/salon-800.webp 800w, assets/salon-1400.webp 1400w" sizes="(min-width: 700px) 640px, 100vw" width="1400" height="933" alt="작은 동네 미용실 내부 일러스트: 거울 앞 의자 하나, 제품 선반, 화분, 카운터 위에 펼친 예약장과 도장, 붉은 인주" decoding="async">
+            <div class="shop-body">
+              <h2 class="shop-name">뷰티헤어살롱 <span class="tag">샘플 매장</span></h2>
+              <p class="shop-line"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>서울시 강남구 역삼동 123-45</p>
+              <p class="shop-line"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>02-1234-5678</p>
+              <button type="button" class="btn btn-line btn-small" id="copyBookingLink"><svg class="icon"><use href="#i-copy"/></svg><span>예약 링크 복사</span></button>
+            </div>
+          </header>
+
+          <div class="slip">
+            <ol class="steps" aria-label="예약 단계">
+              <li id="step1dot" class="step"><span class="step-no">1</span><span class="step-name">서비스</span></li>
+              <li id="step2dot" class="step"><span class="step-no">2</span><span class="step-name">날짜·시간</span></li>
+              <li id="step3dot" class="step"><span class="step-no">3</span><span class="step-name">예약자 정보</span></li>
+            </ol>
+
+            <!-- Step 1 -->
+            <div id="bookingStep1" class="step-panel">
+              <h3 class="step-title">서비스 선택</h3>
+              <div id="serviceList" class="service-list" role="radiogroup" aria-label="서비스"></div>
+            </div>
+
+            <!-- Step 2 -->
+            <div id="bookingStep2" class="step-panel" hidden>
+              <h3 class="step-title">날짜 및 시간 선택</h3>
+              <p class="slip-summary" id="step2Summary"></p>
+              <label class="field">
+                <span class="field-label">날짜</span>
+                <input type="date" id="bookingDate">
+              </label>
+              <p class="hint" id="timeHint">날짜를 고르면 예약 가능한 시간이 표시됩니다.</p>
+              <div id="timeSlots" class="slots" role="group" aria-label="예약 가능 시간"></div>
+              <button type="button" class="btn btn-line btn-block" data-goto-step="1"><svg class="icon"><use href="#i-left"/></svg><span>이전</span></button>
+            </div>
+
+            <!-- Step 3 -->
+            <form id="bookingStep3" class="step-panel" hidden novalidate>
+              <h3 class="step-title">예약자 정보</h3>
+              <label class="field">
+                <span class="field-label">이름</span>
+                <input type="text" id="bookingName" autocomplete="name" placeholder="이름" required>
+              </label>
+              <p class="field-error" id="bookingNameError" hidden></p>
+              <label class="field">
+                <span class="field-label">연락처</span>
+                <input type="tel" id="bookingPhone" autocomplete="tel" inputmode="numeric" placeholder="연락처 (010-0000-0000)" required>
+              </label>
+              <p class="field-error" id="bookingPhoneError" hidden></p>
+              <label class="field field-area">
+                <span class="field-label">요청사항</span>
+                <textarea id="bookingMemo" placeholder="요청사항 (선택)" rows="3"></textarea>
+              </label>
+
+              <div class="summary-box">
+                <p class="summary-title">예약 요약</p>
+                <p id="bookingSummaryService"></p>
+                <p id="bookingSummaryDateTime"></p>
+              </div>
+
+              <button type="submit" class="btn btn-ink btn-block btn-large">예약하기</button>
+              <button type="button" class="btn btn-line btn-block" data-goto-step="2"><svg class="icon"><use href="#i-left"/></svg><span>이전</span></button>
+            </form>
+
+            <!-- Complete -->
+            <div id="bookingComplete" class="step-panel receipt" hidden tabindex="-1">
+              <div class="receipt-stamp" aria-hidden="true">
+                <svg viewBox="0 0 120 120"><g filter="url(#ink)"><circle cx="60" cy="60" r="52" class="st-ring"/><circle cx="60" cy="60" r="44" class="st-ring thin"/><text x="60" y="72" text-anchor="middle" class="st-text big">접수</text></g></svg>
+              </div>
+              <h3 class="receipt-title">예약이 완료되었습니다!</h3>
+              <p class="hint">확인 알림톡이 발송됩니다. 매장에서 확정하면 예약이 확정됩니다.</p>
+              <dl class="form-rows">
+                <div><dt>서비스</dt><dd id="completeService"></dd></div>
+                <div><dt>일시</dt><dd id="completeDateTime"></dd></div>
+                <div><dt>예약자</dt><dd id="completeName"></dd></div>
+              </dl>
+              <button type="button" class="btn btn-ink btn-block" id="resetBookingBtn">새 예약하기</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Page: Pricing -->
+      <section id="page-pricing" class="page" hidden>
+        <div class="pricing-intro">
+          <h2>합리적인 요금제</h2>
+          <p>매장 규모에 맞게 선택하세요. 언제든 변경 가능!</p>
+        </div>
+
+        <div class="plans">
+          <article class="plan">
+            <h3 class="plan-name">Free</h3>
+            <p class="plan-desc">시작하기 좋은 무료 플랜</p>
+            <p class="plan-price"><span class="num">₩0</span><span class="per">/월</span></p>
+            <ul class="plan-list">
+              <li><svg class="icon yes"><use href="#i-check"/></svg>월 30건 예약</li>
+              <li><svg class="icon yes"><use href="#i-check"/></svg>기본 캘린더</li>
+              <li><svg class="icon yes"><use href="#i-check"/></svg>고객 50명 관리</li>
+              <li class="no"><svg class="icon"><use href="#i-x"/></svg>알림톡 발송</li>
+              <li class="no"><svg class="icon"><use href="#i-x"/></svg>통계 분석</li>
+              <li class="no"><svg class="icon"><use href="#i-x"/></svg>커스텀 예약 페이지</li>
+            </ul>
+            <button type="button" class="btn btn-line btn-block plan-cta">무료로 시작</button>
+          </article>
+
+          <article class="plan plan-featured">
+            <div class="plan-seal" aria-label="인기 요금제">
+              <svg viewBox="0 0 80 80" aria-hidden="true"><g filter="url(#ink)"><circle cx="40" cy="40" r="34" class="st-ring"/><text x="40" y="49" text-anchor="middle" class="st-text">인기</text></g></svg>
+            </div>
+            <h3 class="plan-name">Pro</h3>
+            <p class="plan-desc">성장하는 매장에 딱!</p>
+            <p class="plan-price"><span class="num">₩30,000</span><span class="per">/월</span></p>
+            <ul class="plan-list">
+              <li><svg class="icon yes"><use href="#i-check"/></svg>무제한 예약</li>
+              <li><svg class="icon yes"><use href="#i-check"/></svg>고급 캘린더</li>
+              <li><svg class="icon yes"><use href="#i-check"/></svg>고객 500명 관리</li>
+              <li><svg class="icon yes"><use href="#i-check"/></svg>알림톡 월 200건</li>
+              <li><svg class="icon yes"><use href="#i-check"/></svg>기본 통계</li>
+              <li class="no"><svg class="icon"><use href="#i-x"/></svg>직원 관리</li>
+            </ul>
+            <button type="button" class="btn btn-ink btn-block plan-cta">Pro 시작하기</button>
+          </article>
+
+          <article class="plan">
+            <h3 class="plan-name">Business</h3>
+            <p class="plan-desc">다지점/대형 매장용</p>
+            <p class="plan-price"><span class="num">₩80,000</span><span class="per">/월</span></p>
+            <ul class="plan-list">
+              <li><svg class="icon yes"><use href="#i-check"/></svg>무제한 예약</li>
+              <li><svg class="icon yes"><use href="#i-check"/></svg>고급 캘린더</li>
+              <li><svg class="icon yes"><use href="#i-check"/></svg>무제한 고객 관리</li>
+              <li><svg class="icon yes"><use href="#i-check"/></svg>알림톡 무제한</li>
+              <li><svg class="icon yes"><use href="#i-check"/></svg>고급 통계/분석</li>
+              <li><svg class="icon yes"><use href="#i-check"/></svg>직원 5명 관리</li>
+            </ul>
+            <button type="button" class="btn btn-line btn-block plan-cta">Business 시작하기</button>
+          </article>
+        </div>
+
+        <div class="sheet compare">
+          <div class="sheet-head"><h2>기능 비교표</h2></div>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="기능 비교표">
+            <table>
+              <thead>
+                <tr><th scope="col">기능</th><th scope="col">Free</th><th scope="col" class="hl">Pro</th><th scope="col">Business</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">예약 건수</th><td>30건/월</td><td class="hl">무제한</td><td>무제한</td></tr>
+                <tr><th scope="row">고객 관리</th><td>50명</td><td class="hl">500명</td><td>무제한</td></tr>
+                <tr><th scope="row">알림톡</th><td class="off">없음</td><td class="hl">200건/월</td><td>무제한</td></tr>
+                <tr><th scope="row">통계/분석</th><td class="off">없음</td><td class="hl">기본</td><td>고급</td></tr>
+                <tr><th scope="row">직원 관리</th><td class="off">없음</td><td class="hl off">없음</td><td>5명</td></tr>
+                <tr><th scope="row">커스텀 예약 페이지</th><td class="off">없음</td><td class="hl">제공</td><td>제공</td></tr>
+                <tr><th scope="row">API 연동</th><td class="off">없음</td><td class="hl off">없음</td><td>제공</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- New Reservation dialog -->
+  <dialog id="reservationModal" class="dialog" aria-labelledby="resDialogTitle">
+    <form id="reservationForm" method="dialog" novalidate>
+      <div class="dialog-head">
+        <h2 id="resDialogTitle">새 예약 추가</h2>
+        <button type="button" class="icon-btn" id="closeReservationModal" aria-label="닫기"><svg class="icon"><use href="#i-x"/></svg></button>
+      </div>
+      <div class="dialog-body">
+        <label class="field"><span class="field-label">고객명 *</span><input type="text" id="resCustomerName" placeholder="홍길동" autocomplete="off" required></label>
+        <p class="field-error" id="resCustomerNameError" hidden></p>
+        <label class="field"><span class="field-label">연락처 *</span><input type="tel" id="resCustomerPhone" inputmode="numeric" placeholder="010-1234-5678" autocomplete="off" required></label>
+        <p class="field-error" id="resCustomerPhoneError" hidden></p>
+        <div class="field-pair">
+          <label class="field"><span class="field-label">날짜 *</span><input type="date" id="resDate" required></label>
+          <label class="field"><span class="field-label">시간 *</span><input type="time" id="resTime" step="1800" required></label>
+        </div>
+        <p class="field-error" id="resDateTimeError" hidden></p>
+        <p class="hint warn" id="resConflict" hidden></p>
+        <label class="field"><span class="field-label">서비스 *</span>
+          <select id="resService" required>
+            <option value="">선택하세요</option>
+            <option value="커트">커트 (₩15,000)</option>
+            <option value="펌">펌 (₩50,000)</option>
+            <option value="염색">염색 (₩40,000)</option>
+            <option value="클리닉">클리닉 (₩30,000)</option>
+            <option value="드라이">드라이 (₩10,000)</option>
+          </select>
+        </label>
+        <p class="field-error" id="resServiceError" hidden></p>
+        <label class="field"><span class="field-label">상태</span>
+          <select id="resStatus">
+            <option value="confirmed">확정</option>
+            <option value="pending">대기</option>
+          </select>
+        </label>
+        <label class="field field-area"><span class="field-label">메모</span><textarea id="resMemo" rows="2" placeholder="특이사항 입력"></textarea></label>
+      </div>
+      <div class="dialog-foot">
+        <button type="submit" class="btn btn-ink btn-block btn-large" id="saveReservationBtn">예약 저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+    <span id="toastText"></span>
+    <button type="button" class="toast-action" id="toastAction" hidden>되돌리기</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

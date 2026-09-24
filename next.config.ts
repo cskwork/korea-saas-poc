@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { MODULE_SLUGS } from "./src/pocs/slugs";
+import { MODULE_SLUGS, isModuleOpen, legacyDemoPath, legacyFolder } from "./src/pocs/slugs";
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -29,15 +29,16 @@ const nextConfig: NextConfig = {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
   async redirects() {
-    // The POCs used to be static folders under /pocs/NN-<slug>/.
+    // The POCs used to be static folders under /pocs/NN-<slug>/. Shipped modules take over
+    // their old URLs; a module still being rebuilt keeps serving its static demo from public/pocs.
     return [
-      { source: "/pocs", destination: "/", permanent: true },
-      { source: "/pocs/index.html", destination: "/", permanent: true },
-      ...MODULE_SLUGS.map((slug, index) => ({
-        source: `/pocs/${String(index + 1).padStart(2, "0")}-${slug}/:path*`,
-        destination: `/${slug}`,
-        permanent: true,
-      })),
+      { source: "/pocs", destination: "/", permanent: false },
+      { source: "/pocs/index.html", destination: "/", permanent: false },
+      ...MODULE_SLUGS.map((slug) =>
+        isModuleOpen(slug)
+          ? { source: `/pocs/${legacyFolder(slug)}/:path*`, destination: `/${slug}`, permanent: true }
+          : { source: `/pocs/${legacyFolder(slug)}`, destination: legacyDemoPath(slug), permanent: false },
+      ),
     ];
   },
 };

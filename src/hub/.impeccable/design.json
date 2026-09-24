@@ -1,0 +1,430 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T11:48:34.113214+00:00",
+  "title": "Design System: 한국형 1인 SaaS 10선 (Hub)",
+  "extensions": {
+    "colorMeta": {
+      "enamel": {
+        "role": "primary",
+        "displayName": "Enamel Green",
+        "tonalRamp": [
+          "oklch(15% 0.08 168)",
+          "oklch(25% 0.08 168)",
+          "oklch(35% 0.08 168)",
+          "oklch(45% 0.08 168)",
+          "oklch(55% 0.08 168)",
+          "oklch(65% 0.08 168)",
+          "oklch(80% 0.08 168)",
+          "oklch(95% 0.08 168)"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Plan Ink",
+        "tonalRamp": [
+          "oklch(15% 0.026 251)",
+          "oklch(25% 0.026 251)",
+          "oklch(35% 0.026 251)",
+          "oklch(45% 0.026 251)",
+          "oklch(55% 0.026 251)",
+          "oklch(65% 0.026 251)",
+          "oklch(80% 0.026 251)",
+          "oklch(95% 0.026 251)"
+        ]
+      },
+      "safety": {
+        "role": "secondary",
+        "displayName": "Safety Amber",
+        "tonalRamp": [
+          "oklch(15% 0.157 81)",
+          "oklch(25% 0.157 81)",
+          "oklch(35% 0.157 81)",
+          "oklch(45% 0.157 81)",
+          "oklch(55% 0.157 81)",
+          "oklch(65% 0.157 81)",
+          "oklch(80% 0.157 81)",
+          "oklch(95% 0.157 81)"
+        ]
+      },
+      "you-are-here": {
+        "role": "secondary",
+        "displayName": "You-Are-Here Red",
+        "tonalRamp": [
+          "oklch(15% 0.167 28)",
+          "oklch(25% 0.167 28)",
+          "oklch(35% 0.167 28)",
+          "oklch(45% 0.167 28)",
+          "oklch(55% 0.167 28)",
+          "oklch(65% 0.167 28)",
+          "oklch(80% 0.167 28)",
+          "oklch(95% 0.167 28)"
+        ]
+      },
+      "concrete": {
+        "role": "neutral",
+        "displayName": "Concrete",
+        "tonalRamp": [
+          "oklch(15% 0.008 152)",
+          "oklch(25% 0.008 152)",
+          "oklch(35% 0.008 152)",
+          "oklch(45% 0.008 152)",
+          "oklch(55% 0.008 152)",
+          "oklch(65% 0.008 152)",
+          "oklch(80% 0.008 152)",
+          "oklch(95% 0.008 152)"
+        ]
+      },
+      "concrete-deep": {
+        "role": "neutral",
+        "displayName": "Deep Concrete",
+        "tonalRamp": [
+          "oklch(15% 0.01 155)",
+          "oklch(25% 0.01 155)",
+          "oklch(35% 0.01 155)",
+          "oklch(45% 0.01 155)",
+          "oklch(55% 0.01 155)",
+          "oklch(65% 0.01 155)",
+          "oklch(80% 0.01 155)",
+          "oklch(95% 0.01 155)"
+        ]
+      },
+      "plaster": {
+        "role": "neutral",
+        "displayName": "Plaster",
+        "tonalRamp": [
+          "oklch(15% 0.004 135)",
+          "oklch(25% 0.004 135)",
+          "oklch(35% 0.004 135)",
+          "oklch(45% 0.004 135)",
+          "oklch(55% 0.004 135)",
+          "oklch(65% 0.004 135)",
+          "oklch(80% 0.004 135)",
+          "oklch(95% 0.004 135)"
+        ]
+      },
+      "window": {
+        "role": "neutral",
+        "displayName": "Window White",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(25% 0 0)",
+          "oklch(35% 0 0)",
+          "oklch(45% 0 0)",
+          "oklch(55% 0 0)",
+          "oklch(65% 0 0)",
+          "oklch(80% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "enamel-ink": {
+        "role": "neutral",
+        "displayName": "Enamel Lettering",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(25% 0 0)",
+          "oklch(35% 0 0)",
+          "oklch(45% 0 0)",
+          "oklch(55% 0 0)",
+          "oklch(65% 0 0)",
+          "oklch(80% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink 2",
+        "tonalRamp": [
+          "oklch(15% 0.026 249)",
+          "oklch(25% 0.026 249)",
+          "oklch(35% 0.026 249)",
+          "oklch(45% 0.026 249)",
+          "oklch(55% 0.026 249)",
+          "oklch(65% 0.026 249)",
+          "oklch(80% 0.026 249)",
+          "oklch(95% 0.026 249)"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink 3",
+        "tonalRamp": [
+          "oklch(15% 0.024 251)",
+          "oklch(25% 0.024 251)",
+          "oklch(35% 0.024 251)",
+          "oklch(45% 0.024 251)",
+          "oklch(55% 0.024 251)",
+          "oklch(65% 0.024 251)",
+          "oklch(80% 0.024 251)",
+          "oklch(95% 0.024 251)"
+        ]
+      },
+      "shutter-steel": {
+        "role": "neutral",
+        "displayName": "Shutter Steel",
+        "tonalRamp": [
+          "oklch(15% 0.011 159)",
+          "oklch(25% 0.011 159)",
+          "oklch(35% 0.011 159)",
+          "oklch(45% 0.011 159)",
+          "oklch(55% 0.011 159)",
+          "oklch(65% 0.011 159)",
+          "oklch(80% 0.011 159)",
+          "oklch(95% 0.011 159)"
+        ]
+      },
+      "shutter-seam": {
+        "role": "neutral",
+        "displayName": "Slat Seam",
+        "tonalRamp": [
+          "oklch(15% 0.014 165)",
+          "oklch(25% 0.014 165)",
+          "oklch(35% 0.014 165)",
+          "oklch(45% 0.014 165)",
+          "oklch(55% 0.014 165)",
+          "oklch(65% 0.014 165)",
+          "oklch(80% 0.014 165)",
+          "oklch(95% 0.014 165)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Entrance board title only (Do Hyeon)."
+      },
+      "sign": {
+        "displayName": "Sign",
+        "purpose": "Shop names on sign boards, vacant units, and the 404 sign (Do Hyeon)."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "The promise line on the entrance board."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Notice plaque heading bar and item heads."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Notice plaque text, max 62ch."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Description behind each shop window; 0.875rem below 1100px."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Sign trade line, aisle label, marker, directory, title block (600 to 800)."
+      },
+      "plate": {
+        "displayName": "Plate",
+        "purpose": "Unit number plates."
+      }
+    },
+    "shadows": [
+      {
+        "name": "enamel-keyline",
+        "value": "inset 0 0 0 6px #0d5a44, inset 0 0 0 8px rgb(255 255 255 / 0.85)",
+        "purpose": "White keyline inset from the entrance board's edge."
+      },
+      {
+        "name": "party-wall",
+        "value": "0 0 0 1px #16202b",
+        "purpose": "Each stall draws 1px so neighbours share a 2px wall."
+      },
+      {
+        "name": "marker-ring",
+        "value": "0 0 0 3px #cbd2cd, 0 0 0 5px #a8261f",
+        "purpose": "Ring around the you-are-here dot; gap colour follows its ground (#dde2de below 1100px)."
+      },
+      {
+        "name": "storefront-lift",
+        "value": "0 14px 24px -14px rgb(22 32 43 / 0.55)",
+        "purpose": "Hovered stall only, with translateY(-3px); fine hovering pointers only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Shutter opening, storefront lift, arrow nudge."
+      },
+      {
+        "name": "open-shop",
+        "value": "760ms translateY(0) -> translateY(-100%), delay 160ms + 55ms x stall index",
+        "purpose": "Signature on-load opening; resting state is open, so reduced motion (animation: none) starts open."
+      },
+      {
+        "name": "storefront-hover",
+        "value": "320ms lift 3px + arrow translateX(4px)",
+        "purpose": "Hover on a stall under (hover: hover) and (pointer: fine)."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "one-column",
+        "value": "max-width: 719px"
+      },
+      {
+        "name": "aisle-rail",
+        "value": "max-width: 1099px"
+      },
+      {
+        "name": "arcade",
+        "value": "min-width: 1100px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Stall",
+      "kind": "card",
+      "refersTo": "stall-sign",
+      "description": "One shop: accent-painted sign with contrast-picked lettering, unit plate, tagline and shop window; the whole stall is one link that lifts on hover.",
+      "html": "<a class=\"ds-stall\" href=\"#\"><span class=\"ds-stall-sign\"><span class=\"ds-stall-name\">링크잇</span><span class=\"ds-stall-trade\">제휴 마케팅<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span><span class=\"ds-stall-plate\">가-05</span></span><span class=\"ds-stall-front\"><span class=\"ds-stall-tagline\">제휴 링크와 콘텐츠 수익을 한곳에서 추적</span><span class=\"ds-stall-window\">쿠팡 파트너스 등 제휴 링크를 만들고, 콘텐츠별 클릭과 전환, 수수료 수익을 추적하는 제휴 마케터용 도구입니다.</span></span></a>",
+      "css": ".ds-stall{display:flex;flex-direction:column;width:260px;background:#f2f4f1;color:#16202b;text-decoration:none;box-shadow:0 0 0 1px #16202b;font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;transition:transform 320ms cubic-bezier(0.16,1,0.3,1),box-shadow 320ms cubic-bezier(0.16,1,0.3,1)}.ds-stall:hover{transform:translateY(-3px);box-shadow:0 0 0 1px #16202b,0 14px 24px -14px rgb(22 32 43 / 0.55)}.ds-stall:focus-visible{outline:3px solid #e3a400;outline-offset:3px}.ds-stall-sign{position:relative;display:flex;flex-direction:column;gap:6px;padding:14px 16px 12px;background:#7b5cff;color:#ffffff;border-bottom:2px solid #16202b}.ds-stall-name{padding-right:46px;font-family:'Do Hyeon','Pretendard Variable',sans-serif;font-size:1.8rem;line-height:1.05}.ds-stall-trade{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:0.8125rem;font-weight:700}.ds-stall-trade svg{transition:transform 320ms cubic-bezier(0.16,1,0.3,1)}.ds-stall:hover .ds-stall-trade svg{transform:translateX(4px)}.ds-stall-plate{position:absolute;top:10px;right:10px;padding:1px 6px;background:#16202b;color:#f2f4f1;font-size:0.6875rem;font-weight:700;letter-spacing:0.04em;font-variant-numeric:tabular-nums}.ds-stall-front{display:flex;flex-direction:column;gap:8px;padding:10px 12px 12px}.ds-stall-tagline{font-size:0.9375rem;font-weight:700;line-height:1.45}.ds-stall-window{position:relative;padding:22px 10px 10px;border:1.5px solid #16202b;background:#ffffff;font-size:0.8125rem;line-height:1.6;color:#34404c}.ds-stall-window::before{content:'';position:absolute;inset:0 0 auto;height:12px;background:#34404c}"
+    },
+    {
+      "name": "Roll Shutter",
+      "kind": "custom",
+      "refersTo": "roll-shutter",
+      "description": "The opening: steel slats roll up into the window's housing on load (staggered 55ms per stall in the arcade); hover here drops it again for preview.",
+      "html": "<span class=\"ds-shutter-window\">미용실·네일샵·병원·카페가 예약을 받고 확정하고, 알림톡과 고객 기록까지 한 번에 관리합니다.<span class=\"ds-shutter\" aria-hidden=\"true\"></span></span>",
+      "css": ".ds-shutter-window{position:relative;width:240px;height:110px;padding:22px 10px 10px;border:1.5px solid #16202b;background:#ffffff;overflow:hidden;font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;font-size:0.8125rem;line-height:1.6;color:#34404c}.ds-shutter-window::before{content:'';position:absolute;inset:0 0 auto;height:12px;background:#34404c;z-index:2}.ds-shutter{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,#34404c 0 7px,transparent 7px),repeating-linear-gradient(to bottom,#aeb6b1 0 9px,#8f9994 9px 11px);transform:translateY(-100%);animation:ds-open-shop 760ms cubic-bezier(0.16,1,0.3,1) both;animation-delay:160ms}.ds-shutter-window:hover .ds-shutter{animation:none;transform:translateY(0)}@keyframes ds-open-shop{from{transform:translateY(0)}to{transform:translateY(-100%)}}@media (prefers-reduced-motion:reduce){.ds-shutter{animation:none}}"
+    },
+    {
+      "name": "Vacant Unit",
+      "kind": "card",
+      "refersTo": "vacant-unit",
+      "description": "An empty unit that keeps the plan whole: concrete floor, dashed sign edge, Ink 3 plate.",
+      "html": "<a class=\"ds-vacant\" href=\"#\"><span class=\"ds-vacant-sign\"><span class=\"ds-vacant-plate\">나-11</span><span class=\"ds-vacant-name\">빈 점포</span><span class=\"ds-vacant-trade\">입점 준비 중</span></span><span class=\"ds-vacant-front\"><span class=\"ds-vacant-tagline\">새 가게가 들어올 자리</span><span class=\"ds-vacant-note\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg>입점 안내</span></span></a>",
+      "css": ".ds-vacant{display:flex;flex-direction:column;width:200px;min-height:220px;background:#dde2de;color:#4f5a66;text-decoration:none;box-shadow:0 0 0 1px #16202b;font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;transition:transform 320ms cubic-bezier(0.16,1,0.3,1),box-shadow 320ms cubic-bezier(0.16,1,0.3,1)}.ds-vacant:hover{transform:translateY(-3px);box-shadow:0 0 0 1px #16202b,0 14px 24px -14px rgb(22 32 43 / 0.55)}.ds-vacant:focus-visible{outline:3px solid #e3a400;outline-offset:3px}.ds-vacant-sign{display:flex;flex-direction:column;gap:6px;padding:14px 16px 12px;border-bottom:2px dashed #16202b}.ds-vacant-plate{align-self:flex-start;padding:1px 6px;background:#4f5a66;color:#f2f4f1;font-size:0.6875rem;font-weight:700;letter-spacing:0.04em}.ds-vacant-name{font-family:'Do Hyeon','Pretendard Variable',sans-serif;font-size:1.8rem;line-height:1.05}.ds-vacant-trade{font-size:0.8125rem;font-weight:700}.ds-vacant-front{display:flex;flex:1;flex-direction:column;gap:8px;padding:10px 12px 12px;color:#16202b}.ds-vacant-tagline{font-size:0.9375rem;font-weight:700;line-height:1.45}.ds-vacant-note{display:inline-flex;align-items:flex-start;gap:6px;margin-top:auto;font-size:0.875rem;font-weight:800;text-decoration:underline;text-underline-offset:4px}.ds-vacant-note svg{flex:none;margin-top:2px}"
+    },
+    {
+      "name": "Entrance Board",
+      "kind": "custom",
+      "refersTo": "entrance-board",
+      "description": "Enamel sign with an inset white keyline; Do Hyeon title and one promise line.",
+      "html": "<header class=\"ds-board\"><h1 class=\"ds-board-title\">한국형 1인 SaaS 10선</h1><p class=\"ds-board-promise\">AI 시대에 혼자 운영할 수 있는 열 가지 사업을, 실제로 돌아가는 가게로 차렸습니다. 간판을 눌러 들어가 직접 써 보세요.</p></header>",
+      "css": ".ds-board{max-width:640px;padding:32px 40px;background:#0d5a44;color:#ffffff;box-shadow:inset 0 0 0 6px #0d5a44,inset 0 0 0 8px rgb(255 255 255 / 0.85);font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif}.ds-board-title{margin:0;font-family:'Do Hyeon','Pretendard Variable',sans-serif;font-weight:400;font-size:clamp(2.25rem,1.1rem + 3.4vw,4.25rem);line-height:1.02;letter-spacing:-0.01em;text-wrap:balance}.ds-board-promise{margin:12px 0 0;max-width:44ch;font-size:1.0625rem;line-height:1.6;color:rgb(255 255 255 / 0.92)}.ds-board ::selection{background:#0d5a44;color:#ffffff}"
+    },
+    {
+      "name": "Directory",
+      "kind": "nav",
+      "refersTo": "directory-link",
+      "description": "Store directory on the enamel board: lamp, open-shop count, and plate-numbered links.",
+      "html": "<nav class=\"ds-directory\"><p class=\"ds-directory-title\"><span class=\"ds-directory-lamp\"></span>점포 안내 · 10개 가게 영업 중</p><ol class=\"ds-directory-list\"><li><a href=\"#\"><span>가-01</span>AI 콘텐츠 대행</a></li><li><a href=\"#\"><span>가-02</span>스마트셀러</a></li><li><a href=\"#\"><span>가-03</span>예약잇다</a></li><li><a href=\"#\"><span>나-06</span>AutoMate Pro</a></li><li><a href=\"#\"><span>나-07</span>레터하우스</a></li><li><a href=\"#\"><span>나-08</span>크리에이트잇</a></li></ol></nav>",
+      "css": ".ds-directory{width:360px;padding:12px 16px 10px;border:1.5px solid rgb(255 255 255 / 0.7);background:#0d5a44;color:#ffffff;font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif}.ds-directory-title{display:flex;align-items:center;margin:0;font-size:0.875rem;font-weight:700}.ds-directory-lamp{flex:none;margin-right:10px;width:9px;height:9px;border-radius:50%;background:#e3a400}.ds-directory-list{columns:2;column-gap:24px;margin:8px 0 0;padding:8px 0 0;border-top:1px solid rgb(255 255 255 / 0.45);list-style:none;font-size:0.8125rem;font-weight:600;font-variant-numeric:tabular-nums}.ds-directory-list a{display:flex;gap:10px;padding:2px 0;color:inherit;text-decoration:none}.ds-directory-list a:hover{text-decoration:underline;text-underline-offset:3px}.ds-directory-list a:focus-visible{outline:3px solid #e3a400;outline-offset:3px}.ds-directory-list span{color:rgb(255 255 255 / 0.75)}"
+    },
+    {
+      "name": "Aisle and You-Are-Here",
+      "kind": "custom",
+      "refersTo": "aisle",
+      "description": "Desktop aisle: dashed Safety Amber centre line, knocked-out label, and the red position marker.",
+      "html": "<div class=\"ds-aisle\" aria-hidden=\"true\"><span class=\"ds-here\"><span class=\"ds-here-dot\"></span>현재 위치 · 입구</span><span class=\"ds-aisle-label\">중앙 통로</span></div>",
+      "css": ".ds-aisle{position:relative;display:flex;align-items:center;justify-content:center;width:560px;height:52px;background:#cbd2cd;font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif}.ds-aisle::before{content:'';position:absolute;inset-inline:0;top:50%;border-top:3px dashed #e3a400}.ds-aisle-label{position:relative;padding:2px 12px;background:#cbd2cd;font-size:0.8125rem;font-weight:700;letter-spacing:0.02em;color:#34404c}.ds-here{position:absolute;left:14px;display:inline-flex;align-items:center;gap:8px;padding:2px 8px 2px 2px;background:#cbd2cd;font-size:0.8125rem;font-weight:700;color:#a8261f}.ds-here-dot{flex:none;width:14px;height:14px;border-radius:50%;background:#a8261f;box-shadow:0 0 0 3px #cbd2cd,0 0 0 5px #a8261f}"
+    },
+    {
+      "name": "Unit Plate",
+      "kind": "chip",
+      "refersTo": "unit-plate",
+      "description": "가/나 row plus two-digit unit number; Ink 3 for vacancies.",
+      "html": "<span class=\"ds-plates\"><span class=\"ds-plate\">가-01</span><span class=\"ds-plate\">나-06</span><span class=\"ds-plate ds-plate-vacant\">나-11</span></span>",
+      "css": ".ds-plates{display:flex;gap:8px;font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif}.ds-plate{padding:1px 6px;background:#16202b;color:#f2f4f1;font-size:0.6875rem;font-weight:700;letter-spacing:0.04em;font-variant-numeric:tabular-nums}.ds-plate-vacant{background:#4f5a66}"
+    },
+    {
+      "name": "Notice Plaque",
+      "kind": "card",
+      "refersTo": "notice-plaque",
+      "description": "Plaster plaque framed in 2px ink with an ink heading bar and ruled definition list.",
+      "html": "<section class=\"ds-notice\"><h2 class=\"ds-notice-title\">이용 안내</h2><dl class=\"ds-notice-list\"><div><dt>가게마다 열쇠가 따로 있습니다</dt><dd>처음 들어가는 순간 방문자 전용 데모 데이터가 차려집니다. 내가 바꾼 내용은 다른 방문자의 가게와 섞이지 않습니다.</dd></div><div><dt>마음껏 바꿔 보세요</dt><dd>가게마다 샘플 데이터를 처음 상태로 되돌리는 초기화 기능이 있습니다.</dd></div></dl></section>",
+      "css": ".ds-notice{max-width:560px;border:2px solid #16202b;background:#f2f4f1;color:#16202b;font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif}.ds-notice-title{margin:0;padding:10px 20px;background:#16202b;color:#f2f4f1;font-size:1rem;font-weight:800}.ds-notice-list{margin:0;padding:4px 20px}.ds-notice-list > div{padding:16px 0}.ds-notice-list > div + div{border-top:1px solid #4f5a66}.ds-notice-list dt{font-size:1rem;font-weight:800}.ds-notice-list dd{margin:6px 0 0;max-width:62ch;font-size:0.9375rem;line-height:1.65;color:#34404c}"
+    },
+    {
+      "name": "Enamel Button",
+      "kind": "button",
+      "refersTo": "button-enamel",
+      "description": "The only button-like control (404 page): square enamel block back to the map.",
+      "html": "<a class=\"ds-btn-enamel\" href=\"#\">안내도로 돌아가기</a>",
+      "css": ".ds-btn-enamel{display:inline-block;padding:12px 18px;border:0;border-radius:0;background:#0d5a44;color:#ffffff;font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;font-weight:800;text-decoration:none}.ds-btn-enamel:hover{text-decoration:underline;text-underline-offset:4px}.ds-btn-enamel:focus-visible{outline:3px solid #e3a400;outline-offset:3px}"
+    },
+    {
+      "name": "Title Block",
+      "kind": "custom",
+      "description": "Surveyor's title block under the plan: floor, counts, sample-data notice.",
+      "html": "<p class=\"ds-titleblock\"><span>1층 안내도</span><span>가게 10 · 빈 점포 1</span><span>매출·고객·주문 수치는 모두 샘플</span></p>",
+      "css": ".ds-titleblock{display:flex;flex-wrap:wrap;margin:0;font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;font-size:0.75rem;font-weight:600;color:#4f5a66;font-variant-numeric:tabular-nums}.ds-titleblock span{padding:4px 10px;border:1px solid #4f5a66}.ds-titleblock span + span{border-left:0}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Arcade Guide Map",
+    "overview": "The hub is drawn as the printed guide map (시장 안내도) posted at the entrance of a covered Korean market arcade: cool concrete ground, blue-black plan ink for walls, an enamel-green entrance board with a white keyline, and shops whose sign boards are painted in each product's own colour. Every unit carries a small number plate (가-01, 나-06), and a surveyor's title block sits under the plan. The hub owns the building; each product owns only its sign.\n\nIt is a plan, not a card grid. On wide screens two rows of shops face each other across a central aisle with their signs against it, and a vacant end-cap unit closes the aisle; below 1100px the aisle turns and runs down the left edge. Leftover cells are drawn as vacant units (빈 점포 · 입점 준비 중), so the plan is always whole and the next product has somewhere to move in. Density is moderate: each stall shows name, trade, tagline, and a short description behind its window.\n\nThe one authored moment is the opening: on load each window's roll shutter rolls up into its housing, staggered down the arcade, so the page opens for business. After that the only motion is a hovered storefront lifting and its arrow stepping forward. Reduced motion starts with every shop already open. The hub is light only.",
+    "keyCharacteristics": [
+      "Square corners; ink wall lines at fixed weights (1px shared walls, 2px sign edge, 1.5px window frame).",
+      "Colour on the plan belongs to the shops: sign boards painted in each module's accent, lettered White or Ink by contrast.",
+      "Do Hyeon on signs only; Pretendard Variable for everything read.",
+      "Dashed ink marks a vacancy; the dashed amber line is the aisle.",
+      "Flat at rest; one lift on hover; one staggered shutter opening on load."
+    ],
+    "rules": [
+      {
+        "name": "The Paint Belongs To The Shop Rule",
+        "body": "Module accents appear only on their own sign board. Walls, aisle, text, plates, and buttons stay in the hub palette, and the hub never repaints a sign in a hub colour.",
+        "section": "colors"
+      },
+      {
+        "name": "The Lettering By Contrast Rule",
+        "body": "Sign lettering is White or Plan Ink, picked by `signLettering()`, never hand-chosen per shop. The pick must still clear 4.5:1 for the 13px trade line; the better of two is not a pass by itself.",
+        "section": "colors"
+      },
+      {
+        "name": "The Signals Stay Small Rule",
+        "body": "Safety Amber and You-Are-Here Red mark the path and the visitor. They never fill a surface.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sign Face Stays On Signs Rule",
+        "body": "Do Hyeon sets only painted signs: the entrance board title, stall and vacant-unit names, and the 404 sign. Promise, taglines, descriptions, notices, labels, and plates are Pretendard.",
+        "section": "typography"
+      },
+      {
+        "name": "The Weight Not Size Rule",
+        "body": "Reading text stays between 0.6875rem and 1.125rem and ranks by weight (700 to 800 for heads, taglines, and labels). Only signs go large.",
+        "section": "typography"
+      },
+      {
+        "name": "The Plan Never Has A Hole Rule",
+        "body": "Every grid cell is a unit. Leftover lower-row cells and the aisle's end are drawn as vacant units, so a new module fills a vacancy instead of breaking the plan.",
+        "section": "layout"
+      },
+      {
+        "name": "The Signs Face The Aisle Rule",
+        "body": "Wherever two rows of shops exist, both rows' sign boards border the aisle.",
+        "section": "layout"
+      },
+      {
+        "name": "The Printed Plan Rule",
+        "body": "Nothing at rest lifts off the plan. Shadows draw walls, keylines, and rings; the one cast shadow belongs to a hovered storefront.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do paint each sign board in its module's `accent` and letter it through `signLettering()`, White (#ffffff) or Plan Ink (#16202b).",
+      "Do confirm the picked lettering reaches 4.5:1 on the accent for the 13px trade line.",
+      "Do draw walls in Plan Ink at the fixed weights: 1px shared walls and frame, 2px sign edge, 1.5px window frame.",
+      "Do give every unit a plate (가/나 plus two digits), numbering on through vacancies.",
+      "Do fill leftover cells and the aisle's end with vacant units.",
+      "Do keep the shutter on the window only, staggered 55ms per stall, resting in the open position so reduced motion starts open.",
+      "Do use tabular numerals, and draw icons as inline Lucide SVG at 16px with a 2.25 to 2.5 stroke."
+    ],
+    "donts": [
+      "Don't round corners; circles are only the directory lamp and the you-are-here dot.",
+      "Don't cast shadows at rest; the only cast shadow is the hovered storefront's lift.",
+      "Don't use gradient fills on surfaces; gradients only draw the shutter's slats and rail.",
+      "Don't use a module accent anywhere but its own sign board, or a hub colour on a sign board.",
+      "Don't set Do Hyeon outside sign boards.",
+      "Don't set text in Safety Amber or use it as a fill; it measures 1.4 to 1.7:1 on concrete.",
+      "Don't leave an empty grid cell or an empty-state block where a vacant unit belongs."
+    ]
+  }
+}

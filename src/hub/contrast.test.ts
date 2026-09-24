@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { contrastRatio, signLettering } from "./contrast";
+import { contrastRatio, signLettering, signPaint } from "./contrast";
 
 describe("sign lettering", () => {
   it("computes WCAG contrast", () => {
@@ -18,6 +18,19 @@ describe("sign lettering", () => {
       const chosen = signLettering(paint);
       const other = chosen === "#ffffff" ? "#16202b" : "#ffffff";
       expect(contrastRatio(paint, chosen)).toBeGreaterThanOrEqual(contrastRatio(paint, other));
+    }
+  });
+});
+
+describe("sign paint", () => {
+  it("keeps a colour that already reads", () => {
+    expect(signPaint("#0d5a44")).toEqual({ paint: "#0d5a44", ink: "#ffffff" });
+  });
+
+  it("adjusts borderline colours until small lettering reaches 4.5:1", () => {
+    for (const accent of ["#7b5cff", "#e0457b", "#1098ad", "#fa5252", "#03c75a", "#e0ef3c"]) {
+      const { paint, ink } = signPaint(accent);
+      expect(contrastRatio(paint, ink)).toBeGreaterThanOrEqual(4.5);
     }
   });
 });
