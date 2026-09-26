@@ -1,7 +1,8 @@
 "use client";
 
-import { PencilLine, RefreshCw } from "lucide-react";
-import { useState, useTransition, type FormEvent } from "react";
+import { Lock, PencilLine, RefreshCw } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useRef, useState, useTransition, type FormEvent } from "react";
 import type { ActionState } from "@/core/actions";
 import { formatNumber } from "@/core/format";
 import type { DraftSource } from "../../db/schema";
@@ -13,6 +14,7 @@ import { CopyButton } from "../ui/CopyButton";
 import { Field, Segmented, describedBy } from "../ui/Field";
 import { Notice } from "../ui/Notice";
 import { PendingLabel } from "../ui/PendingLabel";
+import { focusFirstInvalid } from "../ui/useActionForm";
 import ui from "../ui/ui.module.css";
 import { DraftBody } from "./DraftBody";
 import styles from "./drafts.module.css";
@@ -37,8 +39,13 @@ export interface WorkbenchDraft {
 function useSubmit<T>(action: (prev: ActionState<T>, formData: FormData) => Promise<ActionState<T>>, onSuccess: (state: Success<T>) => void) {
   const [state, setState] = useState<ActionState<T>>({ status: "idle" });
   const [pending, startTransition] = useTransition();
+  const formRef = useRef<HTMLFormElement | null>(null);
+  useEffect(() => {
+    if (state.status === "error") focusFirstInvalid(formRef.current);
+  }, [state]);
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    formRef.current = event.currentTarget;
     const formData = new FormData(event.currentTarget);
     startTransition(async () => {
       const next = await action({ status: "idle" }, formData);
@@ -54,7 +61,18 @@ function useSubmit<T>(action: (prev: ActionState<T>, formData: FormData) => Prom
  * The draft as a proof and its copy, with the two ways to change it: edit by hand, or
  * have it rewritten. Each save is a new version; a rewrite unrolls the new proof.
  */
-export function DraftWorkbench({ draft, fresh, meta }: { draft: WorkbenchDraft; fresh: boolean; meta: React.ReactNode }) {
+export function DraftWorkbench({
+  draft,
+  fresh,
+  meta,
+  deliveredIn,
+}: {
+  draft: WorkbenchDraft;
+  fresh: boolean;
+  meta: React.ReactNode;
+  /** The delivered order this draft was handed over in; the copy is locked while it stands. */
+  deliveredIn?: { id: string; code: string } | null;
+}) {
   const [mode, setMode] = useState<Mode>("view");
   const [unfurlVersion, setUnfurlVersion] = useState<number | null>(fresh ? draft.version : null);
   const [message, setMessage] = useState<{ tone: "success" | "info"; text: string } | null>(null);
@@ -88,18 +106,31 @@ export function DraftWorkbench({ draft, fresh, meta }: { draft: WorkbenchDraft; 
       {meta}
       <div className={styles.toolbar} role="toolbar" aria-label="원고 도구">
         <CopyButton text={composeCopy(draft.title, draft.body)} label="제목과 본문 복사" variant="primary" />
-        <button type="button" className={buttonClass("secondary")} aria-pressed={mode === "edit"} onClick={() => toggle("edit")}>
-          <PencilLine size={16} aria-hidden="true" />
-          고치기
-        </button>
-        <button type="button" className={buttonClass("secondary")} aria-pressed={mode === "rewrite"} onClick={() => toggle("rewrite")}>
-          <RefreshCw size={16} aria-hidden="true" />
-          다시 쓰기
-        </button>
+        {deliveredIn ? null : (
+          <>
+            <button type="button" className={buttonClass("secondary")} aria-pressed={mode === "edit"} onClick={() => toggle("edit")}>
+              <PencilLine size={16} aria-hidden="true" />
+              고치기
+            </button>
+            <button type="button" className={buttonClass("secondary")} aria-pressed={mode === "rewrite"} onClick={() => toggle("rewrite")}>
+              <RefreshCw size={16} aria-hidden="true" />
+              다시 쓰기
+            </button>
+          </>
+        )}
       </div>
+      {deliveredIn ? (
+        <p className={styles.lockNote}>
+          <Lock size={16} aria-hidden="true" />
+          <span>
+            {deliveredIn.code} 의뢰로 납품한 원고예요. 고객이 받은 그대로 남도록 잠가 뒀어요. 고치려면{" "}
+            <Link href={`/ai-content-agency/orders/${deliveredIn.id}`}>의뢰에서 검수로 되돌려</Link> 주세요.
+          </span>
+        </p>
+      ) : null}
       <div aria-live="polite">{message ? <Notice tone={message.tone}>{message.text}</Notice> : null}</div>
 
-      {mode === "edit" ? (
+      {mode === "edit" && !deliveredIn ? (
         <form className={styles.editor} onSubmit={edit.onSubmit} noValidate aria-label="원고 고치기">
           <input type="hidden" name="draftId" value={draft.id} />
           <Field id="edit-title" label="제목" error={edit.errorFor("title")}>
@@ -138,7 +169,7 @@ export function DraftWorkbench({ draft, fresh, meta }: { draft: WorkbenchDraft; 
         </form>
       ) : null}
 
-      {mode === "rewrite" ? (
+      {mode === "rewrite" && !deliveredIn ? (
         <form className={styles.editor} onSubmit={rewrite.onSubmit} noValidate aria-label="다시 쓰기 조건">
           <input type="hidden" name="draftId" value={draft.id} />
           <Segmented name="tone" legend="말투" options={TONES} defaultValue={draft.tone} renderOption={(t) => TONE_LABEL[t]} />
@@ -147,7 +178,7 @@ export function DraftWorkbench({ draft, fresh, meta }: { draft: WorkbenchDraft; 
             legend="분량"
             options={LENGTHS}
             defaultValue={draft.length}
-            renderOption={(l) => `${LENGTH_LABEL[l]} ${formatNumber(LENGTH_TARGET[draft.kind][l])}자`}
+            renderOption={(l) => `${LENGTH_LABEL[l]} · ${formatNumber(LENGTH_TARGET[draft.kind][l])}자`}
           />
           <Field id="rewrite-keywords" label="키워드" optional error={rewrite.errorFor("keywords")}>
             <input id="rewrite-keywords" name="keywords" className={ui.input} defaultValue={draft.keywords.join(", ")} />

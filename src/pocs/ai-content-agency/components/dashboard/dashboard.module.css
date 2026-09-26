@@ -31,8 +31,9 @@
   padding: 0 0.12em;
 }
 
-.headlineText .late {
-  color: var(--red-ink);
+.headlineText mark[data-tone="late"] {
+  background: linear-gradient(transparent 12%, var(--red-ink) 12%, var(--red-ink) 88%, transparent 88%);
+  color: #fff;
 }
 
 .subline {
@@ -347,6 +348,10 @@ a.rowLabel:hover .rowTopic {
 }
 
 .sectionHead a {
+  /* A taller hit area without moving the rule under the heading. */
+  display: inline-block;
+  padding: 11px 0;
+  margin: -11px 0;
   font-size: 14px;
   font-weight: 600;
   color: var(--cobalt);
@@ -590,6 +595,6 @@ a.rowLabel:hover .rowTopic {
   }
 
   .day b {
-    font-size: 10px;
+    font-size: 11px;
   }
 }

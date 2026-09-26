@@ -1,14 +1,16 @@
 import Link from "next/link";
-import { bannerFace } from "../../fonts";
 import { Grommets } from "./Grommets";
-import { MastheadNav } from "./MastheadNav";
+import { MastheadCta, MastheadNav } from "./MastheadNav";
 import { ResetDemo } from "./ResetDemo";
 import styles from "./shell.module.css";
 
-/** The module frame: cobalt masthead banner, the page, and the sample-data footer. */
-export function ModuleShell({ aiMode, children }: { aiMode: "claude" | "template"; children: React.ReactNode }) {
+/** The operator's frame: cobalt masthead banner, the page, and the sample-data footer. */
+export function ConsoleShell({ aiMode, children }: { aiMode: "claude" | "template"; children: React.ReactNode }) {
   return (
-    <div className={`${styles.root} ${bannerFace.variable}`}>
+    <>
+      <a href="#main" className={styles.skipLink}>
+        본문으로 건너뛰기
+      </a>
       <header className={styles.masthead}>
         <Grommets />
         <div className={styles.mastheadInner}>
@@ -20,13 +22,11 @@ export function ModuleShell({ aiMode, children }: { aiMode: "claude" | "template
             <span className={styles.sampleTag} title="고객·의뢰·사례는 모두 예시 데이터예요">
               샘플<span className={styles.sampleLong}>작업실</span>
             </span>
-            <Link href="/ai-content-agency/orders/new" className={styles.cta}>
-              의뢰서 쓰기
-            </Link>
+            <MastheadCta />
           </div>
         </div>
       </header>
-      <main className={styles.main} id="main">
+      <main className={styles.main} id="main" tabIndex={-1}>
         {children}
       </main>
       <footer className={styles.footer}>
@@ -44,6 +44,6 @@ export function ModuleShell({ aiMode, children }: { aiMode: "claude" | "template
           </a>
         </div>
       </footer>
-    </div>
+    </>
   );
 }

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { FilePlus2 } from "lucide-react";
-import Link from "next/link";
 import { Board } from "@/pocs/ai-content-agency/components/orders/Board";
 import { BoardFilters } from "@/pocs/ai-content-agency/components/orders/BoardFilters";
-import { buttonClass } from "@/pocs/ai-content-agency/components/ui/buttons";
 import { PageHeader } from "@/pocs/ai-content-agency/components/ui/PageHeader";
 import { getOrderBoard, parseKind, parseQuery } from "@/pocs/ai-content-agency/server/queries";
 
@@ -23,16 +20,10 @@ export default async function OrdersPage({ searchParams }: { searchParams: Searc
     <>
       <PageHeader
         title="의뢰 게시대"
-        lead="의뢰는 단계마다 한 줄씩 걸려요. 마감일이 가까운 순서로 왼쪽부터, 버튼 하나로 다음 단계로 옮겨요."
-        actions={
-          <Link href="/ai-content-agency/orders/new" className={buttonClass("primary")}>
-            <FilePlus2 size={18} aria-hidden="true" />
-            의뢰서 쓰기
-          </Link>
-        }
+        lead="의뢰는 단계마다 한 줄씩 걸려요. 마감일이 가까운 순서로 왼쪽부터 걸리고, 버튼 하나로 다음 단계로 옮겨요. 납품은 의뢰에서 보낼 원고를 골라서 해요."
       />
       <BoardFilters q={q} kind={kind} total={orders.length} />
-      <Board orders={orders} today={today} showAllDelivered={params.all === "1"} />
+      <Board orders={orders} today={today} showAllDelivered={params.all === "1"} filtered={Boolean(q || kind)} />
     </>
   );
 }

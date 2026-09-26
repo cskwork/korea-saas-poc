@@ -9,7 +9,7 @@ import { BannerProof } from "@/pocs/ai-content-agency/components/proof/BannerPro
 import { CopyButton } from "@/pocs/ai-content-agency/components/ui/CopyButton";
 import { Empty } from "@/pocs/ai-content-agency/components/ui/PageHeader";
 import { SampleMark } from "@/pocs/ai-content-agency/components/ui/Tags";
-import { BackLink } from "@/pocs/ai-content-agency/components/ui/BackLink";
+import Link from "next/link";
 import ui from "@/pocs/ai-content-agency/components/ui/ui.module.css";
 import { KIND_LABEL, composeCopy, countCharacters } from "@/pocs/ai-content-agency/domain/content";
 import { longDate } from "@/pocs/ai-content-agency/domain/dates";
@@ -35,12 +35,20 @@ export default async function DeliveryPage({ params }: { params: Params }) {
   const { order, drafts: orderDrafts } = detail;
   const draft = orderDrafts.find((d) => d.id === order.deliveredDraftId);
 
+  // In the demo the operator opens this page from the order; a real client would get the link.
+  const preview = (
+    <p className={styles.previewNote}>
+      <span>고객에게 보내는 화면이에요.</span>
+      <Link href={`/ai-content-agency/orders/${order.id}`}>작업실의 의뢰 {orderCode(order.number)}로 돌아가기</Link>
+    </p>
+  );
+
   if (order.status !== "delivered" || !draft) {
     return (
       <div className={styles.delivery}>
-        <BackLink href={`/ai-content-agency/orders/${order.id}`}>의뢰로 돌아가기</BackLink>
+        {preview}
         <Empty title="아직 납품 전이에요.">
-          <p>검수 단계에서 원고를 골라 납품하면 고객용 납품서가 만들어져요.</p>
+          <p>에디터 검수가 끝나면 이 주소에서 원고를 받아 볼 수 있어요.</p>
         </Empty>
       </div>
     );
@@ -49,14 +57,15 @@ export default async function DeliveryPage({ params }: { params: Params }) {
   const count = countCharacters(draft.body);
   return (
     <article className={styles.delivery}>
-      <BackLink href={`/ai-content-agency/orders/${order.id}`}>의뢰로 돌아가기</BackLink>
+      {preview}
       <header className={styles.deliveryHead}>
         <h1 className={ui.pageTitle}>납품서</h1>
+        <p className={styles.deliverySender}>
+          {order.clientName} 담당자님, 의뢰하신 {KIND_LABEL[order.kind]} 원고를 글품 에디터가 검수해 보내 드려요.
+        </p>
         <p className={styles.deliveryFacts}>
-          <strong>{order.clientName} 담당자님께</strong>
           <SampleMark />
           <span>의뢰 {orderCode(order.number)}</span>
-          <span>{KIND_LABEL[order.kind]}</span>
           <span>마감 {longDate(order.dueDate)}</span>
           {order.deliveredAt ? <span>납품 {formatDate(order.deliveredAt, { dateStyle: "long" })}</span> : null}
           <span>
@@ -81,7 +90,7 @@ export default async function DeliveryPage({ params }: { params: Params }) {
         <DraftBody body={draft.body} />
       </div>
       <p className={ui.hint}>
-        글품 샘플 작업실에서 만든 예시 납품서예요. 원고는 에디터 검수를 거친 v{draft.currentVersion}입니다.
+        에디터 검수를 거친 v{draft.currentVersion} 원고예요. 고칠 곳이 있으면 담당 에디터에게 알려 주세요.
       </p>
     </article>
   );

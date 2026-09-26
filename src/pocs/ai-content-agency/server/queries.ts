@@ -59,8 +59,11 @@ export const getOrder = cache(async (orderId: string) => {
   const { db, workspaceId } = await context();
   const detail = await getOrderDetail(db, workspaceId, orderId);
   if (!detail) return null;
-  const publishedCase = detail.order.deliveredDraftId ? await findCaseForDraft(db, workspaceId, detail.order.deliveredDraftId) : null;
-  return { ...detail, publishedCase, today: seoulDateKey() };
+  const [publishedCase, plan] = await Promise.all([
+    detail.order.deliveredDraftId ? findCaseForDraft(db, workspaceId, detail.order.deliveredDraftId) : null,
+    currentPlan(db, workspaceId),
+  ]);
+  return { ...detail, publishedCase, plan, today: seoulDateKey() };
 });
 
 export async function getOpenOrders() {
@@ -97,11 +100,13 @@ export async function getCases(filters: { industry?: string; kind?: ContentKind 
 export async function getPricing() {
   const { db, workspaceId } = await context();
   const today = seoulDateKey();
-  const [plan, used, history, inquiries] = await Promise.all([
+  const [plan, used, history, inquiries, open] = await Promise.all([
     currentPlan(db, workspaceId),
     ordersReceivedThisMonth(db, workspaceId, today),
     planHistory(db, workspaceId),
     recentInquiries(db, workspaceId),
+    listOpenOrders(db, workspaceId),
   ]);
-  return { plan, used, history, inquiries };
+  const openKinds = CONTENT_KINDS.filter((kind) => open.some((o) => o.kind === kind));
+  return { plan, used, history, inquiries, openKinds };
 }

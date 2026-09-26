@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { seoulDateKey } from "@/core/format";
 import { ADVANCE_LABEL, nextStatus, orderCode } from "../../domain/pipeline";
@@ -5,6 +6,7 @@ import type { OrderListItem } from "../../server/store/orders";
 import { Grommets } from "../shell/Grommets";
 import { DueSticker } from "../ui/DueSticker";
 import { KindTag } from "../ui/Tags";
+import { buttonClass } from "../ui/buttons";
 import { MoveButton } from "./MoveButton";
 import styles from "./orders.module.css";
 
@@ -34,7 +36,13 @@ export function OrderBanner({ order, today }: { order: OrderListItem; today: str
       </p>
       <div className={styles.bannerFoot}>
         <span>{order.draftCount > 0 ? `시안 ${order.draftCount}개` : "시안 없음"}</span>
-        {next && order.status !== "delivered" ? (
+        {order.status === "review" ? (
+          // Delivering means choosing which draft the client gets, so it happens on the order sheet.
+          <Link href={`/ai-content-agency/orders/${order.id}#deliver`} className={buttonClass("primary", "small")}>
+            <ArrowRight size={14} aria-hidden="true" />
+            {ADVANCE_LABEL.review}
+          </Link>
+        ) : next && order.status !== "delivered" ? (
           <MoveButton orderId={order.id} to={next} label={ADVANCE_LABEL[order.status]} variant={order.status === "received" ? "secondary" : "primary"} />
         ) : null}
       </div>

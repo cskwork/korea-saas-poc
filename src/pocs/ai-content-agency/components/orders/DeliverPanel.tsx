@@ -25,11 +25,15 @@ export function DeliverPanel({ orderId, drafts }: { orderId: string; drafts: Dra
     });
 
   if (drafts.length === 0) {
-    return <Notice tone="info">납품할 시안이 아직 없어요. 먼저 시안을 써 주세요.</Notice>;
+    return (
+      <div id="deliver">
+        <Notice tone="info">납품할 시안이 아직 없어요. 먼저 시안을 써 주세요.</Notice>
+      </div>
+    );
   }
 
   return (
-    <div className={styles.slipSection}>
+    <div className={styles.slipSection} id="deliver">
       <fieldset className={styles.fieldset}>
         <legend className={styles.panelTitle}>납품할 원고</legend>
         <ul className={styles.draftList} role="list">
@@ -53,7 +57,7 @@ export function DeliverPanel({ orderId, drafts }: { orderId: string; drafts: Dra
       ) : null}
       <div className={styles.actionsRow}>
         <button type="button" className={buttonClass("primary")} onClick={deliver} disabled={pending || !selected} data-pending={pending}>
-          <PendingLabel pending={pending} idle="이 원고로 납품 완료" busy="납품하는 중…" />
+          <PendingLabel pending={pending} idle="이 원고로 납품하기" busy="납품하는 중…" />
         </button>
       </div>
       {error ? <Notice tone="error">{error}</Notice> : null}

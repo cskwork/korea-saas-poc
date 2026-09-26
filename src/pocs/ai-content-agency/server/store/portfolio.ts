@@ -84,3 +84,13 @@ export async function deleteCase(db: Db, workspaceId: string, caseId: string): P
     .returning({ id: portfolioItems.id });
   if (deleted.length === 0) throw new UserError("사례를 찾을 수 없어요.");
 }
+
+/** Corrects a published case's title and one-line summary. */
+export async function updateCase(db: Db, workspaceId: string, input: { caseId: string; title: string; summary: string }): Promise<void> {
+  const updated = await db
+    .update(portfolioItems)
+    .set({ title: input.title, summary: input.summary })
+    .where(and(eq(portfolioItems.id, input.caseId), eq(portfolioItems.workspaceId, workspaceId)))
+    .returning({ id: portfolioItems.id });
+  if (updated.length === 0) throw new UserError("사례를 찾을 수 없어요.");
+}

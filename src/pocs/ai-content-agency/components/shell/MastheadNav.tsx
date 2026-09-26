@@ -40,3 +40,13 @@ export function MastheadNav() {
     </nav>
   );
 }
+
+/** The one global entry to a new request; pressed while the 의뢰서 is open. */
+export function MastheadCta() {
+  const here = usePathname() === `${BASE}/orders/new`;
+  return (
+    <Link href={`${BASE}/orders/new`} className={styles.cta} aria-current={here ? "page" : undefined}>
+      의뢰서 쓰기
+    </Link>
+  );
+}

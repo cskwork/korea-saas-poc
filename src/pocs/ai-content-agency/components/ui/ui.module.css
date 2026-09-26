@@ -458,8 +458,10 @@
   white-space: nowrap;
 }
 
+/* Close to the day but not late: the D-label on a yellow marker, never red (red means late). */
 .sticker[data-tone="soon"] .stickerLabel {
-  color: var(--red-ink);
+  background: linear-gradient(transparent 58%, var(--yellow) 58%, var(--yellow) 92%, transparent 92%);
+  padding: 0 0.12em;
 }
 
 .sticker[data-tone="today"] {
@@ -592,5 +594,13 @@
   .segment > span {
     justify-content: center;
     padding: 0 10px;
+  }
+}
+
+/* Phones: every button is a thumb-sized target. */
+@media (max-width: 720px) {
+  .button,
+  .small {
+    min-height: 44px;
   }
 }

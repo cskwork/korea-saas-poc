@@ -22,7 +22,7 @@ export const STATUS_HINT: Record<OrderStatus, string> = {
 export const ADVANCE_LABEL: Record<Exclude<OrderStatus, "delivered">, string> = {
   received: "작성 시작",
   writing: "검수 요청",
-  review: "납품 완료",
+  review: "납품하기",
 };
 
 export const RETREAT_LABEL: Record<Exclude<OrderStatus, "received">, string> = {

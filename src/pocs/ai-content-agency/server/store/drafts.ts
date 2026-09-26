@@ -137,6 +137,21 @@ export interface NewVersion {
   brief?: { tone: Tone; length: Length; keywords: string[] };
 }
 
+export const DELIVERED_LOCK = "납품한 원고라 바꿀 수 없어요. 고치려면 먼저 의뢰를 검수로 되돌려 주세요.";
+
+/**
+ * A draft handed to a client is the record of what was delivered: it cannot be edited,
+ * rewritten, re-linked or deleted until its order is taken back to 검수.
+ */
+async function assertNotDelivered(db: Db, workspaceId: string, draftId: string): Promise<void> {
+  const [delivering] = await db
+    .select({ id: orders.id })
+    .from(orders)
+    .where(and(eq(orders.workspaceId, workspaceId), eq(orders.deliveredDraftId, draftId), eq(orders.status, "delivered")))
+    .limit(1);
+  if (delivering) throw new UserError(DELIVERED_LOCK);
+}
+
 /** Appends a version (rewrite, edit or restore); earlier versions are never changed. */
 export async function addVersion(db: Db, workspaceId: string, draftId: string, input: NewVersion): Promise<{ version: number }> {
   return db.transaction(async (tx) => {
@@ -146,6 +161,7 @@ export async function addVersion(db: Db, workspaceId: string, draftId: string, i
       .where(and(eq(drafts.id, draftId), eq(drafts.workspaceId, workspaceId)))
       .for("update");
     if (!draft) throw new UserError("원고를 찾을 수 없어요.");
+    await assertNotDelivered(tx, workspaceId, draftId);
     if (draft.title === input.content.title && draft.body === input.content.body) {
       throw new UserError("바뀐 내용이 없어요.");
     }
@@ -191,6 +207,7 @@ export async function restoreVersion(db: Db, workspaceId: string, draftId: strin
 
 export async function linkDraftToOrder(db: Db, workspaceId: string, draftId: string, orderId: string | null): Promise<void> {
   if (orderId && !(await findOrder(db, workspaceId, orderId))) throw new UserError("연결할 의뢰를 찾을 수 없어요.");
+  await assertNotDelivered(db, workspaceId, draftId);
   const updated = await db
     .update(drafts)
     .set({ orderId, updatedAt: new Date() })
@@ -200,6 +217,7 @@ export async function linkDraftToOrder(db: Db, workspaceId: string, draftId: str
 }
 
 export async function deleteDraft(db: Db, workspaceId: string, draftId: string): Promise<void> {
+  await assertNotDelivered(db, workspaceId, draftId);
   const deleted = await db
     .delete(drafts)
     .where(and(eq(drafts.id, draftId), eq(drafts.workspaceId, workspaceId)))

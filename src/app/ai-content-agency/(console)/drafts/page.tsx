@@ -23,7 +23,7 @@ export default async function DraftsPage({ searchParams }: { searchParams: Searc
     <>
       <PageHeader
         title="원고함"
-        lead={`원고 ${drafts.length}편. 노란 표시는 아직 채우지 않은 [확인 필요] 자리예요.`}
+        lead={`${q || kind ? "찾은 원고" : "원고"} ${drafts.length}편. 노란 표시는 아직 채우지 않은 [확인 필요] 자리예요.`}
         actions={
           <Link href="/ai-content-agency/write" className={buttonClass("primary")}>
             <PenLine size={18} aria-hidden="true" />

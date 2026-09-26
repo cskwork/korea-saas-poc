@@ -195,8 +195,51 @@
   transition: background 160ms var(--ease-out);
 }
 
-.cta:hover {
+.cta:hover,
+.cta[aria-current="page"] {
   background: var(--yellow-press);
+}
+
+.cta[aria-current="page"] {
+  box-shadow: inset 0 -3px 0 rgb(17 22 31 / 0.35);
+}
+
+.skipLink {
+  position: absolute;
+  z-index: 10;
+  top: 8px;
+  left: 8px;
+  padding: 10px 14px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-weight: 700;
+  transform: translateY(-160%);
+  transition: transform 160ms var(--ease-out);
+}
+
+.skipLink:focus-visible {
+  transform: none;
+}
+
+.main:focus {
+  outline: none;
+}
+
+/* ---------------------------------------------------------------- client view */
+
+.clientMasthead .mastheadInner {
+  min-height: 52px;
+  max-width: calc(820px + var(--gutter) * 2);
+}
+
+.clientRole {
+  color: rgb(255 255 255 / 0.86);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.clientMain {
+  max-width: calc(820px + var(--gutter) * 2);
 }
 
 .masthead .cta:focus-visible,
@@ -341,6 +384,10 @@
 @media (max-width: 420px) {
   .sampleLong {
     display: none;
+  }
+
+  .clientRole {
+    font-size: 13px;
   }
 }
 

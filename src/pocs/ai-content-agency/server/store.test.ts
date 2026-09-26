@@ -12,10 +12,10 @@ import { PLANS } from "../domain/plans";
 import { writeTemplateDraft } from "../domain/templates";
 import { contentAgency } from "../module";
 import { loadDashboard } from "./store/dashboard";
-import { addVersion, createDraft, getDraftDetail, listDrafts, restoreVersion } from "./store/drafts";
-import { createOrder, deleteOrder, findOrder, getOrderDetail, listOrders, moveOrder } from "./store/orders";
-import { deleteCase, listCases, publishCase } from "./store/portfolio";
-import { currentPlan, ordersReceivedThisMonth, selectPlan } from "./store/plans";
+import { addVersion, createDraft, deleteDraft, getDraftDetail, linkDraftToOrder, listDrafts, restoreVersion } from "./store/drafts";
+import { createOrder, deleteOrder, findOrder, getOrderDetail, listOrders, moveOrder, updateOrder } from "./store/orders";
+import { deleteCase, listCases, publishCase, updateCase } from "./store/portfolio";
+import { createInquiry, currentPlan, deleteInquiry, ordersReceivedThisMonth, recentInquiries, selectPlan } from "./store/plans";
 
 describe("글품 store (PGlite)", () => {
   let t: TestDatabase<typeof schema>;
@@ -107,6 +107,40 @@ describe("글품 store (PGlite)", () => {
     await expect(moveOrder(t.db, t.workspaceId, { orderId: id, to: "delivered" })).rejects.toThrow("납품할 원고가 없어요");
   });
 
+  it("locks the delivered draft until its order is taken back to 검수", async () => {
+    const { id } = await createOrder(t.db, t.workspaceId, newOrder(), today);
+    const order = (await findOrder(t.db, t.workspaceId, id))!;
+    const draft = await createDraft(t.db, t.workspaceId, {
+      ...order,
+      orderId: id,
+      content: writeTemplateDraft({ ...order, keywords: order.keywords }),
+      source: "template",
+      note: "처음 작성",
+    });
+    await moveOrder(t.db, t.workspaceId, { orderId: id, to: "review" });
+    await moveOrder(t.db, t.workspaceId, { orderId: id, to: "delivered", draftId: draft.id });
+
+    const edit = { content: { title: "납품 뒤 고친 제목", body: "납품 뒤에 바꾼 본문입니다." }, source: "edit" as const, note: "" };
+    await expect(addVersion(t.db, t.workspaceId, draft.id, edit)).rejects.toThrow("납품한 원고");
+    await expect(restoreVersion(t.db, t.workspaceId, draft.id, 1)).rejects.toThrow("납품한 원고");
+    await expect(linkDraftToOrder(t.db, t.workspaceId, draft.id, null)).rejects.toThrow("납품한 원고");
+    await expect(deleteDraft(t.db, t.workspaceId, draft.id)).rejects.toThrow("납품한 원고");
+
+    await moveOrder(t.db, t.workspaceId, { orderId: id, to: "review" });
+    expect((await addVersion(t.db, t.workspaceId, draft.id, edit)).version).toBe(2);
+  });
+
+  it("keeps a corrected request inside the plan's kinds", async () => {
+    const workspaceId = await t.createWorkspace();
+    await selectPlan(t.db, workspaceId, "starter");
+    const { id } = await createOrder(t.db, workspaceId, newOrder(), today);
+    const fields = newOrder();
+    await expect(updateOrder(t.db, workspaceId, { orderId: id, ...fields, kind: "ad" })).rejects.toThrow("광고 카피가 포함되지 않아요");
+    await updateOrder(t.db, workspaceId, { orderId: id, ...fields, topic: "고친 주제" });
+    expect((await findOrder(t.db, workspaceId, id))?.topic).toBe("고친 주제");
+    await expect(updateOrder(t.db, await t.createWorkspace(), { orderId: id, ...fields })).rejects.toThrow("찾을 수 없어요");
+  });
+
   it("keeps every version and restores old words as a new version", async () => {
     const [first] = await listDrafts(t.db, t.workspaceId, { sort: "recent" });
     const before = (await getDraftDetail(t.db, t.workspaceId, first.id))!;
@@ -157,7 +191,19 @@ describe("글품 store (PGlite)", () => {
     await expect(publishCase(t.db, t.workspaceId, { orderId: open.id, title: "안 됨", summary: "납품 전 의뢰" })).rejects.toThrow("납품을 마친");
     const cases = await listCases(t.db, t.workspaceId, { industry: delivered.industry });
     expect(cases.items.some((c) => c.id === id && !c.isSample)).toBe(true);
+    await updateCase(t.db, t.workspaceId, { caseId: id, title: "고친 사례 제목", summary: "고친 한 줄 설명입니다." });
+    expect((await listCases(t.db, t.workspaceId)).items.find((c) => c.id === id)?.title).toBe("고친 사례 제목");
+    await expect(updateCase(t.db, await t.createWorkspace(), { caseId: id, title: "남의 사례", summary: "고칠 수 없어야 해요." })).rejects.toThrow("찾을 수 없어요");
     await deleteCase(t.db, t.workspaceId, id);
+  });
+
+  it("records and withdraws quote inquiries per workspace", async () => {
+    await createInquiry(t.db, t.workspaceId, { companyName: "문의 상사", contactName: "김담당", email: "a@example.com", monthlyVolume: 40, message: "" });
+    const [inquiry] = await recentInquiries(t.db, t.workspaceId);
+    expect(inquiry.companyName).toBe("문의 상사");
+    await expect(deleteInquiry(t.db, await t.createWorkspace(), inquiry.id)).rejects.toThrow("찾을 수 없어요");
+    await deleteInquiry(t.db, t.workspaceId, inquiry.id);
+    expect((await recentInquiries(t.db, t.workspaceId)).some((i) => i.id === inquiry.id)).toBe(false);
   });
 
   it("isolates workspaces", async () => {

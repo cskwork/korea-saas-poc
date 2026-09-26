@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { formatDate } from "@/core/format";
 import { InquiryForm } from "@/pocs/ai-content-agency/components/pricing/InquiryForm";
+import { WithdrawInquiry } from "@/pocs/ai-content-agency/components/pricing/WithdrawInquiry";
 import { PlanPoles } from "@/pocs/ai-content-agency/components/pricing/PlanPoles";
 import styles from "@/pocs/ai-content-agency/components/pricing/pricing.module.css";
 import { PageHeader } from "@/pocs/ai-content-agency/components/ui/PageHeader";
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function PricingPage() {
-  const { plan, used, history, inquiries } = await getPricing();
+  const { plan, used, history, inquiries, openKinds } = await getPricing();
   const current = PLANS[plan];
   return (
     <>
@@ -28,7 +29,7 @@ export default async function PricingPage() {
           이번 달 의뢰 {used}건{current.monthlyQuota === null ? " · 건수 제한 없음" : ` / ${current.monthlyQuota}건`}
         </span>
       </p>
-      <PlanPoles current={plan} />
+      <PlanPoles current={plan} used={used} openKinds={openKinds} />
       <p className={styles.demoNote}>데모 요금제예요. 요금제를 바꾸면 선택만 기록되고 결제는 이뤄지지 않아요.</p>
 
       <div className={styles.lower}>
@@ -48,6 +49,7 @@ export default async function PricingPage() {
                   <time dateTime={inquiry.createdAt.toISOString()}>
                     {formatDate(inquiry.createdAt, { month: "long", day: "numeric" })}
                   </time>
+                  <WithdrawInquiry inquiryId={inquiry.id} />
                 </li>
               ))}
             </ul>

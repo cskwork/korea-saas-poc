@@ -116,6 +116,26 @@
   font-weight: 600;
 }
 
+.caseButtons {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.caseEdit {
+  flex-basis: 100%;
+  padding-top: 8px;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.caseEditActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 @media (max-width: 1000px) {
   .wall {
     grid-template-columns: repeat(2, minmax(0, 1fr));
