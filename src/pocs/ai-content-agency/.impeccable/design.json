@@ -347,7 +347,7 @@
   ],
   "narrative": {
     "northStar": "The Banner Stand (현수막 게시대)",
-    "overview": "글품 is drawn as the municipal banner stand Korean small shops hang their 현수막 on. Every order is a banner hung for a posting period that ends on its due date; every draft is a 시안, the banner proof a print shop shows before it prints. Cobalt banner blue owns whole fields (the masthead, the stand behind the timeline and the board), galvanized-steel greys carry structure, vinyl white carries the words, and the three banner substrates (green, yellow, red) name the three kinds of copy.\n\nThe product is an operator's console first. Density is honest: tables, ruled ledgers and tiers carry the work; the world lives in precise, repeated devices (the stitched hem, four grommets, the 게시기간 sticker, the sign-painter lettering) rather than in decoration. Light theme, from the scene: an office desk in daylight and a phone in a lit shop.\n\nIt rejects the SaaS default the legacy POC shipped (gradient hero, counters, icon cards, KPI tiles, kanban columns) and the editorial opposite (cream paper, serif, red pen).",
+    "overview": "글품 is drawn as the municipal banner stand Korean small shops hang their 현수막 on. Every order is a banner hung for a posting period that ends on its due date; every draft is a 시안, the banner proof a print shop shows before it prints. Cobalt banner blue owns whole fields (the masthead, the stand's top rail and the board), galvanized-steel greys carry structure, vinyl white carries the words, and the three banner substrates (green, yellow, red) name the three kinds of copy.\n\nThe product is an operator's console first. Density is honest: tables, ruled ledgers and tiers carry the work; the world lives in precise, repeated devices (the stitched hem, four grommets, the 게시기간 sticker, the sign-painter lettering) rather than in decoration. Light theme, from the scene: an office desk in daylight and a phone in a lit shop.\n\nIt rejects the SaaS default the legacy POC shipped (gradient hero, counters, icon cards, KPI tiles, kanban columns) and the editorial opposite (cream paper, serif, red pen).",
     "keyCharacteristics": [
       "Cobalt fields that own regions, not cobalt accents sprinkled on grey.",
       "Banners are rectangles with a dashed stitched hem 6–8px inside the edge and four grommets.",
@@ -383,7 +383,7 @@
       }
     ],
     "dos": [
-      "Do let cobalt own whole regions (#1c4cc8 masthead and stands) and keep the page ground cool (#eef1f5).",
+      "Do let cobalt own whole regions (#1c4cc8 masthead and board; the 게시 기간 stand keeps only a cobalt rail so its bars stay legible) and keep the page ground cool (#eef1f5).",
       "Do give every order a due sticker and every draft a character count (공백 포함/제외, 원고지 매수).",
       "Do mark the facts AI left open as \"[확인 필요: …]\" and highlight them in drafts.",
       "Do label sample data (the 샘플 tag, dashed sample marks on cases)."

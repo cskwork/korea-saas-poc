@@ -141,7 +141,7 @@ components:
 
 **Creative North Star: "The Banner Stand" (현수막 게시대)**
 
-글품 is drawn as the municipal banner stand Korean small shops hang their 현수막 on. Every order is a banner hung for a posting period that ends on its due date; every draft is a 시안, the banner proof a print shop shows before it prints. Cobalt banner blue owns whole fields (the masthead, the stand behind the timeline and the board), galvanized-steel greys carry structure, vinyl white carries the words, and the three banner substrates (green, yellow, red) name the three kinds of copy.
+글품 is drawn as the municipal banner stand Korean small shops hang their 현수막 on. Every order is a banner hung for a posting period that ends on its due date; every draft is a 시안, the banner proof a print shop shows before it prints. Cobalt banner blue owns whole fields (the masthead, the stand's top rail and the board), galvanized-steel greys carry structure, vinyl white carries the words, and the three banner substrates (green, yellow, red) name the three kinds of copy.
 
 The product is an operator's console first. Density is honest: tables, ruled ledgers and tiers carry the work; the world lives in precise, repeated devices (the stitched hem, four grommets, the 게시기간 sticker, the sign-painter lettering) rather than in decoration. Light theme, from the scene: an office desk in daylight and a phone in a lit shop.
 
@@ -159,10 +159,10 @@ It rejects the SaaS default the legacy POC shipped (gradient hero, counters, ico
 A banner-shop palette: one committed brand field, three substrate colours for content kinds, one ordinal ramp for the pipeline, and cool steel neutrals.
 
 ### Primary
-- **Cobalt Banner Blue** (#1c4cc8): the masthead, the 게시 기간 stand, the order board field, primary buttons, selected segments, focus rings. Pressed state Cobalt Press (#173fa6); Cobalt Deep (#13295f) for the enterprise plan banner and success text; Cobalt Wash (#e7eefc) for hover washes and done steps.
+- **Cobalt Banner Blue** (#1c4cc8): the masthead, the 게시 기간 stand's top rail and 작성중 bars, the order board field, primary buttons, selected segments, focus rings. Pressed state Cobalt Press (#173fa6); Cobalt Deep (#13295f) for the enterprise plan banner and success text; Cobalt Wash (#e7eefc) for hover washes and done steps.
 
 ### Secondary
-- **Banner Yellow** (#fccf28): the emphasised key word on blue (the 품 of the wordmark, the headline marker behind counts, the active nav bar, today's column), the masthead CTA, the "추천" and D-day stickers, the 검수 stage on the stand. Also the product-description proof field (with ink lettering). Text selection.
+- **Banner Yellow** (#fccf28): the emphasised key word on blue (the 품 of the wordmark, the headline marker behind counts, the active nav bar, the masthead CTA, the "추천" and D-day stickers, the 검수 stage on the stand. Also the product-description proof field (with ink lettering). Text selection.
 
 ### Tertiary
 - **Banner Red** (#db2c2b): late overrun bars, today's line, the ad-copy proof field and kind swatch. Red Ink (#b81f22) for small red text (late stickers, errors, destructive confirmations) where contrast needs it; Red Wash (#fdeaea) behind error notices.
@@ -252,12 +252,12 @@ Rectangles. Banners and panels have square corners (0px); controls, stickers and
 - The draft title set as a banner in its kind's substrate (green, yellow with ink lettering, red), the first matching keyword in the key colour, byline beneath, hem and grommets. **시안 펼치기:** when AI writes or rewrites a draft, the proof unrolls from the left edge (clip-path over 620ms, cubic-bezier(0.16, 1, 0.3, 1)) behind a shaded roll that travels with the edge, then the grommets punch in (220ms after 560ms). Reduced motion shows it at rest.
 
 ### 게시 기간 stand
-- Cobalt field; a day header with today in yellow; one row per open order with a vinyl bar from request to due date (dashed outline before a draft exists, yellow in 검수), a red overrun from the due date to today when late, and today's red line behind the bars.
+- Vinyl panel under a 6px cobalt top rail (a cobalt field made the bars hard to read); a day header with today in ink; one row per open order on a ground-grey track with a bar from request to due date (white with a dashed steel outline before a draft exists, cobalt while 작성중, yellow in 검수), a red overrun from the due date to today when late, and today's ink line behind the bars. Red stays reserved for late.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** let cobalt own whole regions (#1c4cc8 masthead and stands) and keep the page ground cool (#eef1f5).
+- **Do** let cobalt own whole regions (#1c4cc8 masthead and board; the 게시 기간 stand keeps only a cobalt rail so its bars stay legible) and keep the page ground cool (#eef1f5).
 - **Do** give every order a due sticker and every draft a character count (공백 포함/제외, 원고지 매수).
 - **Do** mark the facts AI left open as "[확인 필요: …]" and highlight them in drafts.
 - **Do** label sample data (the 샘플 tag, dashed sample marks on cases).

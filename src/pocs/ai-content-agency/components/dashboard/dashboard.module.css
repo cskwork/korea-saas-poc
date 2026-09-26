@@ -51,11 +51,11 @@
 
 .stand {
   position: relative;
-  background: var(--cobalt);
-  color: #fff;
+  background: var(--vinyl);
+  color: var(--ink);
   padding: 22px 26px 26px;
-  outline: 1px dashed rgb(255 255 255 / 0.28);
-  outline-offset: -7px;
+  border: 1px solid var(--steel-1);
+  border-top: 6px solid var(--cobalt);
   --label: 250px;
   --days: 14;
 }
@@ -82,7 +82,7 @@
   font-family: var(--font-ui);
   font-size: 14px;
   font-weight: 600;
-  opacity: 0.85;
+  color: var(--ink-3);
   font-variant-numeric: tabular-nums;
 }
 
@@ -106,12 +106,12 @@
 .legendKey {
   width: 18px;
   height: 10px;
-  background: #fff;
+  background: var(--cobalt);
 }
 
 .legendKey[data-stage="received"] {
-  background: transparent;
-  border: 1.5px dashed #fff;
+  background: #fff;
+  border: 1.5px dashed var(--steel-4);
 }
 
 .legendKey[data-stage="review"] {
@@ -146,7 +146,7 @@
   display: grid;
   gap: 1px;
   padding: 4px 4px;
-  color: #fff;
+  color: var(--ink);
   text-decoration: none;
   border-radius: var(--radius);
 }
@@ -159,7 +159,7 @@ a.rowLabel:hover .rowTopic {
 .rowMeta {
   font-size: 12px;
   font-weight: 600;
-  color: rgb(255 255 255 / 0.8);
+  color: var(--ink-3);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
   overflow: hidden;
@@ -183,7 +183,7 @@ a.rowLabel:hover .rowTopic {
   display: grid;
   grid-template-columns: repeat(var(--days), minmax(0, 1fr));
   height: 34px;
-  background: rgb(255 255 255 / 0.07);
+  background: var(--ground);
 }
 
 .dayRow .track {
@@ -197,33 +197,33 @@ a.rowLabel:hover .rowTopic {
   font-size: 11px;
   font-weight: 600;
   line-height: 1.25;
-  color: rgb(255 255 255 / 0.82);
+  color: var(--ink-3);
   font-variant-numeric: tabular-nums;
   padding-bottom: 4px;
 }
 
 .day b {
   font-size: 13px;
-  color: #fff;
+  color: var(--ink);
 }
 
 .day[data-weekend="true"] {
-  color: rgb(255 255 255 / 0.62);
+  color: var(--steel-3);
 }
 
 .day[data-today="true"] {
-  background: var(--yellow);
-  color: var(--ink);
+  background: var(--ink);
+  color: #fff;
 }
 
 .day[data-today="true"] b {
-  color: var(--ink);
+  color: #fff;
 }
 
 /* today's column and line, drawn in every track */
 .todayCol {
   grid-row: 1;
-  background: rgb(255 255 255 / 0.12);
+  background: rgb(17 22 31 / 0.06);
   position: relative;
   pointer-events: none;
 }
@@ -236,7 +236,7 @@ a.rowLabel:hover .rowTopic {
   left: 50%;
   width: 2px;
   margin-left: -1px;
-  background: var(--red);
+  background: var(--ink);
   z-index: 0;
 }
 
@@ -251,25 +251,24 @@ a.rowLabel:hover .rowTopic {
   min-width: 0;
   margin: 5px 1px;
   padding: 0 6px;
-  background: #fff;
-  color: var(--ink);
+  background: var(--cobalt);
+  color: #fff;
   font-size: 12px;
   font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
-  box-shadow: 0 3px 5px -3px rgb(0 0 0 / 0.5);
 }
 
 .bar[data-stage="received"] {
-  background: rgb(255 255 255 / 0.14);
-  color: #fff;
-  outline: 1.5px dashed rgb(255 255 255 / 0.9);
+  background: #fff;
+  color: var(--ink);
+  outline: 1.5px dashed var(--steel-4);
   outline-offset: -1.5px;
-  box-shadow: none;
 }
 
 .bar[data-stage="review"] {
   background: var(--yellow);
+  color: var(--ink);
 }
 
 .bar[data-clipped-start="true"] {
@@ -290,7 +289,6 @@ a.rowLabel:hover .rowTopic {
   font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
-  box-shadow: 0 3px 5px -3px rgb(0 0 0 / 0.5);
 }
 
 .more {
@@ -301,7 +299,7 @@ a.rowLabel:hover .rowTopic {
 }
 
 .more a {
-  color: #fff;
+  color: var(--cobalt);
 }
 
 .standEmpty {
@@ -572,7 +570,7 @@ a.rowLabel:hover .rowTopic {
   }
 
   .rowDue[data-tone="late"] {
-    color: #ffd0cf;
+    color: var(--red-ink);
   }
 
   .track {
