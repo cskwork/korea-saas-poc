@@ -1,4 +1,4 @@
-/* 의뢰 게시대: tiers of a cobalt stand with order banners hung on steel rails. */
+/* 의뢰 게시대: tiers of a vinyl stand under a cobalt rail, order banners hung on steel rails. */
 
 .filters {
   display: flex;
@@ -22,10 +22,10 @@
   position: relative;
   display: grid;
   gap: 0;
-  background: var(--cobalt);
+  background: var(--vinyl);
   padding: 14px 18px 22px;
-  outline: 1px dashed rgb(255 255 255 / 0.28);
-  outline-offset: -7px;
+  border: 1px solid var(--steel-1);
+  border-top: 6px solid var(--cobalt);
 }
 
 .tier {
@@ -38,17 +38,14 @@
 
 /* galvanized steel crossbars between the stand's tiers */
 .tier + .tier {
-  border-top: 6px solid var(--steel-3);
-  box-shadow:
-    0 -1px 0 #c3cad6,
-    inset 0 1px 0 rgb(0 0 0 / 0.18);
+  border-top: 2px solid var(--steel-2);
 }
 
 .plate {
   display: grid;
   align-content: start;
   gap: 4px;
-  color: #fff;
+  color: var(--ink);
 }
 
 .plateName {
@@ -66,12 +63,12 @@
   font-size: 15px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  color: rgb(255 255 255 / 0.85);
+  color: var(--ink-2);
 }
 
 .plateHint {
   font-size: 13px;
-  color: rgb(255 255 255 / 0.8);
+  color: var(--ink-3);
 }
 
 .plateStage {
@@ -83,11 +80,11 @@
 
 .plateStage i {
   height: 6px;
-  background: rgb(255 255 255 / 0.25);
+  background: var(--steel-1);
 }
 
 .plateStage i[data-on="true"] {
-  background: var(--yellow);
+  background: var(--cobalt);
 }
 
 .hung {
@@ -103,8 +100,8 @@
 .tierEmpty {
   align-self: center;
   padding: 18px 16px;
-  border: 1.5px dashed rgb(255 255 255 / 0.55);
-  color: rgb(255 255 255 / 0.9);
+  border: 1.5px dashed var(--steel-3);
+  color: var(--ink-3);
   font-size: 14px;
 }
 
@@ -115,7 +112,7 @@
 }
 
 .tierMore a {
-  color: #fff;
+  color: var(--cobalt);
 }
 
 /* ---------------------------------------------------------------- an order banner */
@@ -127,9 +124,10 @@
   padding: 16px 18px 14px;
   background: var(--vinyl);
   color: var(--ink);
+  border: 1px solid var(--steel-2);
   outline: 1px dashed var(--steel-2);
   outline-offset: -6px;
-  box-shadow: 0 5px 8px -5px rgb(0 0 0 / 0.45);
+  box-shadow: 0 4px 8px -6px rgb(17 22 31 / 0.3);
 }
 
 .banner[data-stage="received"] {
@@ -218,7 +216,7 @@
   width: 8px;
   height: 8px;
   border-width: 1.5px;
-  background: var(--cobalt);
+  background: var(--vinyl);
 }
 
 /* ---------------------------------------------------------------- order sheet (detail) */

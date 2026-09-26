@@ -141,7 +141,7 @@ components:
 
 **Creative North Star: "The Banner Stand" (현수막 게시대)**
 
-글품 is drawn as the municipal banner stand Korean small shops hang their 현수막 on. Every order is a banner hung for a posting period that ends on its due date; every draft is a 시안, the banner proof a print shop shows before it prints. Cobalt banner blue owns whole fields (the masthead, the stand's top rail and the board), galvanized-steel greys carry structure, vinyl white carries the words, and the three banner substrates (green, yellow, red) name the three kinds of copy.
+글품 is drawn as the municipal banner stand Korean small shops hang their 현수막 on. Every order is a banner hung for a posting period that ends on its due date; every draft is a 시안, the banner proof a print shop shows before it prints. Cobalt banner blue owns the masthead and runs as a top rail over the 게시 기간 stand and the order board, galvanized-steel greys carry structure, vinyl white carries the words, and the three banner substrates (green, yellow, red) name the three kinds of copy.
 
 The product is an operator's console first. Density is honest: tables, ruled ledgers and tiers carry the work; the world lives in precise, repeated devices (the stitched hem, four grommets, the 게시기간 sticker, the sign-painter lettering) rather than in decoration. Light theme, from the scene: an office desk in daylight and a phone in a lit shop.
 
@@ -159,7 +159,7 @@ It rejects the SaaS default the legacy POC shipped (gradient hero, counters, ico
 A banner-shop palette: one committed brand field, three substrate colours for content kinds, one ordinal ramp for the pipeline, and cool steel neutrals.
 
 ### Primary
-- **Cobalt Banner Blue** (#1c4cc8): the masthead, the 게시 기간 stand's top rail and 작성중 bars, the order board field, primary buttons, selected segments, focus rings. Pressed state Cobalt Press (#173fa6); Cobalt Deep (#13295f) for the enterprise plan banner and success text; Cobalt Wash (#e7eefc) for hover washes and done steps.
+- **Cobalt Banner Blue** (#1c4cc8): the masthead, the 게시 기간 stand's top rail and 작성중 bars, the order board's top rail and its stage meters, primary buttons, selected segments, focus rings. Pressed state Cobalt Press (#173fa6); Cobalt Deep (#13295f) for the enterprise plan banner and success text; Cobalt Wash (#e7eefc) for hover washes and done steps.
 
 ### Secondary
 - **Banner Yellow** (#fccf28): the emphasised key word on blue (the 품 of the wordmark, the headline marker behind counts, the active nav bar, the masthead CTA, the "추천" and D-day stickers, the 검수 stage on the stand. Also the product-description proof field (with ink lettering). Text selection.
@@ -257,7 +257,7 @@ Rectangles. Banners and panels have square corners (0px); controls, stickers and
 ## Do's and Don'ts
 
 ### Do:
-- **Do** let cobalt own whole regions (#1c4cc8 masthead and board; the 게시 기간 stand keeps only a cobalt rail so its bars stay legible) and keep the page ground cool (#eef1f5).
+- **Do** let cobalt own whole regions (the #1c4cc8 masthead); the 게시 기간 stand and the order board sit on vinyl under a cobalt rail so their contents stay legible and keep the page ground cool (#eef1f5).
 - **Do** give every order a due sticker and every draft a character count (공백 포함/제외, 원고지 매수).
 - **Do** mark the facts AI left open as "[확인 필요: …]" and highlight them in drafts.
 - **Do** label sample data (the 샘플 tag, dashed sample marks on cases).
