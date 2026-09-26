@@ -34,7 +34,8 @@ export function BoardFilters({ q, kind, total }: { q: string; kind?: ContentKind
         <Search size={16} aria-hidden="true" />
         찾기
       </button>
-      {filtered ? (
+      {/* With no match the board itself says so; this line only counts real results. */}
+      {filtered && total > 0 ? (
         <p className={styles.filterNote} role="status">
           {total}건 찾았어요 · <Link href="/ai-content-agency/orders">필터 지우기</Link>
         </p>

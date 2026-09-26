@@ -5,7 +5,7 @@ import { CONTENT_KINDS, INDUSTRIES, KIND_LABEL, type ContentKind } from "../../d
 import { BannerProof } from "../proof/BannerProof";
 import { Empty } from "../ui/PageHeader";
 import { KindTag, SampleMark } from "../ui/Tags";
-import { DeleteCase } from "./DeleteCase";
+import { CaseActions } from "./CaseActions";
 import styles from "./portfolio.module.css";
 
 function href(industry?: string, kind?: ContentKind): string {
@@ -96,9 +96,11 @@ export function CaseBoard({ items, filtered }: { items: PortfolioRow[]; filtered
                   {" · "}
                   <Link href={`/ai-content-agency/drafts/${item.draftId}`}>원고 보기</Link>
                 </>
+              ) : item.isSample ? (
+                " · 샘플 사례라 원문은 없어요"
               ) : null}
             </span>
-            <DeleteCase caseId={item.id} />
+            <CaseActions caseId={item.id} title={item.title} summary={item.summary} />
           </div>
         </li>
       ))}

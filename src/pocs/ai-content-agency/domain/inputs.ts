@@ -119,6 +119,14 @@ export const publishCaseInput = z.object({
 
 export const caseIdInput = z.object({ caseId: id("사례") });
 
+export const caseEditInput = z.object({
+  caseId: id("사례"),
+  title: publishCaseInput.shape.title,
+  summary: publishCaseInput.shape.summary,
+});
+
+export const inquiryIdInput = z.object({ inquiryId: id("문의") });
+
 export const selectPlanInput = z.object({ plan: z.enum(PLAN_IDS, { error: "요금제를 골라 주세요." }) });
 
 export const inquiryInput = z.object({

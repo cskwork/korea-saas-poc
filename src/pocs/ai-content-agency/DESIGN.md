@@ -19,6 +19,8 @@ colors:
   kind-blog: "#00884b"
   kind-product: "#e4a000"
   kind-ad: "#db2c2b"
+  check-marker: "#fff1b8"
+  check-ink: "#6b3b00"
   ink: "#11161f"
   ink-2: "#414b5c"
   ink-3: "#5d6778"
@@ -176,7 +178,7 @@ A banner-shop palette: one committed brand field, three substrate colours for co
 
 ### Named Rules
 **The Substrate Rule.** Green, yellow and red mean blog, product and ad. They appear on proofs, kind swatches and charts only, and always beside their label.
-**The Red Means Late Rule.** Outside the ad-copy proof, red is reserved for lateness, errors and destructive confirmation.
+**The Red Means Late Rule.** Outside the ad-copy proof, red is reserved for lateness, errors, over-quota meters and destructive confirmation. Nearness (D-1, D-2), open checks and "이용 중" are never red.
 
 ## Typography
 
@@ -186,7 +188,7 @@ A banner-shop palette: one committed brand field, three substrate colours for co
 **Character:** Sign-painter lettering against a clean Korean UI gothic: the banner speaks in Do Hyeon, the operator works in Pretendard.
 
 ### Hierarchy
-- **Display** (400, clamp(30px, 4vw, 44px), 1.15): the 현황 status headline with yellow-marked counts.
+- **Display** (400, clamp(30px, 4vw, 44px), 1.15): the 현황 status headline with marked counts: 지연 on a red-ink marker (only when something is late, and first), 오늘 마감 and 검수 대기 on yellow.
 - **Headline** (400, 36px; 30px under 640px, 1.15): page titles and the order sheet title.
 - **Proof** (400, clamp(26px, 3.4vw, 42px), 1.18; compact 21px): draft titles set as banners. Order-banner topics 21px, tier plates 26px, plan names 30px, prices 52px, D-day sticker labels 19px.
 - **Title** (Pretendard 800, 16–17px): panel and section heads.
@@ -219,20 +221,32 @@ Rectangles. Banners and panels have square corners (0px); controls, stickers and
 - **Primary:** cobalt with white text, pressed cobalt on hover. **Secondary:** vinyl with a 1px steel-2 inset ring. **Quiet:** cobalt text, wash on hover. **Danger:** vinyl with red-ink text; the confirmation that follows is solid red-ink.
 - **Masthead CTA:** banner yellow with ink text.
 - **Pending:** spinner plus a pending label ("저장하는 중…"); disabled at 55% opacity.
+- **Phones:** under 720px every button, small ones included, is at least 44px tall.
+- **One CTA per job:** "의뢰서 쓰기" lives only in the masthead (pressed while the 의뢰서 is open); pages do not repeat it.
 
 ### Inputs / Fields
 - **Style:** white, 1px steel-2 border, 2px corners, 44px tall, cobalt caret.
-- **Focus:** cobalt border plus a 3px cobalt halo at 18%. **Error:** red-ink border and a red-ink message wired with aria-describedby.
+- **Focus:** cobalt border plus a 3px cobalt halo at 18%. **Error:** red-ink border and a red-ink message wired with aria-describedby; after a rejected submit the keyboard lands on the first invalid field.
 - **Segmented choice:** radio groups drawn as a strip; the chosen segment turns cobalt with white text.
 
 ### Navigation
-- Cobalt masthead with grommets at its corners; white nav text, the current page underlined by a 4px yellow bar. Under 860px the nav becomes a horizontally scrolling strip under the wordmark row, its right edge faded.
+- Cobalt masthead with grommets at its corners; white nav text, the current page underlined by a 4px yellow bar. Under 860px the nav becomes a horizontally scrolling strip under the wordmark row, its right edge faded. A yellow "본문으로 건너뛰기" skip link appears on first Tab.
+- **Client view (납품서):** the delivery page sits outside the operator console: a slim 52px cobalt strip with the wordmark, "콘텐츠 대행 · 납품서" and the 샘플 tag, an 820px measure, and a footer without demo controls. A cobalt-wash note ("고객에게 보내는 화면이에요") links the operator back to the order and disappears in print.
 
 ### Order banner
-- Vinyl rectangle with hem and grommets; order number and kind tag, the due sticker at top right, the topic in Do Hyeon, client and industry, then a ruled foot with the draft count and the next-step button. 검수 banners turn pale yellow with an amber hem.
+- Vinyl rectangle with hem and grommets; order number and kind tag, the due sticker at top right, the topic in Do Hyeon, client and industry, then a ruled foot with the draft count and the next-step button. 검수 banners turn pale yellow with an amber hem; their "납품하기" opens the order sheet's delivery panel, because delivering means choosing the draft (and seeing its open [확인 필요] marks).
 
 ### Due sticker (게시기간 스티커)
-- A 1px ink-bordered rectangle: "마감 9.24 (목)" in 11px tabular type over the D-label in Do Hyeon. Yellow on the day, red-ink when late, soft steel once delivered.
+- A 1px ink-bordered rectangle: "마감 9.24 (목)" in 11px tabular type over the D-label in Do Hyeon. The D-label on a yellow marker at D-1/D-2, solid yellow on the day, red-ink only when late, soft steel once delivered.
+
+### [확인 필요] marker
+- Open checks read in one yellow marker everywhere (the highlight in the copy, the "확인 필요 N곳" counts in lists and the 글자수 panel): #fff1b8 fill, #6b3b00 text, a 2px amber underline. Never red.
+
+### Plan poles (요금제)
+- Three hung banners (vinyl, cobalt, cobalt-deep). Each carries a fit panel: this month's orders against the plan's quota with a meter (red only when over), and warnings when switching would overrun the quota or drop a kind still in progress. The current plan wears a white "이용 중" sticker; moving down is a secondary button; 엔터프라이즈 leads to the quote form, with a quiet "데모에서 바로 바꿔 보기".
+
+### Locked 납품본
+- A draft delivered to a client is read-only while its order stays 납품완료: the toolbar keeps only 복사, a cobalt-wash lock note links to the order to take it back to 검수, and relinking, restoring and deleting are hidden (the server refuses them too).
 
 ### 시안 proof (signature)
 - The draft title set as a banner in its kind's substrate (green, yellow with ink lettering, red), the first matching keyword in the key colour, byline beneath, hem and grommets. **시안 펼치기:** when AI writes or rewrites a draft, the proof unrolls from the left edge (clip-path over 620ms, cubic-bezier(0.16, 1, 0.3, 1)) behind a shaded roll that travels with the edge, then the grommets punch in (220ms after 560ms). Reduced motion shows it at rest.

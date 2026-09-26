@@ -29,7 +29,7 @@
 .pole {
   position: relative;
   display: grid;
-  grid-template-rows: auto auto auto 1fr auto;
+  grid-template-rows: auto auto auto auto 1fr auto;
   gap: 14px;
   padding: 34px 26px 28px;
   background: var(--vinyl);
@@ -82,8 +82,9 @@
 }
 
 .sticker[data-type="current"] {
-  background: var(--red-ink);
-  color: #fff;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink), 0 2px 3px rgb(0 0 0 / 0.25);
 }
 
 .planName {
@@ -140,8 +141,85 @@
 
 .features li[data-included="false"] {
   color: var(--muted);
-  text-decoration: line-through;
-  text-decoration-thickness: 1px;
+}
+
+.excluded {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* How this month's work fits the plan. */
+.fit {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  background: color-mix(in srgb, currentColor 7%, transparent);
+  font-size: 14px;
+}
+
+.fitLine {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.fitLine span {
+  color: var(--muted);
+}
+
+.fitMeter {
+  display: block;
+  height: 6px;
+  background: color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.fitMeter span {
+  display: block;
+  height: 100%;
+  background: var(--price);
+}
+
+.fitMeter span[data-over="true"] {
+  background: var(--red);
+}
+
+.fitWarnings {
+  display: grid;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.fitWarnings li {
+  display: flex;
+  gap: 6px;
+}
+
+.fitWarnings svg {
+  flex: none;
+  margin-top: 3px;
+}
+
+.quoteLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  background: #fff;
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: background 160ms var(--ease-out);
+}
+
+.quoteLink:hover {
+  background: var(--yellow);
 }
 
 .choose {
@@ -149,15 +227,24 @@
   gap: 8px;
 }
 
-.pole[data-plan="pro"] .choose button,
-.pole[data-plan="enterprise"] .choose button {
+.pole[data-plan="pro"] .choose button[data-variant="primary"],
+.pole[data-plan="pro"] .choose button[data-variant="secondary"] {
   background: #fff;
   color: var(--ink);
 }
 
-.pole[data-plan="pro"] .choose button:hover,
-.pole[data-plan="enterprise"] .choose button:hover {
+.pole[data-plan="pro"] .choose button:hover {
   background: var(--yellow);
+}
+
+.pole[data-plan="enterprise"] .choose button[data-variant="quiet"] {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pole[data-plan="enterprise"] .choose button[data-variant="quiet"]:hover {
+  background: rgb(255 255 255 / 0.12);
 }
 
 .current {
@@ -221,6 +308,15 @@
   padding: 8px 0;
   border-bottom: 1px solid var(--steel-1);
   font-variant-numeric: tabular-nums;
+}
+
+.history li > span:first-child {
+  flex: 1;
+}
+
+.history li {
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .history time {

@@ -8,7 +8,17 @@ import { PendingLabel } from "../ui/PendingLabel";
 import styles from "./pricing.module.css";
 
 /** Records the plan choice for this workspace (no payment in the demo). */
-export function PlanChoice({ plan, name }: { plan: PlanId; name: string }) {
+export function PlanChoice({
+  plan,
+  name,
+  variant = "primary",
+  label,
+}: {
+  plan: PlanId;
+  name: string;
+  variant?: "primary" | "secondary" | "quiet";
+  label?: string;
+}) {
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const choose = () =>
@@ -19,8 +29,8 @@ export function PlanChoice({ plan, name }: { plan: PlanId; name: string }) {
     });
   return (
     <div className={styles.choose}>
-      <button type="button" className={buttonClass("primary")} onClick={choose} disabled={pending} data-pending={pending}>
-        <PendingLabel pending={pending} idle={`${name}로 바꾸기`} busy="바꾸는 중…" />
+      <button type="button" className={buttonClass(variant)} data-variant={variant} onClick={choose} disabled={pending} data-pending={pending}>
+        <PendingLabel pending={pending} idle={label ?? `${name}로 바꾸기`} busy="바꾸는 중…" />
       </button>
       {error ? (
         <p className={styles.chooseError} role="alert">

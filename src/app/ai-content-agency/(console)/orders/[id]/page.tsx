@@ -18,7 +18,8 @@ import { DueSticker } from "@/pocs/ai-content-agency/components/ui/DueSticker";
 import { KindTag } from "@/pocs/ai-content-agency/components/ui/Tags";
 import { BackLink } from "@/pocs/ai-content-agency/components/ui/BackLink";
 import ui from "@/pocs/ai-content-agency/components/ui/ui.module.css";
-import { KIND_LABEL } from "@/pocs/ai-content-agency/domain/content";
+import { CONTENT_KINDS, KIND_LABEL } from "@/pocs/ai-content-agency/domain/content";
+import { PLANS } from "@/pocs/ai-content-agency/domain/plans";
 import { josa } from "@/pocs/ai-content-agency/domain/korean";
 import {
   ADVANCE_LABEL,
@@ -47,7 +48,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 export default async function OrderPage({ params }: { params: Params }) {
   const detail = await getOrder((await params).id);
   if (!detail) notFound();
-  const { order, events, drafts, publishedCase, today } = detail;
+  const { order, events, drafts, publishedCase, plan, today } = detail;
+  // A request keeps its own kind even if the plan no longer takes it; switching needs a plan that does.
+  const allowedKinds = CONTENT_KINDS.filter((k) => k === order.kind || PLANS[plan].kinds.includes(k));
   const next = nextStatus(order.status);
   const previous = previousStatus(order.status);
   const deliveredDraft = drafts.find((d) => d.id === order.deliveredDraftId);
@@ -82,6 +85,7 @@ export default async function OrderPage({ params }: { params: Params }) {
         <div>
           <OrderBriefPanel
             orderId={order.id}
+            allowedKinds={allowedKinds}
             order={{
               clientName: order.clientName,
               industry: order.industry,
@@ -104,7 +108,7 @@ export default async function OrderPage({ params }: { params: Params }) {
           </section>
         </div>
 
-        <div>
+        <div className={styles.sheetSide}>
           <section className={styles.panel} aria-labelledby="progress-title">
             <div className={styles.panelHead}>
               <h2 id="progress-title" className={styles.panelTitle}>
@@ -122,9 +126,10 @@ export default async function OrderPage({ params }: { params: Params }) {
                 <MoveButton
                   orderId={order.id}
                   to={next}
-                  label={ADVANCE_LABEL[order.status]}
+                  label={order.status === "received" ? "시안 없이 작성중으로" : ADVANCE_LABEL[order.status]}
                   size="regular"
-                  variant="secondary"
+                  // Writing a draft already starts the order; once there are drafts, 검수 요청 is the next step.
+                  variant={order.status === "received" ? "quiet" : drafts.length > 0 ? "primary" : "secondary"}
                 />
               ) : null}
               {previous && order.status !== "received" ? (
@@ -167,11 +172,11 @@ export default async function OrderPage({ params }: { params: Params }) {
             </section>
           ) : null}
 
-          <div className={styles.dangerZone}>
-            <span>의뢰를 지우면 진행 기록도 함께 사라져요.</span>
-            <DeleteOrder orderId={order.id} />
-          </div>
         </div>
+      </div>
+      <div className={styles.dangerZone}>
+        <span>의뢰를 지우면 진행 기록도 함께 사라져요.</span>
+        <DeleteOrder orderId={order.id} />
       </div>
     </>
   );

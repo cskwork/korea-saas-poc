@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { formatNumber, formatRelative } from "@/core/format";
 import type { DraftSource } from "../../db/schema";
-import { countCharacters, type ContentKind } from "../../domain/content";
+import { KIND_LABEL, countCharacters, type ContentKind } from "../../domain/content";
 import { Empty } from "../ui/PageHeader";
 import { SourceTag } from "../ui/Tags";
 import ui from "../ui/ui.module.css";
@@ -40,6 +40,7 @@ export function RecentDrafts({ drafts }: { drafts: RecentDraft[] }) {
               </Link>
               <span className={styles.recentTime}>{formatRelative(draft.updatedAt)}</span>
               <span className={styles.recentMeta}>
+                <span>{KIND_LABEL[draft.kind]}</span>
                 <SourceTag source={draft.source} />
                 <span>v{draft.currentVersion}</span>
                 <span>{formatNumber(countCharacters(draft.body).withSpaces)}자</span>

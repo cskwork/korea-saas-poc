@@ -52,6 +52,14 @@ export async function createInquiry(db: Db, workspaceId: string, input: InquiryI
   await db.insert(inquiries).values({ workspaceId, ...input });
 }
 
+export async function deleteInquiry(db: Db, workspaceId: string, inquiryId: string): Promise<void> {
+  const deleted = await db
+    .delete(inquiries)
+    .where(and(eq(inquiries.id, inquiryId), eq(inquiries.workspaceId, workspaceId)))
+    .returning({ id: inquiries.id });
+  if (deleted.length === 0) throw new UserError("문의를 찾을 수 없어요.");
+}
+
 export async function recentInquiries(db: Db, workspaceId: string, limit = 3) {
   return db
     .select({ id: inquiries.id, companyName: inquiries.companyName, monthlyVolume: inquiries.monthlyVolume, createdAt: inquiries.createdAt })

@@ -8,6 +8,7 @@ related_targets: ["components"]
 # Surface: 글품 workspace (all module routes)
 
 Scope: every route under `/ai-content-agency` — 현황 `/`, 의뢰 게시대 `/orders`, 의뢰서 `/orders/new`, 의뢰 상세 `/orders/[id]`, 납품서 `/orders/[id]/delivery` (client-facing), 시안 쓰기 `/write`, 원고함 `/drafts`, 원고 `/drafts/[id]`, 사례 `/portfolio`, 요금제 `/pricing`. Components in `src/pocs/ai-content-agency/components/**`.
+Route groups: operator pages live in `app/ai-content-agency/(console)` (ConsoleShell: masthead, menu, demo footer, module 404 via a catch-all); the 납품서 lives in `(client)` (ClientShell: wordmark strip only). `ModuleRoot` in the module layout carries the tokens for both.
 Visitor mode: **Operate** (operator console, generator, library). 요금제 is a Persuade sub-view and 사례 an Experience sub-view inside the same world. Build path: code-led (no image generation in this run).
 
 Audience/job: a one- or two-person Korean content agency at a desk in daytime office light, keeping every request moving 접수 → 작성중 → 검수 → 납품완료 before its due date; the SMB client on a phone reading plans, cases and the delivered copy. Proof/content: sample workspace data (labelled 샘플), real AI or template drafts generated in the session. Constraints: Korean copy, Asia/Seoul dates, won integers, WCAG AA, 360px phones, keyboard-operable pipeline.

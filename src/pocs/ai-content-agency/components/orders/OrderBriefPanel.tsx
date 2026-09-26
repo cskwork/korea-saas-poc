@@ -2,7 +2,7 @@
 
 import { PencilLine } from "lucide-react";
 import { useState } from "react";
-import { CONTENT_KINDS, KIND_LABEL, LENGTH_LABEL, LENGTH_TARGET, TONE_LABEL, type ContentKind, type Length, type Tone } from "../../domain/content";
+import { KIND_LABEL, LENGTH_LABEL, LENGTH_TARGET, TONE_LABEL, type ContentKind, type Length, type Tone } from "../../domain/content";
 import { longDate } from "../../domain/dates";
 import { updateOrderAction } from "../../server/actions";
 import { buttonClass } from "../ui/buttons";
@@ -10,7 +10,15 @@ import { OrderForm, type OrderFormValues } from "./OrderForm";
 import styles from "./orders.module.css";
 
 /** What the client asked for, and the same 의뢰서 to correct it in place. */
-export function OrderBriefPanel({ orderId, order }: { orderId: string; order: OrderFormValues & { kind: ContentKind; tone: Tone; length: Length } }) {
+export function OrderBriefPanel({
+  orderId,
+  order,
+  allowedKinds,
+}: {
+  orderId: string;
+  order: OrderFormValues & { kind: ContentKind; tone: Tone; length: Length };
+  allowedKinds: readonly ContentKind[];
+}) {
   const [editing, setEditing] = useState(false);
 
   if (editing) {
@@ -19,7 +27,7 @@ export function OrderBriefPanel({ orderId, order }: { orderId: string; order: Or
         action={updateOrderAction}
         orderId={orderId}
         defaults={order}
-        allowedKinds={CONTENT_KINDS}
+        allowedKinds={allowedKinds}
         submitLabel="고친 내용 저장"
         onCancel={() => setEditing(false)}
         onSaved={() => setEditing(false)}

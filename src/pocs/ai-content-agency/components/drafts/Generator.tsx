@@ -2,7 +2,7 @@
 
 import { FolderOpen, RefreshCw, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { useState, useTransition, type FormEvent } from "react";
+import { useEffect, useRef, useState, useTransition, type FormEvent } from "react";
 import type { ActionState } from "@/core/actions";
 import { formatNumber } from "@/core/format";
 import {
@@ -32,6 +32,7 @@ import { Field, Segmented, describedBy } from "../ui/Field";
 import { Notice } from "../ui/Notice";
 import { PendingLabel } from "../ui/PendingLabel";
 import { SourceTag } from "../ui/Tags";
+import { focusFirstInvalid } from "../ui/useActionForm";
 import ui from "../ui/ui.module.css";
 import { DraftBody } from "./DraftBody";
 import styles from "./drafts.module.css";
@@ -67,6 +68,10 @@ export function Generator({ orders, initialOrderId, aiMode }: { orders: OpenOrde
   const [rewriteError, setRewriteError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const errorFor = (name: string) => (state.status === "error" ? state.fieldErrors?.[name]?.[0] : undefined);
+  const formRef = useRef<HTMLFormElement>(null);
+  useEffect(() => {
+    if (state.status === "error") focusFirstInvalid(formRef.current);
+  }, [state]);
 
   const pickOrder = (id: string) => {
     setOrderId(id);
@@ -115,7 +120,7 @@ export function Generator({ orders, initialOrderId, aiMode }: { orders: OpenOrde
 
   return (
     <div className={styles.generator}>
-      <form className={styles.composer} onSubmit={generate} noValidate aria-label="시안 조건">
+      <form ref={formRef} className={styles.composer} onSubmit={generate} noValidate aria-label="시안 조건">
         <Field id="gen-order" label="의뢰 연결" optional hint="고르면 의뢰서 내용으로 채워지고, 접수 단계 의뢰는 작성중으로 옮겨져요.">
           <select
             id="gen-order"
@@ -182,7 +187,7 @@ export function Generator({ orders, initialOrderId, aiMode }: { orders: OpenOrde
           options={LENGTHS}
           value={length}
           onChange={setLength}
-          renderOption={(l) => `${LENGTH_LABEL[l]} ${formatNumber(LENGTH_TARGET[kind][l])}자`}
+          renderOption={(l) => `${LENGTH_LABEL[l]} · ${formatNumber(LENGTH_TARGET[kind][l])}자`}
         />
         <Field id="gen-notes" label="추가 요청" optional hint="예: 가격은 쓰지 말기, 마지막에 예약 안내 넣기" error={errorFor("notes")}>
           <textarea

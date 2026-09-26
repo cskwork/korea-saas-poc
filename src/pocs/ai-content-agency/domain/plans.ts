@@ -1,4 +1,5 @@
 import { KIND_LABEL, type ContentKind } from "./content";
+import { josa } from "./korean";
 
 /**
  * Monthly plans. Prices and quotas come from the legacy POC's pricing table; this is a
@@ -79,12 +80,18 @@ export const DEFAULT_PLAN: PlanId = "pro";
 
 export type OrderAllowance = { ok: true; remaining: number | null } | { ok: false; reason: string };
 
+/** Why the plan does not take this kind of content, or null when it does. */
+export function kindNotInPlan(planId: PlanId, kind: ContentKind): string | null {
+  const plan = PLANS[planId];
+  if (plan.kinds.includes(kind)) return null;
+  return `${plan.name} 요금제에는 ${josa(KIND_LABEL[kind], "이/가")} 포함되지 않아요. 요금제를 바꾸면 의뢰할 수 있어요.`;
+}
+
 /** Whether one more order of `kind` fits the plan this month. */
 export function checkOrderAllowance(planId: PlanId, kind: ContentKind, usedThisMonth: number): OrderAllowance {
   const plan = PLANS[planId];
-  if (!plan.kinds.includes(kind)) {
-    return { ok: false, reason: `${plan.name} 요금제에는 ${KIND_LABEL[kind]}가 포함되지 않아요. 요금제를 바꾸면 의뢰할 수 있어요.` };
-  }
+  const kindReason = kindNotInPlan(planId, kind);
+  if (kindReason) return { ok: false, reason: kindReason };
   if (plan.monthlyQuota === null) return { ok: true, remaining: null };
   if (usedThisMonth >= plan.monthlyQuota) {
     return {

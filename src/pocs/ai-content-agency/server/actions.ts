@@ -9,10 +9,12 @@ import { seoulDateKey } from "@/core/format";
 import { getModuleContext, resetModuleData } from "@/core/modules/context";
 import { KIND_LABEL, LENGTH_LABEL, TONE_LABEL, type ContentKind } from "../domain/content";
 import {
+  caseEditInput,
   caseIdInput,
   draftIdInput,
   editDraftInput,
   generateInput,
+  inquiryIdInput,
   inquiryInput,
   linkDraftInput,
   moveOrderInput,
@@ -29,8 +31,8 @@ import { contentAgency } from "../module";
 import { writeDraft } from "./generate";
 import { addVersion, createDraft, deleteDraft, findDraft, linkDraftToOrder, restoreVersion } from "./store/drafts";
 import { createOrder, deleteOrder, findOrder, moveOrder, updateOrder } from "./store/orders";
-import { createInquiry, selectPlan } from "./store/plans";
-import { deleteCase, publishCase } from "./store/portfolio";
+import { createInquiry, deleteInquiry, selectPlan } from "./store/plans";
+import { deleteCase, publishCase, updateCase } from "./store/portfolio";
 
 const BASE = "/ai-content-agency";
 const context = () => getModuleContext(contentAgency);
@@ -233,6 +235,13 @@ export const deleteCaseAction = action(caseIdInput, async ({ caseId }) => {
   return { message: "사례를 내렸어요." };
 });
 
+export const updateCaseAction = formAction(caseEditInput, async (input) => {
+  const { db, workspaceId } = await context();
+  await updateCase(db, workspaceId, input);
+  refresh();
+  return { message: "사례를 고쳤어요." };
+});
+
 export const selectPlanAction = action(selectPlanInput, async ({ plan }) => {
   const { db, workspaceId } = await context();
   await selectPlan(db, workspaceId, plan);
@@ -245,6 +254,13 @@ export const inquiryAction = formAction(inquiryInput, async (input) => {
   await createInquiry(db, workspaceId, input);
   refresh();
   return { message: "견적 문의를 남겼어요. 데모라서 실제로 연락이 가지는 않아요." };
+});
+
+export const deleteInquiryAction = action(inquiryIdInput, async ({ inquiryId }) => {
+  const { db, workspaceId } = await context();
+  await deleteInquiry(db, workspaceId, inquiryId);
+  refresh();
+  return { message: "문의를 거뒀어요." };
 });
 
 export const resetDemoAction = action(z.object({}), async () => {

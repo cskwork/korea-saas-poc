@@ -54,6 +54,11 @@ export default async function DraftPage({ params, searchParams }: { params: Para
       </span>
     </div>
   );
+  // The copy a client received stays as delivered until the order goes back to 검수.
+  const deliveredIn =
+    order && order.status === "delivered" && order.deliveredDraftId === draft.id
+      ? { id: order.id, code: orderCode(order.number) }
+      : null;
   const byline = `${order ? order.clientName : "의뢰 없이 쓴 원고"} · ${KIND_LABEL[draft.kind]} 시안 v${shown.version}`;
 
   return (
@@ -69,7 +74,7 @@ export default async function DraftPage({ params, searchParams }: { params: Para
                   {preview.note || SOURCE_LABEL[preview.source]}
                 </span>
                 <span className={styles.formActions}>
-                  <RestoreVersion draftId={draft.id} version={preview.version} />
+                  {deliveredIn ? null : <RestoreVersion draftId={draft.id} version={preview.version} />}
                   <Link href={`/ai-content-agency/drafts/${draft.id}`}>지금 버전으로</Link>
                 </span>
               </div>
@@ -89,6 +94,7 @@ export default async function DraftPage({ params, searchParams }: { params: Para
             <DraftWorkbench
               meta={meta}
               fresh={query.fresh === "1"}
+              deliveredIn={deliveredIn}
               draft={{
                 id: draft.id,
                 kind: draft.kind,
@@ -127,16 +133,25 @@ export default async function DraftPage({ params, searchParams }: { params: Para
             <h2 id="link-title" className={styles.sideTitle}>
               의뢰
             </h2>
-            <LinkOrder
-              draftId={draft.id}
-              orderId={draft.orderId}
-              orders={openOrders}
-              linked={
-                order ? { id: order.id, number: order.number, clientName: order.clientName, topic: order.topic } : null
-              }
-            />
+            {deliveredIn && order ? (
+              <p className={styles.sideNote}>
+                <Link href={`/ai-content-agency/orders/${order.id}`}>
+                  {deliveredIn.code} {order.clientName} · {order.topic}
+                </Link>
+                에 납품한 원고라 연결을 바꾸거나 지울 수 없어요.
+              </p>
+            ) : (
+              <LinkOrder
+                draftId={draft.id}
+                orderId={draft.orderId}
+                orders={openOrders}
+                linked={
+                  order ? { id: order.id, number: order.number, clientName: order.clientName, topic: order.topic } : null
+                }
+              />
+            )}
           </section>
-          <DeleteDraft draftId={draft.id} />
+          {deliveredIn ? null : <DeleteDraft draftId={draft.id} />}
         </aside>
       </div>
     </>

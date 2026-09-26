@@ -5,7 +5,7 @@ import type { ContentKind } from "../../domain/content";
 import type { OrderEditInput, OrderInput } from "../../domain/inputs";
 import { josa } from "../../domain/korean";
 import { STATUS_LABEL, canMove, statusIndex, type OrderStatus } from "../../domain/pipeline";
-import { checkOrderAllowance } from "../../domain/plans";
+import { checkOrderAllowance, kindNotInPlan } from "../../domain/plans";
 import type { Db } from "./db";
 import { currentPlan, ordersReceivedThisMonth } from "./plans";
 
@@ -148,8 +148,15 @@ function isUniqueViolation(error: unknown): boolean {
   return code === "23505";
 }
 
+/** Corrects a request. Switching it to another kind of content needs a plan that takes that kind. */
 export async function updateOrder(db: Db, workspaceId: string, input: OrderEditInput): Promise<void> {
   const { orderId, ...fields } = input;
+  const order = await findOrder(db, workspaceId, orderId);
+  if (!order) throw new UserError("의뢰를 찾을 수 없어요.");
+  if (fields.kind !== order.kind) {
+    const reason = kindNotInPlan(await currentPlan(db, workspaceId), fields.kind);
+    if (reason) throw new UserError(reason);
+  }
   const updated = await db
     .update(orders)
     .set({ ...fields, updatedAt: new Date() })

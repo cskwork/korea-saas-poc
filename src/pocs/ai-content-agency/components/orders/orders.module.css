@@ -452,8 +452,11 @@
 }
 
 .checks {
-  color: var(--red-ink);
+  background: #fff1b8;
+  color: #6b3b00;
   font-weight: 700;
+  padding: 0 4px;
+  box-shadow: inset 0 -2px 0 #e4a000;
 }
 
 .log {
@@ -483,10 +486,13 @@
 }
 
 .dangerZone {
-  display: grid;
-  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
   padding-top: 20px;
-  margin-top: 20px;
+  margin-top: 28px;
   border-top: 1px solid var(--steel-2);
   font-size: 14px;
   color: var(--ink-3);
@@ -570,6 +576,29 @@
   border-bottom: 3px solid var(--ink);
 }
 
+.previewNote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  margin: 0;
+  padding: 10px 14px;
+  background: var(--cobalt-wash);
+  color: var(--cobalt-deep);
+  font-size: 14px;
+}
+
+.previewNote a {
+  color: var(--cobalt);
+  font-weight: 700;
+}
+
+.deliverySender {
+  margin: 0;
+  font-size: 16px;
+  color: var(--ink);
+}
+
 .deliveryFacts {
   display: flex;
   flex-wrap: wrap;
@@ -591,6 +620,11 @@
   .sheet,
   .requestLayout {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* On one column the next step comes before the request's details. */
+  .sheetSide {
+    order: -1;
   }
 }
 
@@ -642,6 +676,7 @@
 }
 
 @media print {
+  .previewNote,
   .deliveryActions {
     display: none;
   }

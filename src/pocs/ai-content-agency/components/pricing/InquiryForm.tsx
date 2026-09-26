@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { inquiryAction } from "../../server/actions";
 import { buttonClass } from "../ui/buttons";
 import { Field, describedBy } from "../ui/Field";
@@ -10,8 +11,25 @@ import { useActionForm } from "../ui/useActionForm";
 
 /** 엔터프라이즈 견적 문의: saved to the workspace; nobody is contacted in the demo. */
 export function InquiryForm() {
+  // A fresh key remounts the form, so a second inquiry starts from empty fields.
+  const [round, setRound] = useState(0);
+  return <InquirySlip key={round} onAnother={() => setRound((r) => r + 1)} />;
+}
+
+function InquirySlip({ onAnother }: { onAnother: () => void }) {
   const { state, pending, onSubmit, errorFor } = useActionForm(inquiryAction);
-  if (state.status === "success") return <Notice tone="success">{state.message}</Notice>;
+  if (state.status === "success") {
+    return (
+      <div className={ui.form}>
+        <Notice tone="success">{state.message}</Notice>
+        <div>
+          <button type="button" className={buttonClass("secondary", "small")} onClick={onAnother}>
+            문의 하나 더 남기기
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const field = (name: string, label: string, props: React.InputHTMLAttributes<HTMLInputElement>, hint?: string) => (
     <Field id={`inq-${name}`} label={label} error={errorFor(name)} hint={hint}>
