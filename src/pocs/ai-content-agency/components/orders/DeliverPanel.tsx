@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { countOpenChecks } from "../../domain/templates";
-import { moveOrderAction } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
 import { buttonClass } from "../ui/buttons";
 import { Notice } from "../ui/Notice";
 import { PendingLabel } from "../ui/PendingLabel";
@@ -11,6 +11,7 @@ import styles from "./orders.module.css";
 
 /** In 검수: choose which draft goes to the client, then deliver. */
 export function DeliverPanel({ orderId, drafts }: { orderId: string; drafts: DraftSummary[] }) {
+  const { moveOrderAction } = useGeulpumActions();
   const [selected, setSelected] = useState(drafts[0]?.id ?? "");
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();

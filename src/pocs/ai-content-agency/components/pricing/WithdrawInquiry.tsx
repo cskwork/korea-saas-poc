@@ -1,9 +1,10 @@
 "use client";
 
-import { deleteInquiryAction } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
 import { ConfirmAction } from "../ui/ConfirmAction";
 
 export function WithdrawInquiry({ inquiryId }: { inquiryId: string }) {
+  const { deleteInquiryAction } = useGeulpumActions();
   return (
     <ConfirmAction
       size="small"

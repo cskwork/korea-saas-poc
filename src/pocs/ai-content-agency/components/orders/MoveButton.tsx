@@ -3,7 +3,7 @@
 import { ArrowRight, Undo2 } from "lucide-react";
 import { useState, useTransition } from "react";
 import type { OrderStatus } from "../../domain/pipeline";
-import { moveOrderAction } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
 import { buttonClass } from "../ui/buttons";
 import { PendingLabel } from "../ui/PendingLabel";
 import styles from "./orders.module.css";
@@ -26,6 +26,7 @@ export function MoveButton({
   variant?: "primary" | "secondary" | "quiet";
   size?: "small" | "regular";
 }) {
+  const { moveOrderAction } = useGeulpumActions();
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 

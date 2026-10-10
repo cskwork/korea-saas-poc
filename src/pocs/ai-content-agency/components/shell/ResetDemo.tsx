@@ -2,11 +2,12 @@
 
 import { RotateCcw } from "lucide-react";
 import { useState } from "react";
-import { resetDemoAction } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
 import { ConfirmAction } from "../ui/ConfirmAction";
 
 /** Restores this workspace's sample data (asks first). */
 export function ResetDemo() {
+  const { resetDemoAction } = useGeulpumActions();
   const [done, setDone] = useState(false);
   return (
     <div>

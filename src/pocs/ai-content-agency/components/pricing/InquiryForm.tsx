@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { inquiryAction } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
 import { buttonClass } from "../ui/buttons";
 import { Field, describedBy } from "../ui/Field";
 import { Notice } from "../ui/Notice";
@@ -17,6 +17,7 @@ export function InquiryForm() {
 }
 
 function InquirySlip({ onAnother }: { onAnother: () => void }) {
+  const { inquiryAction } = useGeulpumActions();
   const { state, pending, onSubmit, errorFor } = useActionForm(inquiryAction);
   if (state.status === "success") {
     return (
