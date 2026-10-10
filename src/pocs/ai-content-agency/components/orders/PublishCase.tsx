@@ -1,6 +1,6 @@
 "use client";
 
-import { publishCaseAction } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
 import { buttonClass } from "../ui/buttons";
 import { Field, describedBy } from "../ui/Field";
 import { Notice } from "../ui/Notice";
@@ -10,6 +10,7 @@ import { useActionForm } from "../ui/useActionForm";
 
 /** Puts a delivered order on the 사례 board, with a title and one line of context. */
 export function PublishCase({ orderId, defaultTitle, defaultSummary }: { orderId: string; defaultTitle: string; defaultSummary: string }) {
+  const { publishCaseAction } = useGeulpumActions();
   const { state, pending, onSubmit, errorFor } = useActionForm(publishCaseAction);
   if (state.status === "success") {
     return <Notice tone="success">{state.message}</Notice>;

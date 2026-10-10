@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import type { PlanId } from "../../domain/plans";
-import { selectPlanAction } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
 import { buttonClass } from "../ui/buttons";
 import { PendingLabel } from "../ui/PendingLabel";
 import styles from "./pricing.module.css";
@@ -19,6 +19,7 @@ export function PlanChoice({
   variant?: "primary" | "secondary" | "quiet";
   label?: string;
 }) {
+  const { selectPlanAction } = useGeulpumActions();
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const choose = () =>

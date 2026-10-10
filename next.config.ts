@@ -28,6 +28,18 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+  async rewrites() {
+    // 글품 runs as a browser demo: its pages are served by /geulpum-demo, whose data lives in the
+    // visitor's browser (PGlite in IndexedDB), so the server never seeds a database for a visitor.
+    // beforeFiles, because the server pages under src/app/ai-content-agency would otherwise win.
+    // Escape hatch: GEULPUM_BROWSER_DEMO=off serves those original server pages again.
+    if (process.env.GEULPUM_BROWSER_DEMO === "off") return [];
+    return {
+      beforeFiles: [{ source: "/ai-content-agency/:path*", destination: "/geulpum-demo/:path*" }],
+      afterFiles: [],
+      fallback: [],
+    };
+  },
   async redirects() {
     // The POCs used to be static folders under /pocs/NN-<slug>/. Shipped modules take over
     // their old URLs; a module still being rebuilt keeps serving its static demo from public/pocs.

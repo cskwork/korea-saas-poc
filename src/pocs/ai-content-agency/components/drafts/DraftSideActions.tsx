@@ -4,7 +4,7 @@ import { History } from "lucide-react";
 import Link from "next/link";
 import { useState, useTransition } from "react";
 import { orderCode } from "../../domain/pipeline";
-import { deleteDraftAction, linkDraftAction, restoreVersionAction } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
 import { buttonClass } from "../ui/buttons";
 import { ConfirmAction } from "../ui/ConfirmAction";
 import { Notice } from "../ui/Notice";
@@ -15,6 +15,7 @@ import styles from "./drafts.module.css";
 
 /** Brings an older version back as the newest one. */
 export function RestoreVersion({ draftId, version }: { draftId: string; version: number }) {
+  const { restoreVersionAction } = useGeulpumActions();
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const restore = () =>
@@ -42,6 +43,7 @@ interface OrderOption {
 
 /** Which request this draft belongs to. */
 export function LinkOrder({ draftId, orderId, orders, linked }: { draftId: string; orderId: string | null; orders: OrderOption[]; linked: OrderOption | null }) {
+  const { linkDraftAction } = useGeulpumActions();
   const { state, pending, onSubmit } = useActionForm(linkDraftAction);
   const options = linked && !orders.some((o) => o.id === linked.id) ? [linked, ...orders] : orders;
   return (
@@ -75,6 +77,7 @@ export function LinkOrder({ draftId, orderId, orders, linked }: { draftId: strin
 }
 
 export function DeleteDraft({ draftId }: { draftId: string }) {
+  const { deleteDraftAction } = useGeulpumActions();
   return (
     <ConfirmAction
       size="small"

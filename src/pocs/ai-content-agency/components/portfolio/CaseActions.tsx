@@ -2,7 +2,7 @@
 
 import { PencilLine } from "lucide-react";
 import { useState } from "react";
-import { deleteCaseAction, updateCaseAction } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
 import { buttonClass } from "../ui/buttons";
 import { ConfirmAction } from "../ui/ConfirmAction";
 import { Field, describedBy } from "../ui/Field";
@@ -14,6 +14,7 @@ import styles from "./portfolio.module.css";
 
 /** Correct a case's title and line in place, or take it down. */
 export function CaseActions({ caseId, title, summary }: { caseId: string; title: string; summary: string }) {
+  const { deleteCaseAction, updateCaseAction } = useGeulpumActions();
   const [editing, setEditing] = useState(false);
   const { state, pending, onSubmit, errorFor } = useActionForm<undefined>(async (prev, formData) => {
     const result = await updateCaseAction(prev, formData);

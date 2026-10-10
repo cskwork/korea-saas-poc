@@ -4,7 +4,7 @@ import { PencilLine } from "lucide-react";
 import { useState } from "react";
 import { KIND_LABEL, LENGTH_LABEL, LENGTH_TARGET, TONE_LABEL, type ContentKind, type Length, type Tone } from "../../domain/content";
 import { longDate } from "../../domain/dates";
-import { updateOrderAction } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
 import { buttonClass } from "../ui/buttons";
 import { OrderForm, type OrderFormValues } from "./OrderForm";
 import styles from "./orders.module.css";
@@ -19,6 +19,7 @@ export function OrderBriefPanel({
   order: OrderFormValues & { kind: ContentKind; tone: Tone; length: Length };
   allowedKinds: readonly ContentKind[];
 }) {
+  const { updateOrderAction } = useGeulpumActions();
   const [editing, setEditing] = useState(false);
 
   if (editing) {

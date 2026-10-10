@@ -3,7 +3,7 @@
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useState, useTransition } from "react";
-import { deleteOrderAction, draftFromOrderAction } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
 import { buttonClass } from "../ui/buttons";
 import { ConfirmAction } from "../ui/ConfirmAction";
 import { Notice } from "../ui/Notice";
@@ -12,6 +12,7 @@ import styles from "./orders.module.css";
 
 /** One click: AI writes a 시안 from the request as it stands, then opens it. */
 export function DraftFromOrder({ orderId, hasDrafts }: { orderId: string; hasDrafts: boolean }) {
+  const { draftFromOrderAction } = useGeulpumActions();
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const write = () =>
@@ -40,6 +41,7 @@ export function DraftFromOrder({ orderId, hasDrafts }: { orderId: string; hasDra
 }
 
 export function DeleteOrder({ orderId }: { orderId: string }) {
+  const { deleteOrderAction } = useGeulpumActions();
   return (
     <ConfirmAction
       label="의뢰 삭제"

@@ -8,6 +8,9 @@
     "node": ">=20.9.0"
   },
   "scripts": {
+    "predev": "node scripts/prepare-geulpum-demo.mjs",
+    "prebuild": "node scripts/prepare-geulpum-demo.mjs",
+    "prebuild:vercel": "node scripts/prepare-geulpum-demo.mjs",
     "dev": "next dev",
     "build": "next build",
     "build:vercel": "tsx scripts/migrate.ts --if-configured && next build",

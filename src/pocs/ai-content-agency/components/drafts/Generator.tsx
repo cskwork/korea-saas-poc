@@ -23,7 +23,8 @@ import {
   type Tone,
 } from "../../domain/content";
 import { orderCode } from "../../domain/pipeline";
-import { generateDraftAction, regenerateDraftAction, type GeneratedDraft } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
+import type { GeneratedDraft } from "../../server/actions";
 import { BannerProof } from "../proof/BannerProof";
 import { Grommets } from "../shell/Grommets";
 import { buttonClass } from "../ui/buttons";
@@ -54,6 +55,7 @@ const idle: ActionState<GeneratedDraft> = { status: "idle" };
 
 /** 시안 쓰기: a brief on the left, the proof unrolling on the right. */
 export function Generator({ orders, initialOrderId, aiMode }: { orders: OpenOrderOption[]; initialOrderId: string | null; aiMode: "claude" | "template" }) {
+  const { generateDraftAction, regenerateDraftAction } = useGeulpumActions();
   const initial = orders.find((o) => o.id === initialOrderId) ?? null;
   const [orderId, setOrderId] = useState(initial?.id ?? "");
   const [kind, setKind] = useState<ContentKind>(initial?.kind ?? "blog");

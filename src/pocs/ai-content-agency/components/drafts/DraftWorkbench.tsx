@@ -7,7 +7,7 @@ import type { ActionState } from "@/core/actions";
 import { formatNumber } from "@/core/format";
 import type { DraftSource } from "../../db/schema";
 import { LENGTHS, LENGTH_LABEL, LENGTH_TARGET, TONES, TONE_LABEL, composeCopy, type ContentKind, type Length, type Tone } from "../../domain/content";
-import { editDraftAction, regenerateDraftAction } from "../../server/actions";
+import { useGeulpumActions } from "../../demo/context";
 import { BannerProof } from "../proof/BannerProof";
 import { buttonClass } from "../ui/buttons";
 import { CopyButton } from "../ui/CopyButton";
@@ -73,6 +73,7 @@ export function DraftWorkbench({
   /** The delivered order this draft was handed over in; the copy is locked while it stands. */
   deliveredIn?: { id: string; code: string } | null;
 }) {
+  const { editDraftAction, regenerateDraftAction } = useGeulpumActions();
   const [mode, setMode] = useState<Mode>("view");
   const [unfurlVersion, setUnfurlVersion] = useState<number | null>(fresh ? draft.version : null);
   const [message, setMessage] = useState<{ tone: "success" | "info"; text: string } | null>(null);
