@@ -105,7 +105,7 @@ npm run build && npm run test:e2e   # Playwright 스모크 (desktop + mobile)
 |---|---|
 | `npm run lint`, `npm run typecheck` | 통과 (로컬) |
 | `npm test` | 테스트 파일 74개, 테스트 540개: **540 통과 / 0 실패 / 0 건너뜀** (GitHub Actions, ubuntu-latest) |
-| `npm run build` 후 `npx playwright test` | **46 통과 / 0 실패** (로컬, PGlite) |
+| `npm run build` 후 `npx playwright test` | **46 통과 / 0 실패** (로컬 PGlite, CI Postgres 16 모두) |
 
 참고: 같은 날 부하가 높은 로컬 macOS에서는 `demo/database.test.ts`(파일 PGlite를 닫고 다시 여는 테스트)가 30초 제한을 넘겨
 539 통과 / 1 실패로 끝난 실행이 있었습니다. 같은 기기의 앞선 실행과 CI에서는 통과했습니다.
