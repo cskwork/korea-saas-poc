@@ -20,7 +20,8 @@ PGlite(WASM Postgres)에 IndexedDB로 저장하고, 서버와 같은 마이그�
 
 ```mermaid
 flowchart LR
-    V[방문자 브라우저] -->|/ai-content-agency/*| RW[next.config.ts<br/>beforeFiles rewrite]
+    V[방문자 브라우저] --> PX[src/proxy.ts<br/>모든 페이지 · ksp_ws 쿠키]
+    PX -->|/ai-content-agency/*| RW[next.config.ts<br/>beforeFiles rewrite]
     RW --> GP[app/geulpum-demo<br/>URL 매칭만]
     GP --> RD[demo/renderer.tsx<br/>클라이언트 렌더]
     RD --> QA[demo/queries.ts<br/>demo/actions.ts]
@@ -29,8 +30,7 @@ flowchart LR
     SC[scripts/prepare-geulpum-demo.mjs] -->|0000 + 0003 SQL, wasm| AS[public/geulpum-demo-assets]
     AS --> BDB
 
-    V -->|다른 9개 모듈| PX[src/proxy.ts<br/>ksp_ws 쿠키]
-    PX --> SA[app/slug 페이지<br/>server actions]
+    PX -->|다른 9개 모듈| SA[app/slug 페이지<br/>server actions]
     SA --> ST2[pocs/slug/server/store]
     ST2 --> DB[(Postgres 또는 PGlite<br/>core/db/connection.ts)]
     MG[drizzle/*.sql] --> DB
