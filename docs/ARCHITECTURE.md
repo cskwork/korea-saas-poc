@@ -75,6 +75,62 @@ PGlite는 진짜 Postgres(WASM)라서 SQL·마이그레이션·제약 조건이 
 실제 로그인으로 바꿀 때 바뀌는 곳은 `src/core/workspace/index.ts`의 `getWorkspaceId()` 하나입니다
 (세션의 사용자/조직 → 워크스페이스). 모듈 코드는 그대로입니다.
 
+## 글품: 브라우저 안의 Postgres
+
+글품(`ai-content-agency`)만 예외입니다. 방문자 데이터가 서버 DB에 가지 않고, 방문자 브라우저의 PGlite(IndexedDB)에 저장됩니다.
+결정 배경은 [ADR 0001](adr/0001-geulpum-browser-pglite.md)과 [ADR 0002](adr/0002-geulpum-single-writer-explicit-sync.md)에 있습니다.
+
+```mermaid
+sequenceDiagram
+    participant B as 브라우저
+    participant S as Next.js 서버
+    participant R as demo/renderer.tsx
+    participant D as demo/database.ts
+    participant I as IndexedDB
+    B->>S: GET /ai-content-agency/orders
+    S->>S: beforeFiles rewrite, /geulpum-demo/orders 의 matchRoute
+    S-->>B: 셸 HTML, 데이터 없음
+    B->>R: hydrate, queries.ts 동적 import
+    R->>D: getDemoContext()
+    D->>D: Web Lock 획득, 2초 제한
+    D->>S: GET /geulpum-demo-assets/0.5.8/ wasm, data, schema.sql
+    D->>I: PGlite idb://geulpum-demo-v1-workspaceId 열기
+    D->>I: 처음이면 schema.sql 적용, 시드, syncToFs
+    R->>D: server/store 함수로 읽기
+    Note over R,D: 쓰기는 demo/actions.ts, 같은 store 함수 실행 뒤 syncToFs, 그다음 화면 갱신과 이동
+```
+
+| 단계 | 파일 | 하는 일 |
+|---|---|---|
+| 라우팅 | `next.config.ts` | `/ai-content-agency/:path*` → `/geulpum-demo/:path*` (`beforeFiles`). `GEULPUM_BROWSER_DEMO=off`면 원래 서버 페이지 |
+| 주소 매칭 | `src/app/geulpum-demo/[[...path]]/page.tsx` | URL 조각을 `DemoRoute`로 바꾸고 메타데이터만 정함. 모르는 주소는 404 |
+| 렌더링 | `src/pocs/ai-content-agency/demo/renderer.tsx` | 원래 페이지 컴포넌트를 클라이언트에서 그림. `geulpum-demo-change` 이벤트마다 다시 읽음 |
+| 액션 교체 | `src/pocs/ai-content-agency/demo/context.tsx` | `DemoProvider`가 서버 액션 대신 같은 이름·타입의 브라우저 액션을 컴포넌트에 줌 |
+| 읽기/쓰기 | `demo/queries.ts`, `demo/actions.ts` | 서버와 같은 `server/store/*` 함수를 브라우저 DB에 실행 |
+| DB 수명 | `demo/database.ts` | Web Lock, 에셋 로드, PGlite 열기, 마이그레이션 1회, 시드, `syncToFs`, `pagehide`에서 닫기 |
+| 에셋 준비 | `scripts/prepare-geulpum-demo.mjs` | `predev`/`prebuild`에서 PGlite 0.5.8 wasm·data와 `0000_platform.sql`+`0003_ai-content-agency.sql`을 `public/geulpum-demo-assets/0.5.8/`에 복사 (git 제외) |
+
+**방문자별 데이터.** 워크스페이스 id는 `localStorage`의 `geulpum-demo-workspace-v1`(무작위 UUID)이고, DB 이름이
+`geulpum-demo-v1-<id>`입니다. 다른 방문자의 데이터는 애초에 다른 브라우저에 있습니다. 같은 브라우저 안에서도 저장소 함수는
+서버와 똑같이 `workspaceId`로 거릅니다.
+
+**스키마.** 브라우저는 서버와 같은 Drizzle 마이그레이션 SQL을 씁니다. `geulpum_demo_schema` 테이블에 버전 `1`이 없을 때만
+한 트랜잭션으로 적용하고 버전을 기록합니다. 그 뒤로는 다시 적용하지 않으므로, 글품 스키마를 바꿀 때는 이 버전 처리도 바꿔야 합니다.
+
+**실패 처리.**
+
+| 상황 | 동작 |
+|---|---|
+| IndexedDB 또는 Web Locks 없음 | 메모리 DB로 내려가지 않고 "안전하게 저장할 수 없어요" 오류 |
+| 다른 탭이 글품을 열고 있음 | 잠금 2초 제한, "다른 탭에서 열려 있어요" 오류 |
+| 에셋 응답이 2xx가 아님 | 파일 이름과 상태 코드가 담긴 오류 |
+| 초기화 실패 | `getDemoContext()`가 캐시를 비워서 다음 호출이 처음부터 다시 시도 |
+| 저장 직후 이동·탭 닫기 | 액션이 `syncToFs()`를 기다린 뒤에만 성공 표시·이동 (`demo/actions.test.ts`) |
+| 납품한 원고 수정 시도 | 저장소가 `DELIVERED_LOCK` 오류로 거절 (서버와 같은 규칙) |
+
+**브라우저 데모의 AI.** `demo/queries.ts`의 `getAiMode()`는 항상 `"template"`입니다. 브라우저 데모는 Claude를 부르지 않고
+`domain/templates.ts`의 한국어 템플릿으로 시안을 씁니다.
+
 ## 모듈의 구조
 
 ```

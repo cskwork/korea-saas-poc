@@ -148,9 +148,11 @@ export function buildSeedRows(workspaceId: string, clock: Clock = seoulClock()):
         })),
     );
     const span = slotSpan(service.durationMinutes);
+    // A cancelled booking holds no seat (see occupancy), so only active ones need a free slot.
     const fits =
       start + service.durationMinutes <= CLOSE &&
-      Array.from({ length: span }, (_, i) => counts.get(start + i * SLOT_MINUTES) ?? 0).every((n) => n < SEATS);
+      (status === "cancelled" ||
+        Array.from({ length: span }, (_, i) => counts.get(start + i * SLOT_MINUTES) ?? 0).every((n) => n < SEATS));
     if (!fits) return false;
     bookingRows.push({
       workspaceId,
